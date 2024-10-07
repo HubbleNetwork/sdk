@@ -1,0 +1,26 @@
+# This file is provided so that the application can be compiled using Twister,
+# the Zephyr testing tool.
+sample:
+  description: Hubble Network Bluetooth Example application
+  name: hubble-ble-network-application
+common:
+  build_only: true
+  depends_on:
+    - ble
+  integration_platforms:
+    - nrf52840dk/nrf52840
+tests:
+  app.ble_network.default: {}
+  app.ble_network.128key:
+    extra_configs:
+      - CONFIG_HUBBLE_NETWORK_KEY_128=y
+  app.ble_network.debug:
+    extra_overlay_confs:
+      - debug.conf
+  app.ble_network.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+  app.ble_network.psa_128key:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_NETWORK_KEY_128=y

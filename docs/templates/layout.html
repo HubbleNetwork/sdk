@@ -1,0 +1,44 @@
+{% extends "!layout.html" %}
+{% block document %}
+  {% if is_release %}
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/latest/{{ pagename }}.html">latest development version</a>
+      of this page may be more current than this released {{ version }} version.
+    </div>
+  {% endif %}
+  {{ super() }}
+{% endblock %}
+{% block menu %}
+  <div data-nosnippet>
+    {{ super() }}
+    {% if reference_links %}
+    <div class="toctree-wrapper compound">
+      <p class="caption"><span class="caption-text">Reference</span></p>
+      <ul>
+        {% for title, url in reference_links.items() %}
+        <li class="toctree-l1">
+          <a class="reference internal" href="{{ url }}">{{ title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}
+{% block extrahead %}
+  <meta name="color-scheme" content="dark light">
+  {# Use dark mode loader script to prevent "flashing" of the page on load.
+     As we need a <noscript> tag and very specific orderding of the tags, this can't be done via
+     the usual add_js_file()/add_css_file() Sphinx API.
+     See https://github.com/GoogleChromeLabs/dark-mode-toggle/issues/77 #}
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="{{ pathto('_static/css/light.css', 1) }}" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="{{ pathto('_static/css/dark.css', 1) }}" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="{{ pathto('_static/js/dark-mode-toggle-stylesheets-loader.min.js', 1) }}"></script>
+  <script type="module" src="{{ pathto('_static/js/dark-mode-toggle.min.mjs', 1) }}"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+{% endblock %}

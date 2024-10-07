@@ -1,0 +1,27 @@
+# This file is provided so that the application can be compiled using Twister,
+# the Zephyr testing tool.
+
+sample:
+  description: Hubble Network Bluetooth Beacon example
+  name: hubble-ble-network-beacon
+common:
+  build_only: true
+  depends_on:
+    - ble
+  integration_platforms:
+    - nrf52840dk/nrf52840
+tests:
+  app.beacon.default: {}
+  app.beacon.128key:
+    extra_configs:
+      - CONFIG_HUBBLE_NETWORK_KEY_128=y
+  app.beacon.debug:
+    extra_overlay_confs:
+      - debug.conf
+  app.beacon.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+  app.beacon.psa_128key:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_NETWORK_KEY_128=y

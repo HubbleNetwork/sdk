@@ -1,0 +1,55 @@
+# Copyright (c) 2024 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# This file is the application Kconfig entry point. All application Kconfig
+# options can be defined here or included via other application Kconfig files.
+# You can browse these options using the west targets menuconfig (terminal) or
+# guiconfig (GUI).
+
+menu "Hubble Network Beacon Sample options"
+
+
+config HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV
+    bool "Enable additional adv in Beacon Sample"
+    help
+	Enable additional advertisement in the Beacon Sample
+
+if HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV
+
+config HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_UUID
+    hex "Additional adv uuid"
+    default 0xefbe
+    help
+	UUID to be advertised
+
+config HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_DATA
+    hex "Additional adv data"
+    default 0xefbeadde
+    help
+	Data to be advertised
+endif
+
+config HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS
+    bool "Generate new address periodically"
+    default y
+    help
+	Generate a new a Non-Resolvable Private Address
+	periodically.
+
+if HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS
+
+config HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS_PERIOD
+    int "Period to update the address"
+    default 120
+    help
+	Period (in seconds) to generate a new a Non-Resolvable Private Address
+	periodically.
+endif
+
+endmenu
+
+source "Kconfig.zephyr"
+
+module = APP
+module-str = APP
+source "subsys/logging/Kconfig.template.log_config"

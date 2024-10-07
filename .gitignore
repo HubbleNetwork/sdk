@@ -1,0 +1,5 @@
+tests/unit-tests/build/*
+
+# Documentation artifacts
+docs/_build/
+docs/_doxygen/

@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2025 Hubble Network, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/logging/log.h>
+#include <zephyr/logging/log_core.h>
+#include <zephyr/logging/log_output.h>
+#include <zephyr/toolchain.h>
+
+#include <errno.h>
+#include <stddef.h>
+
+#include <hubble_port.h>
+
+LOG_MODULE_REGISTER(hubblenetwork, CONFIG_HUBBLE_LOG_LEVEL);
+
+uint64_t hubble_uptime_get(void)
+{
+	return (uint64_t)k_uptime_get();
+}
+
+__weak int hubble_log(enum hubble_log_level level, const char *format, ...)
+{
+#ifdef CONFIG_LOG
+	va_list args;
+	static uint8_t zephyr_log_level[HUBBLE_LOG_COUNT] = {
+		[HUBBLE_LOG_DEBUG] = LOG_LEVEL_DBG,
+		[HUBBLE_LOG_ERR] = LOG_LEVEL_ERR,
+		[HUBBLE_LOG_INFO] = LOG_LEVEL_INF,
+	};
+	uint8_t zephyr_level = zephyr_log_level[level];
+
+	if (zephyr_level > __log_level) {
+		return 0;
+	}
+
+	va_start(args, format);
+	z_log_msg_runtime_vcreate(0, __log_current_const_data, zephyr_level,
+				  NULL, 0, 0, format, args);
+	va_end(args);
+#endif
+
+	return 0;
+}
+

@@ -1,0 +1,129 @@
+/**
+ * Copyright (c) 2019-2020, Juan Linietsky, Ariel Manzur and the Godot community
+ * Copyright (c) 2021, Teslabs Engineering S.L.
+ * SPDX-License-Identifier: CC-BY-3.0
+ *
+ * Light theme colors
+ */
+
+@import url("hubble-colors.css");
+
+:root {
+    --body-color: var(--meteor-grey);
+    --content-wrap-background-color: #fcfcfc;
+    --content-background-color: #fcfcfc;
+
+    --logo-opacity: 1.0;
+    --navbar-side-divider: rgba(255, 255, 255, 0.15);
+    --navbar-background-color: linear-gradient(150deg, #101446 0%, #260E39 100%);
+    --navbar-background-color-hover: none;
+    --navbar-background-color-active: none;
+    --navbar-current-background-color: rgba(170, 175, 253, 0.10);
+    --navbar-current-background-color-hover: none;
+    --navbar-current-background-color-active: none;
+    --navbar-color: var(--moon-silver);
+    --navbar-active-color: var(--white);
+    --navbar-button-color: var(--lunar-dust);
+    --navbar-button-active-color: var(--white);
+
+    --navbar-heading-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-hover-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-active-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-background: rgba(170, 175, 253, 0.10);
+
+    --link-color: var(--link-blue);
+    --link-color-hover: var(--hubble-blue);
+    --link-color-active: var(--hubble-blue);
+    --link-color-visited: var(--link-blue);
+    --external-reference-icon: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjEyIiB3aWR0aD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM0E0NEUxIj48cGF0aCBkPSJtNy41IDcuMXYzLjRoLTZ2LTZoMy40Ii8+PHBhdGggZD0ibTUuNzY1IDFoNS4yMzV2NS4zOWwtMS41NzMgMS41NDctMS4zMS0xLjMxLTIuNzI0IDIuNzIzLTIuNjktMi42ODggMi44MS0yLjgwOC0xLjMxMy0xLjMxeiIvPjwvZz48L3N2Zz4K");
+    --classref-badge-text-color: hsl(0, 0%, 45%);
+
+    --hr-color: rgba(0, 0, 0, 0.15);
+    --table-row-odd-background-color: rgba(170, 175, 253, 0.10);
+    --table-params-color: var(--meteor-grey);
+    --table-params-description-color: var(--lunar-dust);
+    --table-params-description-strong-color: rgba(0,0,0,0.8);
+    --table-borders: rgba(0, 0, 0, 0.1);
+    --table-header-background-color: var(--orion-mist);
+    --code-background-color: var(--off-white);
+    --code-border-color: rgba(0, 0, 0, 0);
+    --code-literal-color: var(--status-red);
+
+    --input-background-color: rgba(170, 175, 253, 0.10);
+    --input-focus-border-color: var(--lunar-dust);
+
+    --search-input-background-color: rgba(170, 175, 253, 0.10); /* derived from --input-background-color */
+    --search-input-color: var(--lunar-dust);
+    --search-input-border-color: var(--lunar-dust);
+    --search-input-color-active: var(--white);
+    --search-input-border-color-active: var(--hubble-blue);
+
+    --header-color: var(--deep-space-blue);
+    --header-border-gradient: linear-gradient(90deg, #5761FF 0%, #5761FF 50%, #AAAFFD 80%, rgba(170, 175, 253, 0.00) 100%);
+    --header-2-border-color: var(--hubble-blue);
+    --header-2-color: var(--eclipse-blue);
+    --header-3-border-color: var(--orion-mist);
+    --header-3-color: var(--dark-blue);
+    --header-4-color: var(--dark-blue);
+    --header-5-color: var(--gravity-grey);
+
+    /* Colors taken from the Godot script editor with the Adaptive theme */
+    --highlight-background-color: var(--moon-silver);
+    --highlight-border-color: var(--moon-silver);
+    --highlight-background-emph-color: var(--moon-silver);
+    --highlight-default-color: var(--meteor-grey);
+    --highlight-comment-color: var(--meteor-grey);
+    --highlight-keyword-color: var(--status-dark-red);
+    --highlight-keyword2-color: var(--status-dark-green);
+    --highlight-number-color: var(--plasma-dark);
+    --highlight-decorator-color: var(--hubble-purple);
+    --highlight-type-color: var(--status-dark-green);
+    --highlight-type2-color: var(--dark-green);
+    --highlight-function-color: var(--link-blue);
+    --highlight-operator-color: var(--hubble-purple);
+    --highlight-string-color: var(--status-dark-helios);
+    --highlight-return-type-color: var(--hubble-purple);
+
+    --admonition-note-background-color: var(--orion-mist);
+    --admonition-note-color: var(--deep-space-blue);
+    --admonition-note-title-background-color: var(--hubble-blue);
+    --admonition-note-title-color: var(--white);
+
+    --admonition-attention-background-color: var(--pastel-helios);
+    --admonition-attention-color: var(--deep-space-blue);
+    --admonition-attention-title-background-color: var(--status-dark-helios);
+    --admonition-attention-title-color: var(--white);
+
+    --admonition-danger-background-color: var(--pastel-red);
+    --admonition-danger-color: var(--deep-space-blue);
+    --admonition-danger-title-background-color: var(--status-dark-red);
+    --admonition-danger-title-color: var(--white);
+
+    --admonition-tip-background-color: var(--pastel-green);
+    --admonition-tip-color: var(--deep-space-blue);
+    --admonition-tip-title-background-color: var(--status-dark-green);
+    --admonition-tip-title-color: var(--white);
+
+    --kbd-background-color: #fafbfc;
+    --kbd-outline-color: #d1d5da;
+    --kbd-shadow-color: #b0b7bf;
+    --kbd-text-color: #444d56;
+
+    --guiitems-background-color: var(--orion-mist);
+    --guiitems-border-color: var(--hubble-purple);
+
+    --btn-neutral-color: rgba(255, 255, 255, 1);
+    --btn-neutral-background-color: var(--link-blue);
+    --btn-neutral-hover-background-color: var(--hubble-blue);
+    --footer-color: var(--gravity-grey);
+    --tabs-hover: var(--deep-space-blue);
+    --tabs-color: rgba(255, 255, 255, 0.7);
+    --tabs-divider: rgba(120, 115, 115, 0.14);
+
+    --grid-icons-color: var(--link-blue);
+    --grid-icons-bg-color: transparent;
+    --grid-icons-border-color: var(--link-blue);
+    --grid-icons-hover-color: var(--hubble-blue);
+    --grid-icons-hover-border-color: var(--hubble-blue);
+}

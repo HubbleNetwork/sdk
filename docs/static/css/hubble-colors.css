@@ -1,0 +1,42 @@
+/*Base hubble template colors*/
+
+:root {
+    --default-radius: 0.7rem;
+
+    --deep-space-blue: rgba(6, 8, 38, 1);
+    --eclipse-blue: rgba(16, 20, 70, 1);
+    --dark-blue: rgba(33, 40, 145, 1);
+    --link-blue: rgba(58, 68, 225, 1);
+    --hubble-blue: rgba(87, 97, 255, 1);
+    --hubble-light-blue: rgba(135, 142, 250, 1);
+    --orion-mist: rgba(205, 208, 254, 1);
+    --lunar-lilac: rgba(202, 163, 235, 1);
+    --hubble-purple: rgba(160, 74, 232, 1);
+    --dark-purple: rgba(98, 25, 160, 1);
+    --stardust-purple: rgba(38, 14, 57, 1);
+    --galactic-purple: rgba(14, 0, 26, 1);
+    --black: rgba(0, 0, 0, 1);
+    --gravity-grey: rgba(36, 36, 36, 1);
+    --meteor-grey: rgba(89, 89, 89, 1);
+    --lunar-dust: rgba(164, 164, 164, 1);
+    --moon-silver: rgba(227, 227, 227, 1);
+    --white: rgba(255, 255, 255, 1);
+    --off-white: rgba(252, 252, 252, 1);
+    --dark-red: rgba(126, 7, 9, 1);
+    --status-dark-red: rgba(194, 10, 13, 1);
+    --status-red: rgba(245, 56, 59, 1);
+    --pastel-red: rgba(247, 203, 204, 1);
+    --dark-green: rgba(0, 77, 24, 1);
+    --status-dark-green: rgba(0, 110, 34, 1);
+    --status-green: rgba(87, 255, 138, 1);
+    --pastel-green: rgba(194, 225, 203, 1);
+    --status-light-green: rgba(72, 221, 172, 1);
+    --dark-helios: rgba(105, 68, 13, 1);
+    --status-dark-helios: rgba(158, 103, 19, 1);
+    --status-helios: rgba(255, 220, 87, 1);
+    --pastel-helios: rgba(243, 216, 175, 1);
+    --plasma-dark: rgba(167, 13, 159, 1);
+    --plasma-light: rgba(255, 87, 247, 1);
+
+
+}

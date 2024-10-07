@@ -1,0 +1,4 @@
+pycryptodome
+bluezero
+bitstring
+dbus-python

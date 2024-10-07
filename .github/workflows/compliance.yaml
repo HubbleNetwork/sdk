@@ -1,0 +1,64 @@
+name: Compliance Checks
+
+on:
+  pull_request:
+    types:
+    - edited
+    - opened
+    - reopened
+    - synchronize
+
+jobs:
+  check_compliance:
+    runs-on: ubuntu-22.04
+    name: Run compliance checks on patch series (PR)
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: cache-pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('.github/workflows/compliance.yml') }}
+
+    - name: Install dependencies
+      run: |
+    #    pip install clang-format
+        pip install gitlint
+
+    # Temporarily disable clang-format checks until a standardized configuration
+    # is established.
+    # Currently, there are formatting inconsistencies that result in
+    # improper code styling. Example of such issues:
+    #
+    # static int my_var[] = {
+    #      1, 2, 3, 4
+    #};
+    #
+    # - name: Run clang-format
+    #   shell: bash
+    #   run: |
+    #     git clang-format --verbose --extensions c,h --diff --diffstat origin/$GITHUB_BASE_REF
+
+    - name: Run gitlint
+      run: |
+        git config --global --add safe.directory $GITHUB_WORKSPACE
+        gitlint --commits origin/$GITHUB_BASE_REF..
+
+    - name: Check for PR description
+      if: ${{ github.event.pull_request.body == '' }}
+      continue-on-error: true
+      id: pr_description
+      run: |
+        echo "Pull request description cannot be empty."
+        exit 1

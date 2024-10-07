@@ -1,0 +1,15 @@
+# DOC: used to generate docs
+
+breathe
+sphinx
+sphinx_rtd_theme~=3.0
+sphinx-tabs
+pygments>=2.9,!=2.19.0
+sphinx-notfound-page
+sphinx-copybutton
+sphinx-togglebutton
+sphinx-sitemap
+sphinx-autobuild
+
+# Used to organize code samples
+anytree

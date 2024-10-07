@@ -1,0 +1,88 @@
+# Copyright (c) 2024 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+module = HUBBLE
+module-str = HubbleNetwork
+source "subsys/logging/Kconfig.template.log_config"
+
+config HUBBLE_SAT_NETWORK
+	   bool "Hubble Satellite Network Library [EXPERIMENTAL]"
+	   select EXPERIMENTAL
+	   help
+		Enable library for communication with Hubble network
+
+menuconfig HUBBLE_BLE_NETWORK
+	   bool "Hubble BLE Network Library"
+	   depends on BT
+	   help
+		Enable library for communication with Hubble BLE network
+
+choice
+	prompt "Hubble Network key size"
+
+config HUBBLE_NETWORK_KEY_256
+	   bool "Use 256 bits key size"
+	   help
+		256 bits key size
+
+config HUBBLE_NETWORK_KEY_128
+	   bool "Use 128 bits key size"
+	   help
+		128 bits key size
+
+endchoice
+
+config HUBBLE_KEY_SIZE
+	   int
+	   default 32 if HUBBLE_NETWORK_KEY_256
+	   default 16 if HUBBLE_NETWORK_KEY_128
+
+
+if HUBBLE_BLE_NETWORK
+
+choice
+	prompt "HUBBLE BLE Network crypto provider"
+
+config HUBBLE_BLE_NETWORK_MBEDTLS
+	   bool "Use MBEDTLS for Hubble BLE Network Library"
+	   select MBEDTLS
+	   select MBEDTLS_CMAC
+	   select MBEDTLS_CIPHER
+	   select MBEDTLS_CIPHER_AES_ENABLED
+	   select MBEDTLS_CIPHER_MODE_CTR_ENABLED
+	   help
+		Enable library for communication with Hubble BLE network
+
+config HUBBLE_BLE_NETWORK_PSA
+	   bool "Use PSA Crypto for Hubble BLE Network Library"
+	   select MBEDTLS
+	   select MBEDTLS_PSA_CRYPTO_C
+	   select PSA_WANT_KEY_TYPE_AES
+	   select PSA_WANT_ALG_CMAC
+	   select PSA_WANT_ALG_CTR
+	   help
+		Enable library for communication with Hubble BLE network
+
+endchoice
+
+choice
+	prompt "HUBBLE BLE Network Timer Counter Frequency"
+
+config HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY
+	   bool "Timer counter changes daily"
+	   help
+	        The timer counter will change daily
+
+endchoice
+
+config HUBBLE_BLE_ADVERTISE_BUFFER_SIZE
+	   int "Hubble BLE Network advertise buffer size"
+	   default 31
+	   help
+	     Size of the buffer used to store advertise messages.
+
+endif
+
+menu "Logging"
+
+endmenu

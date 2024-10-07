@@ -1,0 +1,270 @@
+# Copyright (c) 2025, Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+# pylint configuration for the PyLint. This file was initially
+# generated using pylint-config generate --interactive
+#
+# To run pylint manually with this configuration from the Zephyr repo, do
+#
+#     pylint3 --rcfile=tools/ci/pylintrc.toml <Python file>
+#
+# This command will check all scripts:
+#
+#     pylint3 --rcfile=tools/ci/pylintrc.toml $(git ls-files '*.py')
+
+
+[tool.pylint.main]
+
+# Clear in-memory caches upon conclusion of linting
+clear-cache-post-run = true
+
+# Specify a score threshold under which the program will exit with error.
+fail-under = 10
+
+# user-friendly hints instead of false-positive error messages.
+suggestion-mode = true
+
+[tool.pylint.basic]
+
+# Naming style matching correct argument names.
+argument-naming-style = "snake_case"
+
+# Naming style matching correct attribute names.
+attr-naming-style = "snake_case"
+
+# Naming style matching correct class attribute names.
+class-attribute-naming-style = "any"
+
+# Naming style matching correct class constant names.
+class-const-naming-style = "UPPER_CASE"
+
+# Naming style matching correct class names.
+class-naming-style = "PascalCase"
+
+# Naming style matching correct constant names.
+const-naming-style = "UPPER_CASE"
+
+# Naming style matching correct function names.
+function-naming-style = "snake_case"
+
+# Naming style matching correct inline iteration names.
+inlinevar-naming-style = "any"
+
+# Naming style matching correct method names.
+method-naming-style = "snake_case"
+
+# Naming style matching correct module names.
+module-naming-style = "any"
+
+# Naming style matching correct variable names.
+variable-naming-style = "snake_case"
+
+[tool.pylint.design]
+
+# Maximum number of arguments for function / method.
+max-args = 5
+
+# Maximum number of attributes for a class (see R0902).
+max-attributes = 7
+
+# Maximum number of boolean expressions in an if statement (see R0916).
+max-bool-expr = 5
+
+# Maximum number of branch for function / method body.
+max-branches = 12
+
+# Maximum number of locals for function / method body.
+max-locals = 15
+
+# Maximum number of parents for a class (see R0901).
+max-parents = 7
+
+# Maximum number of positional arguments for function / method.
+max-positional-arguments = 5
+
+# Maximum number of public methods for a class (see R0904).
+max-public-methods = 20
+
+# Maximum number of return / yield for function / method body.
+max-returns = 6
+
+# Maximum number of statements in function / method body.
+max-statements = 50
+
+# Minimum number of public methods for a class (see R0903).
+min-public-methods = 2
+
+[tool.pylint.format]
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$"
+
+# Number of spaces of indent required inside a hanging or continued line.
+indent-after-paren = 4
+
+# Maximum number of characters on a single line.
+max-line-length = 100
+
+# Maximum number of lines in a module.
+max-module-lines = 1000
+
+[tool.pylint.imports]
+
+# Force import order to recognize a module as part of a third party library.
+known-third-party = ["enchant"]
+
+# Couples of modules and preferred modules, separated by a comma.
+# preferred-modules =
+
+[tool.pylint.logging]
+
+# The type of string formatting that logging methods do. `old` means using %
+# formatting, `new` is for `{}` formatting.
+logging-format-style = "old"
+
+# Logging modules to check that the string format arguments are in logging
+# function parameter format.
+logging-modules = ["logging"]
+
+[tool.pylint."messages control"]
+
+# Only show warnings with the listed confidence levels.
+confidence = [
+	"HIGH",
+	"CONTROL_FLOW",
+	"INFERENCE",
+	"INFERENCE_FAILURE",
+	"UNDEFINED"
+]
+
+disable = [
+	"raw-checker-failed",
+	"bad-inline-option",
+	"locally-disabled",
+	"file-ignored",
+	"suppressed-message",
+	"useless-suppression",
+	"deprecated-pragma",
+	"use-symbolic-message-instead",
+	"use-implicit-booleaness-not-comparison-to-string",
+	"use-implicit-booleaness-not-comparison-to-zero",
+	"missing-function-docstring",
+	"missing-module-docstring",
+	"consider-using-f-string",
+	"global-variable-undefined",
+	"unspecified-encoding"
+]
+
+[tool.pylint.miscellaneous]
+
+# List of note tags to take in consideration, separated by a comma.
+notes = ["FIXME", "XXX", "TODO"]
+
+# Regular expression of note tags to take in consideration.
+# notes-rgx =
+
+[tool.pylint.refactoring]
+
+# Maximum number of nested blocks for function / method body
+max-nested-blocks = 5
+
+# Complete name of functions that never returns. When checking for inconsistent-
+# return-statements if a never returning function is called then it will be
+# considered as an explicit return statement and no message will be printed.
+never-returning-functions = ["sys.exit", "argparse.parse_error"]
+
+# Let 'consider-using-join' be raised when the separator to join on would be non-
+# empty (resulting in expected fixes of the type: ``"- " + " - ".join(items)``)
+suggest-join-with-non-empty-separator = true
+
+[tool.pylint.reports]
+
+# Python expression which should return a score less than or equal to 10. You
+# have access to the variables 'fatal', 'error', 'warning', 'refactor',
+# 'convention', and 'info' which contain the number of messages in each category,
+# as well as 'statement' which is the total number of statements analyzed. This
+# score is used by the global evaluation report (RP0004).
+evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10))"
+
+# Tells whether to display a full report or only the messages.
+reports = false
+
+# Activate the evaluation score.
+score = true
+
+[tool.pylint.similarities]
+
+# Comments are removed from the similarity computation
+ignore-comments = true
+
+# Docstrings are removed from the similarity computation
+ignore-docstrings = true
+
+# Imports are removed from the similarity computation
+ignore-imports = true
+
+# Signatures are removed from the similarity computation
+ignore-signatures = true
+
+# Minimum lines number of a similarity.
+min-similarity-lines = 20
+
+[tool.pylint.spelling]
+
+# Limits count of emitted suggestions for spelling mistakes.
+max-spelling-suggestions = 4
+
+# List of comma separated words that should be considered directives if they
+# appear at the beginning of a comment and should not be checked.
+spelling-ignore-comment-directives = "fmt: on,fmt: off,noqa:,noqa,nosec,isort:skip,mypy:"
+
+
+[tool.pylint.typecheck]
+
+# List of symbolic message names to ignore for Mixin members.
+ignored-checks-for-mixins = [
+	"no-member",
+	"not-async-context-manager",
+	"not-context-manager",
+	"attribute-defined-outside-init"
+]
+
+# List of class names for which member attributes should not be checked (useful
+# for classes with dynamically set attributes).
+ignored-classes = [
+	"optparse.Values",
+	"thread._local",
+	"_thread._local",
+	"argparse.Namespace"
+]
+
+# Show a hint with possible names when a member name was not found. The aspect of
+# finding the hint is based on edit distance.
+missing-member-hint = true
+
+# The minimum edit distance a name should have in order to be considered a
+# similar match for a missing member name.
+missing-member-hint-distance = 1
+
+# The total number of similar names that should be taken in consideration when
+# showing a hint for a missing member.
+missing-member-max-choices = 1
+
+# Regex pattern to define which classes are considered mixins.
+mixin-class-rgx = ".*[Mm]ixin"
+
+[tool.pylint.variables]
+
+# Tells whether unused global variables should be treated as a violation.
+allow-global-unused-variables = false
+
+# List of strings which can identify a callback function by name. A callback name
+# must start or end with one of those strings.
+callbacks = ["cb_", "_cb"]
+
+# A regular expression matching the name of dummy variables (i.e. expected to not
+# be used).
+dummy-variables-rgx = "_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy|^ignored_|^unused_"
+
+# Argument names that match this expression will be ignored.
+ignored-argument-names = "_.*|^ignored_|^unused_"

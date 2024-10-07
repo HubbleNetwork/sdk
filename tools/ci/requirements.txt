@@ -1,0 +1,2 @@
+clang-format>=15.0.0
+gitlint

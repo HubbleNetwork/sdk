@@ -1,0 +1,31 @@
+# All these sections are optional, edit this file as you like.
+
+[general]
+ignore=title-trailing-punctuation, T3, title-max-length, T1, body-hard-tab, B3, B1
+verbosity = 3
+ignore-merge-commits=false
+ignore-revert-commits=false
+ignore-fixup-commits=false
+ignore-squash-commits=false
+debug = false
+
+# Set the extra-path where gitlint will search for user defined rules
+# See http://jorisroovers.github.io/gitlint/user_defined_rules for details
+extra-path=tools/ci/gitlint/
+
+
+[title-match-regex]
+# python like regex (https://docs.python.org/2/library/re.html) that the
+# commit-msg title must be matched to.
+# Note that the regex can contradict with other rules if not used correctly
+# (e.g. title-must-not-contain-word).
+#regex=^US[0-9]*
+
+[title-must-not-contain-word]
+# Comma-separated list of words that should not occur in the title. Matching is case
+# insensitive. It's fine if the keyword occurs as part of a larger word (so "WIPING"
+# will not cause a violation, but "WIP: my title" will.
+words=wip,test,temp
+
+[body-max-line-length]
+line-length=100

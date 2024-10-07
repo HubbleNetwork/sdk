@@ -1,0 +1,133 @@
+/**
+ * Copyright (c) 2019-2020, Juan Linietsky, Ariel Manzur and the Godot community
+ * Copyright (c) 2021, Teslabs Engineering S.L.
+ * SPDX-License-Identifier: CC-BY-3.0
+ *
+ * Dark theme colors
+ */
+@import url("hubble-colors.css");
+
+:root {
+    --body-color: var(--moon-silver);
+    --content-wrap-background-color: var(--deep-space-blue);
+    --content-background-color: var(--deep-space-blue);
+
+    /* Decrease the logo opacity when using the dark theme to be less distracting */
+    --logo-opacity: 0.85;
+    --navbar-side-divider: rgba(255, 255, 255, 0.15);
+    --navbar-background-color: linear-gradient(150deg, #101446 0%, #260E39 100%);
+    --navbar-background-color-hover: none;
+    --navbar-background-color-active: none;
+    --navbar-current-background-color: rgba(170, 175, 253, 0.10);
+    --navbar-current-background-color-hover: none;
+    --navbar-current-background-color-active: none;
+    --navbar-color: var(--moon-silver);
+    --navbar-active-color: var(--white);
+    --navbar-button-color: var(--lunar-dust);
+    --navbar-button-active-color: var(--white);
+
+    --navbar-heading-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-hover-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-active-color: rgba(170, 175, 253, 0.10);
+    --navbar-scrollbar-background: rgba(170, 175, 253, 0.10);
+
+    --link-color: var(--orion-mist);
+    --link-color-hover: var(--hubble-light-blue);
+    --link-color-active: var(--hubble-light-blue);
+    --link-color-visited: var(--orion-mist);
+    --external-reference-icon: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjEyIiB3aWR0aD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQ0REMEZFIj48cGF0aCBkPSJtNy41IDcuMXYzLjRoLTZ2LTZoMy40Ii8+PHBhdGggZD0ibTUuNzY1IDFoNS4yMzV2NS4zOWwtMS41NzMgMS41NDctMS4zMS0xLjMxLTIuNzI0IDIuNzIzLTIuNjktMi42ODggMi44MS0yLjgwOC0xLjMxMy0xLjMxeiIvPjwvZz48L3N2Zz4K");
+    --classref-badge-text-color: hsl(0, 0%, 70%);
+
+    --hr-color: rgba(255, 255, 255, 0.15);
+    --table-row-odd-background-color: rgba(170, 175, 253, 0.10);
+    --table-params-color: var(--meteor-grey);
+    --table-borders: rgba(255, 255, 255, 0.1);
+    --table-params-description-color: var(--lunar-dust);
+    --table-params-description-strong-color: rgba(255,255,255,0.8);
+    --table-header-background-color: var(--dark-blue);
+    --code-background-color: var(--eclipse-blue);
+    --code-border-color: rgba(255, 255, 255, 0);
+    --code-literal-color: var(--lunar-lilac);
+
+    --input-background-color: rgba(170, 175, 253, 0.10);
+    --input-focus-border-color: var(--lunar-dust);
+
+    --search-input-background-color: rgba(170, 175, 253, 0.10); /* derived from --input-background-color */
+    --search-input-color: var(--lunar-dust);
+    --search-input-border-color: var(--lunar-dust);
+    --search-input-color-active: var(--white);
+    --search-input-border-color-active: var(--hubble-blue);
+
+    --header-color: var(--white);
+    --header-border-gradient: linear-gradient(to right,
+    #C8CBFE 0%,
+    #C8CBFE 50%,
+    #7078F1 80%,
+    rgba(112, 120, 241, 0) 100%);
+    --header-2-border-color: var(--orion-mist);
+    --header-2-color: var(--orion-mist);
+    --header-3-border-color: var(--hubble-light-blue);
+    --header-3-color: var(--hubble-light-blue);
+    --header-4-color: var(--hubble-light-blue);
+    --header-5-color: var(--white);
+
+    /* Colors taken from the Godot script editor with the Adaptive theme */
+    --highlight-background-color: var(--eclipse-blue);
+    --highlight-border-color: var(--eclipse-blue);
+    --highlight-background-emph-color: var(--eclipse-blue);
+    --highlight-default-color: var(--moon-silver);
+    --highlight-comment-color: var(--lunar-dust);
+    --highlight-keyword-color: var(--status-red);
+    --highlight-keyword2-color: var(--status-green);
+    --highlight-number-color: var(--plasma-light);
+    --highlight-decorator-color: var(--lunar-lilac);
+    --highlight-type-color: var(--status-green);
+    --highlight-type2-color: var(--pastel-green);
+    --highlight-function-color: var(--lunar-lilac);
+    --highlight-operator-color: var(--lunar-lilac);
+    --highlight-string-color: var(--status-helios);
+    --highlight-return-type-color: var(--hubble-purple);
+
+    --admonition-note-background-color: var(--dark-blue);
+    --admonition-note-color: var(--moon-silver);
+    --admonition-note-title-background-color: var(--hubble-blue);
+    --admonition-note-title-color: var(--white);
+
+    --admonition-attention-background-color: var(--dark-helios);
+    --admonition-attention-color: var(--moon-silver);
+    --admonition-attention-title-background-color: var(--status-dark-helios);
+    --admonition-attention-title-color: var(--white);
+
+    --admonition-danger-background-color: var(--dark-red);
+    --admonition-danger-color: var(--moon-silver);
+    --admonition-danger-title-background-color: var(--status-dark-red);
+    --admonition-danger-title-color: var(--white);
+
+    --admonition-tip-background-color: var(--dark-green);
+    --admonition-tip-color: var(--moon-silver);
+    --admonition-tip-title-background-color: var(--status-dark-green);
+    --admonition-tip-title-color: var(--white);
+
+    --kbd-background-color: #595b5d;
+    --kbd-outline-color: #3d4144;
+    --kbd-shadow-color: #1e2023;
+    --kbd-text-color: #e2f2ff;
+
+    --guiitems-background-color: #303d4f;
+    --guiitems-border-color: #7fbbe3;
+
+    --btn-neutral-color: var(--body-color);
+    --btn-neutral-background-color: var(--link-blue);
+    --btn-neutral-hover-background-color: var(--hubble-blue);
+    --footer-color: rgba(170, 170, 170, 0.38);
+    --tabs-hover: var(--deep-space-blue);
+    --tabs-color: rgba(255, 255, 255, 0.7);
+    --tabs-divider: rgba(120, 115, 115, 0.14);
+
+    --grid-icons-color: var(--orion-mist);
+    --grid-icons-bg-color: transparent;
+    --grid-icons-border-color: var(--orion-mist);
+    --grid-icons-hover-color: var(--hubble-light-blue);
+    --grid-icons-hover-border-color: var(--hubble-light-blue);
+}
