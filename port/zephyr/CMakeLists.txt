@@ -4,13 +4,16 @@ zephyr_library()
 
 zephyr_library_sources(hubble_zephyr.c)
 
-zephyr_library_sources_ifdef(CONFIG_HUBBLE_SAT_NETWORK
-	../../src/utils/bitarray.c
-	../../src/hubble_sat.c
-	../../src/hubble_sat_packet.c
-	../../src/reed_solomon_encoder.c
-	hubble_sat_zephyr.c
-)
+if(CONFIG_HUBBLE_SAT_NETWORK)
+	zephyr_library_sources(../../src/utils/bitarray.c)
+	zephyr_library_sources(../../src/hubble_sat_ephemeris.c)
+	zephyr_library_sources(../../src/hubble_sat.c)
+	zephyr_library_sources(../../src/hubble_sat_packet.c)
+	zephyr_library_sources(../../src/reed_solomon_encoder.c)
+	zephyr_library_sources(hubble_sat_zephyr.c)
+	zephyr_include_directories(.)
+endif()
+
 
 if(CONFIG_HUBBLE_BLE_NETWORK)
 	zephyr_library_sources(../../src/hubble_ble.c)
