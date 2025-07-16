@@ -45,6 +45,7 @@ choice
 
 config HUBBLE_BLE_NETWORK_MBEDTLS
 	   bool "Use MBEDTLS for Hubble BLE Network Library"
+	   depends on !NRF_SECURITY
 	   select MBEDTLS
 	   select MBEDTLS_CMAC
 	   select MBEDTLS_CIPHER
@@ -56,7 +57,7 @@ config HUBBLE_BLE_NETWORK_MBEDTLS
 config HUBBLE_BLE_NETWORK_PSA
 	   bool "Use PSA Crypto for Hubble BLE Network Library"
 	   select MBEDTLS
-	   select MBEDTLS_PSA_CRYPTO_C
+	   select PSA_CRYPTO_CLIENT
 	   select PSA_WANT_KEY_TYPE_AES
 	   select PSA_WANT_ALG_CMAC
 	   select PSA_WANT_ALG_CTR
