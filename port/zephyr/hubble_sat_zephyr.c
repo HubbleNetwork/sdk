@@ -64,11 +64,12 @@ static int hubble_zephyr_sat_channel_set(uint8_t channel)
 
 static int hubble_zephyr_sat_enable(void)
 {
-	return 0;
+	return hubble_rf_enable();
 }
 
-static void hubble_zephyr_sat_disable(void)
+static int hubble_zephyr_sat_disable(void)
 {
+	return hubble_rf_disable();
 }
 
 const struct hubble_sat_api *hubble_sat_api_get(void)

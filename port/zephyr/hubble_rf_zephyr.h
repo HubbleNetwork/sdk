@@ -24,6 +24,20 @@
 int hubble_rf_init(void);
 
 /**
+ * @brief Enable the RF module.
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int hubble_rf_enable(void);
+
+/**
+ * @brief Disable the RF module.
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int hubble_rf_disable(void);
+
+/**
  * @brief Starts transmitting a continuous wave.
  *
  * @return 0 on success, negative error code on failure.

@@ -126,8 +126,10 @@ struct hubble_sat_api {
 	 *
 	 * This API disables the satellite stack and restore devices to the
 	 * state they were before.
+	 *
+	 * @return 0 on success, non-zero on error.
 	 */
-	void (*disable)(void);
+	int (*disable)(void);
 };
 
 /**
