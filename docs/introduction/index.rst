@@ -46,10 +46,18 @@ target radio and possibly other devices when in use.
 BLE Network Module
 ------------------
 
-Offers APIs to generate Bluetooth advertisement packets, enabling connections
-to the Hubble BLE Network. This module uses the standard Bluetooth protocol
+Offers APIs to generate Bluetooth® advertisement packets, enabling connections
+to the Hubble Bluetooth Low Energy (BLE) Network. This module uses the standard Bluetooth protocol
 and does not assume ownership of any hardware. The application is responsible
 for managing the Bluetooth stack.
+
+Bluetooth Member Details
+------------------------
+Hubble Network Inc. is a Bluetooth Member Company.
+The Hubble Network SDK has completed the Bluetooth Qualification Process:
+
+- Hubble Design Number: Q369913
+- Qualified Product Details: https://qualification.bluetooth.com/ListingDetails/307489
 
 Port Layer
 ==========

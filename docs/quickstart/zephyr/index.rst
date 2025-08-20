@@ -49,8 +49,8 @@ To enable the required modules, add the corresponding lines to the project’s
     CONFIG_HUBBLE_BLE_NETWORK=y
     CONFIG_HUBBLE_SAT_NETWORK=y
 
-Use ``CONFIG_HUBBLE_BLE_NETWORK=y`` to enable the BLE network module or
-``CONFIG_HUBBLE_SAT_NETWORK=y`` for the satellite network module.
+Use ``CONFIG_HUBBLE_BLE_NETWORK=y`` to enable the Bluetooth® Low Energy (BLE) Network module or
+``CONFIG_HUBBLE_SAT_NETWORK=y`` for the Satellite Network module.
 
 Using Hubble Network as the manifest repository
 ***********************************************
@@ -118,7 +118,7 @@ Building and running your first application
 
 Building and Running the First Application Once the steps in the previous
 section are complete, the system is ready to use Hubble Network. The following
-commands demonstrate how to build and flash a BLE network application.
+commands demonstrate how to build and flash a BLE Network application.
 
 Build the application
 ---------------------

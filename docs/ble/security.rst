@@ -3,8 +3,8 @@
 BLE  Security Overview
 ######################
 
-The cryptographic techniques used in the Hubble BLE Network ensure the
-confidentiality, integrity, and authenticity of the data being advertised
+The cryptographic techniques used in the Hubble Bluetooth® Low Energy (BLE) Network ensure
+the confidentiality, integrity, and authenticity of the data being advertised
 over BLE. AES-256 provides strong encryption, CMAC ensures data integrity and
 authenticity, and the KBKDF securely derives keys from a master key. The use
 of nonces and sequence numbers prevents replay attacks and ensures that each
@@ -26,7 +26,7 @@ Key concepts
   provided key, and the result is stored in the output buffer.
 
 .. _hubble_ble_kbdf:
- 
+
 * **KBKDF (Key-Based Key Derivation Function)**
 
   The code uses a KBKDF to derive keys from a master key. It derives keys
