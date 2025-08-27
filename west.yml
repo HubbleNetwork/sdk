@@ -9,7 +9,7 @@ manifest:
   projects:
     - name: zephyr
       remote: zephyrproject-rtos
-      revision: v4.1.0
+      revision: v4.2.0
       import: true
       west-commands: scripts/west-commands.yml
 
