@@ -9,8 +9,6 @@
 
 #include <hubble_port.h>
 
-#define TICK_PERIOD_MS ((TickType_t)1000 / configTICK_RATE_HZ)
-
 /**
  * Define weak attribute.
  *
@@ -28,7 +26,7 @@
 
 uint64_t hubble_uptime_get(void)
 {
-	return (uint64_t)xTaskGetTickCount() * TICK_PERIOD_MS;
+	return ((uint64_t)xTaskGetTickCount() * 1000) / configTICK_RATE_HZ;
 }
 
 HUBBLE_WEAK int hubble_log(enum hubble_log_level level, const char *format, ...)
