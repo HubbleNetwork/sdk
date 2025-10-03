@@ -37,22 +37,11 @@ config HUBBLE_BEACON_SAMPLE_USE_CTS
     help
        Use CTS to sync time instead of hardcode during building.
 
-config HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS
-    bool "Generate new address periodically"
-    default y
+config HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD
+    int "Period to update the advertisment packet"
+    default 360
     help
-	Generate a new a Non-Resolvable Private Address
-	periodically.
-
-if HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS
-
-config HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS_PERIOD
-    int "Period to update the address"
-    default 120
-    help
-	Period (in seconds) to generate a new a Non-Resolvable Private Address
-	periodically.
-endif
+	Period (in seconds) to generate a new advertisement message.
 
 endmenu
 
