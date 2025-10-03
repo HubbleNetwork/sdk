@@ -7,6 +7,10 @@
 
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/bluetooth.h>
+#ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
+#include <zephyr/bluetooth/services/cts.h>
+#include <zephyr/bluetooth/conn.h>
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 #include <zephyr/logging/log.h>
 
 #include <stdint.h>
@@ -50,6 +54,92 @@ K_TIMER_DEFINE(mac_timer, timer_cb, NULL);
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS */
 
 
+#ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
+
+/* Lets use 0xFCA7 UUID for when it is connectable. Since this UUID is also
+ * assigned to Hubble. This way it is easy to distinguish between a device
+ * that is properly beaconing from one that needs time synchronization.
+ */
+#define HUBBLE_BLE_UUID_SYNC 0xFCA7
+
+static int ble_adv_time_sync(void)
+{
+	int err;
+
+	*(uint16_t *)&app_adv_uuids = HUBBLE_BLE_UUID_SYNC;
+
+	app_ad[1].data_len = sizeof(uint16_t);
+	app_ad[1].type = BT_DATA_SVC_DATA16;
+	app_ad[1].data = (uint8_t *)&app_adv_uuids;
+
+	err = bt_le_adv_start(BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA | BT_LE_ADV_OPT_CONN,
+					      BT_GAP_ADV_FAST_INT_MIN_2,
+					      BT_GAP_ADV_FAST_INT_MAX_2, NULL),
+			      app_ad, ARRAY_SIZE(app_ad), NULL, 0);
+
+	return err;
+}
+
+static void ble_work_handler(struct k_work *work)
+{
+	ble_adv_time_sync();
+}
+
+K_WORK_DEFINE(ble_work, ble_work_handler);
+K_SEM_DEFINE(time_sem, 0, 1);
+
+static int bt_cts_cts_time_write(struct bt_cts_time_format *cts_time)
+{
+	return bt_cts_time_to_unix_ms(cts_time, &utc_time);
+}
+
+int bt_cts_fill_current_cts_time(struct bt_cts_time_format *cts_time)
+{
+	return bt_cts_time_from_unix_ms(cts_time, utc_time + k_uptime_get());
+}
+
+static void disconnected(struct bt_conn *conn, uint8_t reason)
+{
+	if (utc_time != 0) {
+		k_sem_give(&time_sem);
+	} else {
+		k_work_submit(&ble_work);
+	}
+}
+
+BT_CONN_CB_DEFINE(conn_callbacks) = {
+	.disconnected = disconnected,
+};
+
+const struct bt_cts_cb cts_cb = {
+	.cts_time_write = bt_cts_cts_time_write,
+	.fill_current_cts_time = bt_cts_fill_current_cts_time,
+};
+
+static int hubble_ble_time_sync(void)
+{
+	int ret = 0;
+
+	/* Lets ensure that utc_time is not set */
+	utc_time = 0;
+
+	bt_cts_init(&cts_cb);
+
+	ret = ble_adv_time_sync();
+	if (ret != 0) {
+		return ret;
+	}
+
+	k_sem_take(&time_sem, K_FOREVER);
+
+	/* Get back to 0xFCA6 for future regular advertisements */
+	*(uint16_t *)&app_adv_uuids = HUBBLE_BLE_UUID;
+
+	return ret;
+}
+
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
+
 int main(void)
 {
 	void *data;
@@ -58,18 +148,6 @@ int main(void)
 
 	LOG_DBG("Hubble Network BLE Beacon started");
 
-	err = hubble_ble_init(utc_time);
-	if (err != 0) {
-		LOG_ERR("Failed to initialize Hubble BLE Network");
-		return err;
-	}
-
-	err = hubble_ble_key_set(master_key);
-	if (err != 0) {
-		LOG_ERR("Failed to set the Hubble key");
-		return err;
-	}
-
 	/* Synchrounosly initialize the Bluetooth subsystem. */
 	err = bt_enable(NULL);
 	if (err != 0) {
@@ -77,10 +155,30 @@ int main(void)
 		return err;
 	}
 
+#ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
+	err = hubble_ble_time_sync();
+	if (err != 0) {
+		LOG_ERR("Could not get utc time synced !");
+		goto end;
+	}
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
+
+	err = hubble_ble_init(utc_time);
+	if (err != 0) {
+		LOG_ERR("Failed to initialize Hubble BLE Network");
+		goto end;
+	}
+
+	err = hubble_ble_key_set(master_key);
+	if (err != 0) {
+		LOG_ERR("Failed to set the Hubble key");
+		goto end;
+	}
+
 	data = hubble_ble_advertise_get(NULL, 0, &out_len);
 	if (data == NULL) {
 		LOG_ERR("Failed to get the advertisement data");
-		return -1;
+		goto end;
 	}
 	app_ad[1].data_len = out_len;
 	app_ad[1].type = BT_DATA_SVC_DATA16;
@@ -134,8 +232,6 @@ int main(void)
 		}
 	}
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS */
-
-	return 0;
 
 end:
 	(void)bt_disable();

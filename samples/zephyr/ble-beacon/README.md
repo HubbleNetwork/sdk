@@ -23,6 +23,16 @@ The provisioning process embeds a master key and the current UTC time into the
 firmware. This is a necessary step before building and flashing the
 application.
 
+> [!TIP]
+> The application can be configured to sync time at runtime using *Current time Service (CTS)*,
+> this option is recommended for long running tests because it is possible sync time after
+> reboots without changing the firmware. To enable this option add the following option
+> in `prj.conf`
+>
+> ```
+> CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS=y
+> ```
+
 ### 2. Run the Provisioning Script
 
 The `embed_key_utc.py` script takes the key file and embeds it along with the
@@ -54,6 +64,14 @@ west flash
 ```
 
 After flashing, the device will start advertising as a Hubble BLE beacon.
+
+> [!WARNING]
+> If the application was built with `CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS` enabled, it is necessary
+> to sync utc time. This can be done using the `sync_time.py` script:
+>
+> ```sh
+> ./sync_time.py
+> ```
 
 ## Configuration
 

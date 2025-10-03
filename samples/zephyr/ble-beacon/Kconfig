@@ -29,6 +29,14 @@ config HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_DATA
 	Data to be advertised
 endif
 
+config HUBBLE_BEACON_SAMPLE_USE_CTS
+    bool "Use CTS to sync UTC time"
+    default n
+    select BT_CTS
+    select BT_CTS_HELPER_API
+    help
+       Use CTS to sync time instead of hardcode during building.
+
 config HUBBLE_BEACON_SAMPLE_UPDATE_ADDRESS
     bool "Generate new address periodically"
     default y
