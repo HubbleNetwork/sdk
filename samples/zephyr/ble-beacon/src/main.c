@@ -10,6 +10,7 @@
 #ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
 #include <zephyr/bluetooth/services/cts.h>
 #include <zephyr/bluetooth/conn.h>
+#include <zephyr/bluetooth/uuid.h>
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 #include <zephyr/logging/log.h>
 
@@ -23,22 +24,37 @@ LOG_MODULE_REGISTER(main);
 
 #ifdef CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV
 static uint64_t app_adv_data = CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_DATA;
+#ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
+static uint16_t app_adv_uuids[3] = {
+	HUBBLE_BLE_UUID,
+	CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_UUID,
+	BT_UUID_CTS_VAL,
+};
+#else
 static uint16_t app_adv_uuids[2] = {
 	HUBBLE_BLE_UUID,
 	CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_UUID,
 };
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 static struct bt_data app_ad[3] = {
 	BT_DATA(BT_DATA_UUID16_ALL, &app_adv_uuids, sizeof(app_adv_uuids)),
 	{},
 	BT_DATA(BT_DATA_SVC_DATA16, &app_adv_data, sizeof(app_adv_data)),
 };
 #else
+#ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
+static uint16_t app_adv_uuids[2] = {
+	HUBBLE_BLE_UUID,
+	BT_UUID_CTS_VAL,
+};
+#else
 static uint16_t app_adv_uuids = HUBBLE_BLE_UUID;
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 static struct bt_data app_ad[2] = {
 	BT_DATA(BT_DATA_UUID16_ALL, &app_adv_uuids, sizeof(app_adv_uuids)),
 	{},
 };
-#endif
+#endif /* CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV */
 
 K_SEM_DEFINE(timer_sem, 0, 1);
 
@@ -130,6 +146,11 @@ static int hubble_ble_time_sync(void)
 
 	/* Get back to 0xFCA6 for future regular advertisements */
 	*(uint16_t *)&app_adv_uuids = HUBBLE_BLE_UUID;
+
+	/* We no longer need to advertise CTS service */
+	app_ad[0].data_len = sizeof(uint16_t) * (ARRAY_SIZE(app_adv_uuids) - 1);
+	app_ad[0].type = BT_DATA_UUID16_ALL;
+	app_ad[0].data = (uint8_t *)&app_adv_uuids;
 
 	return ret;
 }
