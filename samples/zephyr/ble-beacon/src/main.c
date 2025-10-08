@@ -23,7 +23,13 @@
 LOG_MODULE_REGISTER(main);
 
 #ifdef CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV
-static uint64_t app_adv_data = CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_DATA;
+static struct {
+	uint16_t uuid;
+	uint32_t data;
+} __packed app_adv_data = {
+	.uuid = CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_UUID,
+	.data = CONFIG_HUBBLE_BEACON_SAMPLE_ADDITIONAL_ADV_DATA,
+};
 #ifdef CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS
 static uint16_t app_adv_uuids[3] = {
 	HUBBLE_BLE_UUID,
