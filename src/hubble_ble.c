@@ -7,6 +7,7 @@
 
 #include <errno.h>
 #include <inttypes.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -73,6 +74,59 @@ uint16_t hubble_sequence_counter_get(void)
 	return _sequence_number++;
 }
 #endif /* CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM */
+
+/**
+ * Returns true if the time_counter and seq_no are unique (not reused)
+ * or false otherwise.
+ * This assumes that the sequence is incremental. Wrapping is allowed.
+ */
+static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
+{
+	static bool _check_seq_no_wrapped;
+	static uint32_t _check_time_counter;
+	static uint16_t _check_seq_no;
+	static uint16_t _check_seq_daily_reference_no;
+
+	if (seq_no > HUBBLE_BLE_MAX_SEQ_COUNTER) {
+		return false;
+	}
+
+	/* Time counter changed, any sequence number is valid.
+	 * We just need to update our daily reference for checking for
+	 * sequence wrapper.
+	 */
+	if ((_check_time_counter == 0) || (_check_time_counter != time_counter)) {
+		_check_seq_daily_reference_no = seq_no;
+		_check_seq_no_wrapped = false;
+		_check_time_counter = time_counter;
+		_check_seq_no = seq_no;
+		return true;
+	}
+
+	/* We need to check if the sequence number is the same or
+	 * if it wrapped we need to ensure that this is not bigger
+	 * than the first value used with the current time counter.
+	 */
+	if ((_check_seq_no == seq_no) ||
+	    (_check_seq_no_wrapped  && (seq_no >= _check_seq_daily_reference_no))) {
+		return false;
+	}
+
+	/* At this point the sequence is not the same but we need to check if it just wrapped. */
+	if (_check_seq_no > seq_no) {
+		_check_seq_no_wrapped = true;
+		/* That is the first sequence number after wrapping, lets ensure
+		 * that it is not bigger than the daily reference.
+		 */
+		if (seq_no >= _check_seq_daily_reference_no) {
+			return false;
+		}
+	}
+
+	_check_seq_no = seq_no;
+
+	return true;
+}
 
 int hubble_ble_init(uint64_t utc_time)
 {
@@ -272,6 +326,11 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	}
 
 	seq_no = hubble_sequence_counter_get();
+
+	if (!_nonce_values_check(time_counter, seq_no)) {
+		HUBBLE_LOG_WARNING("Re-using same nonce is insecure !");
+		return NULL;
+	}
 
 	memset(advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX, 0,
 	       sizeof(advertise_buffer) - HUBBLE_BLE_ADVERTISE_PREFIX);
