@@ -45,6 +45,12 @@ config HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD
 
 endmenu
 
+# Hidden option
+config HUBBLE_BEACON_SAMPLE_STORE_NONCE_SEQUENCE
+     bool
+     default y if NVS
+     select HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
+
 source "Kconfig.zephyr"
 
 module = APP
