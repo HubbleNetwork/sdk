@@ -47,6 +47,14 @@ config HUBBLE_KEY_SIZE
 	   default 32 if HUBBLE_NETWORK_KEY_256
 	   default 16 if HUBBLE_NETWORK_KEY_128
 
+config HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK
+	   bool "Enforce check in nonce used in cryptography"
+	   default y
+	   help
+		Ensure that nonce parameters are not re-used
+		to encrypt different messages.
+		Be aware that re-using the same nonce has severe
+		security implications.
 
 config HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 	   bool "Application defined implementation"
