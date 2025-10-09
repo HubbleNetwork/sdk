@@ -82,6 +82,7 @@ uint16_t hubble_sequence_counter_get(void)
  */
 static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 {
+#ifdef CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK
 	static bool _check_seq_no_wrapped;
 	static uint32_t _check_time_counter;
 	static uint16_t _check_seq_no;
@@ -125,6 +126,7 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 
 	_check_seq_no = seq_no;
 
+#endif /* CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK */
 	return true;
 }
 
