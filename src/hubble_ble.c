@@ -29,8 +29,6 @@ static const void *master_key;
 #define HUBBLE_BLE_BLE_PROTOCOL_VERSION 0b000000
 #define HUBBLE_BLE_BLE_ADDR_SIZE        6
 #define HUBBLE_BLE_BLE_AUTH_TAG_SIZE    4
-#define HUBBLE_BLE_SEQ_NO_BITS          10
-#define HUBBLE_BLE_MAX_SEQ_NO           (1 << HUBBLE_BLE_SEQ_NO_BITS)
 #define HUBBLE_BLE_FIELDS_LEN           3 /* (type + length) */
 #define HUBBLE_BLE_NONCE_LEN            12
 
@@ -54,9 +52,6 @@ enum hubble_ble_value_label {
 	HUBBLE_BLE_ENCRYPTION_VALUE
 };
 
-/* Sequence number used to rotate keys */
-static uint16_t _sequence_number = 0;
-
 static uint8_t advertise_buffer[CONFIG_HUBBLE_BLE_ADVERTISE_BUFFER_SIZE] = {
 	0xa6, 0xfc};
 
@@ -64,6 +59,20 @@ static uint8_t advertise_buffer[CONFIG_HUBBLE_BLE_ADVERTISE_BUFFER_SIZE] = {
 #define _PAYLOAD_ADDR     (advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX)
 #define _PAYLOAD_AUTH_TAG ((_PAYLOAD_ADDR) + HUBBLE_BLE_BLE_ADDR_SIZE)
 #define _PAYLOAD_DATA     ((_PAYLOAD_AUTH_TAG) + HUBBLE_BLE_BLE_AUTH_TAG_SIZE)
+
+#ifndef CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
+uint16_t hubble_sequence_counter_get(void)
+{
+	/* Sequence number used to rotate keys */
+	static uint16_t _sequence_number = 0;
+
+	if (_sequence_number > HUBBLE_BLE_MAX_SEQ_COUNTER) {
+		_sequence_number = 0;
+	}
+
+	return _sequence_number++;
+}
+#endif /* CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM */
 
 int hubble_ble_init(uint64_t utc_time)
 {
@@ -252,6 +261,7 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	uint8_t encryption_key[HUBBLE_BLE_KEY_LEN] = {0};
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN] = {0};
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
+	uint16_t seq_no;
 
 	if ((ble_api == NULL) || (master_key == NULL)) {
 		return NULL;
@@ -261,9 +271,7 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 		return NULL;
 	}
 
-	if (_sequence_number >= HUBBLE_BLE_MAX_SEQ_NO) {
-		_sequence_number = 0;
-	}
+	seq_no = hubble_sequence_counter_get();
 
 	memset(advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX, 0,
 	       sizeof(advertise_buffer) - HUBBLE_BLE_ADVERTISE_PREFIX);
@@ -273,17 +281,17 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	if (err) {
 		return NULL;
 	}
-	_addr_set(_PAYLOAD_ADDR, _sequence_number, device_id);
+	_addr_set(_PAYLOAD_ADDR, seq_no, device_id);
 
 	err = _derived_value_get(HUBBLE_BLE_NONCE_VALUE, time_counter,
-				 _sequence_number, nonce_counter,
+				 seq_no, nonce_counter,
 				 HUBBLE_BLE_NONCE_LEN);
 	if (err) {
 		goto err;
 	}
 
 	err = _derived_value_get(HUBBLE_BLE_ENCRYPTION_VALUE, time_counter,
-				 _sequence_number, encryption_key,
+				 seq_no, encryption_key,
 				 sizeof(encryption_key));
 	if (err) {
 		goto encryption_key_err;
@@ -301,8 +309,6 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	}
 
 	memcpy(_PAYLOAD_AUTH_TAG, auth_tag, HUBBLE_BLE_BLE_AUTH_TAG_SIZE);
-
-	_sequence_number += 1;
 
 	if (out_len) {
 		*out_len = HUBBLE_BLE_ADVERTISE_PREFIX +

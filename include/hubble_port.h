@@ -28,6 +28,8 @@ enum hubble_log_level {
 
 #define HUBBLE_BLE_NONCE_BUFFER_LEN 16
 #define HUBBLE_AES_BLOCK_SIZE       16
+/* Valid range [0, 1023] */
+#define HUBBLE_BLE_MAX_SEQ_COUNTER  ((1 << 10) - 1)
 
 #define HUBBLE_LOG(_level, ...)                                                \
 	do {                                                                   \
@@ -48,6 +50,28 @@ enum hubble_log_level {
  * @return The current uptime of the target system in milliseconds.
  */
 uint64_t hubble_uptime_get(void);
+
+/**
+ * @brief Retrieves the current sequence counter value for BLE advertising.
+ *
+ * This function returns the current sequence number used in the Hubble BLE
+ * Network protocol. The sequence counter is a 10-bit value (0-1023) that
+ * increments with each BLE advertisement and is used for:
+ * - Key rotation and derivation
+ * - Nonce generation for encryption
+ * - BLE address generation
+ * - Ensuring uniqueness of advertisements
+ *
+ * The sequence counter automatically wraps around to 0 when it reaches the
+ * maximum value (1023).
+ *
+ * @note This function can be override by the application it with
+ *       custom sequence counter logic defining the symbol
+ *       `CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM`
+ *
+ * @return The current sequence counter value (0-1023).
+ */
+uint16_t hubble_sequence_counter_get(void);
 
 /**
  * @brief Logs a message with a specified log level.
