@@ -23,7 +23,7 @@ uint64_t hubble_uptime_get(void)
 
 __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 {
-#ifdef CONFIG_LOG
+#if defined(CONFIG_LOG) && !defined(CONFIG_LOG_DEFAULT_MINIMAL)
 	va_list args;
 	static uint8_t zephyr_log_level[HUBBLE_LOG_COUNT] = {
 		[HUBBLE_LOG_DEBUG] = LOG_LEVEL_DBG,
@@ -41,7 +41,7 @@ __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 	z_log_msg_runtime_vcreate(0, __log_current_const_data, zephyr_level,
 				  NULL, 0, 0, format, args);
 	va_end(args);
-#endif
+#endif /* defined(CONFIG_LOG) && !defined(CONFIG_LOG_DEFAULT_MINIMAL) */
 
 	return 0;
 }
