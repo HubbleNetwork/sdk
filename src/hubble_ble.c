@@ -32,6 +32,7 @@ static const void *master_key;
 #define HUBBLE_BLE_BLE_AUTH_TAG_SIZE    4
 #define HUBBLE_BLE_FIELDS_LEN           3 /* (type + length) */
 #define HUBBLE_BLE_NONCE_LEN            12
+#define HUBBLE_BLE_ADV_FIELDS_SIZE      (HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_BLE_ADDR_SIZE + HUBBLE_BLE_BLE_AUTH_TAG_SIZE)
 
 #define _KEY_BITS_LEN                   (HUBBLE_BLE_KEY_LEN * BITS_PER_BYTE)
 
@@ -323,7 +324,7 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 		return NULL;
 	}
 
-	if (len >= sizeof(advertise_buffer)) {
+	if (len >= (sizeof(advertise_buffer) - HUBBLE_BLE_ADV_FIELDS_SIZE)) {
 		return NULL;
 	}
 
