@@ -29,9 +29,9 @@ static const void *master_key;
 #define HUBBLE_BLE_ADVERTISE_PREFIX     2
 #define HUBBLE_BLE_PROTOCOL_VERSION     0b000000
 #define HUBBLE_BLE_ADDR_SIZE            6
-#define HUBBLE_BLE_BLE_AUTH_TAG_SIZE    4
+#define HUBBLE_BLE_AUTH_TAG_SIZE        4
 #define HUBBLE_BLE_NONCE_LEN            12
-#define HUBBLE_BLE_ADV_FIELDS_SIZE      (HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_ADDR_SIZE + HUBBLE_BLE_BLE_AUTH_TAG_SIZE)
+#define HUBBLE_BLE_ADV_FIELDS_SIZE      (HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_ADDR_SIZE + HUBBLE_BLE_AUTH_TAG_SIZE)
 
 #define _KEY_BITS_LEN                   (HUBBLE_BLE_KEY_LEN * BITS_PER_BYTE)
 
@@ -59,7 +59,7 @@ static uint8_t advertise_buffer[CONFIG_HUBBLE_BLE_ADVERTISE_BUFFER_SIZE] = {
 /* Define some helpers for payload offsets */
 #define _PAYLOAD_ADDR     (advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX)
 #define _PAYLOAD_AUTH_TAG ((_PAYLOAD_ADDR) + HUBBLE_BLE_ADDR_SIZE)
-#define _PAYLOAD_DATA     ((_PAYLOAD_AUTH_TAG) + HUBBLE_BLE_BLE_AUTH_TAG_SIZE)
+#define _PAYLOAD_DATA     ((_PAYLOAD_AUTH_TAG) + HUBBLE_BLE_AUTH_TAG_SIZE)
 
 #ifndef CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 uint16_t hubble_sequence_counter_get(void)
@@ -369,12 +369,12 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 		goto cmac_err;
 	}
 
-	memcpy(_PAYLOAD_AUTH_TAG, auth_tag, HUBBLE_BLE_BLE_AUTH_TAG_SIZE);
+	memcpy(_PAYLOAD_AUTH_TAG, auth_tag, HUBBLE_BLE_AUTH_TAG_SIZE);
 
 	if (out_len) {
 		*out_len = HUBBLE_BLE_ADVERTISE_PREFIX +
 			   HUBBLE_BLE_ADDR_SIZE +
-			   HUBBLE_BLE_BLE_AUTH_TAG_SIZE + len;
+			   HUBBLE_BLE_AUTH_TAG_SIZE + len;
 	}
 
 cmac_err:
