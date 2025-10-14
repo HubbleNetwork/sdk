@@ -50,17 +50,32 @@ int hubble_ble_init(uint64_t utc_time);
 /**
  * @brief Retrieves advertisements from the provided data.
  *
- * This function processes the input data and creates Bluetooth advertisements.
- * The returned pointer is platform-specific and should be cast to the
- * appropriate type based on the target platform.
+ * This function processes the input data and creates the advertisement payload.
+ * The returned data should be used with Service Data - 16 bit UUID
+ * advertisement type (0x16).
+ *
+ * It is also required to add Hubble 16-bit service UUID in the complete list of
+ * 16-bit service class UUID (0x03).
+ *
  * Example:
  *
  * @code
  * void *adv_data = hubble_ble_advertise_get(data, data_len, &out_len);
  * @endcode
  *
- * @note - The advertisement packet is a buffer that must be copied and advertised
- *         by the application with Hubble BLE 16-bit service UUID. @see HUBBLE_BLE_UUID
+ * The following advertisement packet shows a valid example and where the
+ * returned data fits in.
+ *
+ * | len   | ad type | data   | len                          | ad type | data              |
+ * |-------+---------+--------+------------------------------+---------+-------------------|
+ * | 0x03  | 0x03    | 0xFCA6 | out_len + 0x01 (ad type len) | 0x16    | adv_data          |
+ * |       |         |        | (out_len is adv_data len -   |         | (returned by this |
+ * |       |         |        |  returned by this API)       |         |  API)             |
+ *
+ *
+ * @note - This function is neither thread-safe nor reentrant. The caller must
+ *         ensure proper synchronization and copy the returned data if the function may
+ *         be called from multiple contexts.
  *       - The payload is encrypted using the key set by @ref hubble_ble_key_set
  *       - Legacy packet type (Extended Advertisements not supported)
  *
