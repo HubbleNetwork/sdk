@@ -1,0 +1,18 @@
+common:
+  platform_allow:
+    - nrf52840dk/nrf52840
+    - nrf52_bsim
+  tags:
+    - ble
+    - security
+    - nonce
+  integration_platforms:
+    - nrf52840dk/nrf52840
+
+tests:
+  ble.nonce:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+  ble.nonce.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
