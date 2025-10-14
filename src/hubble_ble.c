@@ -27,7 +27,7 @@ static const void *master_key;
 #define HUBBLE_BLE_MESSAGE_LEN          64
 #define HUBBLE_BLE_AUTH_LEN             16
 #define HUBBLE_BLE_ADVERTISE_PREFIX     2
-#define HUBBLE_BLE_BLE_PROTOCOL_VERSION 0b000000
+#define HUBBLE_BLE_PROTOCOL_VERSION     0b000000
 #define HUBBLE_BLE_BLE_ADDR_SIZE        6
 #define HUBBLE_BLE_BLE_AUTH_TAG_SIZE    4
 #define HUBBLE_BLE_NONCE_LEN            12
@@ -302,7 +302,7 @@ static void _addr_set(uint8_t *addr, uint16_t seq_no, uint32_t device_id)
 	uint8_t seq_no_first_2bits = (seq_no >> 8) & 0x03;
 	uint8_t seq_no_last_8bits = seq_no & 0xFF;
 
-	addr[0] = HUBBLE_BLE_BLE_PROTOCOL_VERSION | seq_no_first_2bits;
+	addr[0] = HUBBLE_BLE_PROTOCOL_VERSION | seq_no_first_2bits;
 	addr[1] = seq_no_last_8bits;
 
 	memcpy((addr + 2), &device_id, sizeof(device_id));
