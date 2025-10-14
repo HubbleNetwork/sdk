@@ -82,7 +82,7 @@ config HUBBLE_BLE_NETWORK_MBEDTLS
 config HUBBLE_BLE_NETWORK_PSA
 	   bool "Use PSA Crypto for Hubble BLE Network Library"
 	   select MBEDTLS
-	   select PSA_CRYPTO_CLIENT
+	   select MBEDTLS_PSA_CRYPTO_C
 	   select PSA_WANT_KEY_TYPE_AES
 	   select PSA_WANT_ALG_CMAC
 	   select PSA_WANT_ALG_CTR
