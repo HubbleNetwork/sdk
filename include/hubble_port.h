@@ -134,7 +134,7 @@ struct hubble_sat_api {
 	 *
 	 * @return 0 on success, non-zero on error.
 	 */
-	int (*channel_set)(uint8_t power);
+	int (*channel_set)(uint8_t channel);
 
 	/**
 	 * @brief Enables Hubble Network satellite stack.
