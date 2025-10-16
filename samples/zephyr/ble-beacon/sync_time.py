@@ -24,7 +24,7 @@ HUBBLE_BLE_UUID_SYNC    =         "0000fca7"
 
 
 def cts_time_get() -> bytes:
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(datetime.UTC)
 
     year = now.year
     month = now.month
