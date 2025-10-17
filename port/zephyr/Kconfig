@@ -23,7 +23,6 @@ endif
 
 menuconfig HUBBLE_BLE_NETWORK
 	   bool "Hubble BLE Network Library"
-	   depends on BT
 	   help
 		Enable library for communication with Hubble BLE network
 
