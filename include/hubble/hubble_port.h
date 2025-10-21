@@ -10,7 +10,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <hubble/ble.h>
 #include <hubble/sat/packet.h>
 
 #ifdef __cplusplus
