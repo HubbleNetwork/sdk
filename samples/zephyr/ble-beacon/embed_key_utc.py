@@ -16,7 +16,7 @@ KEY_TEMPLATE = """
  */
 #define HUBBLE_KEY_SET 1
 
-static uint8_t master_key[HUBBLE_BLE_KEY_LEN] = {key};
+static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE] = {key};
 """
 
 UTC_TEMPLATE = """

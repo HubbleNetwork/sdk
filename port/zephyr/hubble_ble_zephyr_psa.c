@@ -17,7 +17,7 @@
 #define BITS_PER_BYTE 8
 #endif
 
-#define _KEY_BITS_LEN (HUBBLE_BLE_KEY_LEN * BITS_PER_BYTE)
+#define _KEY_BITS_LEN (CONFIG_HUBBLE_KEY_SIZE * BITS_PER_BYTE)
 
 static int hubble_zephyr_cmac(const uint8_t *key, const uint8_t *input,
 			      size_t input_len,
@@ -34,7 +34,7 @@ static int hubble_zephyr_cmac(const uint8_t *key, const uint8_t *input,
 	psa_set_key_algorithm(&attributes, PSA_ALG_CMAC);
 	psa_set_key_bits(&attributes, _KEY_BITS_LEN);
 
-	status = psa_import_key(&attributes, key, HUBBLE_BLE_KEY_LEN, &key_id);
+	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE, &key_id);
 	if (status != PSA_SUCCESS) {
 		goto import_key_error;
 	}
@@ -61,7 +61,7 @@ import_key_error:
 }
 
 static int hubble_zephyr_aes_ctr(
-	const uint8_t key[HUBBLE_BLE_KEY_LEN], size_t counter,
+	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t data_len, uint8_t *output)
 {
@@ -85,7 +85,7 @@ static int hubble_zephyr_aes_ctr(
 	psa_set_key_type(&attributes, PSA_KEY_TYPE_AES);
 	psa_set_key_bits(&attributes, _KEY_BITS_LEN);
 
-	status = psa_import_key(&attributes, key, HUBBLE_BLE_KEY_LEN, &key_id);
+	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE, &key_id);
 	if (status != PSA_SUCCESS) {
 		goto import_key_error;
 	}

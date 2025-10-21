@@ -207,7 +207,7 @@ struct hubble_ble_api {
 	/**
 	 * @brief Perform AES encryption in Counter (CTR) mode.
 	 *
-	 * @param key A pointer to the encryption key (size: HUBBLE_BLE_KEY_LEN).
+	 * @param key A pointer to the encryption key (size: CONFIG_HUBBLE_KEY_SIZE).
 	 * @param counter The counter value used in the AES-CTR mode.
 	 * @param nonce_counter A pointer to the nonce and counter buffer (size:
 	 *                      HUBBLE_BLE_NONCE_BUFFER_LEN).
@@ -217,7 +217,7 @@ struct hubble_ble_api {
 	 *
 	 * @return Returns 0 on success, or a non-zero error code on failure.
 	 */
-	int (*aes_ctr)(const uint8_t key[HUBBLE_BLE_KEY_LEN], size_t counter,
+	int (*aes_ctr)(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 		       uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
 		       const uint8_t *data, size_t len,
 		       uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
@@ -226,7 +226,7 @@ struct hubble_ble_api {
 	 * @brief Computes the Cipher-based Message Authentication Code (CMAC).
 	 *
 	 * @param key The secret key used for CMAC calculation. The size of the
-	 *            key is defined by HUBBLE_BLE_KEY_LEN.
+	 *            key is defined by CONFIG_HUBBLE_KEY_SIZE.
 	 * @param data Pointer to the input data for which the CMAC is
 	 *             calculated.
 	 * @param len The length of the input data in bytes.
@@ -237,7 +237,7 @@ struct hubble_ble_api {
 	 *
 	 * @return 0 on success, non-zero on error.
 	 */
-	int (*cmac)(const uint8_t key[HUBBLE_BLE_KEY_LEN], const uint8_t *data,
+	int (*cmac)(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], const uint8_t *data,
 		    size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
 };
 

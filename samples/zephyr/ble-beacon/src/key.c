@@ -1,1 +1,1 @@
-static uint8_t master_key[HUBBLE_BLE_KEY_LEN];
+static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE];

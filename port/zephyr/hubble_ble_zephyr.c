@@ -20,12 +20,12 @@
 #define BITS_PER_BYTE 8
 #endif
 
-#define _KEY_BITS_LEN               (HUBBLE_BLE_KEY_LEN * BITS_PER_BYTE)
+#define _KEY_BITS_LEN               (CONFIG_HUBBLE_KEY_SIZE * BITS_PER_BYTE)
 
 #define HUBBLE_BLE_STREAM_BLOCK_LEN 16
 
 
-static int hubble_zephyr_cmac(const uint8_t key[HUBBLE_BLE_KEY_LEN],
+static int hubble_zephyr_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 			      const uint8_t *input, size_t input_len,
 			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
@@ -74,7 +74,7 @@ exit:
 }
 
 static int hubble_zephyr_aes_ctr(
-	const uint8_t key[HUBBLE_BLE_KEY_LEN], size_t counter,
+	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {

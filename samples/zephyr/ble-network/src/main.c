@@ -19,7 +19,7 @@ LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
 K_SEM_DEFINE(app_sem, 0, 1);
 K_SEM_DEFINE(key_sem, 0, 1);
 
-static uint8_t master_key[HUBBLE_BLE_KEY_LEN];
+static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE];
 static uint64_t utc_time;
 static int sum;
 static int chunk_element;

@@ -23,11 +23,6 @@ extern "C" {
  */
 
 /**
- * Indicates the required length of the encryption key (256 bits) for Hubble BLE Network.
- */
-#define HUBBLE_BLE_KEY_LEN CONFIG_HUBBLE_KEY_SIZE
-
-/**
  * @brief Hubble BLE Network UUID
  *
  * This is the UUID should be listed in the services list.

@@ -213,7 +213,7 @@ exit:
 }
 
 static int _derived_key_get(enum hubble_ble_key_label label, uint32_t counter,
-			    uint8_t output_key[HUBBLE_BLE_KEY_LEN])
+			    uint8_t output_key[CONFIG_HUBBLE_KEY_SIZE])
 {
 	int err = 0;
 	uint8_t context[HUBBLE_BLE_CONTEXT_LEN] = {0};
@@ -224,18 +224,18 @@ static int _derived_key_get(enum hubble_ble_key_label label, uint32_t counter,
 	case HUBBLE_BLE_DEVICE_KEY:
 		err = _kbkdf_counter(master_key, "DeviceKey", strlen("DeviceKey"),
 				     context, strlen(context), output_key,
-				     HUBBLE_BLE_KEY_LEN);
+				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_NONCE_KEY:
 		err = _kbkdf_counter(master_key, "NonceKey", strlen("NonceKey"),
 				     context, strlen(context), output_key,
-				     HUBBLE_BLE_KEY_LEN);
+				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_ENCRYPTION_KEY:
 		err = _kbkdf_counter(master_key, "EncryptionKey",
 				     strlen("EncryptionKey"), context,
 				     strlen(context), output_key,
-				     HUBBLE_BLE_KEY_LEN);
+				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	default:
 		err = -EINVAL;
@@ -251,7 +251,7 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 {
 	int ret = 0;
 	uint8_t context[HUBBLE_BLE_CONTEXT_LEN] = {0};
-	uint8_t derived_key[HUBBLE_BLE_KEY_LEN] = {0};
+	uint8_t derived_key[CONFIG_HUBBLE_KEY_SIZE] = {0};
 
 	snprintf((char *)context, HUBBLE_BLE_CONTEXT_LEN, "%u", seq_no);
 
@@ -312,7 +312,7 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	uint32_t device_id;
 	uint32_t time_counter = (utc_time_base + hubble_uptime_get()) /
 				HUBBLE_TIMER_COUNTER_FREQUENCY;
-	uint8_t encryption_key[HUBBLE_BLE_KEY_LEN] = {0};
+	uint8_t encryption_key[CONFIG_HUBBLE_KEY_SIZE] = {0};
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN] = {0};
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
 	uint16_t seq_no;
