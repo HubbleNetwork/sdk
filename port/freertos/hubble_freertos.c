@@ -7,7 +7,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <hubble_port.h>
+#include <hubble/hubble_port.h>
 
 /**
  * Define weak attribute.

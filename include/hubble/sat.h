@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 
-#include "hubble_sat_packet.h"
+#include <hubble/sat/packet.h>
 
 #ifdef __cplusplus
 extern "C" {

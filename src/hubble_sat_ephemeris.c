@@ -1,4 +1,4 @@
-#include <hubble_sat_ephemeris.h>
+#include <hubble/sat/ephemeris.h>
 
 #include <math.h>
 #include <string.h>

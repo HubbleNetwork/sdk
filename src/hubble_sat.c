@@ -9,8 +9,8 @@
 
 #include "reed_solomon_encoder.h"
 
-#include <hubble_sat.h>
-#include <hubble_port.h>
+#include <hubble/sat.h>
+#include <hubble/hubble_port.h>
 
 #define HUBBLE_LOG(_level, ...)                                                \
 	do {                                                                   \

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <hubble_ble.h>
+#include <hubble/ble.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/bluetooth.h>

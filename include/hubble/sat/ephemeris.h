@@ -5,7 +5,7 @@
  */
 
 /**
- * @file hubble_sat_ephemeris.h
+ * @file ephemeris.h
  * @brief Hubble Network Satellite Ephemeris APIs
  **/
 

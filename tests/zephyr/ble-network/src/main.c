@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <hubble_ble.h>
-#include <hubble_port.h>
+#include <hubble/ble.h>
+#include <hubble/hubble_port.h>
 
 #include <zephyr/sys/util.h>
 #include <zephyr/types.h>

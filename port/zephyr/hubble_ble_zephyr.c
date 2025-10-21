@@ -12,8 +12,8 @@
 #include <mbedtls/aes.h>
 #include <mbedtls/cmac.h>
 
-#include <hubble_ble.h>
-#include <hubble_port.h>
+#include <hubble/ble.h>
+#include <hubble/hubble_port.h>
 
 /* Older verions of Zephyr do not define it */
 #ifndef BITS_PER_BYTE

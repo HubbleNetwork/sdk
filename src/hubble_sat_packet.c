@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-#include <hubble_sat_packet.h>
+#include <hubble/sat/packet.h>
 
 #include "reed_solomon_encoder.h"
 #include "utils/bitarray.h"

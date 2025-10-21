@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef INCLUDE_HUBBLE_PORT_H
-#define INCLUDE_HUBBLE_PORT_H
+#ifndef INCLUDE_HUBBLE_HUBBLE_PORT_H
+#define INCLUDE_HUBBLE_HUBBLE_PORT_H
 
 #include <stddef.h>
 #include <stdint.h>
 
-#include <hubble_ble.h>
-#include <hubble_sat_packet.h>
+#include <hubble/ble.h>
+#include <hubble/sat/packet.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -265,4 +265,4 @@ const struct hubble_ble_api *hubble_ble_api_get(void);
 }
 #endif
 
-#endif /* INCLUDE_HUBBLE_PORT_H */
+#endif /* INCLUDE_HUBBLE_HUBBLE_PORT_H */

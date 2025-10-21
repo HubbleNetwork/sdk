@@ -12,8 +12,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <hubble_ble.h>
-#include <hubble_port.h>
+#include <hubble/ble.h>
+#include <hubble/hubble_port.h>
 
 #include "utils/macros.h"
 

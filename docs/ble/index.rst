@@ -11,7 +11,7 @@ The Hubble Bluetooth® Low Energy (BLE) Network is a framework designed to provi
 and efficient communication within a Bluetooth Low Energy (BLE) environment.
 Advanced encryption techniques and Bluetooth technology protect data
 integrity and privacy across distributed systems. The Hubble BLE API, defined
-in the **hubble_ble.h** header file, provides a comprehensive set of functions
+in the **hubble/ble.h** header file, provides a comprehensive set of functions
 for initializing, configuring, and managing network operations.
 
 Key Features

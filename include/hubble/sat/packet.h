@@ -5,7 +5,7 @@
  **/
 
 /**
- * @file hubble_sat_packet.h
+ * @file packet.h
  * @brief Hubble Network packet APIs
  **/
 

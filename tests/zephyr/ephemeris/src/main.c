@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <hubble_sat_ephemeris.h>
+#include <hubble/sat/ephemeris.h>
 #include <zephyr/types.h>
 #include <zephyr/ztest.h>
 
