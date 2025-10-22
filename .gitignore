@@ -3,3 +3,26 @@ tests/unit-tests/build/*
 # Documentation artifacts
 docs/_build/
 docs/_doxygen/
+
+# Python build/runtime artifacts
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+.build/
+build/
+dist/
+pip-wheel-metadata/
+
+# Virtual envs
+.venv/
+venv/
+.env/
+
+# Test/typing caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
