@@ -1,0 +1,57 @@
+# Copyright (c) 2025 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig HUBBLE_BLE_NETWORK
+	   bool "Hubble BLE Network Library"
+	   help
+		Enable library for communication with Hubble BLE network
+
+if HUBBLE_BLE_NETWORK
+
+choice
+	prompt "Hubble Network key size"
+
+config HUBBLE_NETWORK_KEY_256
+	   bool "Use 256 bits key size"
+	   help
+		256 bits key size
+
+config HUBBLE_NETWORK_KEY_128
+	   bool "Use 128 bits key size"
+	   help
+		128 bits key size
+
+endchoice
+
+config HUBBLE_KEY_SIZE
+	   int
+	   default 32 if HUBBLE_NETWORK_KEY_256
+	   default 16 if HUBBLE_NETWORK_KEY_128
+
+config HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK
+	   bool "Enforce check in nonce used in cryptography"
+	   default y
+	   help
+		Ensure that nonce parameters are not re-used
+		to encrypt different messages.
+		Be aware that re-using the same nonce has severe
+		security implications.
+
+config HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
+	   bool "Application defined sequence counter"
+	   help
+		This option allows applications to override the default
+		function that returns a sequence number to be used to
+		encrypt messages.
+choice
+	prompt "HUBBLE BLE Network Timer Counter Frequency"
+
+config HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY
+	   bool "Timer counter changes daily"
+	   help
+	        The timer counter will change daily
+
+
+endchoice
+
+endif

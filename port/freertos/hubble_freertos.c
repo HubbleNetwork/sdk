@@ -4,8 +4,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#ifdef CONFIG_ESP_IDF_BUILD
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#else
 #include <FreeRTOS.h>
 #include <task.h>
+#endif
 
 #include <hubble/port/sys.h>
 
