@@ -6,7 +6,6 @@
 
 import argparse
 import base64
-import os
 import time
 
 
@@ -28,16 +27,16 @@ UTC_TEMPLATE = """
 static uint64_t utc_time = {utc};
 """
 
-def provision_data(key: str, encoded: bool) -> None:
+def provision_data(key: str, encoded: bool, path: str) -> None:
     with open(key, "rb") as f:
         key_data = bytearray(f.read())
         if encoded:
             key_data = bytearray(base64.b64decode(key_data))
 
-    with open(os.path.dirname(__file__) + "/src/key.c", "w") as f:
+    with open(path + "/key.c", "w") as f:
         f.write(KEY_TEMPLATE.format(key="{" +", ".join([hex(x) for x in key_data]) + "}"))
 
-    with open(os.path.dirname(__file__) + "/src/utc.c", "w") as f:
+    with open(path + "/utc.c", "w") as f:
         f.write(UTC_TEMPLATE.format(utc=str(int(time.time() * 1000))))
 
 
@@ -61,13 +60,15 @@ def parse_args() -> None:
                         help="The key to provision")
     parser.add_argument("-b", "--base64",
                         help="The key is encoded in base64", action='store_true', default=False)
+    parser.add_argument("-o", "--output-dir",
+                        help="Path where utc and key will be generated", default=".")
     args = parser.parse_args()
 
 
 def main():
     parse_args()
 
-    provision_data(args.key, args.base64)
+    provision_data(args.key, args.base64, args.output_dir)
 
 
 if __name__ == '__main__':

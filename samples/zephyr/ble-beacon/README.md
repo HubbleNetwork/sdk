@@ -41,7 +41,9 @@ current timestamp into the source code (`src/key.c` and `src/utc.c`).
 **For a raw key file:**
 
 ```sh
-./embed_key_utc.py master.key
+# Script is located in SDK_BASE/tools
+
+python ../../../tools/embed_key_utc.py master.key -o ./src
 ```
 
 **For a base64-encoded key file:**
@@ -49,7 +51,9 @@ current timestamp into the source code (`src/key.c` and `src/utc.c`).
 Use the `-b` or `--base64` flag:
 
 ```sh
-./embed_key_utc.py -b master.key
+# Script is located in SDK_BASE/tools
+
+python ../../../tools/embed_key_utc.py -b master.key -o ./src
 ```
 
 After running the script, the key and timestamp will be compiled into the application.

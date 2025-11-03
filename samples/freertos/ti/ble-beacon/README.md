@@ -37,7 +37,6 @@ To build and run this project, you will need:
 + **app**: Contains application-specific source files.
 + **common**: Contains shared utilities and startup code.
 + **freertos**: FreeRTOS-specific configuration and build files.
-+ **embed_key_utc.py**: Script to embed a BLE key and UTC timestamp into the firmware.
 
 ### Setup Instructions
 
@@ -57,7 +56,9 @@ To build and run this project, you will need:
    Use the *embed_key_utc.py* script to provision a BLE key and UTC timestamp:
 
 ```
-   python embed_key_utc.py --base64 <path-to-key>
+   # Script is located in SDK_BASE/tools
+
+   python ../../../../tools/embed_key_utc.py --base64 <path-to-key> -o src/
 ```
 
 3. **Build the Project**
