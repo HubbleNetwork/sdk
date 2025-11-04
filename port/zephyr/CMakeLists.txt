@@ -17,7 +17,7 @@ endif()
 
 if(CONFIG_HUBBLE_BLE_NETWORK)
 	zephyr_library_sources(../../src/hubble_ble.c)
-	zephyr_library_sources_ifdef(CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS hubble_ble_zephyr.c)
+	zephyr_library_sources_ifdef(CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS ../../src/crypto/mbedtls.c)
 	zephyr_library_sources_ifdef(CONFIG_HUBBLE_BLE_NETWORK_PSA hubble_ble_zephyr_psa.c)
 	zephyr_library_link_libraries(mbedTLS)
 endif()

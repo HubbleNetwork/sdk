@@ -1,13 +1,6 @@
-#include <zephyr/bluetooth/bluetooth.h>
-#include <zephyr/kernel.h>
-#include <zephyr/sys/byteorder.h>
-#include <zephyr/sys/util.h>
-#include <zephyr/sys/util_macro.h>
-
 #include <errno.h>
 #include <stdint.h>
 #include <string.h>
-#include <stdio.h>
 
 #include <mbedtls/aes.h>
 #include <mbedtls/cmac.h>
@@ -24,6 +17,13 @@
 
 #define HUBBLE_BLE_STREAM_BLOCK_LEN 16
 
+#if defined(CONFIG_HUBBLE_NETWORK_KEY_256)
+#define CIPHER_TYPE MBEDTLS_CIPHER_AES_256_ECB
+#elif defined(CONFIG_HUBBLE_NETWORK_KEY_128)
+#define CIPHER_TYPE MBEDTLS_CIPHER_AES_128_ECB
+#else
+#error "Invalid Hubble Key size"
+#endif
 
 int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 			      const uint8_t *input, size_t input_len,
@@ -37,16 +37,13 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	mbedtls_cipher_init(&ctx);
 
 	/* Get cipher info for AES-256 ECB (Electronic Codebook) mode */
-	cipher_info = mbedtls_cipher_info_from_type(
-					COND_CODE_1(CONFIG_HUBBLE_NETWORK_KEY_256,
-					    (MBEDTLS_CIPHER_AES_256_ECB),
-					    (MBEDTLS_CIPHER_AES_128_ECB)));
+	cipher_info = mbedtls_cipher_info_from_type(CIPHER_TYPE);
 	if (cipher_info == NULL) {
 		ret = MBEDTLS_ERR_CIPHER_BAD_INPUT_DATA;
 		goto exit;
 	}
 
-	/* Setup the CMAC context with AES-256 ECB */
+	/* Setup the CMAC context with AES ECB */
 	ret = mbedtls_cipher_setup(&ctx, cipher_info);
 	if (ret) {
 		goto exit;
