@@ -62,7 +62,7 @@ static int _psa_status_to_errno(psa_status_t status)
 	return ret;
 }
 
-int hubble_crypto_cmac(const uint8_t *key, const uint8_t *input,
+int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], const uint8_t *input,
 			      size_t input_len,
 			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
@@ -106,7 +106,7 @@ import_key_error:
 int hubble_crypto_aes_ctr(
 	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
-	size_t data_len, uint8_t *output)
+	size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
 	psa_status_t status;
 	psa_key_id_t key_id;
@@ -114,7 +114,7 @@ int hubble_crypto_aes_ctr(
 	psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
 	psa_cipher_operation_t operation = PSA_CIPHER_OPERATION_INIT;
 	size_t part_size = PSA_BLOCK_CIPHER_BLOCK_LENGTH(PSA_KEY_TYPE_AES);
-	size_t len = 0, out_len = 0;
+	size_t out_len = 0;
 
 	/* We are limited to 13 bytes in our protocol, which is lower than the
 	 * 16 bytes part size. To keep it simple, lets ignore the counter
@@ -144,14 +144,14 @@ int hubble_crypto_aes_ctr(
 		goto cipher_iv_error;
 	}
 
-	status = psa_cipher_update(&operation, data, data_len, output,
+	status = psa_cipher_update(&operation, data, len, output,
 				   part_size, &out_len);
 	if (status != PSA_SUCCESS) {
 		goto cipher_update_error;
 	}
 
 	status = psa_cipher_finish(&operation, output + out_len,
-				   part_size - out_len, &len);
+				   part_size - out_len, &out_len);
 
 cipher_update_error:
 cipher_iv_error:
