@@ -1,13 +1,8 @@
-#include <zephyr/kernel.h>
-#include <zephyr/sys/byteorder.h>
-#include <zephyr/sys/util.h>
-
 #include <psa/crypto.h>
 
 #include <errno.h>
 #include <stdint.h>
 #include <string.h>
-#include <stdio.h>
 
 #include <hubble/ble.h>
 #include <hubble/hubble_port.h>
@@ -121,7 +116,7 @@ int hubble_crypto_aes_ctr(
 	 * (because we have to increment it manually in PSA Crypto) and encrypt
 	 * only one block (which is enough !!).
 	 */
-	ARG_UNUSED(counter);
+	(void) counter;
 
 	psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_ENCRYPT);
 	psa_set_key_algorithm(&attributes, alg);
