@@ -62,7 +62,7 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	return ret;
 }
 
-int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
+int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		      uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
 		      const uint8_t *data, size_t len,
 		      uint8_t output[HUBBLE_AES_BLOCK_SIZE])

@@ -356,7 +356,7 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *ou
 		goto encryption_key_err;
 	}
 
-	err = hubble_crypto_aes_ctr(encryption_key, (size_t){0}, nonce_counter, input,
+	err = hubble_crypto_aes_ctr(encryption_key, nonce_counter, input,
 			       input_len, _PAYLOAD_DATA(out));
 	if (err != 0) {
 		goto crypt_ctr_err;

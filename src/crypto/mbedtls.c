@@ -70,12 +70,12 @@ exit:
 	return ret;
 }
 
-int hubble_crypto_aes_ctr(
-	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
+int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
 	int ret;
+	size_t nc_off = 0;
 	mbedtls_aes_context aes_ctx;
 	uint8_t stream_block[HUBBLE_BLE_STREAM_BLOCK_LEN] = {0};
 
@@ -88,7 +88,7 @@ int hubble_crypto_aes_ctr(
 		goto key_error;
 	}
 
-	ret = mbedtls_aes_crypt_ctr(&aes_ctx, len, &counter, nonce_counter,
+	ret = mbedtls_aes_crypt_ctr(&aes_ctx, len, &nc_off, nonce_counter,
 				    stream_block, data, output);
 	if (ret != 0) {
 		goto crypt_ctr_error;

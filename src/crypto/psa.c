@@ -98,8 +98,7 @@ import_key_error:
 	return status == PSA_SUCCESS ? 0 : -EINVAL;
 }
 
-int hubble_crypto_aes_ctr(
-	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
+int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
@@ -110,13 +109,6 @@ int hubble_crypto_aes_ctr(
 	psa_cipher_operation_t operation = PSA_CIPHER_OPERATION_INIT;
 	size_t part_size = PSA_BLOCK_CIPHER_BLOCK_LENGTH(PSA_KEY_TYPE_AES);
 	size_t out_len = 0;
-
-	/* We are limited to 13 bytes in our protocol, which is lower than the
-	 * 16 bytes part size. To keep it simple, lets ignore the counter
-	 * (because we have to increment it manually in PSA Crypto) and encrypt
-	 * only one block (which is enough !!).
-	 */
-	(void) counter;
 
 	psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_ENCRYPT);
 	psa_set_key_algorithm(&attributes, alg);

@@ -207,7 +207,6 @@ int hubble_crypto_init(void);
  * @brief Perform AES encryption in Counter (CTR) mode.
  *
  * @param key A pointer to the encryption key (size: CONFIG_HUBBLE_KEY_SIZE).
- * @param counter The counter value used in the AES-CTR mode.
  * @param nonce_counter A pointer to the nonce and counter buffer (size:
  *                      HUBBLE_BLE_NONCE_BUFFER_LEN).
  * @param data A pointer to the input data buffer to be encrypted.
@@ -216,7 +215,7 @@ int hubble_crypto_init(void);
  *
  * @return Returns 0 on success, or a non-zero error code on failure.
  */
-int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
+int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
 		const uint8_t *data, size_t len,
 		uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
