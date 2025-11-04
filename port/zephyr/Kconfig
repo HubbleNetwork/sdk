@@ -90,6 +90,11 @@ config HUBBLE_BLE_NETWORK_PSA
 
 endchoice
 
+menuconfig HUBBLE_BLE_HELPER
+	   bool "Hubble BLE Helper Library"
+	   help
+		Adds helpers for common Hubble BLE functionality
+
 choice
 	prompt "HUBBLE BLE Network Timer Counter Frequency"
 

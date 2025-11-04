@@ -21,3 +21,7 @@ if(CONFIG_HUBBLE_BLE_NETWORK)
 	zephyr_library_sources_ifdef(CONFIG_HUBBLE_BLE_NETWORK_PSA hubble_ble_zephyr_psa.c)
 	zephyr_library_link_libraries(mbedTLS)
 endif()
+
+if(CONFIG_HUBBLE_BLE_HELPER)
+	zephyr_library_sources(../../src/utils/ad_helper_zephyr.c)
+endif()

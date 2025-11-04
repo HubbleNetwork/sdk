@@ -4,6 +4,7 @@
  */
 
 #include <hubble/ble.h>
+#include <hubble/ad_helper.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/bluetooth.h>
@@ -19,21 +20,11 @@ LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
 K_SEM_DEFINE(app_sem, 0, 1);
 K_SEM_DEFINE(key_sem, 0, 1);
 
-// Buffer used for Hubble data
-// Encrypted data will go in here for the advertisement.
-#define HUBBLE_USER_BUFFER_LEN 31
-static uint8_t _hubble_user_buffer[HUBBLE_USER_BUFFER_LEN];
-
 static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE];
 static uint64_t utc_time;
 static int sum;
 static int chunk_element;
 static char chunk[2];
-static uint16_t app_adv_uuids = HUBBLE_BLE_UUID;
-static struct bt_data app_ad[2] = {
-	BT_DATA(BT_DATA_UUID16_ALL, &app_adv_uuids, sizeof(app_adv_uuids)),
-	{},
-};
 
 
 static inline bool is_hexchar(uint8_t data)
@@ -133,21 +124,7 @@ static int cmd_utc(const struct shell *sh, size_t argc, char **argv, void *data)
 static int cmd_data(const struct shell *sh, size_t argc, char **argv,
 		    void *data)
 {
-	size_t out_len = HUBBLE_USER_BUFFER_LEN;
-	int err = hubble_ble_advertise_get((const uint8_t *)argv[1], strlen(argv[1]),
-				      _hubble_user_buffer, &out_len);
-	if (err != 0) {
-		LOG_ERR("Failed to get the advertisement data (err=%d)", err);
-		return err;
-	}
-
-	app_ad[1].data_len = out_len;
-	app_ad[1].type = BT_DATA_SVC_DATA16;
-	app_ad[1].data = _hubble_user_buffer;
-
-	LOG_DBG("Updating advertisement data (len %d bytes)", out_len);
-
-	return bt_le_adv_update_data(app_ad, ARRAY_SIZE(app_ad), NULL, 0);
+	return hubble_ad_update_data((const uint8_t *)argv[1], strlen(argv[1]));
 }
 
 
@@ -183,10 +160,17 @@ int main(void)
 		return err;
 	}
 
-	err = bt_le_adv_start(BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA,
-					      BT_GAP_ADV_FAST_INT_MIN_2,
-					      BT_GAP_ADV_FAST_INT_MAX_2, NULL),
-			      NULL, 0, NULL, 0);
+	static const hubble_ad_config_t config = {
+		.interval_min = BT_GAP_ADV_FAST_INT_MIN_2,
+		.interval_max = BT_GAP_ADV_FAST_INT_MAX_2,
+	};
+	err = hubble_ad_init(&config);
+	if (err != 0) {
+		LOG_ERR("Failed to initialize advertising");
+		goto end;
+	}
+
+	err = hubble_ad_start();
 	if (err != 0) {
 		LOG_ERR("Bluetooth advertisement failed (err %d)", err);
 		goto end;
