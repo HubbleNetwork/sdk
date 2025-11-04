@@ -3,3 +3,7 @@ tests/unit-tests/build/*
 # Documentation artifacts
 docs/_build/
 docs/_doxygen/
+
+# macOS
+.DS_Store
+**/.DS_Store
