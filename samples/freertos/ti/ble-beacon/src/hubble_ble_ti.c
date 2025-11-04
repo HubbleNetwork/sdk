@@ -19,14 +19,14 @@
 #define AESCMAC_INSTANCE 0
 #define AESCTR_INSTANCE 0
 
-static void hubble_zeroize(void *buf, size_t len)
+void hubble_crypto_zeroize(void *buf, size_t len)
 {
 	memset(buf, 0, len);
 }
 
-static int hubble_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
-			      const uint8_t *input, size_t input_len,
-			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
+int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
+		      const uint8_t *input, size_t input_len,
+		      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
 	int ret;
 	AESCMAC_Handle handle;
@@ -57,13 +57,12 @@ static int hubble_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	ret = AESCMAC_oneStepSign(handle, &operation, &cryptoKey);
 	AESCMAC_close(handle);
 
-	hubble_zeroize(input_aligned, input_len);
+	hubble_crypto_zeroize(input_aligned, input_len);
 
 	return ret;
 }
 
-static int
-hubble_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
+int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 		      uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
 		      const uint8_t *data, size_t len,
 		      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
@@ -100,21 +99,16 @@ hubble_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 
 	memcpy(output, output_aligned, HUBBLE_AES_BLOCK_SIZE);
 
-	hubble_zeroize(data_aligned, len);
+	hubble_crypto_zeroize(data_aligned, len);
 
 	return ret;
 }
 
-const struct hubble_ble_api *hubble_ble_api_get(void)
+int hubble_crypto_init(void)
 {
 	AESCTR_init();
 	AESCMAC_init();
 
-	static struct hubble_ble_api api = {
-		.zeroize = hubble_zeroize,
-		.cmac = hubble_cmac,
-		.aes_ctr = hubble_aes_ctr,
-	};
-
-	return &api;
+	return 0;
 }
+

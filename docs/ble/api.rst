@@ -6,9 +6,9 @@ BLE Network API Reference
 .. doxygengroup:: hubble_ble_api
    :project: HubbleNetworkSDK
 
-.. _hubble_ble_port:
+.. _hubble_crypto:
 
-.. doxygengroup:: hubble_ble_port
+.. doxygengroup:: hubble_crypto
    :project: HubbleNetworkSDK
    :members:
 

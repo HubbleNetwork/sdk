@@ -36,9 +36,13 @@ Adding Hubble Network to FreeRTOS
    * All symbols defined in this file will be available at build time
      for all objects compiled using ``HUBBLENETWORK_SDK_BLE_FLAGS``.
 
-* Since there is no standard cryptographic API, the application has to implement
-  the API :c:func:`hubble_ble_api_get`. This method returns a :ref:`data struct <hubble_ble_port>`
-  that implements cryptographic primitives needed by Hubble Network SDK.
+* Since there is no standard cryptographic API, the application has to use one of
+  the implementations available or implement the following APIs:
+
+  * :c:func:`hubble_crypto_init`.
+  * :c:func:`hubble_crypto_cmac`.
+  * :c:func:`hubble_crypto_aes_ctr`.
+  * :c:func:`hubble_crypto_zeroize`.
 
 * Include the Makefile fragment
 

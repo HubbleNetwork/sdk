@@ -25,7 +25,7 @@
 #define HUBBLE_BLE_STREAM_BLOCK_LEN 16
 
 
-static int hubble_zephyr_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
+int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 			      const uint8_t *input, size_t input_len,
 			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
@@ -73,7 +73,7 @@ exit:
 	return ret;
 }
 
-static int hubble_zephyr_aes_ctr(
+int hubble_crypto_aes_ctr(
 	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE])
@@ -105,13 +105,12 @@ key_error:
 	return ret;
 }
 
-const struct hubble_ble_api *hubble_ble_api_get(void)
+void hubble_crypto_zeroize(void *buf, size_t len)
 {
-	static struct hubble_ble_api api = {
-		.zeroize = mbedtls_platform_zeroize,
-		.cmac = hubble_zephyr_cmac,
-		.aes_ctr = hubble_zephyr_aes_ctr,
-	};
+	mbedtls_platform_zeroize(buf, len);
+}
 
-	return &api;
+int hubble_crypto_init(void)
+{
+	return 0;
 }

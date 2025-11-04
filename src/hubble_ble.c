@@ -20,7 +20,6 @@
 #define BITS_PER_BYTE 8
 
 static uint64_t utc_time_base;
-static const struct hubble_ble_api *ble_api;
 static const void *master_key;
 
 #define HUBBLE_BLE_CONTEXT_LEN          12
@@ -129,10 +128,11 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 
 int hubble_ble_init(uint64_t utc_time)
 {
-	ble_api = hubble_ble_api_get();
+	int ret = hubble_crypto_init();
 
-	if (ble_api == NULL) {
-		return -ENOSYS;
+	if (ret != 0) {
+		HUBBLE_LOG_WARNING("Failed to initialize cryptography");
+		return ret;
 	}
 
 	HUBBLE_LOG_INFO("Hubble BLE Network initialized\n");
@@ -188,7 +188,7 @@ static int _kbkdf_counter(const uint8_t *key, const uint8_t *label,
 		       sizeof(counter));
 
 		/* Perform AES-CMAC with the key and the prepared message */
-		ret = ble_api->cmac(key, message, message_length, prf_output);
+		ret = hubble_crypto_cmac(key, message, message_length, prf_output);
 		if (ret != 0) {
 			goto exit;
 		}
@@ -205,8 +205,8 @@ static int _kbkdf_counter(const uint8_t *key, const uint8_t *label,
 
 exit:
 	/* Clear sensitive information */
-	ble_api->zeroize(prf_output, sizeof(prf_output));
-	ble_api->zeroize(message, sizeof(message));
+	hubble_crypto_zeroize(prf_output, sizeof(prf_output));
+	hubble_crypto_zeroize(message, sizeof(message));
 
 	return ret;
 }
@@ -289,7 +289,7 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 		break;
 	}
 
-	ble_api->zeroize(derived_key, sizeof(derived_key));
+	hubble_crypto_zeroize(derived_key, sizeof(derived_key));
 exit:
 	return ret;
 }
@@ -316,7 +316,7 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *ou
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
 	uint16_t seq_no;
 
-	if ((ble_api == NULL) || (master_key == NULL) || (out == NULL) || (out_len == NULL)) {
+	if ((master_key == NULL) || (out == NULL) || (out_len == NULL)) {
 		return -EINVAL;
 	}
 
@@ -356,13 +356,13 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *ou
 		goto encryption_key_err;
 	}
 
-	err = ble_api->aes_ctr(encryption_key, (size_t){0}, nonce_counter, input,
+	err = hubble_crypto_aes_ctr(encryption_key, (size_t){0}, nonce_counter, input,
 			       input_len, _PAYLOAD_DATA(out));
 	if (err != 0) {
 		goto crypt_ctr_err;
 	}
 
-	err = ble_api->cmac(encryption_key, _PAYLOAD_DATA(out), input_len, auth_tag);
+	err = hubble_crypto_cmac(encryption_key, _PAYLOAD_DATA(out), input_len, auth_tag);
 	if (err != 0) {
 		goto cmac_err;
 	}
@@ -374,11 +374,11 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *ou
 		   HUBBLE_BLE_AUTH_TAG_SIZE + input_len;
 
 cmac_err:
-	ble_api->zeroize(auth_tag, sizeof(auth_tag));
+	hubble_crypto_zeroize(auth_tag, sizeof(auth_tag));
 crypt_ctr_err:
-	ble_api->zeroize(encryption_key, sizeof(encryption_key));
+	hubble_crypto_zeroize(encryption_key, sizeof(encryption_key));
 encryption_key_err:
-	ble_api->zeroize(nonce_counter, sizeof(nonce_counter));
+	hubble_crypto_zeroize(nonce_counter, sizeof(nonce_counter));
 err:
 
 	return err;
@@ -386,10 +386,6 @@ err:
 
 int hubble_ble_utc_set(uint64_t utc_time)
 {
-	if (ble_api == NULL) {
-		return -EINVAL;
-	}
-
 	utc_time_base = utc_time - hubble_uptime_get();
 
 	return 0;

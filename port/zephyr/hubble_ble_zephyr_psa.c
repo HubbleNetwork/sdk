@@ -19,7 +19,50 @@
 
 #define _KEY_BITS_LEN (CONFIG_HUBBLE_KEY_SIZE * BITS_PER_BYTE)
 
-static int hubble_zephyr_cmac(const uint8_t *key, const uint8_t *input,
+static int _psa_status_to_errno(psa_status_t status)
+{
+	/* Lets adopt EIO as default error in the lack of something better */
+	int ret = -EIO;
+
+	switch (status) {
+		case PSA_SUCCESS:
+			ret = 0;
+			break;
+		case PSA_ERROR_INSUFFICIENT_MEMORY:
+			ret = -ENOMEM;
+			break;
+		case PSA_ERROR_INSUFFICIENT_STORAGE:
+			ret = -ENOSPC;
+			break;
+		case PSA_ERROR_COMMUNICATION_FAILURE:
+			ret = -EIO;
+			break;
+		case PSA_ERROR_HARDWARE_FAILURE:
+			ret = -EIO;
+			break;
+		case PSA_ERROR_CORRUPTION_DETECTED:
+			ret = -EFAULT;
+			break;
+		case PSA_ERROR_INSUFFICIENT_ENTROPY:
+			ret = -EAGAIN;
+			break;
+		case PSA_ERROR_STORAGE_FAILURE:
+			ret = -EIO;
+			break;
+		case PSA_ERROR_DATA_INVALID:
+			ret = -EINVAL;
+			break;
+		case PSA_ERROR_DATA_CORRUPT:
+			ret = -EBADMSG;
+			break;
+		default:
+			break;
+	}
+
+	return ret;
+}
+
+int hubble_crypto_cmac(const uint8_t *key, const uint8_t *input,
 			      size_t input_len,
 			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
@@ -60,7 +103,7 @@ import_key_error:
 	return status == PSA_SUCCESS ? 0 : -EINVAL;
 }
 
-static int hubble_zephyr_aes_ctr(
+int hubble_crypto_aes_ctr(
 	const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], size_t counter,
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
 	size_t data_len, uint8_t *output)
@@ -119,22 +162,14 @@ import_key_error:
 	return status == PSA_SUCCESS ? 0 : -EINVAL;
 }
 
-static void hubble_zephyr_zeroize(void *buf, size_t len)
+void hubble_crypto_zeroize(void *buf, size_t len)
 {
 	memset(buf, 0, len);
 }
 
-const struct hubble_ble_api *hubble_ble_api_get(void)
+int hubble_crypto_init(void)
 {
-	if (psa_crypto_init() != PSA_SUCCESS) {
-		return NULL;
-	}
+	psa_status_t status = psa_crypto_init();
 
-	static struct hubble_ble_api api = {
-		.zeroize = hubble_zephyr_zeroize,
-		.cmac = hubble_zephyr_cmac,
-		.aes_ctr = hubble_zephyr_aes_ctr,
-	};
-
-	return &api;
+	return _psa_status_to_errno(status);
 }
