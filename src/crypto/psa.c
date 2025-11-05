@@ -6,6 +6,7 @@
 
 #include <hubble/ble.h>
 #include <hubble/hubble_port.h>
+#include <hubble/port/crypto.h>
 
 /* Older verions of Zephyr do not define it */
 #ifndef BITS_PER_BYTE

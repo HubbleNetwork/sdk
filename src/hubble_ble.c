@@ -14,6 +14,7 @@
 
 #include <hubble/ble.h>
 #include <hubble/hubble_port.h>
+#include <hubble/port/crypto.h>
 
 #include "utils/macros.h"
 

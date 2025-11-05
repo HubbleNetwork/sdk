@@ -14,6 +14,7 @@
 
 #include <hubble/ble.h>
 #include <hubble/hubble_port.h>
+#include <hubble/port/crypto.h>
 
 #define BLE_ADV_LEN 31
 #define AESCMAC_INSTANCE 0
