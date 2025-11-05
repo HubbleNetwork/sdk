@@ -33,6 +33,7 @@ OBJECTS = $(addprefix $(BUILD_DIR)/, \
 	  common_BLEAppUtil_bleapputil_init.obj \
 	  common_BLEAppUtil_bleapputil_process.obj \
 	  common_BLEAppUtil_bleapputil_stack_callbacks.obj \
+	  common_lib_opt_ctrl_opt_adv_nconn.obj \
 	  common_Startup_osal_icall_ble.obj \
 	  common_Startup_rom_init.obj \
 	  common_Drivers_NV_crc.obj \
@@ -177,6 +178,11 @@ $(BUILD_DIR)/common_BLEAppUtil_bleapputil_process.obj: $(SIMPLELINK_LOWPOWER_F3_
 $(BUILD_DIR)/common_BLEAppUtil_bleapputil_stack_callbacks.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/app_util/framework/src/bleapputil_stack_callbacks.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
 	$(V) $(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/common_lib_opt_ctrl_opt_adv_nconn.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/stack_util/lib_opt/src/ctrl_opt_adv_nconn.c $(SYSCFG_H_FILES) $(BUILD_DIR)
+	@ echo Building $@
+	$(V) $(CC) $(CFLAGS) -c $< -o $@
+
 
 $(BUILD_DIR)/common_Startup_osal_icall_ble.obj: src/common/Startup/osal_icall_ble.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
