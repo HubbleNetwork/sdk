@@ -16,6 +16,8 @@ struct test_nonce {
 	bool valid;
 };
 
+#define TEST_ADV_BUFFER_SZ 31
+
 static uint8_t ble_nonce_key[CONFIG_HUBBLE_KEY_SIZE] = {};
 static uint64_t ble_nonce_utc = 1760383551803;
 static uint16_t nonce_idx;
@@ -46,13 +48,14 @@ ZTEST(ble_nonce_test, test_ble_nonce_invalid)
 	uint16_t idx;
 
 	for (idx = 0; idx < ARRAY_SIZE(invalid_nonce_sequence); idx++) {
-		size_t out_len;
-		uint8_t *data = hubble_ble_advertise_get(NULL, 0, &out_len);
+		uint8_t buf[TEST_ADV_BUFFER_SZ];
+		size_t out_len = sizeof(buf);
+		int status = hubble_ble_advertise_get(NULL, 0, buf, &out_len);
 
 		if (invalid_nonce_sequence[idx].valid) {
-			zassert_not_null(data);
+			zassert_ok(status);
 		} else {
-			zassert_is_null(data);
+			zassert_not_ok(status);
 		}
 	}
 }
@@ -98,10 +101,11 @@ ZTEST(ble_adv_test, test_ble_adv)
 	uint16_t idx;
 
 	for (idx = 0; idx < ARRAY_SIZE(test_adv_data); idx++) {
-		size_t out_len;
-		uint8_t *data = hubble_ble_advertise_get(test_adv_data[idx].input, test_adv_data[idx].input_len, &out_len);
-		zassert_not_null(data);
-		zassert_mem_equal(data, test_adv_data[idx].output, out_len);
+		uint8_t buf[TEST_ADV_BUFFER_SZ];
+		size_t out_len = sizeof(buf);
+		int status = hubble_ble_advertise_get(test_adv_data[idx].input, test_adv_data[idx].input_len, buf, &out_len);
+		zassert_ok(status);
+		zassert_mem_equal(buf, test_adv_data[idx].output, out_len);
 	}
 }
 

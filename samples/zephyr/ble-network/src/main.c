@@ -19,6 +19,11 @@ LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
 K_SEM_DEFINE(app_sem, 0, 1);
 K_SEM_DEFINE(key_sem, 0, 1);
 
+// Buffer used for Hubble data
+// Encrypted data will go in here for the advertisement.
+#define HUBBLE_USER_BUFFER_LEN 31
+static uint8_t _hubble_user_buffer[HUBBLE_USER_BUFFER_LEN];
+
 static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE];
 static uint64_t utc_time;
 static int sum;
@@ -128,19 +133,17 @@ static int cmd_utc(const struct shell *sh, size_t argc, char **argv, void *data)
 static int cmd_data(const struct shell *sh, size_t argc, char **argv,
 		    void *data)
 {
-	void *ad;
-	size_t out_len;
-
-	ad = hubble_ble_advertise_get((const uint8_t *)argv[1], strlen(argv[1]),
-				      &out_len);
-	if (ad == NULL) {
-		LOG_ERR("Failed to get the advertisement data");
-		return -1;
+	size_t out_len = HUBBLE_USER_BUFFER_LEN;
+	int err = hubble_ble_advertise_get((const uint8_t *)argv[1], strlen(argv[1]),
+				      _hubble_user_buffer, &out_len);
+	if (err != 0) {
+		LOG_ERR("Failed to get the advertisement data (err=%d)", err);
+		return err;
 	}
 
 	app_ad[1].data_len = out_len;
 	app_ad[1].type = BT_DATA_SVC_DATA16;
-	app_ad[1].data = ad;
+	app_ad[1].data = _hubble_user_buffer;
 
 	LOG_DBG("Updating advertisement data (len %d bytes)", out_len);
 

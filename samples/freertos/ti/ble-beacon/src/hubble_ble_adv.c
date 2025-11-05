@@ -97,14 +97,13 @@ static void hubble_ble_adv_update(void *arg)
 {
 	(void)arg;
 
-	size_t len;
-	uint8_t *data = hubble_ble_advertise_get(NULL, 0, &len);
+	size_t len = BLE_ADV_LEN - HUBBLE_BLE_ADV_HEADER_SIZE;
+	int status = hubble_ble_advertise_get(NULL, 0, &advData[HUBBLE_BLE_ADV_HEADER_SIZE], &len);
 
-	if (data == NULL) {
+	if (status) {
 		return;
 	}
 
-	memcpy(&advData[HUBBLE_BLE_ADV_HEADER_SIZE], data, len);
 	advData[4] = len + 1; /* output len + BLE service data type */
 
 	if (BLEAppUtil_advStop(bleAdvHandle) != SUCCESS) {
@@ -142,8 +141,8 @@ bStatus_t hubble_ble_adv_start(void)
 		return (FAILURE);
 	}
 
-	data = hubble_ble_advertise_get(NULL, 0, &len);
-	if (data == NULL) {
+	len = BLE_ADV_LEN - HUBBLE_BLE_ADV_HEADER_SIZE;
+	if (hubble_ble_advertise_get(NULL, 0, &advData[HUBBLE_BLE_ADV_HEADER_SIZE], &len) != 0) {
 		return (FAILURE);
 	}
 

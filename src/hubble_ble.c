@@ -51,13 +51,12 @@ enum hubble_ble_value_label {
 	HUBBLE_BLE_ENCRYPTION_VALUE
 };
 
-static uint8_t advertise_buffer[CONFIG_HUBBLE_BLE_ADVERTISE_BUFFER_SIZE] = {
-	0xa6, 0xfc};
-
 /* Define some helpers for payload offsets */
-#define _PAYLOAD_ADDR     (advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX)
-#define _PAYLOAD_AUTH_TAG ((_PAYLOAD_ADDR) + HUBBLE_BLE_ADDR_SIZE)
-#define _PAYLOAD_DATA     ((_PAYLOAD_AUTH_TAG) + HUBBLE_BLE_AUTH_TAG_SIZE)
+#define _PAYLOAD_SERVICE_UUID_LO(buf) (buf + 0)
+#define _PAYLOAD_SERVICE_UUID_HI(buf) (buf + 1)
+#define _PAYLOAD_ADDR(buf)            (buf + HUBBLE_BLE_ADVERTISE_PREFIX)
+#define _PAYLOAD_AUTH_TAG(buf)        ((_PAYLOAD_ADDR(buf)) + HUBBLE_BLE_ADDR_SIZE)
+#define _PAYLOAD_DATA(buf)            ((_PAYLOAD_AUTH_TAG(buf)) + HUBBLE_BLE_AUTH_TAG_SIZE)
 
 #ifndef CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 uint16_t hubble_sequence_counter_get(void)
@@ -306,7 +305,7 @@ static void _addr_set(uint8_t *addr, uint16_t seq_no, uint32_t device_id)
 	memcpy((addr + 2), &device_id, sizeof(device_id));
 }
 
-void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
+int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *out, size_t *out_len)
 {
 	int err;
 	uint32_t device_id;
@@ -317,30 +316,31 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
 	uint16_t seq_no;
 
-	if ((ble_api == NULL) || (master_key == NULL)) {
-		return NULL;
+	if ((ble_api == NULL) || (master_key == NULL) || (out == NULL) || (out_len == NULL)) {
+		return -EINVAL;
 	}
 
-	if (len >= (sizeof(advertise_buffer) - HUBBLE_BLE_ADV_FIELDS_SIZE)) {
-		return NULL;
+	if (input_len + HUBBLE_BLE_ADV_FIELDS_SIZE > *out_len) {
+		return -EINVAL;
 	}
 
 	seq_no = hubble_sequence_counter_get();
 
 	if (!_nonce_values_check(time_counter, seq_no)) {
 		HUBBLE_LOG_WARNING("Re-using same nonce is insecure !");
-		return NULL;
+		return -EPERM;
 	}
 
-	memset(advertise_buffer + HUBBLE_BLE_ADVERTISE_PREFIX, 0,
-	       sizeof(advertise_buffer) - HUBBLE_BLE_ADVERTISE_PREFIX);
+	// Set the constant data
+	*_PAYLOAD_SERVICE_UUID_LO(out) = HUBBLE_LO_UINT16(HUBBLE_BLE_UUID);
+	*_PAYLOAD_SERVICE_UUID_HI(out) = HUBBLE_HI_UINT16(HUBBLE_BLE_UUID);
 
 	err = _derived_value_get(HUBBLE_BLE_DEVICE_VALUE, time_counter, 0,
 				 (uint8_t *)&device_id, sizeof(device_id));
 	if (err) {
-		return NULL;
+		return err;
 	}
-	_addr_set(_PAYLOAD_ADDR, seq_no, device_id);
+	_addr_set(_PAYLOAD_ADDR(out), seq_no, device_id);
 
 	err = _derived_value_get(HUBBLE_BLE_NONCE_VALUE, time_counter,
 				 seq_no, nonce_counter,
@@ -356,24 +356,22 @@ void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len)
 		goto encryption_key_err;
 	}
 
-	err = ble_api->aes_ctr(encryption_key, (size_t){0}, nonce_counter, data,
-			       len, _PAYLOAD_DATA);
+	err = ble_api->aes_ctr(encryption_key, (size_t){0}, nonce_counter, input,
+			       input_len, _PAYLOAD_DATA(out));
 	if (err != 0) {
 		goto crypt_ctr_err;
 	}
 
-	err = ble_api->cmac(encryption_key, _PAYLOAD_DATA, len, auth_tag);
+	err = ble_api->cmac(encryption_key, _PAYLOAD_DATA(out), input_len, auth_tag);
 	if (err != 0) {
 		goto cmac_err;
 	}
 
-	memcpy(_PAYLOAD_AUTH_TAG, auth_tag, HUBBLE_BLE_AUTH_TAG_SIZE);
+	memcpy(_PAYLOAD_AUTH_TAG(out), auth_tag, HUBBLE_BLE_AUTH_TAG_SIZE);
 
-	if (out_len) {
-		*out_len = HUBBLE_BLE_ADVERTISE_PREFIX +
-			   HUBBLE_BLE_ADDR_SIZE +
-			   HUBBLE_BLE_AUTH_TAG_SIZE + len;
-	}
+	*out_len = HUBBLE_BLE_ADVERTISE_PREFIX +
+		   HUBBLE_BLE_ADDR_SIZE +
+		   HUBBLE_BLE_AUTH_TAG_SIZE + input_len;
 
 cmac_err:
 	ble_api->zeroize(auth_tag, sizeof(auth_tag));
@@ -383,7 +381,7 @@ encryption_key_err:
 	ble_api->zeroize(nonce_counter, sizeof(nonce_counter));
 err:
 
-	return (err == 0) ? advertise_buffer : NULL;
+	return err;
 }
 
 int hubble_ble_utc_set(uint64_t utc_time)

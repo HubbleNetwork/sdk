@@ -85,7 +85,7 @@ interaction within the network:
 
 .. code-block:: c
 
-   void *hubble_ble_advertise_get(const uint8_t *data, size_t len);
+   int hubble_ble_advertise_get(const uint8_t *input, size_t len, uint8_t *output, size_t* out_len);
 
 Security Details
 ****************

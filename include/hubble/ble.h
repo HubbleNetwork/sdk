@@ -60,7 +60,7 @@ int hubble_ble_init(uint64_t utc_time);
  * Example:
  *
  * @code
- * void *adv_data = hubble_ble_advertise_get(data, data_len, &out_len);
+ * int status = hubble_ble_advertise_get(data, data_len, out, &out_len);
  * @endcode
  *
  * The following advertisement packet shows a valid example and where the
@@ -74,20 +74,20 @@ int hubble_ble_init(uint64_t utc_time);
  *
  *
  * @note - This function is neither thread-safe nor reentrant. The caller must
- *         ensure proper synchronization and copy the returned data if the function may
- *         be called from multiple contexts.
+ *         ensure proper synchronization.
  *       - The payload is encrypted using the key set by @ref hubble_ble_key_set
  *       - Legacy packet type (Extended Advertisements not supported)
  *
- * @param data Pointer to the input data.
- * @param len Length of the input data.
- * @param out_len Advertisement length.
+ * @param input Pointer to the input data.
+ * @param input_len Length of the input data.
+ * @param out Output buffer to place data into
+ * @param out_len in: Maximum length in out buffer, out: Advertisement length
  *
  * @return
- *          - Pointer to the advertisement on success.
- *          - NULL on failure.
+ *          - 0 on success
+ *          - Non-zero on failure
  */
-void *hubble_ble_advertise_get(const uint8_t *data, size_t len, size_t *out_len);
+int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *out, size_t *out_len);
 
 /**
  * @brief Sets the current UTC time in the Hubble BLE Network.

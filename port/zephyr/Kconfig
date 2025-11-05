@@ -101,12 +101,6 @@ config HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY
 
 endchoice
 
-config HUBBLE_BLE_ADVERTISE_BUFFER_SIZE
-	   int "Hubble BLE Network advertise buffer size"
-	   default 31
-	   help
-	     Size of the buffer used to store advertise messages.
-
 endif
 
 menu "Logging"

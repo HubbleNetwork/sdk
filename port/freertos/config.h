@@ -14,11 +14,6 @@
 #define CONFIG_HUBBLE_KEY_SIZE                  16
 
 /*
- * Size of the buffer used to hold the advertisement data.
- */
-#define CONFIG_HUBBLE_BLE_ADVERTISE_BUFFER_SIZE 31
-
-/*
  * Frequency to change the counter timer.
  */
 #define CONFIG_HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY
