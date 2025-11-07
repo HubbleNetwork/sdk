@@ -80,6 +80,11 @@ int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	mbedtls_aes_context aes_ctx;
 	uint8_t stream_block[HUBBLE_BLE_STREAM_BLOCK_LEN] = {0};
 
+	/* No data to encrypt */
+	if (len == 0) {
+		return 0;
+	}
+
 	/* Initialize AES context */
 	mbedtls_aes_init(&aes_ctx);
 
