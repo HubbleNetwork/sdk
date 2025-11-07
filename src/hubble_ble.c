@@ -143,7 +143,7 @@ int hubble_ble_init(uint64_t utc_time)
 	return 0;
 }
 
-static int _kbkdf_counter(const uint8_t *key, const uint8_t *label,
+static int _kbkdf_counter(const uint8_t *key, const char *label,
 			  size_t label_len, const uint8_t *context,
 			  size_t context_len, uint8_t *output, size_t olen)
 {
@@ -223,18 +223,18 @@ static int _derived_key_get(enum hubble_ble_key_label label, uint32_t counter,
 	switch (label) {
 	case HUBBLE_BLE_DEVICE_KEY:
 		err = _kbkdf_counter(master_key, "DeviceKey", strlen("DeviceKey"),
-				     context, strlen(context), output_key,
+				     context, strlen((const char *)context), output_key,
 				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_NONCE_KEY:
 		err = _kbkdf_counter(master_key, "NonceKey", strlen("NonceKey"),
-				     context, strlen(context), output_key,
+				     context, strlen((const char *)context), output_key,
 				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_ENCRYPTION_KEY:
 		err = _kbkdf_counter(master_key, "EncryptionKey",
 				     strlen("EncryptionKey"), context,
-				     strlen(context), output_key,
+				     strlen((const char *)context), output_key,
 				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	default:
@@ -264,7 +264,7 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 		}
 		ret = _kbkdf_counter(derived_key, "DeviceID",
 				     strlen("DeviceID"), context,
-				     strlen(context), output_value, output_len);
+				     strlen((const char *)context), output_value, output_len);
 		break;
 	case HUBBLE_BLE_NONCE_VALUE:
 		ret = _derived_key_get(HUBBLE_BLE_NONCE_KEY, time_counter,
@@ -273,7 +273,7 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 			goto exit;
 		}
 		ret = _kbkdf_counter(derived_key, "Nonce", strlen("Nonce"),
-				     context, strlen(context), output_value,
+				     context, strlen((const char *)context), output_value,
 				     output_len);
 		break;
 	case HUBBLE_BLE_ENCRYPTION_VALUE:
@@ -283,7 +283,7 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 			goto exit;
 		}
 		ret = _kbkdf_counter(derived_key, "Key", strlen("Key"), context,
-				     strlen(context), output_value, output_len);
+				     strlen((const char *)context), output_value, output_len);
 		break;
 	default:
 		ret = -EINVAL;
