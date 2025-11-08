@@ -13,7 +13,7 @@
 #include <ti/drivers/cryptoutils/cryptokey/CryptoKeyPlaintext.h>
 
 #include <hubble/ble.h>
-#include <hubble/hubble_port.h>
+#include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
 #define BLE_ADV_LEN 31

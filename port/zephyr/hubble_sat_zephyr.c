@@ -10,7 +10,7 @@
 #include <zephyr/kernel.h>
 
 #include <hubble/sat.h>
-#include <hubble/hubble_port.h>
+#include <hubble/port/sys.h>
 #include <hubble_rf_zephyr.h>
 
 #define HUBBLE_WAIT_SYMBOL_US          8000U

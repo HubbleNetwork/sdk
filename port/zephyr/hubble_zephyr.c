@@ -12,7 +12,7 @@
 #include <errno.h>
 #include <stddef.h>
 
-#include <hubble/hubble_port.h>
+#include <hubble/port/sys.h>
 
 LOG_MODULE_REGISTER(hubblenetwork, CONFIG_HUBBLE_LOG_LEVEL);
 

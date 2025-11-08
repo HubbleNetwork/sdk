@@ -10,7 +10,8 @@
 #include "reed_solomon_encoder.h"
 
 #include <hubble/sat.h>
-#include <hubble/hubble_port.h>
+#include <hubble/port/sys.h>
+#include <hubble/port/sat_radio.h>
 
 #define HUBBLE_LOG(_level, ...)                                                \
 	do {                                                                   \

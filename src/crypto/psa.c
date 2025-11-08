@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include <hubble/ble.h>
-#include <hubble/hubble_port.h>
+#include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
 /* Older verions of Zephyr do not define it */
