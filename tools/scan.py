@@ -83,7 +83,7 @@ def parse_ble_adv(ble_adv: bytes) -> SimpleNamespace:
 
         if tag == auth_tag:
             day_offset = t
-            nonce = get_nonce(time_counter, seq_no)
+            nonce = get_nonce(time_counter + t, seq_no)
             decrypted_payload = aes_decrypt(key, nonce, encrypted_payload)
 
             return SimpleNamespace(device=device_id, counter=seq_no, payload=decrypted_payload, day_offset=day_offset)
