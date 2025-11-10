@@ -23,15 +23,17 @@
 static uint64_t utc_time_base;
 static const void *master_key;
 
-#define HUBBLE_BLE_CONTEXT_LEN          12
-#define HUBBLE_BLE_MESSAGE_LEN          64
-#define HUBBLE_BLE_AUTH_LEN             16
-#define HUBBLE_BLE_ADVERTISE_PREFIX     2
-#define HUBBLE_BLE_PROTOCOL_VERSION     0b000000
-#define HUBBLE_BLE_ADDR_SIZE            6
-#define HUBBLE_BLE_AUTH_TAG_SIZE        4
-#define HUBBLE_BLE_NONCE_LEN            12
-#define HUBBLE_BLE_ADV_FIELDS_SIZE      (HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_ADDR_SIZE + HUBBLE_BLE_AUTH_TAG_SIZE)
+#define HUBBLE_BLE_CONTEXT_LEN      12
+#define HUBBLE_BLE_MESSAGE_LEN      64
+#define HUBBLE_BLE_AUTH_LEN         16
+#define HUBBLE_BLE_ADVERTISE_PREFIX 2
+#define HUBBLE_BLE_PROTOCOL_VERSION 0b000000
+#define HUBBLE_BLE_ADDR_SIZE        6
+#define HUBBLE_BLE_AUTH_TAG_SIZE    4
+#define HUBBLE_BLE_NONCE_LEN        12
+#define HUBBLE_BLE_ADV_FIELDS_SIZE                                             \
+	(HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_ADDR_SIZE +                  \
+	 HUBBLE_BLE_AUTH_TAG_SIZE)
 
 #if defined(CONFIG_HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY)
 #define HUBBLE_TIMER_COUNTER_FREQUENCY 86400000
@@ -106,7 +108,7 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 	 * than the first value used with the current time counter.
 	 */
 	if ((_check_seq_no == seq_no) ||
-	    (_check_seq_no_wrapped  && (seq_no >= _check_seq_daily_reference_no))) {
+	    (_check_seq_no_wrapped && (seq_no >= _check_seq_daily_reference_no))) {
 		return false;
 	}
 
@@ -189,7 +191,8 @@ static int _kbkdf_counter(const uint8_t *key, const char *label,
 		       sizeof(counter));
 
 		/* Perform AES-CMAC with the key and the prepared message */
-		ret = hubble_crypto_cmac(key, message, message_length, prf_output);
+		ret = hubble_crypto_cmac(key, message, message_length,
+					 prf_output);
 		if (ret != 0) {
 			goto exit;
 		}
@@ -223,13 +226,13 @@ static int _derived_key_get(enum hubble_ble_key_label label, uint32_t counter,
 	switch (label) {
 	case HUBBLE_BLE_DEVICE_KEY:
 		err = _kbkdf_counter(master_key, "DeviceKey", strlen("DeviceKey"),
-				     context, strlen((const char *)context), output_key,
-				     CONFIG_HUBBLE_KEY_SIZE);
+				     context, strlen((const char *)context),
+				     output_key, CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_NONCE_KEY:
 		err = _kbkdf_counter(master_key, "NonceKey", strlen("NonceKey"),
-				     context, strlen((const char *)context), output_key,
-				     CONFIG_HUBBLE_KEY_SIZE);
+				     context, strlen((const char *)context),
+				     output_key, CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_BLE_ENCRYPTION_KEY:
 		err = _kbkdf_counter(master_key, "EncryptionKey",
@@ -262,9 +265,9 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 		if (ret != 0) {
 			goto exit;
 		}
-		ret = _kbkdf_counter(derived_key, "DeviceID",
-				     strlen("DeviceID"), context,
-				     strlen((const char *)context), output_value, output_len);
+		ret = _kbkdf_counter(derived_key, "DeviceID", strlen("DeviceID"),
+				     context, strlen((const char *)context),
+				     output_value, output_len);
 		break;
 	case HUBBLE_BLE_NONCE_VALUE:
 		ret = _derived_key_get(HUBBLE_BLE_NONCE_KEY, time_counter,
@@ -273,8 +276,8 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 			goto exit;
 		}
 		ret = _kbkdf_counter(derived_key, "Nonce", strlen("Nonce"),
-				     context, strlen((const char *)context), output_value,
-				     output_len);
+				     context, strlen((const char *)context),
+				     output_value, output_len);
 		break;
 	case HUBBLE_BLE_ENCRYPTION_VALUE:
 		ret = _derived_key_get(HUBBLE_BLE_ENCRYPTION_KEY, time_counter,
@@ -283,7 +286,8 @@ static int _derived_value_get(enum hubble_ble_value_label label,
 			goto exit;
 		}
 		ret = _kbkdf_counter(derived_key, "Key", strlen("Key"), context,
-				     strlen((const char *)context), output_value, output_len);
+				     strlen((const char *)context),
+				     output_value, output_len);
 		break;
 	default:
 		ret = -EINVAL;
@@ -306,7 +310,8 @@ static void _addr_set(uint8_t *addr, uint16_t seq_no, uint32_t device_id)
 	memcpy((addr + 2), &device_id, sizeof(device_id));
 }
 
-int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *out, size_t *out_len)
+int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
+			     uint8_t *out, size_t *out_len)
 {
 	int err;
 	uint32_t device_id;
@@ -343,35 +348,33 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *ou
 	}
 	_addr_set(_PAYLOAD_ADDR(out), seq_no, device_id);
 
-	err = _derived_value_get(HUBBLE_BLE_NONCE_VALUE, time_counter,
-				 seq_no, nonce_counter,
-				 HUBBLE_BLE_NONCE_LEN);
+	err = _derived_value_get(HUBBLE_BLE_NONCE_VALUE, time_counter, seq_no,
+				 nonce_counter, HUBBLE_BLE_NONCE_LEN);
 	if (err) {
 		goto err;
 	}
 
 	err = _derived_value_get(HUBBLE_BLE_ENCRYPTION_VALUE, time_counter,
-				 seq_no, encryption_key,
-				 sizeof(encryption_key));
+				 seq_no, encryption_key, sizeof(encryption_key));
 	if (err) {
 		goto encryption_key_err;
 	}
 
 	err = hubble_crypto_aes_ctr(encryption_key, nonce_counter, input,
-			       input_len, _PAYLOAD_DATA(out));
+				    input_len, _PAYLOAD_DATA(out));
 	if (err != 0) {
 		goto crypt_ctr_err;
 	}
 
-	err = hubble_crypto_cmac(encryption_key, _PAYLOAD_DATA(out), input_len, auth_tag);
+	err = hubble_crypto_cmac(encryption_key, _PAYLOAD_DATA(out), input_len,
+				 auth_tag);
 	if (err != 0) {
 		goto cmac_err;
 	}
 
 	memcpy(_PAYLOAD_AUTH_TAG(out), auth_tag, HUBBLE_BLE_AUTH_TAG_SIZE);
 
-	*out_len = HUBBLE_BLE_ADVERTISE_PREFIX +
-		   HUBBLE_BLE_ADDR_SIZE +
+	*out_len = HUBBLE_BLE_ADVERTISE_PREFIX + HUBBLE_BLE_ADDR_SIZE +
 		   HUBBLE_BLE_AUTH_TAG_SIZE + input_len;
 
 cmac_err:

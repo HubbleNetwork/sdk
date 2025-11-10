@@ -130,12 +130,12 @@ static int cmd_utc(const struct shell *sh, size_t argc, char **argv, void *data)
 	return ret;
 }
 
-static int cmd_data(const struct shell *sh, size_t argc, char **argv,
-		    void *data)
+static int cmd_data(const struct shell *sh, size_t argc, char **argv, void *data)
 {
 	size_t out_len = HUBBLE_USER_BUFFER_LEN;
-	int err = hubble_ble_advertise_get((const uint8_t *)argv[1], strlen(argv[1]),
-				      _hubble_user_buffer, &out_len);
+	int err = hubble_ble_advertise_get((const uint8_t *)argv[1],
+					   strlen(argv[1]), _hubble_user_buffer,
+					   &out_len);
 	if (err != 0) {
 		LOG_ERR("Failed to get the advertisement data (err=%d)", err);
 		return err;

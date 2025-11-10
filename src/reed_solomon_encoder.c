@@ -49,12 +49,13 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define mm  6                      /* RS code over GF(2**4) - change to suit */
-#define nn  63                     /* nn=2**mm -1   length of codeword */
-#define ttt 3                      /* number of errors that can be corrected */
-#define kkk 41                     /* kk = nn-2*tt  */
+#define mm  6  /* RS code over GF(2**4) - change to suit */
+#define nn  63 /* nn=2**mm -1   length of codeword */
+#define ttt 3  /* number of errors that can be corrected */
+#define kkk 41 /* kk = nn-2*tt  */
 
-static int pp[mm + 1] = {1, 1, 0, 0, 0, 0, 1}; /* specify irreducible polynomial coeffts */
+/* specify irreducible polynomial coeffts */
+static int pp[mm + 1] = {1, 1, 0, 0, 0, 0, 1};
 static int alpha_to[nn + 1], index_of[nn + 1], gg[nn - kkk + 1];
 static int bb[nn - kkk];
 

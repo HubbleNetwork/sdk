@@ -70,7 +70,9 @@ static bool _payload_length_check(size_t length)
 	uint8_t idx = HUBBLE_ARRAY_SIZE(_hubble_mac_frame_symbols);
 
 	return length <= floor((double)((_hubble_mac_frame_symbols[idx - 1] -
-			HUBBLE_MAC_HEADER_SYMBOLS_SIZE) * HUBBLE_SYMBOL_SIZE) / 8);
+					 HUBBLE_MAC_HEADER_SYMBOLS_SIZE) *
+					HUBBLE_SYMBOL_SIZE) /
+			       8);
 }
 
 static int _encode(const struct hubble_bitarray *bit_array, int *symbols,
@@ -120,8 +122,7 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, uint64_t device_id,
 	hubble_bitarray_init(&bit_array);
 
 	/* Device ID */
-	ret = hubble_bitarray_append(&bit_array,
-                                     (uint8_t *)&device_id,
+	ret = hubble_bitarray_append(&bit_array, (uint8_t *)&device_id,
 				     HUBBLE_DEVICE_ID_SIZE);
 	if (ret < 0) {
 		return ret;

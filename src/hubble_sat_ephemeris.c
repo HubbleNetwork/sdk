@@ -8,19 +8,18 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#define HUBBLE_EARTH_RADIUS        6378136.999954619 /* Earth radius at equator */
-#define HUBBLE_EARTH_ROTATION_RATE 7.292115855377074e-05 /* rad / s */
-#define HUBBLE_TEME_REF_DATETIME_2027                                          \
-	1798761600
+#define HUBBLE_EARTH_RADIUS              6378136.999954619 /* Earth radius at equator */
+#define HUBBLE_EARTH_ROTATION_RATE       7.292115855377074e-05 /* rad / s */
+#define HUBBLE_TEME_REF_DATETIME_2027    1798761600
 #define HUBBLE_TEME_ANGLE_2027           1.7526971469712507
 #define HUBBLE_TWO_PI_DEGREES            360
 #define HUBBLE_PI_DEGREES                180
 #define HUBBLE_ELEVATION_ANGLE_TOLERANCE 30
 #define HUBBLE_SAT_ELEVATION             6892550.590445475
 
-#define HUBBLE_PI_2            1.57079632679489661923  /* PI / 2 */
-#define HUBBLE_PI_4            0.785398163397448309616 /* PI / 4 */
-#define HUBBLE_INV_PI          0.31830988618379067154  /* 1 / PI */
+#define HUBBLE_PI_2                      1.57079632679489661923  /* PI / 2 */
+#define HUBBLE_PI_4                      0.785398163397448309616 /* PI / 4 */
+#define HUBBLE_INV_PI                    0.31830988618379067154  /* 1 / PI */
 
 /* Converts an angle in degrees to radians */
 #define _DEG2RAD(_deg)                   ((_deg) * (M_PI / HUBBLE_PI_DEGREES))

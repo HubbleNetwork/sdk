@@ -96,10 +96,11 @@ static int ble_adv_time_sync(void)
 	app_ad[1].type = BT_DATA_SVC_DATA16;
 	app_ad[1].data = (uint8_t *)&app_adv_uuids;
 
-	err = bt_le_adv_start(BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA | BT_LE_ADV_OPT_CONN,
-					      BT_GAP_ADV_FAST_INT_MIN_2,
-					      BT_GAP_ADV_FAST_INT_MAX_2, NULL),
-			      app_ad, ARRAY_SIZE(app_ad), NULL, 0);
+	err = bt_le_adv_start(
+		BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA | BT_LE_ADV_OPT_CONN,
+				BT_GAP_ADV_FAST_INT_MIN_2,
+				BT_GAP_ADV_FAST_INT_MAX_2, NULL),
+		app_ad, ARRAY_SIZE(app_ad), NULL, 0);
 
 	return err;
 }
@@ -203,16 +204,17 @@ int main(void)
 		goto end;
 	}
 
-	k_timer_start(
-		&message_timer,
-		K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD),
-		K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD));
+	k_timer_start(&message_timer,
+		      K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD),
+		      K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD));
 
 	for (;;) {
 		out_len = HUBBLE_USER_BUFFER_LEN;
-		err = hubble_ble_advertise_get(NULL, 0, _hubble_user_buffer, &out_len);
+		err = hubble_ble_advertise_get(NULL, 0, _hubble_user_buffer,
+					       &out_len);
 		if (err != 0) {
-			LOG_ERR("Failed to get the advertisement data (err=%d)", err);
+			LOG_ERR("Failed to get the advertisement data (err=%d)",
+				err);
 			goto end;
 		}
 		app_ad[1].data_len = out_len;
@@ -221,10 +223,11 @@ int main(void)
 
 		LOG_DBG("Number of bytes in advertisement: %d", out_len);
 
-		err = bt_le_adv_start(BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA,
-					      BT_GAP_ADV_FAST_INT_MIN_2,
-					      BT_GAP_ADV_FAST_INT_MAX_2, NULL),
-				      app_ad, ARRAY_SIZE(app_ad), NULL, 0);
+		err = bt_le_adv_start(
+			BT_LE_ADV_PARAM(BT_LE_ADV_OPT_USE_NRPA,
+					BT_GAP_ADV_FAST_INT_MIN_2,
+					BT_GAP_ADV_FAST_INT_MAX_2, NULL),
+			app_ad, ARRAY_SIZE(app_ad), NULL, 0);
 		if (err != 0) {
 			LOG_ERR("Bluetooth advertisement failed (err %d)", err);
 			goto end;

@@ -21,46 +21,46 @@ static int _psa_status_to_errno(psa_status_t status)
 	int ret = -EIO;
 
 	switch (status) {
-		case PSA_SUCCESS:
-			ret = 0;
-			break;
-		case PSA_ERROR_INSUFFICIENT_MEMORY:
-			ret = -ENOMEM;
-			break;
-		case PSA_ERROR_INSUFFICIENT_STORAGE:
-			ret = -ENOSPC;
-			break;
-		case PSA_ERROR_COMMUNICATION_FAILURE:
-			ret = -EIO;
-			break;
-		case PSA_ERROR_HARDWARE_FAILURE:
-			ret = -EIO;
-			break;
-		case PSA_ERROR_CORRUPTION_DETECTED:
-			ret = -EFAULT;
-			break;
-		case PSA_ERROR_INSUFFICIENT_ENTROPY:
-			ret = -EAGAIN;
-			break;
-		case PSA_ERROR_STORAGE_FAILURE:
-			ret = -EIO;
-			break;
-		case PSA_ERROR_DATA_INVALID:
-			ret = -EINVAL;
-			break;
-		case PSA_ERROR_DATA_CORRUPT:
-			ret = -EBADMSG;
-			break;
-		default:
-			break;
+	case PSA_SUCCESS:
+		ret = 0;
+		break;
+	case PSA_ERROR_INSUFFICIENT_MEMORY:
+		ret = -ENOMEM;
+		break;
+	case PSA_ERROR_INSUFFICIENT_STORAGE:
+		ret = -ENOSPC;
+		break;
+	case PSA_ERROR_COMMUNICATION_FAILURE:
+		ret = -EIO;
+		break;
+	case PSA_ERROR_HARDWARE_FAILURE:
+		ret = -EIO;
+		break;
+	case PSA_ERROR_CORRUPTION_DETECTED:
+		ret = -EFAULT;
+		break;
+	case PSA_ERROR_INSUFFICIENT_ENTROPY:
+		ret = -EAGAIN;
+		break;
+	case PSA_ERROR_STORAGE_FAILURE:
+		ret = -EIO;
+		break;
+	case PSA_ERROR_DATA_INVALID:
+		ret = -EINVAL;
+		break;
+	case PSA_ERROR_DATA_CORRUPT:
+		ret = -EBADMSG;
+		break;
+	default:
+		break;
 	}
 
 	return ret;
 }
 
-int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], const uint8_t *input,
-			      size_t input_len,
-			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
+int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
+		       const uint8_t *input, size_t input_len,
+		       uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
 	psa_status_t status;
 	psa_key_id_t key_id;
@@ -73,7 +73,8 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], const uint8_t 
 	psa_set_key_algorithm(&attributes, PSA_ALG_CMAC);
 	psa_set_key_bits(&attributes, _KEY_BITS_LEN);
 
-	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE, &key_id);
+	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE,
+				&key_id);
 	if (status != PSA_SUCCESS) {
 		goto import_key_error;
 	}
@@ -100,8 +101,8 @@ import_key_error:
 }
 
 int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
-	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN], const uint8_t *data,
-	size_t len, uint8_t *output)
+			  uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
+			  const uint8_t *data, size_t len, uint8_t *output)
 {
 	psa_status_t status;
 	psa_key_id_t key_id;
@@ -115,7 +116,8 @@ int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	psa_set_key_type(&attributes, PSA_KEY_TYPE_AES);
 	psa_set_key_bits(&attributes, _KEY_BITS_LEN);
 
-	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE, &key_id);
+	status = psa_import_key(&attributes, key, CONFIG_HUBBLE_KEY_SIZE,
+				&key_id);
 	if (status != PSA_SUCCESS) {
 		goto import_key_error;
 	}
@@ -131,14 +133,13 @@ int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		goto cipher_iv_error;
 	}
 
-	status = psa_cipher_update(&operation, data, len, output,
-				   len, &out_len);
+	status = psa_cipher_update(&operation, data, len, output, len, &out_len);
 	if (status != PSA_SUCCESS) {
 		goto cipher_update_error;
 	}
 
-	status = psa_cipher_finish(&operation, output + out_len,
-				   len - out_len, &out_len);
+	status = psa_cipher_finish(&operation, output + out_len, len - out_len,
+				   &out_len);
 
 cipher_update_error:
 cipher_iv_error:

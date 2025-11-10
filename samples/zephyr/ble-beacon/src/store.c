@@ -11,12 +11,12 @@
 
 #include <hubble/hubble_port.h>
 
-#define NVS_PARTITION		storage_partition
-#define NVS_PARTITION_DEVICE	FIXED_PARTITION_DEVICE(NVS_PARTITION)
-#define NVS_PARTITION_OFFSET	FIXED_PARTITION_OFFSET(NVS_PARTITION)
+#define NVS_PARTITION        storage_partition
+#define NVS_PARTITION_DEVICE FIXED_PARTITION_DEVICE(NVS_PARTITION)
+#define NVS_PARTITION_OFFSET FIXED_PARTITION_OFFSET(NVS_PARTITION)
 
-#define SEQUENCE_COUNTER_ID 1U
-#define NVS_SECTOR_COUNT 2U
+#define SEQUENCE_COUNTER_ID  1U
+#define NVS_SECTOR_COUNT     2U
 
 static struct nvs_fs beacon_fs = {
 	.flash_device = NVS_PARTITION_DEVICE,
@@ -49,7 +49,8 @@ uint16_t hubble_sequence_counter_get(void)
 	ssize_t ret;
 	uint16_t counter = 0;
 
-	ret = nvs_read(&beacon_fs, SEQUENCE_COUNTER_ID, &counter, sizeof(counter));
+	ret = nvs_read(&beacon_fs, SEQUENCE_COUNTER_ID, &counter,
+		       sizeof(counter));
 	if (ret != sizeof(counter)) {
 		if (ret == -ENOENT) {
 			goto end;
@@ -62,9 +63,9 @@ uint16_t hubble_sequence_counter_get(void)
 		counter = 0;
 	}
 
- end:
-	(void)nvs_write(&beacon_fs, SEQUENCE_COUNTER_ID, &(uint16_t){counter + 1},
-			sizeof(counter));
+end:
+	(void)nvs_write(&beacon_fs, SEQUENCE_COUNTER_ID,
+			&(uint16_t){counter + 1}, sizeof(counter));
 
 	return counter;
 }

@@ -16,9 +16,9 @@
 #include <hubble/hubble_port.h>
 #include <hubble/port/crypto.h>
 
-#define BLE_ADV_LEN 31
+#define BLE_ADV_LEN      31
 #define AESCMAC_INSTANCE 0
-#define AESCTR_INSTANCE 0
+#define AESCTR_INSTANCE  0
 
 void hubble_crypto_zeroize(void *buf, size_t len)
 {
@@ -26,8 +26,8 @@ void hubble_crypto_zeroize(void *buf, size_t len)
 }
 
 int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
-		      const uint8_t *input, size_t input_len,
-		      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
+		       const uint8_t *input, size_t input_len,
+		       uint8_t output[HUBBLE_AES_BLOCK_SIZE])
 {
 	int ret;
 	AESCMAC_Handle handle;
@@ -54,7 +54,8 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	operation.mac = output;
 	operation.macLength = HUBBLE_AES_BLOCK_SIZE;
 
-	CryptoKeyPlaintext_initKey(&cryptoKey, (uint8_t *)key, CONFIG_HUBBLE_KEY_SIZE);
+	CryptoKeyPlaintext_initKey(&cryptoKey, (uint8_t *)key,
+				   CONFIG_HUBBLE_KEY_SIZE);
 	ret = AESCMAC_oneStepSign(handle, &operation, &cryptoKey);
 	AESCMAC_close(handle);
 
@@ -64,9 +65,8 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 }
 
 int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
-		      uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
-		      const uint8_t *data, size_t len,
-		      uint8_t *output)
+			  uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
+			  const uint8_t *data, size_t len, uint8_t *output)
 {
 	int ret;
 	CryptoKey cryptoKey;
@@ -84,7 +84,8 @@ int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		return -1;
 	}
 
-	CryptoKeyPlaintext_initKey(&cryptoKey, (uint8_t *)key, CONFIG_HUBBLE_KEY_SIZE);
+	CryptoKeyPlaintext_initKey(&cryptoKey, (uint8_t *)key,
+				   CONFIG_HUBBLE_KEY_SIZE);
 
 	memcpy(data_aligned, data, len);
 
@@ -112,4 +113,3 @@ int hubble_crypto_init(void)
 
 	return 0;
 }
-

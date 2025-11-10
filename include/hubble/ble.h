@@ -27,7 +27,7 @@ extern "C" {
  *
  * This is the UUID should be listed in the services list.
  */
-#define HUBBLE_BLE_UUID    0xFCA6
+#define HUBBLE_BLE_UUID 0xFCA6
 
 /**
  * @brief Initializes the Hubble function with the given UTC time.
@@ -66,11 +66,13 @@ int hubble_ble_init(uint64_t utc_time);
  * The following advertisement packet shows a valid example and where the
  * returned data fits in.
  *
- * | len   | ad type | data   | len                          | ad type | data              |
- * |-------+---------+--------+------------------------------+---------+-------------------|
- * | 0x03  | 0x03    | 0xFCA6 | out_len + 0x01 (ad type len) | 0x16    | adv_data          |
- * |       |         |        | (out_len is adv_data len -   |         | (returned by this |
- * |       |         |        |  returned by this API)       |         |  API)             |
+ * | len   | ad type | data   | len                  | ad type | data       |
+ * |-------+---------+--------+----------------------+---------+------------|
+ * | 0x03  | 0x03    | 0xFCA6 | out_len + 0x01       | 0x16    | ad_data    |
+ * |       |         |        | (ad type len)        |         |            |
+ * |       |         |        | (out_len is adv_data |         |            |
+ * |       |         |        |  len - returned by   |         |            |
+ * |       |         |        |  this API)           |         |            |
  *
  *
  * @note - This function is neither thread-safe nor reentrant. The caller must
@@ -87,7 +89,8 @@ int hubble_ble_init(uint64_t utc_time);
  *          - 0 on success
  *          - Non-zero on failure
  */
-int hubble_ble_advertise_get(const uint8_t *input, size_t input_len, uint8_t *out, size_t *out_len);
+int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
+			     uint8_t *out, size_t *out_len);
 
 /**
  * @brief Sets the current UTC time in the Hubble BLE Network.

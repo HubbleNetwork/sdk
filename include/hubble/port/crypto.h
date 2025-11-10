@@ -42,8 +42,8 @@ void hubble_crypto_zeroize(void *buf, size_t len);
 /**
  * @brief Cryptographic initialization.
  *
- * This function must be called before any other cryptographic function otherwise the behavior
- * is undefined.
+ * This function must be called before any other cryptographic function
+ * otherwise the behavior is undefined.
  *
  * @return 0 on success, non-zero on error.
  */
@@ -57,15 +57,14 @@ int hubble_crypto_init(void);
  *                      HUBBLE_BLE_NONCE_BUFFER_LEN).
  * @param data A pointer to the input data buffer to be encrypted.
  * @param len The length of the input data in bytes.
- * @param output A pointer to the output buffer where the encrypted data will be stored.
- *               It must be at least the size of the input data in bytes.
+ * @param output A pointer to the output buffer where the encrypted data will be
+ *               stored. It must be at least the size of the input data in bytes.
  *
  * @return Returns 0 on success, or a non-zero error code on failure.
  */
 int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
-		uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
-		const uint8_t *data, size_t len,
-		uint8_t *output);
+			  uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN],
+			  const uint8_t *data, size_t len, uint8_t *output);
 
 /**
  * @brief Computes the Cipher-based Message Authentication Code (CMAC).
@@ -82,8 +81,9 @@ int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
  *
  * @return 0 on success, non-zero on error.
  */
-int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE], const uint8_t *data,
-		size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
+int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
+		       const uint8_t *data, size_t len,
+		       uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
 
 /**
  * @}

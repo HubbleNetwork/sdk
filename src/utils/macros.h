@@ -21,8 +21,8 @@
 #define HUBBLE_CPU_TO_BE32(val) (val)
 #endif
 
-#define HUBBLE_LO_UINT16(a)   ((a) & 0xFF)
-#define HUBBLE_HI_UINT16(a)   (((a) >> 8) & 0xFF)
+#define HUBBLE_LO_UINT16(a) ((a) & 0xFF)
+#define HUBBLE_HI_UINT16(a) (((a) >> 8) & 0xFF)
 
 
 #endif /* SRC_UTILS_MACROS_H */
