@@ -46,8 +46,8 @@ jobs:
     # These exceptions will need to be handled individually.
     #
     - name: Run clang-format
-       shell: bash
-       run: |
+      shell: bash
+      run: |
          git clang-format --verbose --extensions c,h --diff --diffstat origin/$GITHUB_BASE_REF
 
     - name: Run gitlint
