@@ -1,0 +1,63 @@
+name: Bug Report
+description: File a bug report.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug !
+  - type: input
+    id: sdk-version
+    attributes:
+      label: Hubble Network  SDK Commit Hash
+      description: >-
+        Run `git show HEAD -s --format='%H'` in your repository
+    validations:
+      required: true
+  - type: input
+    id: platorm-port
+    attributes:
+      label: platform-port
+      description: e.g. Zephyr, ESP-IDF, FreeRTOS
+    validations:
+      required: true
+  - type: input
+    id: hardware-target
+    attributes:
+      label: Hardware Target
+      description: What hardware platform ? (e.g. nrf52)
+    validations:
+      required: false
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Steps to reproduce the behavior.
+      placeholder: |
+        Steps to reproduce the behavior:
+          1.
+          2.
+          3.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, anything relevant to understand the problem
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: dropdown
+    attributes:
+      label: Impact
+      description: Impact of this bug
+      multiple: false
+      options:
+        - Blocker
+        - Major
+        - Functional Limitation
+        - Annoyance
+        - Intermittent
+      default: 3
+    validations:
+      required: true
