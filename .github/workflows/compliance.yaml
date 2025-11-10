@@ -33,11 +33,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-    #    pip install clang-format
+        pip install clang-format
         pip install gitlint
 
-    # Temporarily disable clang-format checks until a standardized configuration
-    # is established.
     # Currently, there are formatting inconsistencies that result in
     # improper code styling. Example of such issues:
     #
@@ -45,10 +43,12 @@ jobs:
     #      1, 2, 3, 4
     #};
     #
-    # - name: Run clang-format
-    #   shell: bash
-    #   run: |
-    #     git clang-format --verbose --extensions c,h --diff --diffstat origin/$GITHUB_BASE_REF
+    # These exceptions will need to be handled individually.
+    #
+    - name: Run clang-format
+       shell: bash
+       run: |
+         git clang-format --verbose --extensions c,h --diff --diffstat origin/$GITHUB_BASE_REF
 
     - name: Run gitlint
       run: |
