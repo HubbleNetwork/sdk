@@ -1,0 +1,82 @@
+name: Build Zephyr Sample Projects
+
+on:
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "include/**"
+      - "src/**"
+      - "samples/zephyr/**"
+      - ".github/workflows/build-samples-zephyr-samples.yml"
+
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Optional PR number to run against (use this to target a PR head)"
+        required: false
+      commit_sha:
+        description: "Optional commit SHA to checkout (overrides pr_number if provided)"
+        required: false
+      ref:
+        description: "Optional branch or tag to checkout (used when not supplying pr_number or commit_sha)"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Determine checkout ref
+        id: setref
+        run: |
+          # Determine which ref we should checkout for the build
+          # Priority:
+          # 1. explicit commit_sha input
+          # 2. explicit pr_number input -> refs/pull/<pr>/head
+          # 3. if triggered by a pull_request event -> refs/pull/<pr>/head
+          # 4. explicit ref input
+          # 5. default github.ref
+          echo "event_name=${GITHUB_EVENT_NAME}"
+          if [ -n "${{ github.event.inputs.commit_sha }}" ]; then
+            echo "ref=${{ github.event.inputs.commit_sha }}" >> $GITHUB_OUTPUT
+          elif [ -n "${{ github.event.inputs.pr_number }}" ]; then
+            echo "ref=refs/pull/${{ github.event.inputs.pr_number }}/head" >> $GITHUB_OUTPUT
+          elif [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            # use the PR head ref for pull_request events
+            echo "ref=refs/pull/${{ github.event.pull_request.number }}/head" >> $GITHUB_OUTPUT
+          elif [ -n "${{ github.event.inputs.ref }}" ]; then
+            echo "ref=${{ github.event.inputs.ref }}" >> $GITHUB_OUTPUT
+          else
+            echo "ref=${GITHUB_REF}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.setref.outputs.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Setup Zephyr project (SDK + modules)
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          # west.yml lives at the repo root
+          app-path: .
+          # We only need the ARM toolchain for nRF52. (nrf52_bsim uses host toolchain.)
+          toolchains: arm-zephyr-eabi
+
+      - name: Build zephyr/samples
+        run: |
+          set -euxo pipefail
+          # Build all Zephyr projects in samples/zephyr directory
+          west twister -T samples/zephyr --build-only
