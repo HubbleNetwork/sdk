@@ -33,7 +33,7 @@ application.
 > CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS=y
 > ```
 
-### 2. Run the Provisioning Script
+### Run the Provisioning Script
 
 The `embed_key_utc.py` script takes the key file and embeds it along with the
 current timestamp into the source code (`src/key.c` and `src/utc.c`).
