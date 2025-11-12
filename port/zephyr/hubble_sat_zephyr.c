@@ -10,6 +10,7 @@
 #include <zephyr/kernel.h>
 
 #include <hubble/sat.h>
+#include <hubble/port/sat_radio.h>
 #include <hubble/port/sys.h>
 #include <hubble_rf_zephyr.h>
 
