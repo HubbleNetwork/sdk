@@ -52,7 +52,7 @@ configurations and prepares the network for operation:
 
 .. code-block:: c
 
-    int hubble_ble_init(uint64_t utc_time);
+    int hubble_ble_init(uint64_t utc_time, const void *key);
 
 Time Management
 ===============

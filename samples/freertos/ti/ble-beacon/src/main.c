@@ -57,12 +57,7 @@ void App_StackInitDoneHandler(gapDeviceInitDoneEvent_t *deviceInitDoneData)
 
 	(void)deviceInitDoneData;
 
-	err = hubble_ble_init(utc_time);
-	if (err != 0) {
-		return;
-	}
-
-	err = hubble_ble_key_set(master_key);
+	err = hubble_ble_init(utc_time, master_key);
 	if (err != 0) {
 		return;
 	}

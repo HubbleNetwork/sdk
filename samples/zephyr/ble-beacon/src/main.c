@@ -192,15 +192,9 @@ int main(void)
 	}
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 
-	err = hubble_ble_init(utc_time);
+	err = hubble_ble_init(utc_time, master_key);
 	if (err != 0) {
 		LOG_ERR("Failed to initialize Hubble BLE Network");
-		goto end;
-	}
-
-	err = hubble_ble_key_set(master_key);
-	if (err != 0) {
-		LOG_ERR("Failed to set the Hubble key");
 		goto end;
 	}
 

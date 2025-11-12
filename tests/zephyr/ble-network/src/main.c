@@ -62,8 +62,7 @@ ZTEST(ble_nonce_test, test_ble_nonce_invalid)
 
 static void *ble_nonce_test_setup(void)
 {
-	(void)hubble_ble_init(ble_nonce_utc);
-	(void)hubble_ble_key_set(ble_nonce_key);
+	(void)hubble_ble_init(ble_nonce_utc, ble_nonce_key);
 
 	testing_adv = false;
 	nonce_idx = 0;
@@ -117,8 +116,7 @@ ZTEST(ble_adv_test, test_ble_adv)
 
 static void *ble_adv_test_setup(void)
 {
-	(void)hubble_ble_init(ble_adv_utc);
-	(void)hubble_ble_key_set(ble_adv_key);
+	(void)hubble_ble_init(ble_adv_utc, ble_adv_key);
 
 	testing_adv = true;
 	nonce_idx = 0;

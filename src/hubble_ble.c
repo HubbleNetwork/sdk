@@ -129,7 +129,7 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 	return true;
 }
 
-int hubble_ble_init(uint64_t utc_time)
+int hubble_ble_init(uint64_t utc_time, const void *key)
 {
 	int ret = hubble_crypto_init();
 
@@ -140,9 +140,19 @@ int hubble_ble_init(uint64_t utc_time)
 
 	HUBBLE_LOG_INFO("Hubble BLE Network initialized\n");
 
-	utc_time_base = utc_time - hubble_uptime_get();
+	ret = hubble_ble_utc_set(utc_time);
+	if (ret != 0) {
+		HUBBLE_LOG_WARNING("Failed to set UTC time");
+		return ret;
+	}
 
-	return 0;
+	ret = hubble_ble_key_set(key);
+	if (ret != 0) {
+		HUBBLE_LOG_WARNING("Failed to set UTC key");
+		return ret;
+	}
+
+	return ret;
 }
 
 static int _kbkdf_counter(const uint8_t *key, const char *label,
@@ -390,6 +400,10 @@ err:
 
 int hubble_ble_utc_set(uint64_t utc_time)
 {
+	if (utc_time == 0) {
+		return -EINVAL;
+	}
+
 	utc_time_base = utc_time - hubble_uptime_get();
 
 	return 0;
