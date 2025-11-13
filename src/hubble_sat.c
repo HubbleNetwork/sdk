@@ -26,15 +26,6 @@ int hubble_sat_init(void)
 	return 0;
 }
 
-int hubble_sat_power_set(int8_t power)
-{
-	if (sat_api == NULL || sat_api->power_set == NULL) {
-		return -ENOSYS;
-	}
-
-	return sat_api->power_set(power);
-}
-
 int hubble_sat_enable(void)
 {
 	if (sat_api == NULL || sat_api->enable == NULL) {

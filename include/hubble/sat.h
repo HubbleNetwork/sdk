@@ -35,16 +35,6 @@ extern "C" {
 int hubble_sat_init(void);
 
 /**
- * @brief Set the transmission power.
- *
- * This function sets the transmission power level.
- *
- * @param power The transmission power to set, in dBm.
- * @return 0 on success, or a negative error code on failure.
- */
-int hubble_sat_power_set(int8_t power);
-
-/**
  * @brief Enable the hardware needed for satellite transmissions.
  *
  * This function powers on the radio hardware and prepares it for communication.

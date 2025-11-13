@@ -51,11 +51,6 @@ static int hubble_zephyr_transmit_packet(const struct hubble_sat_packet *packet)
 	return 0;
 }
 
-static int hubble_zephyr_sat_power_set(int8_t power)
-{
-	return hubble_rf_power_set(power);
-}
-
 static int hubble_zephyr_sat_enable(void)
 {
 	return hubble_rf_enable();
@@ -72,7 +67,6 @@ const struct hubble_sat_api *hubble_sat_api_get(void)
 		.transmit_packet = hubble_zephyr_transmit_packet,
 		.enable = hubble_zephyr_sat_enable,
 		.disable = hubble_zephyr_sat_disable,
-		.power_set = hubble_zephyr_sat_power_set,
 	};
 
 	if (hubble_rf_init() != 0) {

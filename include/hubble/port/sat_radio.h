@@ -37,20 +37,6 @@ struct hubble_sat_api {
 	int (*transmit_packet)(const struct hubble_sat_packet *packet);
 
 	/**
-	 * @brief Sets the transmission power
-	 *
-	 * Set the power that will be used when transmitting data.
-	 *
-	 * @param power The desired power level as an 8-bit signed integer
-	 *              (~int8_t~). The valid range of values depends on the
-	 *              specific implementation.
-	 *
-	 * @return 0 on success, non-zero on error.
-	 *
-	 */
-	int (*power_set)(int8_t power);
-
-	/**
 	 * @brief Enables Hubble Network satellite stack.
 	 *
 	 * Setup everything that is need to transmit data.

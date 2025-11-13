@@ -60,14 +60,5 @@ int hubble_rf_cw_stop(void);
  */
 int hubble_rf_frequency_step_set(uint16_t step);
 
-/**
- * @brief Sets the power for the RF module.
- *
- * @param power The power to set.
- *
- * @return 0 on success, negative error code on failure.
- */
-int hubble_rf_power_set(int8_t power);
-
 
 #endif /* PORT_ZEPHYR_HUBBLE_RF_ZEPHYR_H */
