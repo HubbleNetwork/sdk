@@ -7,8 +7,6 @@
 #include <errno.h>
 #include <stdlib.h>
 
-#include "reed_solomon_encoder.h"
-
 #include <hubble/sat.h>
 #include <hubble/port/sys.h>
 #include <hubble/port/sat_radio.h>
