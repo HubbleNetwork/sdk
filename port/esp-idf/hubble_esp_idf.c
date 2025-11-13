@@ -15,7 +15,7 @@ int hubble_log(enum hubble_log_level level, const char *format, ...)
 	va_list args;
 	static esp_log_level_t _log_level[HUBBLE_LOG_COUNT] = {
 		[HUBBLE_LOG_DEBUG] = ESP_LOG_DEBUG,
-		[HUBBLE_LOG_ERR] = ESP_LOG_ERROR,
+		[HUBBLE_LOG_ERROR] = ESP_LOG_ERROR,
 		[HUBBLE_LOG_INFO] = ESP_LOG_INFO,
 		[HUBBLE_LOG_WARNING] = ESP_LOG_WARN,
 	};

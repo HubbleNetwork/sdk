@@ -18,7 +18,7 @@ enum hubble_log_level {
 	HUBBLE_LOG_DEBUG,
 	HUBBLE_LOG_INFO,
 	HUBBLE_LOG_WARNING,
-	HUBBLE_LOG_ERR,
+	HUBBLE_LOG_ERROR,
 	/* Number of log levels (internal use) */
 	HUBBLE_LOG_COUNT,
 };
@@ -36,7 +36,7 @@ enum hubble_log_level {
 #define HUBBLE_LOG_DEBUG(...)   HUBBLE_LOG(HUBBLE_LOG_DEBUG, __VA_ARGS__)
 #define HUBBLE_LOG_INFO(...)    HUBBLE_LOG(HUBBLE_LOG_INFO, __VA_ARGS__)
 #define HUBBLE_LOG_WARNING(...) HUBBLE_LOG(HUBBLE_LOG_WARNING, __VA_ARGS__)
-#define HUBBLE_LOG_ERR(...)     HUBBLE_LOG(HUBBLE_LOG_ERR, __VA_ARGS__)
+#define HUBBLE_LOG_ERROR(...)   HUBBLE_LOG(HUBBLE_LOG_ERROR, __VA_ARGS__)
 
 /**
  * @brief Function pointer to retrieve the target system uptime.

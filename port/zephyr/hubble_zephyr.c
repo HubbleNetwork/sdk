@@ -27,7 +27,7 @@ __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 	va_list args;
 	static uint8_t zephyr_log_level[HUBBLE_LOG_COUNT] = {
 		[HUBBLE_LOG_DEBUG] = LOG_LEVEL_DBG,
-		[HUBBLE_LOG_ERR] = LOG_LEVEL_ERR,
+		[HUBBLE_LOG_ERROR] = LOG_LEVEL_ERR,
 		[HUBBLE_LOG_INFO] = LOG_LEVEL_INF,
 		[HUBBLE_LOG_WARNING] = LOG_LEVEL_WRN,
 	};
