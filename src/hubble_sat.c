@@ -13,15 +13,6 @@
 #include <hubble/port/sys.h>
 #include <hubble/port/sat_radio.h>
 
-#define HUBBLE_LOG(_level, ...)                                                \
-	do {                                                                   \
-		hubble_log((_level), __VA_ARGS__);                             \
-	} while (0)
-
-#define HUBBLE_LOG_DEBUG(...) HUBBLE_LOG(HUBBLE_LOG_DEBUG, __VA_ARGS__)
-#define HUBBLE_LOG_INFO(...)  HUBBLE_LOG(HUBBLE_LOG_INFO, __VA_ARGS__)
-#define HUBBLE_LOG_ERR(...)   HUBBLE_LOG(HUBBLE_LOG_ERR, __VA_ARGS__)
-
 static const struct hubble_sat_api *sat_api;
 
 int hubble_sat_init(void)
