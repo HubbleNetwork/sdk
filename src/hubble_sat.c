@@ -35,15 +35,6 @@ int hubble_sat_power_set(int8_t power)
 	return sat_api->power_set(power);
 }
 
-int hubble_sat_channel_set(uint8_t channel)
-{
-	if (sat_api == NULL || sat_api->channel_set == NULL) {
-		return -ENOSYS;
-	}
-
-	return sat_api->channel_set(channel);
-}
-
 int hubble_sat_enable(void)
 {
 	if (sat_api == NULL || sat_api->enable == NULL) {

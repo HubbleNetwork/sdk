@@ -35,17 +35,6 @@ extern "C" {
 int hubble_sat_init(void);
 
 /**
- * @brief Set the transmission channel.
- *
- * This function sets the operating channel for the hubble satellite
- * transmission.
- *
- * @param channel The channel to set.
- * @return 0 on success, or a negative error code on failure.
- */
-int hubble_sat_channel_set(uint8_t channel);
-
-/**
  * @brief Set the transmission power.
  *
  * This function sets the transmission power level.
@@ -85,8 +74,6 @@ void hubble_sat_disable(void);
  *
  * @note Ensure that the satellite hardware is enabled using ~hubble_sat_enable~
  *       before calling this function.
- *       Additionally, the transmission channel and power should be configured
- *       using ~hubble_sat_channel_set~ and ~hubble_sat_power_set~ respectively.
  *
  * @warning This function does not perform any validation on the packet
  *          structure. It is the caller's responsibility to ensure the

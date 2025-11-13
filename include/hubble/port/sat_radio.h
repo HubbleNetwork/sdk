@@ -51,18 +51,6 @@ struct hubble_sat_api {
 	int (*power_set)(int8_t power);
 
 	/**
-	 * @brief Sets the channel
-	 *
-	 * Set the channel that will be used when transmitting data.
-	 *
-	 * @param channel The desired communication channel.
-	 *                The valid range of values depends on the specific implementation.
-	 *
-	 * @return 0 on success, non-zero on error.
-	 */
-	int (*channel_set)(uint8_t channel);
-
-	/**
 	 * @brief Enables Hubble Network satellite stack.
 	 *
 	 * Setup everything that is need to transmit data.
