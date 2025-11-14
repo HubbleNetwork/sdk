@@ -18,7 +18,9 @@
 
 #include "utils/macros.h"
 
+#ifndef BITS_PER_BYTE
 #define BITS_PER_BYTE 8
+#endif /* BITS_PER_BYTE */
 
 static uint64_t utc_time_base;
 static const void *master_key;

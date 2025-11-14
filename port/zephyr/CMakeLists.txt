@@ -1,3 +1,4 @@
+zephyr_include_directories(.)
 zephyr_include_directories(../../include)
 
 zephyr_library()
@@ -11,7 +12,6 @@ if(CONFIG_HUBBLE_SAT_NETWORK)
 	zephyr_library_sources(../../src/hubble_sat_packet.c)
 	zephyr_library_sources(../../src/reed_solomon_encoder.c)
 	zephyr_library_sources(hubble_sat_zephyr.c)
-	zephyr_include_directories(.)
 endif()
 
 
