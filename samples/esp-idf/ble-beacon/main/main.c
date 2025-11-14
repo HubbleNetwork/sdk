@@ -23,6 +23,7 @@
 
 /* Hubble */
 #include <hubble/ble.h>
+#include <hubble/ble/utils.h>
 
 #define BLE_ADV_LEN     31
 #define ADV_CONFIG_FLAG (1 << 0)
@@ -43,6 +44,8 @@ static uint8_t adv_config_done = 0;
 static esp_bd_addr_t local_addr;
 static uint8_t local_addr_type;
 
+HUBBLE_BLE_ADV_DEFINE(adv_data);
+
 static esp_ble_adv_params_t adv_params = {
 	.adv_int_min = 0x20, // 20ms
 	.adv_int_max = 0x20, // 20ms
@@ -52,36 +55,21 @@ static esp_ble_adv_params_t adv_params = {
 	.adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY,
 };
 
-#define _ADV_BUFFER_BASE_LEN         6
-#define _ADV_BUFFER_POS              6
-#define _ADV_BUFFER_SERVICE_DATA_POS 4
-
 /* configure raw data for advertising packet */
-static uint8_t adv_raw_data[BLE_ADV_LEN] = {
-	0x03, ESP_BLE_AD_TYPE_16SRV_CMPL,   0xa6, 0xfc,
-	0x01, ESP_BLE_AD_TYPE_SERVICE_DATA,
-};
 static esp_bd_addr_t adv_rand_addr;
 
 static esp_err_t _get_hubble_adv(void)
 {
-	esp_err_t ret;
-	size_t out_len = sizeof(adv_raw_data) - _ADV_BUFFER_BASE_LEN;
+	esp_err_t ret = 0;
+	size_t out_len;
 
-	memset(&adv_raw_data[_ADV_BUFFER_POS], 0,
-	       sizeof(adv_raw_data) - _ADV_BUFFER_BASE_LEN);
-	ret = hubble_ble_advertise_get(NULL, 0, &adv_raw_data[_ADV_BUFFER_POS],
-				       &out_len);
+	ret = HUBBLE_BLE_ADV_DATA_SET(adv_data, NULL, 0, &out_len);
 	if (ret != 0) {
 		ESP_LOGE(DEMO_TAG, "Failed to get adv data");
 		return ESP_FAIL;
 	}
 
-	adv_raw_data[_ADV_BUFFER_SERVICE_DATA_POS] =
-		out_len + 1; /* +1 because of service data byte */
-
-	ret = esp_ble_gap_config_adv_data_raw(adv_raw_data,
-					      _ADV_BUFFER_BASE_LEN + out_len);
+	ret = esp_ble_gap_config_adv_data_raw(adv_data, out_len);
 	if (ret) {
 		ESP_LOGE(DEMO_TAG, "config adv data failed, error code = %x",
 			 ret);
