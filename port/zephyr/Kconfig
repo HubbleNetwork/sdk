@@ -88,6 +88,12 @@ config HUBBLE_BLE_NETWORK_PSA
 	   help
 		Enable library for communication with Hubble BLE network
 
+config HUBBLE_BLE_NETWORK_CUSTOM_CRYPTO
+	   bool "Custom crypto implementation"
+	   help
+	    Custom cryptography implementation. The target
+	    will implement all crypto interfaces.
+
 endchoice
 
 choice
