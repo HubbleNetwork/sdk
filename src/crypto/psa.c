@@ -1,4 +1,14 @@
-#include <psa/crypto.h>
+/* Arduino mbed architectures use mbedtls crypto but include
+ * all source files in compilation, so add a guard
+ */
+#if !defined(ARDUINO_ARCH_MBED)
+
+/* Arduino uses a different header for PSA crypto */
+#if defined(ARDUINO)
+#  include <PSACrypto.h>
+#else // ARDUINO
+#  include <psa/crypto.h>
+#endif
 
 #include <errno.h>
 #include <stdint.h>
@@ -49,7 +59,7 @@ static int _psa_status_to_errno(psa_status_t status)
 		ret = -EINVAL;
 		break;
 	case PSA_ERROR_DATA_CORRUPT:
-		ret = -EBADMSG;
+		ret = -ENOMSG;
 		break;
 	default:
 		break;
@@ -161,3 +171,5 @@ int hubble_crypto_init(void)
 
 	return _psa_status_to_errno(status);
 }
+
+#endif // !defined(ARDUINO_ARCH_MBED)

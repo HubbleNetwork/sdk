@@ -66,7 +66,7 @@ int hubble_bitarray_append(struct hubble_bitarray *bit_array,
 		return -EINVAL;
 	}
 
-	for (ssize_t i = input_len_bits - 1, j = 0; i >= 0; i--, j++) {
+	for (size_t i = input_len_bits - 1, j = 0; i >= 0; i--, j++) {
 		int err;
 		uint8_t bit_value;
 
