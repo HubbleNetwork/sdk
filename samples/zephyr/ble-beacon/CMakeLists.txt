@@ -8,3 +8,4 @@ project(app LANGUAGES C)
 
 target_sources(app PRIVATE src/main.c)
 target_sources_ifdef(CONFIG_HUBBLE_BEACON_SAMPLE_STORE_NONCE_SEQUENCE app PRIVATE src/store.c)
+target_sources_ifdef(CONFIG_HUBBLE_BLE_NETWORK_CUSTOM_CRYPTO app PRIVATE src/crypto.c)

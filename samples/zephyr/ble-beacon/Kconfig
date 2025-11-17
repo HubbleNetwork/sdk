@@ -51,6 +51,15 @@ config HUBBLE_BEACON_SAMPLE_STORE_NONCE_SEQUENCE
      default y if NVS
      select HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 
+config HUBBLE_CUSTOM_CRYPTO
+     bool
+     default y if HUBBLE_BLE_NETWORK_CUSTOM_CRYPTO
+     depends on HUBBLE_NETWORK_KEY_128
+     select TINYCRYPT
+     select TINYCRYPT_AES
+     select TINYCRYPT_AES_CTR
+     select TINYCRYPT_AES_CMAC
+
 source "Kconfig.zephyr"
 
 module = APP
