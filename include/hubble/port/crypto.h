@@ -9,6 +9,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <hubble/config/default.h>
 
 #ifdef __cplusplus
 extern "C" {
