@@ -79,4 +79,12 @@ jobs:
         run: |
           set -euxo pipefail
           # Build all Zephyr projects in samples/zephyr directory
-          west twister -T samples/zephyr --build-only
+          west twister -T samples/zephyr --build-only --footprint-report
+
+      - name: Upload footprint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: twister-ble-network-${{ github.run_id }}
+          path: twister-out/twister_footprint.json
+          if-no-files-found: ignore
