@@ -81,6 +81,12 @@ jobs:
           # Build all Zephyr projects in samples/zephyr directory
           west twister -T samples/zephyr --build-only --footprint-report
 
+      - name: Footprint report
+        run: |
+          set -euxo pipefail
+          # Build all Zephyr projects in samples/zephyr directory
+          python3 tools/ci/summarize_footprint.py twister-out/twister_footprint.json
+
       - name: Upload footprint report
         if: always()
         uses: actions/upload-artifact@v4
