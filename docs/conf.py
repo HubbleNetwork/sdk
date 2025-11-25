@@ -3,6 +3,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import sys
+import os
 from pathlib import Path
 
 # -- Project information -----------------------------------------------------
@@ -57,6 +58,13 @@ html_show_sourcelink = False
 html_show_sphinx = False
 html_domain_indices = False
 html_static_path = ["static"]
+# html_baseurl is required for sphinx-sitemap
+# Defaults to localhost for local builds
+# Set SPHINX_BASEURL environment variable to override (e.g., for production/CI)
+html_baseurl = os.environ.get(
+    "SPHINX_BASEURL",
+    "http://localhost:8000/"
+)
 html_theme_options = {
     "collapse_navigation": False,
     'navigation_depth': 3,
