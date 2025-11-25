@@ -11,18 +11,12 @@
 #include "ti/drivers/dpl/TaskP.h"
 
 #include <hubble/ble.h>
-
-#define BLE_ADV_LEN 31
-#define HUBBLE_BLE_ADV_HEADER                                                  \
-	0x03, GAP_ADTYPE_16BIT_COMPLETE, LO_UINT16(0xfca6), HI_UINT16(0xfca6), \
-		0x01, GAP_ADTYPE_SERVICE_DATA,
-#define HUBBLE_BLE_ADV_HEADER_SIZE 6
+#include <hubble/ble/utils.h>
 
 /* Period to update adv packets in microseconds */
 #define HUBBLE_ADV_PACKET_PERIOD   180000000UL
 
 static uint8 bleAdvHandle;
-static uint8_t advData[BLE_ADV_LEN] = {HUBBLE_BLE_ADV_HEADER};
 static ClockP_Handle clockHandle;
 static ClockP_Struct clockStruct;
 static ClockP_Params clockParams;
@@ -51,9 +45,10 @@ static GapAdv_params_t advParams = {
 	.secPhy = GAP_ADV_SEC_PHY_1_MBPS,
 	.sid = 0};
 
-const BLEAppUtil_AdvInit_t hubbleInitAdvSet = {
+HUBBLE_BLE_ADV_DEFINE(advData);
+
+BLEAppUtil_AdvInit_t hubbleInitAdvSet = {
 	/* Advertise data and length */
-	.advDataLen = sizeof(advData),
 	.advData = advData,
 
 	/* Scan respond data and length */
@@ -96,16 +91,11 @@ static int _adv_timer_setup(void)
 static void hubble_ble_adv_update(void *arg)
 {
 	(void)arg;
+	size_t len;
 
-	size_t len = BLE_ADV_LEN - HUBBLE_BLE_ADV_HEADER_SIZE;
-	int status = hubble_ble_advertise_get(
-		NULL, 0, &advData[HUBBLE_BLE_ADV_HEADER_SIZE], &len);
+	HUBBLE_BLE_ADV_DATA_SET(advData, NULL, 0, &len);
 
-	if (status) {
-		return;
-	}
-
-	advData[4] = len + 1; /* output len + BLE service data type */
+	hubbleInitAdvSet.advDataLen = len;
 
 	if (BLEAppUtil_advStop(bleAdvHandle) != SUCCESS) {
 		return;
@@ -136,20 +126,14 @@ bStatus_t hubble_ble_adv_start(void)
 {
 	bStatus_t status = SUCCESS;
 	size_t len;
-	uint8_t *data;
 
 	if (_adv_timer_setup() == FAILURE) {
 		return (FAILURE);
 	}
 
-	len = BLE_ADV_LEN - HUBBLE_BLE_ADV_HEADER_SIZE;
-	if (hubble_ble_advertise_get(
-		    NULL, 0, &advData[HUBBLE_BLE_ADV_HEADER_SIZE], &len) != 0) {
-		return (FAILURE);
-	}
+	HUBBLE_BLE_ADV_DATA_SET(advData, NULL, 0, &len);
 
-	memcpy(&advData[HUBBLE_BLE_ADV_HEADER_SIZE], data, len);
-	advData[4] = len + 1; /* output len + BLE service data type */
+	hubbleInitAdvSet.advDataLen = len;
 
 	status = BLEAppUtil_initAdvSet(&bleAdvHandle, &hubbleInitAdvSet);
 	if (status != SUCCESS) {
