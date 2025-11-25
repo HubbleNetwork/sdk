@@ -28,12 +28,12 @@ The SDK architecture is built on modularity and extensibility, accommodating
 a broad range of implementation requirements. The following sections
 summarize its primary components:
 
-Services Layer
-==============
+Service Modules
+===============
 
 The Services Layer contains the core functionality of the SDK, including the
 satellite and BLE network modules. Applications interface with the SDK
-through this layer, leveraging a high-level API that streamlines satellite
+through these components, leveraging a high-level API that streamlines satellite
 and BLE communication.
 
 Satellite Module
@@ -62,6 +62,6 @@ for managing the Bluetooth stack.
 Port Layer
 ==========
 
-The Port Layer acts as an abstraction between the Services Layer and
+The Port Layer acts as an abstraction between the Service Modules and
 RTOS-specific implementations. It defines an API that simplifies porting the
 SDK to various RTOS environments beyond those natively supported.
