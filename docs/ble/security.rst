@@ -46,7 +46,7 @@ Encryption steps
 
 
 An application will get the encrypted advertisment data using
-:c:func:`hubble_zephyr_advertisement_data_get`. This function performs the
+:c:func:`hubble_ble_advertise_get`. This function performs the
 following steps to prepare the advertisement data:
 
 * Derives the device ID, nonce, and encryption key using the KBKDF.
