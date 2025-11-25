@@ -13,11 +13,12 @@ advertisement is unique.
 Key concepts
 ************
 
-* **AES-256 Encryption**
+* **AES Encryption**
 
-  The code uses AES-256 (Advanced Encryption Standard with a 256-bit key) for
-  encryption. AES is a symmetric encryption algorithm, meaning the same key is
-  used for both encryption and decryption.
+  The code uses AES (Advanced Encryption Standard with a 256-bit or
+  128-bit keys) for encryption. AES is a symmetric encryption
+  algorithm, meaning the same key is used for both encryption and
+  decryption.
 
 * **CMAC (Cipher-based Message Authentication Code)**
 
@@ -51,7 +52,7 @@ following steps to prepare the advertisement data:
 
 * Derives the device ID, nonce, and encryption key using the KBKDF.
 * Sets the BLE address using the derived device ID and sequence number.
-* Encrypts the payload data using AES-256 in CTR mode with the derived encryption key and nonce.
+* Encrypts the payload data using AES in CTR mode with the derived encryption key and nonce.
 * Computes the CMAC of the encrypted payload data to generate an authentication tag.
 * Copies the authentication tag and encrypted data into the advertisement buffer.
 
