@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/logging/log_core.h>
 #include <zephyr/logging/log_output.h>
@@ -13,6 +14,8 @@
 #include <stddef.h>
 
 #include <hubble/port/sys.h>
+
+#include "port_types.h"
 
 LOG_MODULE_REGISTER(hubblenetwork, CONFIG_HUBBLE_LOG_LEVEL);
 
@@ -46,3 +49,48 @@ __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 	return 0;
 }
 
+static void _hubble_timer_cb(struct k_timer *timer)
+{
+	struct hubble_timer *h =
+		CONTAINER_OF(timer, struct hubble_timer, zephyr_timer);
+
+	h->cb(h, (void *)h->user_data);
+}
+
+int hubble_timer_init(struct hubble_timer *timer,
+		      void (*cb)(struct hubble_timer *timer, void *user_data),
+		      const void *user_data)
+{
+	if ((timer == NULL) || (cb == NULL)) {
+		return -EINVAL;
+	}
+
+	timer->cb = cb;
+	timer->user_data = user_data;
+	k_timer_init(&timer->zephyr_timer, _hubble_timer_cb, NULL);
+
+	return 0;
+}
+
+int hubble_timer_start(struct hubble_timer *timer, uint64_t expiration_us)
+{
+	if ((timer == NULL) || (expiration_us == UINT64_MAX)) {
+		return -EINVAL;
+	}
+
+	k_timer_start(&timer->zephyr_timer, K_USEC(expiration_us),
+		      K_USEC(expiration_us));
+
+	return 0;
+}
+
+int hubble_timer_stop(struct hubble_timer *timer)
+{
+	if (timer == NULL) {
+		return -EINVAL;
+	}
+
+	k_timer_stop(&timer->zephyr_timer);
+
+	return 0;
+}

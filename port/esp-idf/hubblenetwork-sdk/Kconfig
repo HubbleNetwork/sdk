@@ -3,6 +3,7 @@
 
 menuconfig HUBBLE_BLE_NETWORK
 	   bool "Hubble BLE Network Library"
+	   select ESP_TIMER_SUPPORTS_ISR_DISPATCH_METHOD
 	   help
 		Enable library for communication with Hubble BLE network
 

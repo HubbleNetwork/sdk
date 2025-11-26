@@ -11,6 +11,7 @@ idf_component_register(
         "mbedtls"
         "freertos"
         "log"
+        "esp_timer"
     SRCS
         "${SDK_BASE_DIR}/port/esp-idf/hubble_esp_idf.c"
         "${SDK_BASE_DIR}/port/freertos/hubble_freertos.c"
