@@ -30,6 +30,16 @@ extern "C" {
 #define HUBBLE_BLE_UUID 0xFCA6
 
 /**
+ * @brief Maximum amount of data sendable in bytes
+ *
+ * This is the maximum length of data that can be sent with Hubble.
+ * If other services or service data are advertised then this number
+ * will be smaller for your application given the finite length of
+ * advertisements.
+ */
+#define HUBBLE_BLE_MAX_DATA_LEN 13
+
+/**
  * @brief Initializes the Hubble function with the given UTC time.
  *
  * Calling this function is essential before using @ref hubble_ble_advertise_get
