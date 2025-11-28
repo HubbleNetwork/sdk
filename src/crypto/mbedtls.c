@@ -1,3 +1,6 @@
+/* Arduino libraries compile all source code, so add guard */
+#if !defined(ARDUINO) || defined(ARDUINO_ARCH_MBED)
+
 #include <errno.h>
 #include <stdint.h>
 #include <string.h>
@@ -8,6 +11,7 @@
 #include <hubble/ble.h>
 #include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
+#include <hubble/config/default.h>
 
 /* Older verions of Zephyr do not define it */
 #ifndef BITS_PER_BYTE
@@ -117,3 +121,5 @@ int hubble_crypto_init(void)
 {
 	return 0;
 }
+
+#endif // !defined(ARDUINO) || defined(ARDUINO_ARCH_MBED)
