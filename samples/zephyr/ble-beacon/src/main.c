@@ -192,20 +192,15 @@ int main(void)
 	}
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 
-	err = hubble_ble_init(utc_time, master_key);
+	err = hubble_init(utc_time, master_key);
 	if (err != 0) {
 		LOG_ERR("Failed to initialize Hubble BLE Network");
 		goto end;
 	}
 
-	k_timer_start(&message_timer,
-		      K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD),
-		      K_SECONDS(CONFIG_HUBBLE_BEACON_SAMPLE_UPDATE_ADV_PERIOD));
-
 	for (;;) {
 		out_len = HUBBLE_USER_BUFFER_LEN;
-		err = hubble_ble_advertise_get(NULL, 0, _hubble_user_buffer,
-					       &out_len);
+		err = hubble_ble_generate_adv_service_data(NULL, 0, _hubble_user_buffer, &out_len);
 		if (err != 0) {
 			LOG_ERR("Failed to get the advertisement data (err=%d)",
 				err);
@@ -227,7 +222,7 @@ int main(void)
 			goto end;
 		}
 
-		k_sem_take(&timer_sem, K_FOREVER);
+		k_sleep(K_MSEC(hubble_ble_get_adv_update_timeout_ms()));
 
 		err = bt_le_adv_stop();
 		if (err != 0) {
