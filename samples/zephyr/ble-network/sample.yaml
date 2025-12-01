@@ -17,10 +17,10 @@ tests:
   app.ble_network.debug:
     extra_overlay_confs:
       - debug.conf
-  app.ble_network.psa:
+  app.ble_network.mbedtls:
     extra_configs:
-      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
-  app.ble_network.psa_128key:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+  app.ble_network.mbedtls_128key:
     extra_configs:
-      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
       - CONFIG_HUBBLE_NETWORK_KEY_128=y

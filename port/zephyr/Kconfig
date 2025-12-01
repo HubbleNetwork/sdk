@@ -66,6 +66,7 @@ if HUBBLE_BLE_NETWORK
 
 choice
 	prompt "HUBBLE BLE Network crypto provider"
+	default HUBBLE_BLE_NETWORK_PSA
 
 config HUBBLE_BLE_NETWORK_MBEDTLS
 	   bool "Use MBEDTLS for Hubble BLE Network Library"
