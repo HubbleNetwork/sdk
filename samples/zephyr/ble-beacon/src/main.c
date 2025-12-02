@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <hubble/ble.h>
+#include <hubble/hubble.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/bluetooth.h>
@@ -192,7 +192,7 @@ int main(void)
 	}
 #endif /* CONFIG_HUBBLE_BEACON_SAMPLE_USE_CTS */
 
-	err = hubble_ble_init(utc_time, master_key);
+	err = hubble_init(utc_time, master_key);
 	if (err != 0) {
 		LOG_ERR("Failed to initialize Hubble BLE Network");
 		goto end;

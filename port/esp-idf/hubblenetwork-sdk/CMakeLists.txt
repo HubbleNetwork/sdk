@@ -15,6 +15,7 @@ idf_component_register(
         "${SDK_BASE_DIR}/port/esp-idf/hubble_esp_idf.c"
         "${SDK_BASE_DIR}/port/freertos/hubble_freertos.c"
         "${SDK_BASE_DIR}/src/crypto/mbedtls.c"
+        "${SDK_BASE_DIR}/src/hubble.c"
         "${SDK_BASE_DIR}/src/hubble_ble.c"
 )
 

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <hubble/ble.h>
+#include <hubble/hubble.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/bluetooth/bluetooth.h>
@@ -66,7 +66,7 @@ static void bypass_cb(const struct shell *sh, uint8_t *recv, size_t len)
 	if (sum > sizeof(master_key)) {
 		shell_print(sh, "Given key is too big !");
 		shell_set_bypass(sh, NULL);
-		if (hubble_ble_key_set((void *)master_key) != 0) {
+		if (hubble_key_set((void *)master_key) != 0) {
 			LOG_WRN("Failed to set the encryption key");
 		}
 
@@ -76,7 +76,7 @@ static void bypass_cb(const struct shell *sh, uint8_t *recv, size_t len)
 	if (escape) {
 		shell_print(sh, "Number of bytes read: %d", sum);
 		shell_set_bypass(sh, NULL);
-		if (hubble_ble_key_set((void *)master_key) != 0) {
+		if (hubble_key_set((void *)master_key) != 0) {
 			LOG_WRN("Failed to set the encryption key");
 		}
 		k_sem_give(&key_sem);
@@ -124,7 +124,7 @@ static int cmd_utc(const struct shell *sh, size_t argc, char **argv, void *data)
 		k_sem_give(&app_sem);
 		give_sem = false;
 	} else {
-		ret = hubble_ble_utc_set(utc_time);
+		ret = hubble_utc_set(utc_time);
 	}
 
 	return ret;
@@ -170,7 +170,7 @@ int main(void)
 
 	LOG_DBG("Key and UTC time set");
 
-	err = hubble_ble_init(utc_time, NULL);
+	err = hubble_init(utc_time, NULL);
 	if (err != 0) {
 		LOG_ERR("Failed to initialize Hubble BLE Network");
 		return err;

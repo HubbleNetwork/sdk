@@ -22,7 +22,7 @@ icall_userCfg_t user0Cfg = BLE_USER_CFG;
 
 #include "ti/ble/app_util/framework/bleapputil_api.h"
 
-#include <hubble/ble.h>
+#include <hubble/hubble.h>
 
 #include "key.c"
 #include "utc.c"
@@ -57,7 +57,7 @@ void App_StackInitDoneHandler(gapDeviceInitDoneEvent_t *deviceInitDoneData)
 
 	(void)deviceInitDoneData;
 
-	err = hubble_ble_init(utc_time, master_key);
+	err = hubble_init(utc_time, master_key);
 	if (err != 0) {
 		return;
 	}

@@ -16,12 +16,10 @@
 #include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
+#include "hubble_priv.h"
 #include "utils/macros.h"
 
-#define BITS_PER_BYTE 8
-
-static uint64_t utc_time_base;
-static const void *master_key;
+#define BITS_PER_BYTE               8
 
 #define HUBBLE_BLE_CONTEXT_LEN      12
 #define HUBBLE_BLE_MESSAGE_LEN      64
@@ -129,32 +127,6 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 	return true;
 }
 
-int hubble_ble_init(uint64_t utc_time, const void *key)
-{
-	int ret = hubble_crypto_init();
-
-	if (ret != 0) {
-		HUBBLE_LOG_WARNING("Failed to initialize cryptography");
-		return ret;
-	}
-
-	HUBBLE_LOG_INFO("Hubble BLE Network initialized\n");
-
-	ret = hubble_ble_utc_set(utc_time);
-	if (ret != 0) {
-		HUBBLE_LOG_WARNING("Failed to set UTC time");
-		return ret;
-	}
-
-	ret = hubble_ble_key_set(key);
-	if (ret != 0) {
-		HUBBLE_LOG_WARNING("Failed to set UTC key");
-		return ret;
-	}
-
-	return ret;
-}
-
 static int _kbkdf_counter(const uint8_t *key, const char *label,
 			  size_t label_len, const uint8_t *context,
 			  size_t context_len, uint8_t *output, size_t olen)
@@ -230,6 +202,7 @@ static int _derived_key_get(enum hubble_ble_key_label label, uint32_t counter,
 {
 	int err = 0;
 	uint8_t context[HUBBLE_BLE_CONTEXT_LEN] = {0};
+	const void *master_key = hubble_internal_key_get();
 
 	snprintf((char *)context, HUBBLE_BLE_CONTEXT_LEN, "%" PRIu32, counter);
 
@@ -325,12 +298,13 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 {
 	int err;
 	uint32_t device_id;
-	uint32_t time_counter = (utc_time_base + hubble_uptime_get()) /
-				HUBBLE_TIMER_COUNTER_FREQUENCY;
+	uint32_t time_counter =
+		hubble_internal_utc_time_get() / HUBBLE_TIMER_COUNTER_FREQUENCY;
 	uint8_t encryption_key[CONFIG_HUBBLE_KEY_SIZE] = {0};
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN] = {0};
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
 	uint16_t seq_no;
+	const void *master_key = hubble_internal_key_get();
 
 	if ((master_key == NULL) || (out == NULL) || (out_len == NULL)) {
 		return -EINVAL;
@@ -400,26 +374,4 @@ encryption_key_err:
 err:
 
 	return err;
-}
-
-int hubble_ble_utc_set(uint64_t utc_time)
-{
-	if (utc_time == 0) {
-		return -EINVAL;
-	}
-
-	utc_time_base = utc_time - hubble_uptime_get();
-
-	return 0;
-}
-
-int hubble_ble_key_set(const void *key)
-{
-	if (key == NULL) {
-		return -EINVAL;
-	}
-
-	master_key = key;
-
-	return 0;
 }

@@ -40,28 +40,6 @@ extern "C" {
 #define HUBBLE_BLE_MAX_DATA_LEN 13
 
 /**
- * @brief Initializes the Hubble function with the given UTC time.
- *
- * Calling this function is essential before using @ref hubble_ble_advertise_get
- *
- * @code
- * uint64_t current_utc_time = 1633072800000; // Example UTC time in milliseconds
- * static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE] = {...};
- * int ret = hubble_ble_init(current_utc_time, master_key);
- * @endcode
- *
- * @param utc_time The UTC time in milliseconds since the Unix epoch (January 1, 1970).
- *                 Set to 0 to set later via hubble_ble_utc_set
- * @param key An opaque pointer to the key. If NULL, must be set with hubble_ble_key_set
- *            before getting advertisements.
- *
- * @return
- *          - 0 on success.
- *          - Non-zero on failure.
- */
-int hubble_ble_init(uint64_t utc_time, const void *key);
-
-/**
  * @brief Retrieves advertisements from the provided data.
  *
  * This function processes the input data and creates the advertisement payload.
@@ -91,7 +69,7 @@ int hubble_ble_init(uint64_t utc_time, const void *key);
  *
  * @note - This function is neither thread-safe nor reentrant. The caller must
  *         ensure proper synchronization.
- *       - The payload is encrypted using the key set by @ref hubble_ble_key_set
+ *       - The payload is encrypted using the key set by @ref hubble_key_set
  *       - Legacy packet type (Extended Advertisements not supported)
  *
  * @param input Pointer to the input data.
@@ -105,28 +83,6 @@ int hubble_ble_init(uint64_t utc_time, const void *key);
  */
 int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 			     uint8_t *out, size_t *out_len);
-
-/**
- * @brief Sets the current UTC time in the Hubble BLE Network.
- *
- * @param utc_time The UTC time in milliseconds since the Unix epoch (January 1, 1970).
- *
- * @return
- *          - 0 on success.
- *          - Non-zero on failure.
- */
-int hubble_ble_utc_set(uint64_t utc_time);
-
-/**
- * @brief Sets the encryption key for advertisement data creation.
- *
- * @param key An opaque pointer to the key.
- *
- * @return
- *         - 0 on success.
- *         - Non-zero on failure.
- */
-int hubble_ble_key_set(const void *key);
 
 /**
  * @}

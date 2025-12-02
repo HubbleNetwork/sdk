@@ -19,8 +19,8 @@ To ensure the SDK operates with accurate time, follow these steps to provision U
 
 2. **Set System Time**
 
-   + Use the Hubble APIs (:c:func:`hubble_ble_init` and
-     :c:func:`hubble_ble_utc_set`) to set the obtained UTC time.
+   + Use the Hubble APIs (:c:func:`hubble_init` and
+     :c:func:`hubble_utc_set`) to set the obtained UTC time.
 
 3. **Validate Time Synchronization**
 

@@ -22,7 +22,7 @@
 #include "freertos/FreeRTOS.h"
 
 /* Hubble */
-#include <hubble/ble.h>
+#include <hubble/hubble.h>
 
 #define BLE_ADV_LEN     31
 #define ADV_CONFIG_FLAG (1 << 0)
@@ -100,7 +100,7 @@ void app_main(void)
 	esp_err_t ret;
 	esp_timer_handle_t adv_timer;
 
-	ret = hubble_ble_init(utc_time, master_key);
+	ret = hubble_init(utc_time, master_key);
 	if (ret != 0) {
 		ESP_LOGE(DEMO_TAG, "Failed to initialize Hubble BLE Network");
 		return;
