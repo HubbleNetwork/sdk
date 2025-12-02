@@ -1,3 +1,2 @@
-bleak
-geocoder
-pycryptodome
+pyhubblenetwork
+click
