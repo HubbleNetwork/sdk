@@ -18,10 +18,10 @@ tests:
   app.beacon.debug:
     extra_overlay_confs:
       - debug.conf
-  app.beacon.psa:
+  app.beacon.mbedtls:
     extra_configs:
-      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
-  app.beacon.psa_128key:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+  app.beacon.mbedtls_128key:
     extra_configs:
-      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
       - CONFIG_HUBBLE_NETWORK_KEY_128=y
