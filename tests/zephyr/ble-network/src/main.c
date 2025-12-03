@@ -114,6 +114,16 @@ ZTEST(ble_adv_test, test_ble_adv)
 	}
 }
 
+ZTEST(ble_adv_test, test_adv_get_overflow)
+{
+	uint8_t buf[TEST_ADV_BUFFER_SZ];
+	uint8_t in[HUBBLE_BLE_MAX_DATA_LEN + 1] = {};
+	size_t out_len = sizeof(buf);
+	int status = hubble_ble_advertise_get(in, HUBBLE_BLE_MAX_DATA_LEN + 1,
+					      buf, &out_len);
+	zassert_not_ok(status);
+}
+
 static void *ble_adv_test_setup(void)
 {
 	(void)hubble_init(ble_adv_utc, ble_adv_key);
