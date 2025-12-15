@@ -70,4 +70,5 @@ Additional Resources
    ble/index
    satellite/index
    security/index
+   releases/index
 
