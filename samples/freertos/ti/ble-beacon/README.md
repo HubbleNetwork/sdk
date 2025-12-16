@@ -45,28 +45,28 @@ To build and run this project, you will need:
    Ensure that the TI SDK is installed on your
    system. Set *SYSCONFIG_TOOL*, *SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR* and *TICLANG_ARMCOMPILER*
    environment variables. e.g:
-```
-   export TICLANG_ARMCOMPILER=/Applications/ti/ccs1281/ccs/tools/compiler/ti-cgt-armllvm_3.2.1.LTS/
-   export SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR=/Applications/ti/simplelink_lowpower_f3_sdk_9_10_00_83
-   export SYSCONFIG_TOOL=/Applications/ti/sysconfig_1.23.1/sysconfig_cli.sh
+```bash
+export TICLANG_ARMCOMPILER=/Applications/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/
+export SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR=/Applications/ti/simplelink_lowpower_f3_sdk_9_14_00_41
+export SYSCONFIG_TOOL=/Applications/ti/sysconfig_1.23.2/sysconfig_cli.sh
 ```
 
 2. **Embed Key and UTC**
 
    Use the *embed_key_utc.py* script to provision a BLE key and UTC timestamp:
 
-```
-   # Script is located in SDK_BASE/tools
+```bash
+# Script is located in SDK_BASE/tools
 
-   python ../../../../tools/embed_key_utc.py --base64 <path-to-key> -o src/
+python ../../../../tools/embed_key_utc.py --base64 <path-to-key> -o src/
 ```
 
 3. **Build the Project**
 
-   Build the project using the provided *Makefile*:
+   Build the project using the provided *makefile*:
 
-```
-   make -C freertos/ticlang
+```bash
+make
 ```
 
 4. **Flash the Firmware**
@@ -84,4 +84,4 @@ Once the firmware is flashed:
 
 + **src/hubble_ble_adv.c**: BLE advertising implementation.
 + **src/hubble_ble_ti.c**: This is a core file to integrate with HubbleNetwork SDK. It implements the required cryptograhic API.
-+ **Makefile**: Build system for the project.
++ **makefile**: Build system for the project.

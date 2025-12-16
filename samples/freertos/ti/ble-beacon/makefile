@@ -43,6 +43,7 @@ OBJECTS = $(addprefix $(BUILD_DIR)/, \
 	  common_iCall_icall_POSIX.obj \
 	  common_config_ble_user_config.obj \
 	  common_Profiles_simple_gatt_simple_gatt_profile.obj \
+	  common_BLE_SysStat_blesysstat.obj \
 	  $(patsubst %.c,%.obj,$(notdir $(SYSCFG_C_FILES))))
 
 
@@ -158,6 +159,11 @@ $(BUILD_DIR)/app_hubble_ble_ti.obj: src/hubble_ble_ti.c $(BUILD_DIR)
 $(BUILD_DIR)/app_main.obj: src/main.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
 	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $< -o $@
+
+
+$(BUILD_DIR)/common_BLE_SysStat_blesysstat.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/stack_util/health_toolkit/src/ble_sys_stat.c $(SYSCFG_H_FILES) $(BUILD_DIR)
+	@ echo Building $@
+	$(V) $(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/common_Services_dev_info_dev_info_service.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/services/dev_info/src/dev_info_service.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
