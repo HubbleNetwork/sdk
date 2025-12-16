@@ -7,7 +7,7 @@ A software development library for connecting embedded devices to the
 
 This SDK provides a flexible solution for building applications capable of using Hubble Network stack. It is composed of two main functionalities:
 
-* **Hubble BLE Network**
+* **Hubble Terrestrial Network**
 * **Hubble Satellite Network**
 
 For information on how to use the SDK and technical details, please refer to the [Hubble Network SDK Documentation](https://docs.hubblenetwork.com/docs/device-sdk/intro).
