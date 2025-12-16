@@ -1,0 +1,79 @@
+name: 🚀 Feature Request
+description: Propose a new feature or enhancement.
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a feature or enhancement!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: |
+        Is your feature request related to a problem? Please describe the problem clearly and concisely.
+        If applicable, include examples of situations where this problem occurs.
+      placeholder: |
+        Example: I'm always frustrated when [...]
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: |
+        Describe the feature or enhancement you would like to see implemented.
+        Be as specific as possible about the desired functionality and behavior.
+      placeholder: |
+        Example: I would like to see [...]
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: |
+        Describe any alternative solutions or features you've considered.
+        This helps us understand the context and evaluate different approaches.
+      placeholder: |
+        Example: I also considered [...]
+    validations:
+      required: false
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: |
+        Provide specific examples of how this feature would be used.
+        Include real-world scenarios where this enhancement would be valuable.
+      placeholder: |
+        Example: This would be useful when [...]
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would be helpful
+        - High - Important for my use case
+        - Critical - Blocking my work
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Add any other context, screenshots, mockups, or examples about the feature request here.
+        If this feature exists in other projects, please provide links for reference.
+      placeholder: |
+        - Links to related issues or discussions
+        - Screenshots or mockups
+        - References to similar implementations
+        - Platform / OS (if applicable)
+    validations:
+      required: false
