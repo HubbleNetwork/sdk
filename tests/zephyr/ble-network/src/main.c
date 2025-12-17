@@ -19,7 +19,7 @@ struct test_nonce {
 #define TEST_ADV_BUFFER_SZ 31
 
 static uint8_t ble_nonce_key[CONFIG_HUBBLE_KEY_SIZE] = {};
-static uint64_t ble_nonce_utc = 1760383551803;
+static uint64_t ble_nonce_utc = 1760383551803U;
 static uint16_t nonce_idx;
 static bool testing_adv;
 
@@ -65,7 +65,7 @@ static void *ble_nonce_test_setup(void)
 	(void)hubble_init(ble_nonce_utc, ble_nonce_key);
 
 	testing_adv = false;
-	nonce_idx = 0;
+	nonce_idx = 0U;
 
 	return NULL;
 }
@@ -74,7 +74,7 @@ ZTEST_SUITE(ble_nonce_test, NULL, ble_nonce_test_setup, NULL, NULL, NULL);
 
 /* Adv test section */
 
-static uint64_t ble_adv_utc = 1760210751803;
+static uint64_t ble_adv_utc = 1760210751803U;
 /* zRWlq8BgtnKIph5E6ZW6d9FAvUZWS4jeQcFaknOwzoU= */
 static uint8_t ble_adv_key[CONFIG_HUBBLE_KEY_SIZE] = {
 	0xcd, 0x15, 0xa5, 0xab, 0xc0, 0x60, 0xb6, 0x72, 0x88, 0xa6, 0x1e,
@@ -129,7 +129,7 @@ static void *ble_adv_test_setup(void)
 	(void)hubble_init(ble_adv_utc, ble_adv_key);
 
 	testing_adv = true;
-	nonce_idx = 0;
+	nonce_idx = 0U;
 
 	return NULL;
 }

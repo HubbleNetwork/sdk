@@ -18,7 +18,7 @@ static const void *master_key;
 
 int hubble_utc_set(uint64_t utc_time)
 {
-	if (utc_time == 0) {
+	if (utc_time == 0U) {
 		return -EINVAL;
 	}
 

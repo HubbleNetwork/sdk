@@ -78,7 +78,7 @@ static bool _payload_length_check(size_t length)
 static int _encode(const struct hubble_bitarray *bit_array, int *symbols,
 		   size_t symbols_size)
 {
-	uint8_t symbol = 0;
+	uint8_t symbol = 0U;
 	int symbol_bit_index = 0;
 	int index = 0;
 
@@ -93,7 +93,7 @@ static int _encode(const struct hubble_bitarray *bit_array, int *symbols,
 		symbol_bit_index++;
 		if ((i + 1) % HUBBLE_SYMBOL_SIZE == 0) {
 			symbols[index] = symbol;
-			symbol = 0;
+			symbol = 0U;
 			symbol_bit_index = 0;
 			index++;
 		}
@@ -186,13 +186,13 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, uint64_t device_id,
 	/* generate error control symbols */
 	rse_gf_generate();
 
-	ecc = _hubble_mac_error_control_symbols[symbol_index] / 2;
+	ecc = _hubble_mac_error_control_symbols[symbol_index] / 2U;
 	rse_poly_generate(ecc);
 	rs_symbols = rse_rs_encode(symbols, number_of_symbols, ecc);
 
 	for (uint8_t mac_idx = 0, rs_idx = 0, i = 0;
 	     i < _hubble_packet_total_symbols[symbol_index]; i++) {
-		if ((i == 0) || (i == 9) || (i == 18)) {
+		if ((i == 0U) || (i == 9U) || (i == 18U)) {
 			packet->data[i] = packet_length;
 			continue;
 		}

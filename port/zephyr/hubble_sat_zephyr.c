@@ -19,7 +19,7 @@
 
 #define HUBBLE_CHANNEL_OFFSET(channel) (channel * 66)
 
-static uint8_t _channel = 0;
+static uint8_t _channel = 0U;
 static const int8_t _preamble[] = {0, -1, 0, -1, 0, -1, 0, 0};
 
 static int hubble_zephyr_transmit_packet(const struct hubble_sat_packet *packet)

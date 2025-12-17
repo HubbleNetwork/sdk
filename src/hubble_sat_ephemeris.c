@@ -205,7 +205,7 @@ static double _sqrt_small(double x)
 	 */
 
 	/* exponent == 0 => subnormal */
-	if ((v.u & 0x7ff0000000000000ULL) == 0) {
+	if ((v.u & 0x7ff0000000000000ULL) == 0U) {
 		/* 2^52 */
 		x *= 4503599627370496.0;
 		scaled = 1;

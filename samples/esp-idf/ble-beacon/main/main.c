@@ -39,7 +39,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event,
 
 static const char *DEMO_TAG = "BLE_BEACON";
 
-static uint8_t adv_config_done = 0;
+static uint8_t adv_config_done = 0U;
 static esp_bd_addr_t local_addr;
 static uint8_t local_addr_type;
 
@@ -194,7 +194,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
 			 param->adv_data_cmpl.status);
 		adv_config_done &= (~ADV_CONFIG_FLAG);
 		esp_ble_gap_set_rand_addr((uint8_t *)adv_rand_addr);
-		if (adv_config_done == 0) {
+		if (adv_config_done == 0U) {
 			esp_ble_gap_start_advertising(&adv_params);
 		}
 		break;
@@ -202,7 +202,7 @@ static void esp_gap_cb(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *par
 		ESP_LOGI(DEMO_TAG, "Advertising data raw set, status %d",
 			 param->adv_data_raw_cmpl.status);
 		adv_config_done &= (~ADV_CONFIG_FLAG);
-		if (adv_config_done == 0) {
+		if (adv_config_done == 0U) {
 			esp_ble_gap_start_advertising(&adv_params);
 		}
 		break;

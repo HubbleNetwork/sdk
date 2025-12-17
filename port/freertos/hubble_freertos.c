@@ -31,7 +31,7 @@
 
 uint64_t hubble_uptime_get(void)
 {
-	return ((uint64_t)xTaskGetTickCount() * 1000) / configTICK_RATE_HZ;
+	return ((uint64_t)xTaskGetTickCount() * 1000U) / configTICK_RATE_HZ;
 }
 
 HUBBLE_WEAK int hubble_log(enum hubble_log_level level, const char *format, ...)

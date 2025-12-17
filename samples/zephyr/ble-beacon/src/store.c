@@ -47,7 +47,7 @@ static int beacon_nvs_init(void)
 uint16_t hubble_sequence_counter_get(void)
 {
 	ssize_t ret;
-	uint16_t counter = 0;
+	uint16_t counter = 0U;
 
 	ret = nvs_read(&beacon_fs, SEQUENCE_COUNTER_ID, &counter,
 		       sizeof(counter));
@@ -60,7 +60,7 @@ uint16_t hubble_sequence_counter_get(void)
 	}
 
 	if (counter > HUBBLE_BLE_MAX_SEQ_COUNTER) {
-		counter = 0;
+		counter = 0U;
 	}
 
 end:

@@ -62,10 +62,10 @@ enum hubble_ble_value_label {
 uint16_t hubble_sequence_counter_get(void)
 {
 	/* Sequence number used to rotate keys */
-	static uint16_t _sequence_number = 0;
+	static uint16_t _sequence_number = 0U;
 
 	if (_sequence_number > HUBBLE_BLE_MAX_SEQ_COUNTER) {
-		_sequence_number = 0;
+		_sequence_number = 0U;
 	}
 
 	return _sequence_number++;
@@ -93,7 +93,7 @@ static bool _nonce_values_check(uint32_t time_counter, uint16_t seq_no)
 	 * We just need to update our daily reference for checking for
 	 * sequence wrapper.
 	 */
-	if ((_check_time_counter == 0) || (_check_time_counter != time_counter)) {
+	if ((_check_time_counter == 0U) || (_check_time_counter != time_counter)) {
 		_check_seq_daily_reference_no = seq_no;
 		_check_seq_no_wrapped = false;
 		_check_time_counter = time_counter;
@@ -134,8 +134,8 @@ static int _kbkdf_counter(const uint8_t *key, const char *label,
 	int ret = 0;
 	uint8_t prf_output[HUBBLE_AES_BLOCK_SIZE];
 	uint8_t message[HUBBLE_BLE_MESSAGE_LEN];
-	uint32_t counter = 1;
-	uint32_t total = 0;
+	uint32_t counter = 1U;
+	uint32_t total = 0U;
 	uint8_t separation_byte = 0x00;
 
 	/* Message format: Counter + Label + Context + Length (in bits) */

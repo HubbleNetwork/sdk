@@ -125,7 +125,7 @@ int bt_cts_fill_current_cts_time(struct bt_cts_time_format *cts_time)
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
-	if (utc_time != 0) {
+	if (utc_time != 0U) {
 		k_sem_give(&time_sem);
 	} else {
 		k_work_submit(&ble_work);
@@ -146,7 +146,7 @@ static int hubble_ble_time_sync(void)
 	int ret = 0;
 
 	/* Lets ensure that utc_time is not set */
-	utc_time = 0;
+	utc_time = 0U;
 
 	bt_cts_init(&cts_cb);
 

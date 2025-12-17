@@ -14,7 +14,7 @@ static int _append_bit(struct hubble_bitarray *bit_array, uint8_t value)
 {
 	size_t index = bit_array->index;
 
-	if (value != 0) {
+	if (value != 0U) {
 		bit_array->data[index / HUBBLE_CHAR_BITS] |=
 			(1 << (index % HUBBLE_CHAR_BITS));
 	} else {
@@ -34,7 +34,7 @@ int hubble_bitarray_set_bit(struct hubble_bitarray *bit_array, size_t index,
 		return -EINVAL;
 	}
 
-	if (value != 0) {
+	if (value != 0U) {
 		bit_array->data[index / HUBBLE_CHAR_BITS] |=
 			(1 << (index % HUBBLE_CHAR_BITS));
 	} else {

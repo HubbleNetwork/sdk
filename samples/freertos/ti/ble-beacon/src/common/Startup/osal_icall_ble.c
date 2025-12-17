@@ -136,21 +136,21 @@ void osalInitTasks( void )
   uint8 taskID = 0;
   uint8 i;
 
-  uint8_t cfg_GATTServApp_att_delayed_req = 0;
-  uint8_t cfg_gapBond_gatt_no_service_changed = 0;
-  uint8_t cfg_gatt_max_num_prepare_writes = 0;
+  uint8_t cfg_GATTServApp_att_delayed_req = 0U;
+  uint8_t cfg_gapBond_gatt_no_service_changed = 0U;
+  uint8_t cfg_gatt_max_num_prepare_writes = 0U;
 #if defined ( GAP_BOND_MGR )
-  uint8_t cfg_gapBond_gatt_no_client = 0;
+  uint8_t cfg_gapBond_gatt_no_client = 0U;
 #endif
 
 #if defined ( ATT_DELAYED_REQ )
-  cfg_GATTServApp_att_delayed_req = 1;
+  cfg_GATTServApp_att_delayed_req = 1U;
 #endif
 #if defined ( GATT_NO_SERVICE_CHANGED )
-  cfg_gapBond_gatt_no_service_changed = 1;
+  cfg_gapBond_gatt_no_service_changed = 1U;
 #endif
 #if defined ( GATT_NO_CLIENT )
-  cfg_gapBond_gatt_no_client = 1;
+  cfg_gapBond_gatt_no_client = 1U;
 #endif
 #if defined ( GATT_MAX_PREPARE_WRITES )
   cfg_gatt_max_num_prepare_writes = GATT_MAX_PREPARE_WRITES;
