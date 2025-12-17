@@ -120,7 +120,7 @@ static void hubble_ble_adv_update(void *arg)
 
 static void hubble_adv_entry(void *arg)
 {
-	while (1) {
+	while (true) {
 		(void)SemaphoreP_pend(semaphoreHandle, SemaphoreP_WAIT_FOREVER);
 
 		/* Start / Stop advertise must be done form BLEAppUtil module context */
