@@ -31,7 +31,28 @@
 
 uint64_t hubble_uptime_get(void)
 {
-	return ((uint64_t)xTaskGetTickCount() * 1000U) / configTICK_RATE_HZ;
+	/*
+	Ticks may wrap which we want to account for.
+
+	NOTE: This is not thread safe and must be called only from the
+	single context.
+
+	NOTE: This will not be necessary if TickType_t is 64 bits wide,
+	but we do not special case this as it will never wrap.
+	*/
+	static const unsigned BIT_IN_TICKS = sizeof((TickType_t)0) * 8;
+	static uint64_t overflow_ticks = 0;
+	static TickType_t last_ticks = 0;
+
+	TickType_t this_ticks = xTaskGetTickCount();
+
+	if (this_ticks < last_ticks) {
+		overflow_ticks += ((uint64_t)1 << BIT_IN_TICKS);
+	}
+	last_ticks = this_ticks;
+
+	return (((uint64_t)this_ticks + overflow_ticks) * 1000) /
+	       configTICK_RATE_HZ;
 }
 
 HUBBLE_WEAK int hubble_log(enum hubble_log_level level, const char *format, ...)
