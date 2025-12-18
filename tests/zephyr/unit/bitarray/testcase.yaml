@@ -1,0 +1,5 @@
+tests:
+  utilities.bitarray:
+    tags:
+      - bitarray
+    type: unit
