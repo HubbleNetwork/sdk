@@ -1,0 +1,77 @@
+# Copyright (c) 2025 Hubble Network, Inc.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Coverage with Twister + codecov
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/codecov.yml'
+      - 'include/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'ports/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check_compliance:
+    runs-on: ubuntu-22.04
+    name: Generate code coverage
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+
+    - name: cache-pip
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('.github/workflows/codecov.yml') }}
+
+    - name: Install dependencies
+      run: |
+        pip install gcovr:6.0
+
+    - name: Setup Zephyr project (SDK + modules)
+      uses: zephyrproject-rtos/action-zephyr-setup@v1
+      with:
+        # west.yml lives at the repo root
+        app-path: .
+
+    - name: Generate Coverage Information
+      run: |
+        mkdir -p coverage/reports
+	export ZEPHYR_BASE=${PWD}/../../../zephyr
+        $ZEPHYR_BASE/scripts/twister -i --force-color -N -v --filter runnable \
+	  -p native_sim -p unit_testing --coverage \
+          -T ./tests/zephyr/ --coverage-tool gcovr \
+          -e nano --coverage-basedir ${PWD} \
+          -x=CONFIG_COVERAGE=y
+        
+   - name: Upload footprint report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-${{ github.run_id }}
+        path: twister-out/coverage.json
+        if-no-files-found: ignore
+
+#    - name: Upload coverage reports to Codecov
+#      uses: codecov/codecov-action@v5
+#      with:
+#        token: ${{ secrets.CODECOV_TOKEN }}
+#        files: ./twister-out/coverage.json
