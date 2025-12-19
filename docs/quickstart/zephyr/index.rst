@@ -13,7 +13,7 @@ Adding Hubble Network to Zephyr
 This procedure explains how to add Hubble Network to an existing Zephyr
 project or to start a new project with Zephyr as the manifest repository. For
 new projects, refer to the `Zephyr Getting Started Guide <https://docs
-.zephyrproject.org/4.2.0/getting_started/index.html>`_ to set up the
+.zephyrproject.org/4.3.0/getting_started/index.html>`_ to set up the
 environment.
 
 After creating or selecting a Zephyr project, integrate Hubble Network by
@@ -57,9 +57,9 @@ Using Hubble Network as the manifest repository
 
 Hubble Network can also serve as the manifest repository. In this case,
 install West and all required `Zephyr dependencies
-<https://docs.zephyrproject.org/4.2.0/develop/getting_started/index
+<https://docs.zephyrproject.org/4.3.0/develop/getting_started/index
 .html#install-dependencies>`_ as described in the `Zephyr documentation <https://docs.zephyrproject
-.org/4.2.0/develop/toolchains/zephyr_sdk.html#zephyr-sdk-installation>`_. The
+.org/4.3.0/develop/toolchains/zephyr_sdk.html#zephyr-sdk-installation>`_. The
 following steps outline the process of creating a Zephyr workspace that uses the Hubble Network SDK as the manifest repository:
 
 
