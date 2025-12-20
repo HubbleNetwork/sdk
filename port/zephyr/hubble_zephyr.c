@@ -41,6 +41,9 @@ __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 	z_log_msg_runtime_vcreate(0, __log_current_const_data, zephyr_level,
 				  NULL, 0, 0, format, args);
 	va_end(args);
+#else
+	ARG_UNUSED(level);
+	ARG_UNUSED(format);
 #endif /* defined(CONFIG_LOG) && !defined(CONFIG_LOG_DEFAULT_MINIMAL) */
 
 	return 0;
