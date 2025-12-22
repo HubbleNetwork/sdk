@@ -72,6 +72,8 @@ K_SEM_DEFINE(timer_sem, 0, 1);
 
 static void timer_cb(struct k_timer *timer)
 {
+	ARG_UNUSED(timer);
+
 	k_sem_give(&timer_sem);
 }
 
