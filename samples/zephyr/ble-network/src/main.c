@@ -101,6 +101,10 @@ static void bypass_cb(const struct shell *sh, uint8_t *recv, size_t len)
 
 static int cmd_key(const struct shell *sh, size_t argc, char **argv, void *data)
 {
+	ARG_UNUSED(argc);
+	ARG_UNUSED(argv);
+	ARG_UNUSED(data);
+
 	shell_print(sh, "Please transmit the key through the serial. e.g: "
 			"xxd -p key > /dev/ttyX\n"
 			"Loading...\npress ctrl-x ctrl-q to escape");
@@ -117,6 +121,10 @@ static int cmd_utc(const struct shell *sh, size_t argc, char **argv, void *data)
 {
 	int ret = 0;
 	static bool give_sem = true;
+
+	ARG_UNUSED(sh);
+	ARG_UNUSED(argc);
+	ARG_UNUSED(data);
 
 	utc_time = atoll(argv[1]);
 
@@ -136,6 +144,10 @@ static int cmd_data(const struct shell *sh, size_t argc, char **argv, void *data
 	int err = hubble_ble_advertise_get((const uint8_t *)argv[1],
 					   strlen(argv[1]), _hubble_user_buffer,
 					   &out_len);
+	ARG_UNUSED(sh);
+	ARG_UNUSED(argc);
+	ARG_UNUSED(data);
+
 	if (err != 0) {
 		LOG_ERR("Failed to get the advertisement data (err=%d)", err);
 		return err;
