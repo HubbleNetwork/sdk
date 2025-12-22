@@ -6,8 +6,6 @@ menuconfig HUBBLE_BLE_NETWORK
 	   help
 		Enable library for communication with Hubble BLE network
 
-if HUBBLE_BLE_NETWORK
-
 choice
 	prompt "Hubble Network key size"
 
@@ -43,6 +41,9 @@ config HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 		This option allows applications to override the default
 		function that returns a sequence number to be used to
 		encrypt messages.
+
+if HUBBLE_BLE_NETWORK
+
 choice
 	prompt "HUBBLE BLE Network Timer Counter Frequency"
 

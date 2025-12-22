@@ -1,5 +1,18 @@
 set(SDK_BASE_DIR ../../../)
 
+set(SRCS
+    "${SDK_BASE_DIR}/port/esp-idf/hubble_esp_idf.c"
+    "${SDK_BASE_DIR}/port/freertos/hubble_freertos.c"
+    "${SDK_BASE_DIR}/src/hubble.c"
+)
+
+if(CONFIG_HUBBLE_BLE_NETWORK)
+    list(APPEND SRCS
+        "${SDK_BASE_DIR}/src/hubble_ble.c"
+        "${SDK_BASE_DIR}/src/crypto/mbedtls.c"
+    )
+endif()
+
 idf_component_register(
     INCLUDE_DIRS
         "${SDK_BASE_DIR}/include"
@@ -12,11 +25,7 @@ idf_component_register(
         "freertos"
         "log"
     SRCS
-        "${SDK_BASE_DIR}/port/esp-idf/hubble_esp_idf.c"
-        "${SDK_BASE_DIR}/port/freertos/hubble_freertos.c"
-        "${SDK_BASE_DIR}/src/crypto/mbedtls.c"
-        "${SDK_BASE_DIR}/src/hubble.c"
-        "${SDK_BASE_DIR}/src/hubble_ble.c"
+        ${SRCS}
 )
 
 component_compile_options(${EXTRA_C_FLAGS_LIST})
