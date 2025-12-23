@@ -238,7 +238,7 @@ All releases are announced through:
 For the most current release information, visit the `Hubble Network SDK GitHub
 repository`_.
 
-.. _Hubble Network SDK GitHub repository: https://github.com/hubblenetwork/sdk
+.. _Hubble Network SDK GitHub repository: https://github.com/hubblenetwork/hubble-device-sdk
 
 Migration and Upgrade Guidance
 ******************************

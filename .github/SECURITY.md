@@ -12,6 +12,6 @@ updates:
 
 Vulnerabilities in the Hubble Network platform may be reported via
 email to the security@hubble.com mailing list or directly in
-[Hubble Network SDK advisories](https://github.com/HubbleNetwork/sdk/security/advisories)
+[Hubble Network SDK advisories](https://github.com/HubbleNetwork/hubble-device-sdk/security/advisories)
 
 For additional information see [Hubble Network vulnerability handling](https://docs.hubblenetwork.com/docs/device-sdk/vulnerability-handling).

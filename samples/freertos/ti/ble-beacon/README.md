@@ -1,6 +1,6 @@
 Welcome to the sample project that demonstrates the integration of the
 [Texas Instruments (TI) SDK](https://www.ti.com/tool/download/SIMPLELINK-LOWPOWER-F3-SDK)
-with the [HubbleNetwork-SDK](https://github.com/HubbleNetwork/sdk). This
+with the [HubbleNetwork-SDK](https://github.com/HubbleNetwork/hubble-device-sdk). This
 project showcases the development of a BLE (Bluetooth Low Energy)
 application using FreeRTOS, leveraging the capabilities of both SDKs.
 
@@ -30,7 +30,7 @@ To build and run this project, you will need:
 + A TI CC23xx development board (e.g., **LP_EM_CC2340R5**).
 + The [TI SDK](https://www.ti.com/tool/download/SIMPLELINK-LOWPOWER-F3-SDK) installed on your system.
 * [TI toolchain](https://www.ti.com/tool/CCSTUDIO)
-+ The [HubbleNetwork-SDK](https://github.com/HubbleNetwork/sdk) cloned into the project directory.
++ The [HubbleNetwork-SDK](https://github.com/HubbleNetwork/hubble-device-sdk) cloned into the project directory.
 + Python 3 for running the *embed_key_utc.py* script.
 
 ### Project Structure

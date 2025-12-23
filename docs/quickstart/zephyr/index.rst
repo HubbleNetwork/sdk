@@ -91,7 +91,7 @@ following steps outline the process of creating a Zephyr workspace that uses the
 
          .. code-block:: bash
 
-            west init -m git@github.com:HubbleNetwork/sdk.git ~/hubblenetwork-workspace
+            west init -m git@github.com:HubbleNetwork/hubble-device-sdk.git ~/hubblenetwork-workspace
             cd ~/hubblenetwork-workspace/modules/lib/hubblenetwork-sdk
             west update
 

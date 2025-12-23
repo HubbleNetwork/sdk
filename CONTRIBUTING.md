@@ -17,10 +17,10 @@ uphold this code. Please report unacceptable behavior to support@hubble.com.
 Before asking a question:
 
 - Check the [Hubble Network SDK Documentation](https://docs.hubble.com/docs/device-sdk/intro)
-- Search existing [Issues](https://github.com/hubblenetwork/sdk/issues)
+- Search existing [Issues](https://github.com/hubblenetwork/hubble-device-sdk/issues)
 - Review the codebase and examples in the `samples/` directory
 
-If you still have questions, please start a discussion in [GitHub Discussions](https://github.com/hubblenetwork/sdk/discussions).
+If you still have questions, please start a discussion in [GitHub Discussions](https://github.com/hubblenetwork/hubble-device-sdk/discussions).
 When asking a question, please provide:
 - Context about what you're trying to accomplish
 - Platform and version information (target board, SDK version, RTOS version)
@@ -73,7 +73,7 @@ identifier:
 
 - Make sure you are using the latest supported version
 - Check if there is already a bug report for your issue in the
-  [bug tracker](https://github.com/hubblenetwork/sdk/issues?q=label%3Abug)
+  [bug tracker](https://github.com/hubblenetwork/hubble-device-sdk/issues?q=label%3Abug)
 - Collect information about the bug:
   - Stack trace or error messages
   - Platform and version (Zephyr, ESP-IDF, FreeRTOS, board, SDK version)
@@ -88,7 +88,7 @@ identifier:
 
 ### How Do I Submit a Good Bug Report?
 
-- Open a [Bug Report](https://github.com/hubblenetwork/sdk/issues/new/choose)
+- Open a [Bug Report](https://github.com/hubblenetwork/hubble-device-sdk/issues/new/choose)
 - Complete the Bug Report form with all relevant information
 - Provide clear reproduction steps that someone else can follow
 - Include a minimal test case if possible
@@ -102,14 +102,14 @@ Enhancement suggestions include new features and improvements to existing functi
 
 - Make sure you are using the latest version
 - Read the [documentation](https://docs.hubble.com/docs/device-sdk/intro) carefully
-- Search existing [Issues](https://github.com/hubblenetwork/sdk/issues) to see
+- Search existing [Issues](https://github.com/hubblenetwork/hubble-device-sdk/issues) to see
   if the enhancement has already been suggested
 - Consider whether your idea fits with the scope and aims of the project
 - Think about whether the enhancement would be useful to the majority of users
 
 ### How Do I Submit a Good Enhancement Suggestion?
 
-- Open an [Enhancement Request](https://github.com/hubblenetwork/sdk/issues/new/choose)
+- Open an [Enhancement Request](https://github.com/hubblenetwork/hubble-device-sdk/issues/new/choose)
 - Use a clear and descriptive title
 - Provide a step-by-step description of the suggested enhancement
 - Describe the current behavior and explain the expected behavior
@@ -314,8 +314,8 @@ pass CI checks before merging. CI checks include:
 
 If you have questions about contributing, please:
 
-- Check existing [GitHub Discussions](https://github.com/hubblenetwork/sdk/discussions)
+- Check existing [GitHub Discussions](https://github.com/hubblenetwork/hubble-device-sdk/discussions)
 - Review the [documentation](https://docs.hubble.com/docs/device-sdk/intro)
-- Start a new discussion in [GitHub Discussions](https://github.com/hubblenetwork/sdk/discussions)
+- Start a new discussion in [GitHub Discussions](https://github.com/hubblenetwork/hubble-device-sdk/discussions)
 
 Thank you for contributing to the Hubble Network SDK! 🚀
