@@ -28,7 +28,7 @@ create a new one) by including the snippet below:
          url-base: https://github.com/HubbleNetwork
      projects:
        - name: hubblenetwork-sdk
-         repo-path: sdk
+         repo-path: hubble-device-sdk
          revision: main
          path: modules/lib/hubblenetwork-sdk
          remote: hubble
