@@ -1,0 +1,13 @@
+# Set to true to add reviewers to pull requests
+addReviewers: true
+
+# We assign assignees out of here
+addAssignees: false
+
+# A list of reviewers to be added to pull requests
+reviewers:
+  - ceolin
+  - HongNguyen635
+  - buckleypaul
+
+
