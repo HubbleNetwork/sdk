@@ -1,0 +1,113 @@
+name: Auto assign reviewers and assignees
+
+on:
+  pull_request_target:
+    types: [opened, ready_for_review, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect changed areas
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            zephyr:
+              - 'port/zephyr/**'
+              - 'samples/zephyr/**'
+            freertos:
+              - 'port/freertos/**'
+              - 'samples/freertos/**'
+            esp-idf:
+              - 'port/esp-idf/**'
+              - 'samples/esp-idf/**'
+            docs:
+              - 'docs/**'
+            ci:
+              - '.github/workflows/**'
+              - 'tools/ci/**'
+            tools:
+              - tools/**
+              - '.clang-format'
+            common_code:
+              - 'src/**'
+              - 'include/**'
+
+      - name: Choose assignee
+        id: pick
+        run: |
+          assignee=""
+          if [[ "${{ steps.filter.outputs.zephyr }}" == "true" ]]; then
+            assignee="ceolin"
+          elif [[ "${{ steps.filter.outputs.esp-idf }}" == "true" ]]; then
+            assignee="ceolin,HongNguyen635"
+          elif [[ "${{ steps.filter.outputs.tools }}" == "true" ]]; then
+            assignee="ceolin"
+          elif [[ "${{ steps.filter.outputs.common_code }}" == "true" ]]; then
+            assignee="ceolin"
+          elif [[ "${{ steps.filter.outputs.docs }}" == "true" ]]; then
+            assignee="danielr-hubblenetwork"
+          elif [[ "${{ steps.filter.outputs.freertos }}" == "true" ]]; then
+            assignee="buckleypaul"
+          elif [[ "${{ steps.filter.outputs.ci }}" == "true" ]]; then
+            assignee="buckleypaul"
+          else
+            assignee="ceolin"
+          fi
+          echo "assignee=$assignee" >> "$GITHUB_OUTPUT"
+
+      - name: Choose reviewer
+        id: pick-reviewer
+        run: |
+          reviewer=""
+          if [[ "${{ steps.filter.outputs.zephyr }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          elif [[ "${{ steps.filter.outputs.esp-idf }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          elif [[ "${{ steps.filter.outputs.tools }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          elif [[ "${{ steps.filter.outputs.common_code }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          elif [[ "${{ steps.filter.outputs.docs }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul","danielr-hubblenetwork"
+          elif [[ "${{ steps.filter.outputs.freertos }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          elif [[ "${{ steps.filter.outputs.ci }}" == "true" ]]; then
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          else
+            reviewer="ceolin","HongNguyen635","buckleypaul"
+          fi
+          echo "reviewer=$reviewer" >> "$GITHUB_OUTPUT"
+
+      - name: Assign PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const assignee = "${{ steps.pick.outputs.assignee }}";
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              assignees: [assignee],
+            });
+
+      - name: Assign reviewers PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const author = context.payload.pull_request.user.login;
+            const reviewer = "${{ steps.pick-reviewer.outputs.reviewer }}"
+            .split(",")
+            .map(r => r.trim())
+            .filter(Boolean)
+            .filter(r => r !== author);
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers: reviewer,
+            });
