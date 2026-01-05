@@ -1,0 +1,159 @@
+.. _release_1_0_0:
+
+Release 1.0.0
+#############
+
+**Release Date**: January 6, 2026
+
+This is the first stable release of the Hubble Network Device SDK. This release
+provides a production-ready SDK for connecting Bluetooth® Low Energy
+(BLE) embedded devices to the Hubble **Terrestrial Network**.
+
+.. note::
+
+   The Satellite Network module is not
+   included in this release and will be available in a future release.
+
+Overview
+********
+
+Release 1.0.0 represents a significant milestone for the Hubble Network Device SDK,
+delivering a stable, well-tested foundation for building applications that leverage
+Hubble Terrestrial Network (BLE) infrastructure. This release includes
+comprehensive platform support, robust security features, and extensive
+documentation for BLE network communication.
+
+Key Features
+************
+
+Terrestrial Network Support
+===========================
+
+The SDK provides full support for the Hubble Terrestrial Network, enabling devices to
+participate in secure BLE communication:
+
+- **Secure Communication**: Encryption used for all network communications
+- **Advertisement Generation**: API for generating Bluetooth advertisement packets
+  compatible with Hubble Network infrastructure
+- **Bluetooth Qualification**: The Hubble Network Device SDK has completed
+  the Bluetooth Qualification Process (Design Number: Q369913)
+
+Platform Support
+================
+
+The SDK supports multiple embedded platforms and RTOS environments:
+
+- **Zephyr**: Full support with reference implementation and best-in-class
+  integration
+- **FreeRTOS**: Complete support for FreeRTOS-based applications
+- **ESP-IDF**: Support for Espressif ESP32 series devices
+
+Modular Architecture
+====================
+
+The SDK is built on a modular, extensible architecture:
+
+- **Service Layer**: High-level APIs for BLE (Terrestrial Network) communication
+- **Port Layer**: Abstraction layer for easy porting to new RTOS environments
+- **Crypto Abstraction**: Support for multiple cryptographic backends (mbedTLS, PSA)
+
+Security Features
+*****************
+
+- **256-bit / 128-bit Encryption**: Strong encryption for all BLE network communications
+- **Secure Key Management**: APIs for secure key configuration and management
+- **Cryptographic Abstraction**: Flexible crypto backend support
+- **Security Documentation**: Comprehensive security documentation and
+  best practices for vulnerability handling
+
+Documentation
+*************
+
+This release includes documentation:
+
+- **API Reference**: Complete API documentation for all SDK functions
+- **Quick Start Guides**: Platform-specific getting started guides for Zephyr and
+  FreeRTOS
+- **Architecture Documentation**: Detailed SDK architecture and design documentation
+- **Security Guide**: Security best practices and implementation details
+- **Sample Applications**: Working sample applications for BLE beacon functionality
+
+Sample Applications
+*******************
+
+The release includes sample applications demonstrating SDK usage:
+
+- **BLE Beacon Sample (Zephyr)**: Complete example for Zephyr platform
+- **BLE Beacon Sample (FreeRTOS)**: Example for FreeRTOS/TI CC2340 platform
+- **BLE Beacon Sample (ESP-IDF)**: Example for Espressif ESP32 platform
+- **BLE Network Sample (Zephyr)**: Network communication example
+
+API Highlights
+**************
+
+Core BLE Network APIs:
+
+- ``hubble_init()``: Initialize the SDK with UTC time and encryption key
+- ``hubble_utc_set()``: Update UTC time for network synchronization
+- ``hubble_key_set()``: Configure encryption key
+- ``hubble_ble_advertise_get()``: Generate BLE advertisement packets
+
+Breaking Changes
+****************
+
+This is the first stable release. If you are migrating from pre-1.0.0 versions:
+
+- Review API changes in the migration guide below
+- Update initialization code to use the new API signatures
+- Ensure platform-specific port implementations are updated
+
+Known Limitations
+*****************
+
+- **Satellite Network**: The Satellite Network module is not included in this
+  release. This release focuses exclusively on Terrestrial Network (BLE)
+  functionality.
+
+Migration Guide
+***************
+
+For applications upgrading from pre-1.0.0 versions:
+
+1. **Update Initialization**: Ensure ``hubble_init()`` is called with proper UTC
+   time and encryption key before using any SDK functions
+2. **Review Platform Ports**: Verify that your platform port implementation is
+   compatible with version 1.0.0 APIs
+3. **Update Dependencies**: Ensure all platform dependencies are compatible with
+   SDK 1.0.0
+4. **Test Thoroughly**: Validate your application with the new SDK version before
+   deploying to production
+
+Compatibility
+*************
+
+- **Minimum Requirements**: See platform-specific documentation for hardware and
+  software requirements
+- **Backward Compatibility**: This release maintains API compatibility within the
+  1.x series
+- **Future Compatibility**: Future 1.x releases will maintain backward
+  compatibility
+
+Testing
+*******
+
+This release has been validated through:
+
+- Unit tests for core BLE functionality
+- Integration tests for BLE (Terrestrial Network) module
+- Platform-specific testing on Zephyr, FreeRTOS, and ESP-IDF
+- Hardware-in-the-loop testing where applicable
+- Security testing and validation
+
+Support
+*******
+
+For support and questions:
+
+- **Documentation**: https://docs.hubble.com/docs/device-sdk/intro
+- **GitHub Repository**: https://github.com/hubblenetwork/hubble-device-sdk
+- **Issues**: Report issues via GitHub Issues

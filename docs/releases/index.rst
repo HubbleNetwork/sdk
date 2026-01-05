@@ -252,3 +252,14 @@ When upgrading between SDK versions:
 
 For detailed migration instructions, refer to the release notes for your target
 version.
+
+Release Notes
+*************
+
+Detailed release notes for each version:
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   1.0.rst
