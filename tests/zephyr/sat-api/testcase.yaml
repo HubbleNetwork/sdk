@@ -1,0 +1,7 @@
+tests:
+  satellite.api:
+    tags:
+      - satellite
+      - apis
+    platform_allow:
+      - native_sim
