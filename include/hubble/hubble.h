@@ -24,8 +24,6 @@ extern "C" {
 /**
  * @brief Hubble Network SDK APIs
  * @defgroup hubble_api Hubble Network APIs
- * @since 0.1
- * @version 0.1
  * @{
  */
 

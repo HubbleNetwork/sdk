@@ -17,8 +17,6 @@ extern "C" {
 /**
  * @brief Hubble BLE Network Function APIs
  * @defgroup hubble_ble_api BLE Network Function APIs
- * @since 0.1
- * @version 0.1
  * @{
  */
 

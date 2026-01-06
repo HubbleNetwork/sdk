@@ -16,15 +16,12 @@ extern "C" {
 
 
 /**
- * @brief Hubble Crypto API.
+ * @brief Hubble Network SDK Crypto APIs.
  *
  * Cryptographic functions that need to be implemented by
  * a crypto provider.
  *
  * @defgroup hubble_crypto Hubble Network Crypto APIs
- * @since 0.1
- * @version 0.1
- *
  * @{
  */
 
