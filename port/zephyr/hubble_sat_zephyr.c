@@ -12,66 +12,30 @@
 #include <hubble/sat.h>
 #include <hubble/port/sat_radio.h>
 #include <hubble/port/sys.h>
-#include <hubble_rf_zephyr.h>
 
-#define HUBBLE_WAIT_SYMBOL_US          8000U
-#define HUBBLE_WAIT_PREAMBLE_US        1600U
+#include "sat_board.h"
 
-#define HUBBLE_CHANNEL_OFFSET(channel) (channel * 66)
-
-static uint8_t _channel = 0U;
-static const int8_t _preamble[] = {0, -1, 0, -1, 0, -1, 0, 0};
-
-static int hubble_zephyr_transmit_packet(const struct hubble_sat_packet *packet)
+int hubble_sat_port_packet_send(uint8_t channel,
+				const struct hubble_sat_packet *packet)
 {
-	/* Send preamble */
-	for (uint8_t i = 0; i < sizeof(_preamble); i++) {
-		if (_preamble[i] == -1) {
-			k_busy_wait(
-				HUBBLE_WAIT_PREAMBLE_US + HUBBLE_WAIT_SYMBOL_US);
-		} else {
-			hubble_rf_frequency_step_set(
-				HUBBLE_CHANNEL_OFFSET(_channel));
-			hubble_rf_cw_start();
-			k_busy_wait(HUBBLE_WAIT_SYMBOL_US);
-			hubble_rf_cw_stop();
-		}
+	int ret;
+
+	ret = hubble_sat_board_enable();
+	if (ret != 0) {
+		return ret;
 	}
 
-	/* Send payload */
-	for (uint8_t i = 0; i < packet->length; i++) {
-		hubble_rf_frequency_step_set(
-			packet->data[i] + HUBBLE_CHANNEL_OFFSET(_channel));
-		hubble_rf_cw_start();
-		k_busy_wait(HUBBLE_WAIT_SYMBOL_US);
-		hubble_rf_cw_stop();
-		k_busy_wait(1800U);
+	/* TODO: Handle retransmissions here */
+	ret = hubble_sat_board_packet_send(channel, packet);
+	if (ret != 0) {
+		hubble_sat_board_disable();
+		return ret;
 	}
 
-	return 0;
+	return hubble_sat_board_disable();
 }
 
-static int hubble_zephyr_sat_enable(void)
+int hubble_sat_port_init(void)
 {
-	return hubble_rf_enable();
-}
-
-static int hubble_zephyr_sat_disable(void)
-{
-	return hubble_rf_disable();
-}
-
-const struct hubble_sat_api *hubble_sat_api_get(void)
-{
-	static struct hubble_sat_api api = {
-		.transmit_packet = hubble_zephyr_transmit_packet,
-		.enable = hubble_zephyr_sat_enable,
-		.disable = hubble_zephyr_sat_disable,
-	};
-
-	if (hubble_rf_init() != 0) {
-		return NULL;
-	}
-
-	return &api;
+	return hubble_sat_board_init();
 }

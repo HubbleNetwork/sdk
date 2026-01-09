@@ -4,6 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/**
+ * @file sat_radio.h
+ * @brief Hubble Network satellite radio port APIs
+ */
+
 #ifndef INCLUDE_HUBBLE_PORT_SAT_RADIO_H
 #define INCLUDE_HUBBLE_PORT_SAT_RADIO_H
 
@@ -17,58 +22,70 @@ extern "C" {
 #endif
 
 /**
- * @brief Hubble Satellite Network porting API.
- * @defgroup hubble_sat_port Hubble Satellite Network porting APIs
+ * @brief Hubble Network Satellite Radio Port APIs
  *
- * Functions and data structures that are used to port the Hubble Satellite
- * Network for different platforms.
+ * Platform-specific functions that need to be implemented for
+ * satellite communication.
+ *
+ * @defgroup hubble_sat_radio_port Hubble Network Satellite Radio Port APIs
  *
  * @{
  */
-struct hubble_sat_api {
-	/**
-	 * @brief Transmits a packet.
-	 *
-	 * @param packet A pointer to a hubble_packet structure containing the
-	 *               data to be transmitted.
-	 *
-	 * @return 0 on success, non-zero on error.
-	 */
-	int (*transmit_packet)(const struct hubble_sat_packet *packet);
-
-	/**
-	 * @brief Enables Hubble Network satellite stack.
-	 *
-	 * Setup everything that is need to transmit data.
-	 *
-	 * @return 0 on success, non-zero on error.
-	 */
-	int (*enable)(void);
-
-	/**
-	 * @brief Disables Hubble Network satellite stack.
-	 *
-	 * This API disables the satellite stack and restore devices to the
-	 * state they were before.
-	 *
-	 * @return 0 on success, non-zero on error.
-	 */
-	int (*disable)(void);
-};
 
 /**
- * @brief Retrieves the satellite API interface.
- *
- * This function provides access to the satellite API, which includes logging
- * and packet transmission functionalities. The API is typically implemented
- * as a singleton.
- *
- * @return A pointer to a constant struct hubble_sat_api.
- *         Returns NULL if the API is unavailable.
+ * @brief Duration to wait for a symbol transmission in microseconds.
  */
-const struct hubble_sat_api *hubble_sat_api_get(void);
+#define HUBBLE_WAIT_SYMBOL_US        8000U
 
-/** @} */ /* hubble_sat_port */
+/**
+ * @brief Duration to wait for a symbol off period in microseconds.
+ */
+#define HUBBLE_WAIT_SYMBOL_OFF_US    1600U
+
+/**
+ * @brief Duration to wait for preamble off in microseconds.
+ */
+#define HUBBLE_WAIT_PREAMBLE_US      9600U
+
+/**
+ * @brief Preamble sequence pattern for satellite communication.
+ *
+ * This array defines the frequency step pattern used for the preamble.
+ * Values represent frequency steps relative to the reference frequency:
+ * -  0: reference frequency
+ * - -1: no transmission
+ */
+#define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){0, -1, 0, -1, 0, -1, 0, 0}
+
+/**
+ * @brief Initialize the satellite radio port.
+ *
+ * This function performs platform-specific initialization of the satellite
+ * radio hardware. It is called before any other satellite radio
+ * operations are performed.
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int hubble_sat_port_init(void);
+
+/**
+ * @brief Transmit a packet over the satellite radio.
+ *
+ * This function transmits a packet using the satellite radio hardware.
+ * The packet is sent on the specified channel (frequency) using the
+ * platform-specific radio implementation.
+ *
+ * @param channel The channel (frequency) to transmit on.
+ * @param packet Pointer to the packet structure containing the data to transmit.
+ *
+ * @return 0 on successful transmission, negative error code on failure.
+ */
+int hubble_sat_port_packet_send(uint8_t channel,
+				const struct hubble_sat_packet *packet);
+
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }

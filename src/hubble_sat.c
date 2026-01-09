@@ -5,50 +5,42 @@
  */
 
 #include <errno.h>
-#include <stdlib.h>
 
 #include <hubble/sat.h>
 #include <hubble/port/sys.h>
 #include <hubble/port/sat_radio.h>
 
-static const struct hubble_sat_api *sat_api;
+/* TODO: Channel selection is going to be done at this layer.
+ * This is not user visible.
+ */
+static uint8_t _channel = 0;
 
 int hubble_sat_init(void)
 {
-	sat_api = hubble_sat_api_get();
+	int ret = hubble_sat_port_init();
 
-	if (sat_api == NULL || sat_api->transmit_packet == NULL) {
-		return -ENOSYS;
+	if (ret != 0) {
+		HUBBLE_LOG_ERROR(
+			"Hubble Satellite Network initialization failed");
+		return ret;
 	}
 
-	HUBBLE_LOG_INFO("Hubble Satellite Network initialized\n");
+	HUBBLE_LOG_INFO("Hubble Satellite Network initialized");
 
 	return 0;
 }
 
-int hubble_sat_enable(void)
+int hubble_sat_packet_send(const struct hubble_sat_packet *packet)
 {
-	if (sat_api == NULL || sat_api->enable == NULL) {
-		return -ENOSYS;
+	int ret = hubble_sat_port_packet_send(_channel, packet);
+
+	if (ret < 0) {
+		HUBBLE_LOG_WARNING(
+			"Hubble Satellite packet transmission failed");
+		return ret;
 	}
 
-	return sat_api->enable();
-}
+	HUBBLE_LOG_INFO("Hubble Satellite packet sent");
 
-void hubble_sat_disable(void)
-{
-	if (sat_api == NULL || sat_api->disable == NULL) {
-		return;
-	}
-
-	sat_api->disable();
-}
-
-int hubble_sat_transmit_packet(const struct hubble_sat_packet *packet)
-{
-	if (sat_api == NULL || sat_api->transmit_packet == NULL) {
-		return -ENOSYS;
-	}
-
-	return sat_api->transmit_packet(packet);
+	return 0;
 }
