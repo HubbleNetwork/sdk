@@ -48,6 +48,11 @@ extern "C" {
 #define HUBBLE_WAIT_PREAMBLE_US      9600U
 
 /**
+ * @brief Number of available channels for transmissions.
+ */
+#define HUBBLE_SAT_NUM_CHANNELS      19U
+
+/**
  * @brief Preamble sequence pattern for satellite communication.
  *
  * This array defines the frequency step pattern used for the preamble.

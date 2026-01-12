@@ -12,6 +12,8 @@
 #include <task.h>
 #endif
 
+#include <errno.h>
+
 #include <hubble/port/sys.h>
 
 /**
@@ -53,6 +55,12 @@ uint64_t hubble_uptime_get(void)
 
 	return (((uint64_t)this_ticks + overflow_ticks) * 1000) /
 	       configTICK_RATE_HZ;
+}
+
+int hubble_rand_get(uint8_t *buffer, size_t len)
+{
+	/* TODO: It is needed for sat network */
+	return -ENOSYS;
 }
 
 HUBBLE_WEAK int hubble_log(enum hubble_log_level level, const char *format, ...)

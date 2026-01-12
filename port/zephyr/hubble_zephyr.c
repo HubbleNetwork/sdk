@@ -7,6 +7,7 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/logging/log_core.h>
 #include <zephyr/logging/log_output.h>
+#include <zephyr/random/random.h>
 #include <zephyr/toolchain.h>
 
 #include <errno.h>
@@ -49,3 +50,9 @@ __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 	return 0;
 }
 
+int hubble_rand_get(uint8_t *buffer, size_t len)
+{
+	sys_rand_get(buffer, len);
+
+	return 0;
+}

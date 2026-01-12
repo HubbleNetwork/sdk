@@ -5,20 +5,29 @@
  */
 
 #include <errno.h>
+#include <stdint.h>
 
 #include <hubble/sat.h>
 #include <hubble/port/sys.h>
 #include <hubble/port/sat_radio.h>
 
-/* TODO: Channel selection is going to be done at this layer.
- * This is not user visible.
- */
-static uint8_t _channel = 0;
+#define HUBBLE_SAT_CHANNEL_DEFAULT 5
 
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet)
 {
-	int ret = hubble_sat_port_packet_send(_channel, packet);
+	int ret;
+	uint8_t channel;
 
+	ret = hubble_rand_get(&channel, sizeof(channel));
+	if (ret != 0) {
+		HUBBLE_LOG_WARNING("Could not get a random channel, falling "
+				   "back to default channel");
+		channel = HUBBLE_SAT_CHANNEL_DEFAULT;
+	} else {
+		channel = channel % HUBBLE_SAT_NUM_CHANNELS;
+	}
+
+	ret = hubble_sat_port_packet_send(channel, packet);
 	if (ret < 0) {
 		HUBBLE_LOG_WARNING(
 			"Hubble Satellite packet transmission failed");

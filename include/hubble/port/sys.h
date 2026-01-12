@@ -88,6 +88,20 @@ uint16_t hubble_sequence_counter_get(void);
  */
 int hubble_log(enum hubble_log_level level, const char *format, ...);
 
+/**
+ * @brief Fill a buffer with random bytes.
+ *
+ * This function fills the provided buffer with random data using the
+ * random number generator provided by the target platform. It does not
+ * need to be a cryptographically secure random number generator (CSPRNG).
+ *
+ * @param buffer Pointer to the buffer to fill with random bytes.
+ * @param len    Number of random bytes to generate.
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int hubble_rand_get(uint8_t *buffer, size_t len);
+
 #ifdef __cplusplus
 }
 #endif

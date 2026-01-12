@@ -8,6 +8,7 @@ source "subsys/logging/Kconfig.template.log_config"
 config HUBBLE_SAT_NETWORK
 	   bool "Hubble Satellite Network Library [EXPERIMENTAL]"
 	   select EXPERIMENTAL
+	   select ENTROPY_GENERATOR
 	   help
 		Enable library for communication with Hubble network
 
