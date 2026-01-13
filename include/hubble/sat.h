@@ -16,6 +16,12 @@ extern "C" {
 #endif
 
 /**
+ * @brief Hubble Sat Network Function APIs
+ * @defgroup hubble_sat_api Sattelite Network Function APIs
+ * @{
+ */
+
+/**
  * @brief Initializes the Hubble satellite system.
  *
  * This function performs the necessary setup and initialization
@@ -51,6 +57,9 @@ int hubble_sat_init(void);
  */
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet);
 
+/**
+ * @}
+ */
 #ifdef __cplusplus
 }
 #endif
