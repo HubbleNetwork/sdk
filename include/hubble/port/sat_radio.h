@@ -35,22 +35,35 @@ extern "C" {
 /**
  * @brief Duration to wait for a symbol transmission in microseconds.
  */
-#define HUBBLE_WAIT_SYMBOL_US        8000U
+#define HUBBLE_WAIT_SYMBOL_US 8000U
 
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 /**
  * @brief Duration to wait for a symbol off period in microseconds.
  */
-#define HUBBLE_WAIT_SYMBOL_OFF_US    1600U
+#define HUBBLE_WAIT_SYMBOL_OFF_US 1600U
+#else /* V1 */
+#define HUBBLE_WAIT_SYMBOL_OFF_US 800U
+#endif
+
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_V1
+/**
+ * @brief The max number of symbols to transmit in single frame.
+ */
+#define HUBBLE_SAT_SYMBOLS_FRAME_MAX 14U
+#endif
 
 /**
  * @brief Duration to wait for preamble off in microseconds.
+ *
+ * @note It is used in DEPRECATED only.
  */
-#define HUBBLE_WAIT_PREAMBLE_US      9600U
+#define HUBBLE_WAIT_PREAMBLE_US 9600U
 
 /**
  * @brief Number of available channels for transmissions.
  */
-#define HUBBLE_SAT_NUM_CHANNELS      19U
+#define HUBBLE_SAT_NUM_CHANNELS 19U
 
 /**
  * @brief Preamble sequence pattern for satellite communication.
@@ -59,8 +72,13 @@ extern "C" {
  * Values represent frequency steps relative to the reference frequency:
  * -  0: reference frequency
  * - -1: no transmission
+ * -  31: center channel frequency
  */
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 #define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){0, -1, 0, -1, 0, -1, 0, 0}
+#else
+#define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){0, 31, 0, 31, 0, 31, 0, 31}
+#endif
 
 /**
  * @brief Initialize the satellite radio port.

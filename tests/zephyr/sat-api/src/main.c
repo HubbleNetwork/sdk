@@ -71,7 +71,19 @@ ZTEST(sat_test, test_packet)
 	zassert_ok(err);
 
 	err = hubble_sat_packet_get(&pkt, HUBBLE_SAT_DEV_ID, buffer, 1);
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 	zassert_ok(err);
+#else
+	/* Available sizes are: 0, 4, 9 and 13 (HUBBLE_SAT_PAYLOAD_MAX) */
+	zassert_not_ok(err);
+
+	/* Additional check to confirm it. */
+	err = hubble_sat_packet_get(&pkt, HUBBLE_SAT_DEV_ID, buffer, 4);
+	zassert_ok(err);
+
+	err = hubble_sat_packet_get(&pkt, HUBBLE_SAT_DEV_ID, buffer, 9);
+	zassert_ok(err);
+#endif
 
 	err = hubble_sat_packet_get(&pkt, HUBBLE_SAT_DEV_ID, buffer,
 				    HUBBLE_SAT_PAYLOAD_MAX);

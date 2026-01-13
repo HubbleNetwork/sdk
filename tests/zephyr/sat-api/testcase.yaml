@@ -1,7 +1,15 @@
+common:
+  platform_allow:
+    - native_sim
+    - qemu_x86
+  tags:
+    - satellite
+    - apis
+
 tests:
   satellite.api:
-    tags:
-      - satellite
-      - apis
-    platform_allow:
-      - native_sim
+    extra_configs:
+      - CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_V1=y
+  satellite.api.deprecated:
+    extra_configs:
+      - CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED=y

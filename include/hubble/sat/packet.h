@@ -27,10 +27,18 @@ extern "C" {
  */
 
 /* @brief Max number of symbols that packet can have */
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 #define HUBBLE_PACKET_MAX_SIZE 44
+#else /* CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_V1 */
+#define HUBBLE_PACKET_MAX_SIZE 52
+#endif
 
 /* @brief Max number of bytes for data payload */
+#ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 #define HUBBLE_SAT_PAYLOAD_MAX 11
+#else /* CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_V1 */
+#define HUBBLE_SAT_PAYLOAD_MAX 13
+#endif
 
 /**
  * @brief Structure representing a Hubble packet.
@@ -54,6 +62,15 @@ struct hubble_sat_packet {
 	 * @brief Number of symbols in the packet.
 	 */
 	size_t length;
+	/**
+	 * @brief Channel encoded in the packet that must be used to
+	 * transmit.
+	 */
+	uint8_t channel: 6;
+	/**
+	 * @brief Channel sequence to be used.
+	 */
+	uint8_t hopping_sequence: 2;
 };
 
 /**
