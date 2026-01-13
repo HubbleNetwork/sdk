@@ -20,6 +20,27 @@ config HUBBLE_SAT_NETWORK_SMALL
 		Reduces code using polynomial approximation
 		for trigonometric functions
 
+config HUBBLE_SAT_NETWORK_CHANNELS_SEED
+	   int "Seed for pseudo random channel hops"
+	   default 5
+	   help
+		Seed used the generate frequency hops based on lfsr5
+
+choice
+	prompt "Hubble Sat Network protocol"
+
+config HUBBLE_SAT_NETWORK_PROTOCOL_V2
+	   bool "Use V2 protocol"
+	   help
+		Second version of Sat protocol. Channel hopping within transmissions.
+
+config HUBBLE_SAT_NETWORK_PROTOCOL_V1
+	   bool "Use V1 protocol"
+	   select DEPRECATED
+	   help
+		First version of Sat protocol. No channel hopping during transmissions.
+endchoice
+
 endif
 
 menuconfig HUBBLE_BLE_NETWORK
