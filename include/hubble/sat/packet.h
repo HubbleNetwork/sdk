@@ -19,6 +19,13 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Hubble Sat Network Packet APIs
+ * @defgroup hubble_sat_packet_api Satellite Network packet APIs
+ * @ingroup hubble_sat_api
+ * @{
+ */
+
 /* Max number of symbols that packet can have */
 #define HUBBLE_PACKET_MAX_SIZE 44
 
@@ -48,6 +55,10 @@ struct hubble_sat_packet {
 
 int hubble_sat_packet_get(struct hubble_sat_packet *packet, uint64_t dev_id,
 			  const void *payload, size_t length);
+
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }
