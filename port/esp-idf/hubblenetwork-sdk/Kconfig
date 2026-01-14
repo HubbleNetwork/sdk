@@ -1,6 +1,24 @@
 # Copyright (c) 2025 Hubble Network, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+# TODO: double check because this changes shouldn't be in this PR
+
+config HUBBLE_SAT_NETWORK
+	   bool "Hubble Satellite Network Library [EXPERIMENTAL]"
+	   select EXPERIMENTAL
+	   help
+		Enable library for communication with Hubble network
+
+if HUBBLE_SAT_NETWORK
+
+config HUBBLE_SAT_NETWORK_SMALL
+	   bool "Use smaller code size for fly by calculation"
+	   help
+		Reduces code using polynomial approximation
+		for trigonometric functions
+
+endif
+
 menuconfig HUBBLE_BLE_NETWORK
 	   bool "Hubble BLE Network Library"
 	   help

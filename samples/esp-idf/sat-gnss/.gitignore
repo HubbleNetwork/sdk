@@ -1,0 +1,6 @@
+# Build artifacts
+
+build/
+.cache
+sdkconfig
+sdkconfig.old
