@@ -22,6 +22,20 @@ extern "C" {
  */
 
 /**
+ * @brief Satellite transmission mode
+ *
+ * It tells what is the desired reliability when transmitting
+ * a packet. Higher reliability consumes higher power and takes
+ * longer because it increases the number of retries.
+ */
+enum hubble_sat_transmission_mode {
+	/** Good balance between reliability and power consumption */
+	HUBBLE_SAT_RELIABILITY_NORMAL,
+	/** High reliability and higher power consumption */
+	HUBBLE_SAT_RELIABILITY_HIGH,
+};
+
+/**
  * @brief Transmit a packet using the Hubble satellite communication system.
  *
  * This function sends a packet over the satellite communication channel.
@@ -29,6 +43,7 @@ extern "C" {
  *
  * @param packet A pointer to the @ref hubble_sat_packet structure containing
  *               the data to be transmitted.
+ * @param mode   Desired reliability for the transmission.
  *
  * @return 0 on successful transmission, or a negative error code on failure.
  *
@@ -36,7 +51,8 @@ extern "C" {
  *          structure. It is the caller's responsibility to ensure the
  *          packet is correctly formatted.
  */
-int hubble_sat_packet_send(const struct hubble_sat_packet *packet);
+int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
+			   enum hubble_sat_transmission_mode mode);
 
 /**
  * @}
