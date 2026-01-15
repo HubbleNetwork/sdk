@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <hubble/port/sat_radio.h>
 #include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
@@ -58,6 +59,15 @@ int hubble_init(uint64_t utc_time, const void *key)
 		HUBBLE_LOG_WARNING("Failed to set UTC key");
 		return ret;
 	}
+
+#ifdef CONFIG_HUBBLE_SAT_NETWORK
+	ret = hubble_sat_port_init();
+	if (ret != 0) {
+		HUBBLE_LOG_ERROR(
+			"Hubble Satellite Network initialization failed");
+		return ret;
+	}
+#endif /* CONFIG_HUBBLE_SAT_NETWORK */
 
 	HUBBLE_LOG_INFO("Hubble Network SDK initialized\n");
 

@@ -15,21 +15,6 @@
  */
 static uint8_t _channel = 0;
 
-int hubble_sat_init(void)
-{
-	int ret = hubble_sat_port_init();
-
-	if (ret != 0) {
-		HUBBLE_LOG_ERROR(
-			"Hubble Satellite Network initialization failed");
-		return ret;
-	}
-
-	HUBBLE_LOG_INFO("Hubble Satellite Network initialized");
-
-	return 0;
-}
-
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet)
 {
 	int ret = hubble_sat_port_packet_send(_channel, packet);

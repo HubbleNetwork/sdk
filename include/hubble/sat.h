@@ -22,25 +22,6 @@ extern "C" {
  */
 
 /**
- * @brief Initializes the Hubble satellite system.
- *
- * This function performs the necessary setup and initialization
- * for the Hubble satellite system. It ensures that all required
- * components are properly configured and ready for operation.
- *
- * @return int
- *   - 0 on successful initialization.
- *   - Negative value on failure, indicating the error code.
- *
- * @note This function must be called before any other Hubble satellite
- *       operations are performed.
- *
- * @warning Ensure that the system is in a safe state before calling
- *          this function to avoid unexpected behavior.
- */
-int hubble_sat_init(void);
-
-/**
  * @brief Transmit a packet using the Hubble satellite communication system.
  *
  * This function sends a packet over the satellite communication channel.
