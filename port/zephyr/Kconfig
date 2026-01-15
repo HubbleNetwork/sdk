@@ -62,8 +62,6 @@ config HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM
 		function that returns a sequence number to be used to
 		encrypt messages.
 
-if HUBBLE_BLE_NETWORK
-
 choice
 	prompt "HUBBLE BLE Network crypto provider"
 	default HUBBLE_BLE_NETWORK_PSA
@@ -96,6 +94,8 @@ config HUBBLE_BLE_NETWORK_CUSTOM_CRYPTO
 	    will implement all crypto interfaces.
 
 endchoice
+
+if HUBBLE_BLE_NETWORK
 
 choice
 	prompt "HUBBLE BLE Network Timer Counter Frequency"
