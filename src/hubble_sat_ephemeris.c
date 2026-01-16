@@ -4,6 +4,10 @@
 #include <string.h>
 #include <errno.h>
 
+#define HUBBLE_MAX_SATS 4
+static struct orbit_info hubble_orbits[HUBBLE_MAX_SATS];
+static size_t orbit_count = 0;
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -502,9 +506,57 @@ static int _next_pass_get(const struct orbit_info *orbit, bool ascending,
 	return 0;
 }
 
-int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
-			 const struct ground_info *ground,
-			 struct hubble_pass_info *pass)
+int hubble_orbit_info_set(const struct orbit_info *orbits, size_t count)
+{
+	if ((orbits == NULL) || (count == 0) || (count > HUBBLE_MAX_SATS)) {
+		return -EINVAL;
+	}
+
+	const struct orbit_info *entry;
+	bool found;
+
+	/*
+	 * TODO: Nested loop probably fine for now, but if we increase
+	 * constellation size, we'll need to revisit this.
+	 */
+	for (size_t i = 0; i < count; i++) {
+		found = false;
+		entry = &orbits[i];
+
+		for (size_t j = 0; j < orbit_count; j++) {
+			if (hubble_orbits[j].sat_id == entry->sat_id) {
+				hubble_orbits[j] = *entry;
+				found = true;
+				break;
+			}
+		}
+
+		if (found) {
+			continue;
+		}
+
+		/* Insert new entry */
+		if (orbit_count >= HUBBLE_MAX_SATS) {
+			return -ENOSPC;
+		}
+
+		hubble_orbits[orbit_count] = *entry;
+		orbit_count++;
+	}
+
+	return 0;
+}
+
+int hubble_orbit_info_clear(void)
+{
+	memset(hubble_orbits, 0, sizeof(hubble_orbits));
+	orbit_count = 0;
+	return 0;
+}
+
+static int _next_pass_get_one(const struct orbit_info *orbit, uint64_t t,
+			      const struct ground_info *ground,
+			      struct hubble_pass_info *pass)
 {
 	double lon_tol;
 	struct crossing_info crossings[2];
@@ -574,5 +626,40 @@ int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
 		}
 	}
 
+	return 0;
+}
+
+int hubble_next_pass_get(uint64_t t, const struct ground_info *ground,
+			 struct hubble_pass_info *pass)
+{
+	if ((ground == NULL) || (pass == NULL)) {
+		return -EINVAL;
+	}
+
+	if (orbit_count == 0) {
+		return -ENOENT;
+	}
+
+	struct hubble_pass_info next_pass, earliest_pass;
+	int ret;
+	bool found = false;
+	for (size_t i = 0; i < orbit_count; i++) {
+		ret = _next_pass_get_one(&hubble_orbits[i], t, ground,
+					 &next_pass);
+		if (ret != 0) {
+			continue;
+		}
+
+		if (!found || next_pass.t < earliest_pass.t) {
+			found = true;
+			earliest_pass = next_pass;
+		}
+	}
+
+	if (!found) {
+		return -EAGAIN;
+	}
+
+	*pass = earliest_pass;
 	return 0;
 }

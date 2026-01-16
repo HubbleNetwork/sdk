@@ -108,8 +108,22 @@ static const struct orbit_info orbit = {
 	.aop0 = 3.523598389978097,
 	.aopdot = -6.981828658074634e-07, /* approximation */
 	.inclination = 97.4608,
-	.eccentricity = 0.0010652
+	.eccentricity = 0.0010652,
+	.sat_id = 60471,
 };
+
+static void *satellite_ephemeris_test_setup(void)
+{
+	int ret;
+
+	ret = hubble_orbit_info_clear();
+	zassert_equal(ret, 0, NULL);
+
+	ret = hubble_orbit_info_set(&orbit, 1);
+	zassert_equal(ret, 0, NULL);
+
+	return NULL;
+}
 
 ZTEST(satellite_ephemeris_test, test_satellite_ephemeris_calculation)
 {
@@ -117,7 +131,7 @@ ZTEST(satellite_ephemeris_test, test_satellite_ephemeris_calculation)
 	struct hubble_pass_info next_pass;
 
 	for (uint16_t count = 0; count < ARRAY_SIZE(results); count++) {
-		ret = hubble_next_pass_get(&orbit, results[count].start_time,
+		ret = hubble_next_pass_get(results[count].start_time,
 					   &(results[count].pos), &next_pass);
 
 		zassert_equal(ret, 0, NULL);
@@ -131,17 +145,24 @@ ZTEST(satellite_ephemeris_test, test_satellite_ephemeris_invalid)
 	struct hubble_pass_info next_pass;
 	int ret;
 
-	ret = hubble_next_pass_get(NULL, results[0].start_time,
-				   &(results[0].pos), &next_pass);
+	ret = hubble_next_pass_get(results[0].start_time, NULL, &next_pass);
 	zassert_equal(ret, -EINVAL, NULL);
 
-	ret = hubble_next_pass_get(&orbit, results[0].start_time, NULL,
+	ret = hubble_next_pass_get(results[0].start_time, &(results[0].pos),
+				   NULL);
+	zassert_equal(ret, -EINVAL, NULL);
+
+	hubble_orbit_info_clear();
+	ret = hubble_next_pass_get(results[0].start_time, &(results[0].pos),
 				   &next_pass);
+	zassert_equal(ret, -ENOENT, NULL);
+
+	ret = hubble_orbit_info_set(NULL, 1);
 	zassert_equal(ret, -EINVAL, NULL);
 
-	ret = hubble_next_pass_get(&orbit, results[0].start_time,
-				   &(results[0].pos), NULL);
+	ret = hubble_orbit_info_set(&orbit, 10);
 	zassert_equal(ret, -EINVAL, NULL);
 }
 
-ZTEST_SUITE(satellite_ephemeris_test, NULL, NULL, NULL, NULL, NULL);
+ZTEST_SUITE(satellite_ephemeris_test, NULL, satellite_ephemeris_test_setup,
+	    NULL, NULL, NULL);
