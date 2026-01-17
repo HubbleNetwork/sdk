@@ -20,6 +20,14 @@ config HUBBLE_SAT_NETWORK_SMALL
 		Reduces code using polynomial approximation
 		for trigonometric functions
 
+config HUBBLE_SAT_NETWORK_DEVICE_TDR
+	   int "Device time drift retry rate in PPM"
+	   default 500
+	   help
+		Adds additional retries proportional to time since
+		last time the device had utc time synced. It is
+		represented in PPM (parts per million).
+
 endif
 
 menuconfig HUBBLE_BLE_NETWORK
