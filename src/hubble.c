@@ -14,6 +14,7 @@
 #include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
+static uint64_t utc_time_synced;
 static uint64_t utc_time_base;
 static const void *master_key;
 
@@ -22,6 +23,9 @@ int hubble_utc_set(uint64_t utc_time)
 	if (utc_time == 0U) {
 		return -EINVAL;
 	}
+
+	/* It holds when the device synced utc */
+	utc_time_synced = utc_time;
 
 	utc_time_base = utc_time - hubble_uptime_get();
 
@@ -82,4 +86,9 @@ const void *hubble_internal_key_get(void)
 uint64_t hubble_internal_utc_time_get(void)
 {
 	return utc_time_base + hubble_uptime_get();
+}
+
+uint64_t hubble_internal_utc_time_last_synced_get(void)
+{
+	return utc_time_synced;
 }

@@ -11,4 +11,9 @@ const void *hubble_internal_key_get(void);
 
 uint64_t hubble_internal_utc_time_get(void);
 
+/* Returns the last time UTC was synced. It
+ * is used to accommodate clock drifts.
+ */
+uint64_t hubble_internal_utc_time_last_synced_get(void);
+
 #endif /* SRC_HUBBLE_PRIV_H */

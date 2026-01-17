@@ -11,6 +11,9 @@
 #include <hubble/port/sys.h>
 #include <hubble/port/sat_radio.h>
 
+#include "hubble_priv.h"
+#include "utils/macros.h"
+
 #define HUBBLE_SAT_CHANNEL_DEFAULT            5U
 
 /* The interval (in seconds) packets are re-transmitted */
@@ -44,6 +47,18 @@ static int _transmission_params_get(enum hubble_sat_transmission_mode mode,
 	return ret;
 }
 
+static uint8_t _additional_retries_count(uint8_t interval_s)
+{
+	uint64_t synced_interval_s =
+		(hubble_internal_utc_time_get() -
+		 hubble_internal_utc_time_last_synced_get()) /
+		1000;
+
+	return HUBBLE_MIN(UINT8_MAX, (synced_interval_s *
+				      CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR) /
+					     (1000000ULL * interval_s));
+}
+
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 			   enum hubble_sat_transmission_mode mode)
 {
@@ -55,6 +70,9 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 		HUBBLE_LOG_WARNING("Invalid mode given");
 		return ret;
 	}
+
+	retries = HUBBLE_MIN(UINT8_MAX,
+			     retries + _additional_retries_count(interval_s));
 
 	ret = hubble_rand_get(&channel, sizeof(channel));
 	if (ret != 0) {
