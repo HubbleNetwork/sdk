@@ -13,6 +13,14 @@ if(CONFIG_HUBBLE_BLE_NETWORK)
     )
 endif()
 
+if(CONFIG_HUBBLE_SAT_NETWORK)
+    list(APPEND SRCS
+        "${SDK_BASE_DIR}/src/hubble_sat.c"
+        "${SDK_BASE_DIR}/src/hubble_sat_packet.c"
+        "${SDK_BASE_DIR}/src/hubble_sat_ephemeris.c"
+    )
+endif()
+
 idf_component_register(
     INCLUDE_DIRS
         "${SDK_BASE_DIR}/include"

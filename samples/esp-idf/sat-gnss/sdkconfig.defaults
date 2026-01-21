@@ -1,0 +1,5 @@
+# Copyright (c) 2025 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+# Hubble
+CONFIG_HUBBLE_SAT_NETWORK=y

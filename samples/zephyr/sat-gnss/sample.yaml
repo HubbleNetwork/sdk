@@ -1,0 +1,16 @@
+# Copyright (c) 2025 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+sample:
+  description: Hubble Network GNSS SAT example
+  name: hubble-gnss-sat-network
+common:
+  build_only: true
+  filter: dt_nodelabel_enabled("gnss")
+  integration_platforms:
+    - nrf52840dk/nrf52840
+tests:
+  app.gnss.default: {}
+  app.gnss.debug:
+    extra_overlay_confs:
+      - debug.conf
