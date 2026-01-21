@@ -29,6 +29,9 @@ extern "C" {
 /* @brief Max number of symbols that packet can have */
 #define HUBBLE_PACKET_MAX_SIZE 44
 
+/* @brief Max number of bytes for data payload */
+#define HUBBLE_SAT_PAYLOAD_MAX 11
+
 /**
  * @brief Structure representing a Hubble packet.
  *
