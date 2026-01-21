@@ -50,6 +50,10 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 	int ret;
 	uint8_t interval_s, retries, channel;
 
+	if (packet == NULL) {
+		return -EINVAL;
+	}
+
 	ret = _transmission_params_get(mode, &retries, &interval_s);
 	if (ret < 0) {
 		HUBBLE_LOG_WARNING("Invalid mode given");

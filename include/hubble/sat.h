@@ -47,9 +47,9 @@ enum hubble_sat_transmission_mode {
  *
  * @return 0 on successful transmission, or a negative error code on failure.
  *
- * @warning This function does not perform any validation on the packet
- *          structure. It is the caller's responsibility to ensure the
- *          packet is correctly formatted.
+ * @warning This function checks if the packet is NULL but does not perform
+ *          any validation on the packet structure. It is the caller's
+ *          responsibility to ensure the packet is correctly formatted.
  */
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 			   enum hubble_sat_transmission_mode mode);
