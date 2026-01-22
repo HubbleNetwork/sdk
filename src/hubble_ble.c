@@ -50,6 +50,42 @@ enum hubble_ble_value_label {
 	HUBBLE_BLE_ENCRYPTION_VALUE
 };
 
+/**
+ * @brief Get the current time counter value for EID derivation.
+ *
+ * Returns the time counter based on the configured EID generation mode:
+ * - Counter-based: Uses uptime-derived counter with initial offset and wrap
+ * - UTC-based: Uses UTC time divided by rotation period
+ *
+ * @param counter Pointer to store the time counter value
+ * @return 0 on success, negative error code on failure
+ */
+static int _time_counter_get(uint32_t *counter)
+{
+	uint64_t rotation_period_ms =
+		(uint64_t)CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC * 1000ULL;
+
+#ifdef CONFIG_HUBBLE_EID_COUNTER_BASED
+	uint64_t uptime_ms = hubble_uptime_get();
+	uint32_t uptime_epochs = (uint32_t)(uptime_ms / rotation_period_ms);
+	uint32_t initial = hubble_internal_eid_initial_counter_get();
+	uint32_t total_counter = initial + uptime_epochs;
+
+	*counter = total_counter % (1U << CONFIG_HUBBLE_EID_COUNTER_BITS);
+#else
+	/* UTC-based mode */
+	uint64_t utc_time = hubble_internal_utc_time_get();
+
+	if (utc_time == 0U) {
+		return -EINVAL;
+	}
+
+	*counter = (uint32_t)(utc_time / rotation_period_ms);
+#endif
+
+	return 0;
+}
+
 /* Define some helpers for payload offsets */
 #define _PAYLOAD_SERVICE_UUID_LO(buf) (buf + 0)
 #define _PAYLOAD_SERVICE_UUID_HI(buf) (buf + 1)
@@ -297,10 +333,7 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 {
 	int err;
 	uint32_t device_id;
-	uint64_t rotation_period_ms =
-		(uint64_t)CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC * 1000ULL;
-	uint32_t time_counter =
-		(uint32_t)(hubble_internal_utc_time_get() / rotation_period_ms);
+	uint32_t time_counter;
 	uint8_t encryption_key[CONFIG_HUBBLE_KEY_SIZE] = {0};
 	uint8_t nonce_counter[HUBBLE_BLE_NONCE_BUFFER_LEN] = {0};
 	uint8_t auth_tag[HUBBLE_BLE_AUTH_LEN] = {0};
@@ -309,6 +342,11 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 
 	if ((master_key == NULL) || (out == NULL) || (out_len == NULL)) {
 		return -EINVAL;
+	}
+
+	err = _time_counter_get(&time_counter);
+	if (err != 0) {
+		return err;
 	}
 
 	if (input_len > HUBBLE_BLE_MAX_DATA_LEN) {
