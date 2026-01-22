@@ -1,0 +1,18 @@
+common:
+  platform_allow:
+    - native_sim
+    - qemu_cortex_m3
+  tags:
+    - ble
+    - crypto
+    - decrypt
+    - unit
+
+tests:
+  ble.decrypt.unit.mbedtls:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+
+  ble.decrypt.unit.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
