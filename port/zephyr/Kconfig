@@ -5,6 +5,13 @@ module = HUBBLE
 module-str = HubbleNetwork
 source "subsys/logging/Kconfig.template.log_config"
 
+config HUBBLE_EID_ROTATION_PERIOD_SEC
+	int "EID rotation period in seconds"
+	default 86400
+	range 900 86400
+	help
+	  EID rotation period. Range: 900-86400 (15min to 24hours).
+
 config HUBBLE_SAT_NETWORK
 	   bool "Hubble Satellite Network Library [EXPERIMENTAL]"
 	   select EXPERIMENTAL
@@ -106,15 +113,15 @@ endchoice
 
 if HUBBLE_BLE_NETWORK
 
-choice
-	prompt "HUBBLE BLE Network Timer Counter Frequency"
-
+# DEPRECATED: Use HUBBLE_EID_ROTATION_PERIOD_SEC instead
+# Kept for backward compatibility
 config HUBBLE_BLE_NETWORK_TIMER_COUNTER_DAILY
-	   bool "Timer counter changes daily"
-	   help
-	        The timer counter will change daily
-
-endchoice
+	bool "Timer counter changes daily (DEPRECATED)"
+	default y
+	select DEPRECATED
+	help
+	  DEPRECATED: Use HUBBLE_EID_ROTATION_PERIOD_SEC instead.
+	  This option is maintained for backward compatibility only.
 
 endif
 

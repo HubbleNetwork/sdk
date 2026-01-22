@@ -14,6 +14,15 @@
 #include <hubble/port/sys.h>
 #include <hubble/port/crypto.h>
 
+/* Compile-time validation of configuration */
+#if CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC < 900 || CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC > 86400
+#error "CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC must be between 900 and 86400 seconds"
+#endif
+
+#if CONFIG_HUBBLE_EID_COUNTER_BITS < 4 || CONFIG_HUBBLE_EID_COUNTER_BITS > 11
+#error "CONFIG_HUBBLE_EID_COUNTER_BITS must be between 4 and 11"
+#endif
+
 static uint64_t utc_time_synced;
 static uint64_t utc_time_base;
 static const void *master_key;
