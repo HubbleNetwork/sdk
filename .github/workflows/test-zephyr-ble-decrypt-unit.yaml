@@ -1,0 +1,85 @@
+name: Twister • tests/zephyr/unit/ble-decrypt
+
+on:
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - 'tests/zephyr/unit/ble-decrypt/**'
+      - 'src/**'
+      - '.github/workflows/test-zephyr-ble-decrypt-unit.yaml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  twister-unit-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Setup Zephyr project (west & toolchains)
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          app-path: .
+          toolchains: arm-zephyr-eabi
+
+      - name: Ensure ZEPHYR_BASE is exported for later steps
+        run: |
+          set -euxo pipefail
+
+          # Ensure the west export exists (this will create zephyr/zephyr-env.sh)
+          west zephyr-export
+
+          # Set necessary env vars
+          . "$(west topdir)/zephyr/zephyr-env.sh"
+
+          echo "ZEPHYR_BASE=${ZEPHYR_BASE}" >> $GITHUB_ENV
+
+      - name: List available tests
+        run: |
+          set -euxo pipefail
+          echo "Listing tests in tests/zephyr/unit/ble-decrypt for native_sim:"
+          ${ZEPHYR_BASE}/scripts/twister --list-tests -T tests/zephyr/unit/ble-decrypt -p native_sim -v
+
+      - name: Run Twister for ble-decrypt unit tests (native_sim)
+        run: |
+          set -euxo pipefail
+          # Run Twister with native_sim platform for unit tests
+          ${ZEPHYR_BASE}/scripts/twister -T tests/zephyr/unit/ble-decrypt -p native_sim -v
+
+      - name: Show test summary (testplan.json)
+        if: always()
+        run: |
+          FILE="twister-out/testplan.json"
+
+          if [ -f "$FILE" ]; then
+            echo "=== Test Results ==="
+            jq -r '
+              .testsuites[]?
+              | "\(.name) => \(.status) \(if .filter then "filter: \(.filter)" else "" end)"
+            ' "$FILE"
+
+            echo
+            echo "Summary files written to twister-out/"
+          else
+            echo "twister-out/testplan.json not found"
+            exit 0
+          fi
+
+      - name: Upload Twister outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: twister-ble-decrypt-unit-${{ github.run_id }}
+          path: twister-out/**
+          if-no-files-found: ignore
