@@ -62,6 +62,24 @@ struct ground_info {
 };
 
 /**
+ * @struct ground_region_info
+ * @brief Represents a rectangular geographic region.
+ *
+ * This structure defines a rectangular region on Earth using
+ * a center point (latitude/longitude) and range values.
+ */
+struct ground_region_info {
+	/** Latitude of the region center in degrees. */
+	double lat_mid;
+	/** Total latitude range in degrees (region extends lat_range/2 above and below lat_mid). */
+	double lat_range;
+	/** Longitude of the region center in degrees. */
+	double lon_mid;
+	/** Total longitude range in degrees (region extends lon_range/2 east and west of lon_mid). */
+	double lon_range;
+};
+
+/**
  * @struct hubble_pass_info
  * @brief Represents information about a satellite pass.
  *
@@ -74,6 +92,8 @@ struct hubble_pass_info {
 	double lon;
 	/** Time of the satellite pass (Unix time, seconds since epoch). */
 	uint64_t t;
+	/** Time duration of the pass in seconds. */
+	uint32_t duration;
 	/** True if the satellite is ascending (moving northward), false if descending. */
 	bool ascending;
 };
@@ -95,6 +115,22 @@ int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
 			 const struct ground_info *ground,
 			 struct hubble_pass_info *pass);
 
+/**
+ * @brief Get the next satellite pass over a geographic region.
+ *
+ * This function calculates the next pass of the satellite over a
+ * rectangular geographic region defined by latitude and longitude
+ * bounds, based on the satellite's orbital parameters.
+ *
+ * @param orbit Pointer to the satellite's orbital parameters.
+ * @param t Current time or the time from which to start the calculation.
+ * @param region Pointer to the geographic region definition.
+ * @param pass The next satellite pass in case of success.
+ * @return 0 on success or a negative value in case of error.
+ */
+int hubble_next_pass_region_get(const struct orbit_info *orbit, uint64_t t,
+				const struct ground_region_info *region,
+				struct hubble_pass_info *pass);
 #ifdef __cplusplus
 }
 #endif

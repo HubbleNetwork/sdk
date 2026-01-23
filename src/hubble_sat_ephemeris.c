@@ -502,23 +502,15 @@ static int _next_pass_get(const struct orbit_info *orbit, bool ascending,
 	return 0;
 }
 
-int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
-			 const struct ground_info *ground,
-			 struct hubble_pass_info *pass)
+static int _pass_get(const struct orbit_info *orbit, uint64_t t,
+		     const struct ground_info *ground, double lon_tol,
+		     struct hubble_pass_info *pass)
 {
-	double lon_tol;
 	struct crossing_info crossings[2];
 	int orbit_count;
 
-	/* Basic sanity check */
-	if ((orbit == NULL) || (ground == NULL) || (pass == NULL)) {
-		return -EINVAL;
-	}
-
-	lon_tol = _lon_tolerance_get(ground->lat);
-
 	orbit_count = _orbit_count_get(orbit, t);
-	if (orbit_count <= 0) {
+	if (orbit_count < 0) {
 		return -1;
 	}
 
@@ -573,6 +565,120 @@ int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
 			return ret;
 		}
 	}
+
+	return 0;
+}
+
+int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
+			 const struct ground_info *ground,
+			 struct hubble_pass_info *pass)
+{
+	double lon_tol;
+
+	/* Basic sanity check */
+	if ((orbit == NULL) || (ground == NULL) || (pass == NULL)) {
+		return -EINVAL;
+	}
+
+	lon_tol = _lon_tolerance_get(ground->lat);
+	/* TODO: Check a reasonable value for a specific location pass */
+	pass->duration = 0;
+
+	return _pass_get(orbit, t, ground, lon_tol, pass);
+}
+
+int hubble_next_pass_region_get(const struct orbit_info *orbit, uint64_t t,
+				const struct ground_region_info *region,
+				struct hubble_pass_info *pass)
+{
+	int ret;
+	double lon_tol, lat_mid;
+	struct crossing_info crossings_min[2], crossings_max[2];
+	int orbit_count;
+	double lat_min, lat_max;
+	struct ground_info ground;
+
+	/* Basic sanity check */
+	if ((orbit == NULL) || (region == NULL) || (pass == NULL)) {
+		return -EINVAL;
+	}
+
+	lat_mid = region->lat_mid;
+	if (lat_mid == 0.0) {
+		lat_mid = 1e-3;
+	}
+
+	lon_tol = region->lon_range / 2;
+	lat_min = lat_mid - (region->lat_range / 2);
+	lat_max = lat_mid + (region->lat_range / 2);
+
+	ground.lat = lat_mid;
+	ground.lon = region->lon_mid;
+
+	if (_pass_get(orbit, t, &ground, lon_tol, pass) != 0) {
+		return -1;
+	}
+
+	orbit_count = _orbit_count_get(orbit, pass->t);
+	if (orbit_count < 0) {
+		return -1;
+	}
+
+	if ((lat_min * lat_max) < 0) {
+		ret = _tll_crossings_get(orbit, lat_min, orbit_count,
+					 crossings_min);
+		if (pass->ascending) {
+			ret |= _tll_crossings_get(
+				orbit, lat_max, orbit_count + 1, crossings_max);
+			if (ret != 0) {
+				return -1;
+			}
+			pass->duration = crossings_max[0].t - crossings_min[1].t;
+		} else {
+			ret |= _tll_crossings_get(orbit, lat_max, orbit_count,
+						  crossings_max);
+			if (ret != 0) {
+				return -1;
+			}
+			pass->duration = crossings_min[0].t - crossings_max[1].t;
+		}
+	} else if ((lat_min < 0) && (lat_max < 0)) {
+		ret = _tll_crossings_get(orbit, lat_min, orbit_count,
+					 crossings_min);
+		ret |= _tll_crossings_get(orbit, lat_max, orbit_count,
+					  crossings_max);
+
+		if (ret != 0) {
+			return -1;
+		}
+
+		if (pass->ascending) {
+			pass->duration = crossings_max[1].t - crossings_min[1].t;
+		} else {
+			pass->duration = crossings_min[0].t - crossings_max[0].t;
+		}
+	} else {
+		if ((lat_min < 0) || (lat_max < 0)) {
+			return -1;
+		}
+
+		ret = _tll_crossings_get(orbit, lat_min, orbit_count,
+					 crossings_min);
+		ret |= _tll_crossings_get(orbit, lat_max, orbit_count,
+					  crossings_max);
+
+		if (ret != 0) {
+			return -1;
+		}
+
+		if (pass->ascending) {
+			pass->duration = crossings_max[0].t - crossings_min[0].t;
+		} else {
+			pass->duration = crossings_min[1].t - crossings_max[1].t;
+		}
+	}
+
+	pass->t -= pass->duration / 2;
 
 	return 0;
 }

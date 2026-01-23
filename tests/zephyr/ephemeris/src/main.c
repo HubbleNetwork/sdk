@@ -144,4 +144,38 @@ ZTEST(satellite_ephemeris_test, test_satellite_ephemeris_invalid)
 	zassert_equal(ret, -EINVAL, NULL);
 }
 
+struct test_region_result {
+	struct ground_region_info region;
+	uint64_t start_time;
+	uint64_t next_pass_time;
+	uint32_t duration;
+};
+
+static const struct test_region_result region_results[] = {
+	{{1.0, 30.0, -45.0, 50.0}, 1711296587, 1711299181, 477},
+	{{1.0, 30.0, -45.0, 50.0}, 1711299181, 1711336226, 479},
+	{{-45.0, 30.0, -45.0, 50.0}, 1711296587, 1711299912, 482},
+	{{-45.0, 30.0, -45.0, 50.0}, 1711335912, 1711341182, 484},
+	{{45.0, 30.0, -45.0, 50.0}, 1711296587, 1711298475, 483},
+	{{45.0, 30.0, -45.0, 50.0}, 1711334475, 1711336929, 484},
+};
+
+ZTEST(satellite_ephemeris_test, test_satellite_ephemeris_region_calculation)
+{
+	int ret;
+	struct hubble_pass_info next_pass;
+
+	for (uint16_t count = 0; count < ARRAY_SIZE(region_results); count++) {
+		ret = hubble_next_pass_region_get(
+			&orbit, region_results[count].start_time,
+			&(region_results[count].region), &next_pass);
+
+		zassert_equal(ret, 0, NULL);
+		zassert_within(next_pass.t, region_results[count].next_pass_time,
+			       EPHEMERIS_DELTA);
+		zassert_within(next_pass.duration,
+			       region_results[count].duration, EPHEMERIS_DELTA);
+	}
+}
+
 ZTEST_SUITE(satellite_ephemeris_test, NULL, NULL, NULL, NULL, NULL);
