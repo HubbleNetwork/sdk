@@ -1,0 +1,19 @@
+common:
+  platform_allow:
+    - native_sim
+    - native_sim/native/64
+    - qemu_cortex_m3
+  tags:
+    - ble
+    - crypto
+    - advertise
+    - unit
+
+tests:
+  ble.advertise.unit.mbedtls:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+
+  ble.advertise.unit.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y

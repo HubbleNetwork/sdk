@@ -310,6 +310,10 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 		return -EINVAL;
 	}
 
+	if ((input == NULL) && (input_len > 0)) {
+		return -EINVAL;
+	}
+
 	if (input_len > HUBBLE_BLE_MAX_DATA_LEN) {
 		return -EINVAL;
 	}
