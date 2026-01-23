@@ -65,21 +65,21 @@ jobs:
         run: |
           reviewer=""
           if [[ "${{ steps.filter.outputs.zephyr }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           elif [[ "${{ steps.filter.outputs.esp-idf }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           elif [[ "${{ steps.filter.outputs.tools }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           elif [[ "${{ steps.filter.outputs.common_code }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           elif [[ "${{ steps.filter.outputs.docs }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul","danielr-hubblenetwork"
+            reviewer="ceolin","HongNguyen635","buckleypaul","danielr-hubblenetwork","hunterhubble"
           elif [[ "${{ steps.filter.outputs.freertos }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           elif [[ "${{ steps.filter.outputs.ci }}" == "true" ]]; then
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           else
-            reviewer="ceolin","HongNguyen635","buckleypaul"
+            reviewer="ceolin","HongNguyen635","buckleypaul","hunterhubble"
           fi
           echo "reviewer=$reviewer" >> "$GITHUB_OUTPUT"
 
