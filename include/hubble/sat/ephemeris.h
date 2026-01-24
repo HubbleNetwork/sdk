@@ -13,6 +13,7 @@
 #define INCLUDE_HUBBLE_SAT_EPHEMERIS_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -45,6 +46,8 @@ struct orbit_info {
 	double inclination;
 	/** Eccentricity (unitless, 0=circular) */
 	double eccentricity;
+	/** NORAD ID of the satellite */
+	uint32_t sat_id;
 };
 
 /**
@@ -79,20 +82,42 @@ struct hubble_pass_info {
 };
 
 /**
+ * @brief Set the orbital information for one or more satellites.
+ *
+ * This function stores orbital parameters for multiple satellites.
+ * If orbit information already exists for a satellite, it is overwritten
+ * with the new values provided.
+ *
+ * @param orbits Pointer to the array of orbital parameters to be set.
+ * @param count Number of entries in the orbital parameters array.
+ * @return 0 on success or a negative value in case of error.
+ */
+int hubble_orbit_info_set(const struct orbit_info *orbits, size_t count);
+
+/**
+ * @brief Clear all orbital information.
+ *
+ * This function clears all stored orbital parameters for all satellites.
+ * @return 0 on success, or a negative value in case of error.
+ */
+int hubble_orbit_info_clear(void);
+
+/**
  * @brief Get the next satellite pass.
  *
- * This function calculates the next pass of the satellite over a
- * given ground station, based on the satellite's orbital parameters
- * and the ground station's location.
+ * This function calculates the next satellite pass over a given
+ * ground station, based on the orbit information previously
+ * provided using the @ref hubble_orbit_info_set function and the
+ * ground station's location.
  *
- * @param orbit Pointer to the satellite's orbital parameters.
  * @param t Current time or the time from which to start the calculation.
  * @param ground Pointer to the ground station's location.
  * @param pass The next satellite pass in case of success.
- * @return 0 on success or a negative value in case of error.
+ * @return 0 on success,
+ *         -ENOENT if no orbit info has been provisioned for any satellite,
+ *         or a negative value in case of error.
  */
-int hubble_next_pass_get(const struct orbit_info *orbit, uint64_t t,
-			 const struct ground_info *ground,
+int hubble_next_pass_get(uint64_t t, const struct ground_info *ground,
 			 struct hubble_pass_info *pass);
 
 #ifdef __cplusplus
