@@ -17,10 +17,12 @@
 
 LOG_MODULE_REGISTER(hubblenetwork, CONFIG_HUBBLE_LOG_LEVEL);
 
+#ifndef CONFIG_HUBBLE_UPTIME_CUSTOM
 uint64_t hubble_uptime_get(void)
 {
 	return (uint64_t)k_uptime_get();
 }
+#endif /* CONFIG_HUBBLE_UPTIME_CUSTOM */
 
 __weak int hubble_log(enum hubble_log_level level, const char *format, ...)
 {
