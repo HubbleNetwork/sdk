@@ -74,6 +74,22 @@ extern "C" {
 int hubble_sat_port_init(void);
 
 /**
+ * @brief Get the next channel in the frequency hopping sequence.
+ *
+ * This function returns the next channel to use for transmission based on
+ * the current channel position in the hopping sequence. The sequence wraps
+ * around after reaching the last channel.
+ *
+ * @param hopping_sequence  The hopping sequence to be used [0-3].
+ * @param channel The current channel in the hopping sequence.
+ * @param next_channel The next channel to hop.
+ *
+ * @return 0 on success, negative error code on failure.
+ */
+int hubble_sat_channel_next_hop_get(uint8_t hopping_sequence, uint8_t channel,
+				    uint8_t *next_channel);
+
+/**
  * @brief Transmit a packet over the satellite radio.
  *
  * This function transmits a packet using the satellite radio hardware.
