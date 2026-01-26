@@ -13,6 +13,8 @@
 #include <zephyr/types.h>
 #include <zephyr/ztest.h>
 
+#include <string.h>
+
 #include "test_vectors.h"
 
 #define TEST_ADV_BUFFER_SZ      31
@@ -24,9 +26,17 @@ static uint16_t test_seq_override;
 /* A arbitrarily chosen start time for the test */
 static const uint64_t test_utc_time = (uint64_t)20 * TIMER_COUNTER_FREQUENCY;
 
+/* Test uptime override */
+static uint64_t test_uptime_ms;
+
 uint16_t hubble_sequence_counter_get(void)
 {
 	return test_seq_override;
+}
+
+uint64_t hubble_uptime_get(void)
+{
+	return test_uptime_ms;
 }
 
 /* Test keys */
@@ -171,9 +181,80 @@ ZTEST(ble_advertise_test, test_advertise_deterministic)
 			  "Outputs should be byte-identical (deterministic)");
 }
 
+ZTEST(ble_advertise_test, test_advertise_time_dependent_output)
+{
+	uint8_t payload[] = {0x48, 0x65, 0x6c, 0x6c, 0x6f};
+
+	/* Initialize with uptime at 0 */
+	test_uptime_ms = 0;
+	int ret = hubble_init(test_utc_time, test_key_primary);
+	zassert_ok(ret, "hubble_init failed");
+	test_seq_override = 100;
+
+	uint8_t output1[TEST_ADV_BUFFER_SZ];
+	size_t output_len1 = sizeof(output1);
+
+	ret = hubble_ble_advertise_get(payload, sizeof(payload), output1,
+				       &output_len1);
+	zassert_ok(ret, "First call failed");
+
+	/* Advance time by one day (TIMER_COUNTER_FREQUENCY ms)
+	 * This should change the time_counter and produce different output
+	 */
+	test_uptime_ms = TIMER_COUNTER_FREQUENCY;
+
+	uint8_t output2[TEST_ADV_BUFFER_SZ];
+	size_t output_len2 = sizeof(output2);
+
+	ret = hubble_ble_advertise_get(payload, sizeof(payload), output2,
+				       &output_len2);
+	zassert_ok(ret, "Second call failed");
+
+	/* Outputs should have the same length but different content
+	 * due to different time_counter values
+	 */
+	zassert_equal(output_len1, output_len2, "Output lengths should match");
+	zassert_true(memcmp(output1, output2, output_len1) != 0,
+		     "Outputs should differ due to time progression");
+}
+
+ZTEST(ble_advertise_test, test_advertise_same_time_different_sequences)
+{
+	uint8_t payload[] = {0xAA, 0xBB};
+
+	int ret = hubble_init(test_utc_time, test_key_primary);
+	zassert_ok(ret, "hubble_init failed");
+
+	/* Get output with sequence number 0 */
+	test_seq_override = 0;
+
+	uint8_t output1[TEST_ADV_BUFFER_SZ];
+	size_t output_len1 = sizeof(output1);
+
+	ret = hubble_ble_advertise_get(payload, sizeof(payload), output1,
+				       &output_len1);
+	zassert_ok(ret, "First call failed");
+
+	/* Get output with sequence number 1, same time */
+	test_seq_override = 1;
+
+	uint8_t output2[TEST_ADV_BUFFER_SZ];
+	size_t output_len2 = sizeof(output2);
+
+	ret = hubble_ble_advertise_get(payload, sizeof(payload), output2,
+				       &output_len2);
+	zassert_ok(ret, "Second call failed");
+
+	/* Outputs should differ due to different sequence numbers */
+	zassert_equal(output_len1, output_len2, "Output lengths should match");
+	zassert_true(memcmp(output1, output2, output_len1) != 0,
+		     "Outputs should differ due to different sequence numbers");
+}
+
 static void *ble_advertise_test_setup(void)
 {
 	test_seq_override = 0;
+	test_uptime_ms = 0;
 	return NULL;
 }
 
@@ -273,6 +354,7 @@ ZTEST(ble_advertise_format_test, test_sequence_number_encoding)
 static void *ble_advertise_format_test_setup(void)
 {
 	test_seq_override = 0;
+	test_uptime_ms = 0;
 	return NULL;
 }
 
