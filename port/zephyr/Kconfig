@@ -35,6 +35,8 @@ menuconfig HUBBLE_BLE_NETWORK
 	   help
 		Enable library for communication with Hubble BLE network
 
+if HUBBLE_BLE_NETWORK
+
 choice
 	prompt "Hubble Network key size"
 
@@ -104,7 +106,6 @@ config HUBBLE_BLE_NETWORK_CUSTOM_CRYPTO
 
 endchoice
 
-if HUBBLE_BLE_NETWORK
 
 choice
 	prompt "HUBBLE BLE Network Timer Counter Frequency"
