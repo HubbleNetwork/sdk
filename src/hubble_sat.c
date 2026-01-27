@@ -14,8 +14,6 @@
 #include "hubble_priv.h"
 #include "utils/macros.h"
 
-#define HUBBLE_SAT_CHANNEL_DEFAULT            5U
-
 /* Two bits used -> 2**2 */
 #define _SAT_HOPPING_SEQUENCE_INFO_NUM        4U
 
@@ -102,7 +100,7 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 			   enum hubble_sat_transmission_mode mode)
 {
 	int ret;
-	uint8_t interval_s, retries, channel;
+	uint8_t interval_s, retries;
 
 	if (packet == NULL) {
 		return -EINVAL;
@@ -117,16 +115,8 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 	retries = HUBBLE_MIN(UINT8_MAX,
 			     retries + _additional_retries_count(interval_s));
 
-	ret = hubble_rand_get(&channel, sizeof(channel));
-	if (ret != 0) {
-		HUBBLE_LOG_WARNING("Could not get a random channel, falling "
-				   "back to default channel");
-		channel = HUBBLE_SAT_CHANNEL_DEFAULT;
-	} else {
-		channel = channel % HUBBLE_SAT_NUM_CHANNELS;
-	}
-
-	ret = hubble_sat_port_packet_send(channel, packet, retries, interval_s);
+	ret = hubble_sat_port_packet_send(packet->channel, packet, retries,
+					  interval_s);
 	if (ret < 0) {
 		HUBBLE_LOG_WARNING(
 			"Hubble Satellite packet transmission failed");

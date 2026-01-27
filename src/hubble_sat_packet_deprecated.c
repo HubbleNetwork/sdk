@@ -9,6 +9,8 @@
 #include <stdbool.h>
 
 #include <hubble/sat/packet.h>
+#include <hubble/port/sat_radio.h>
+#include <hubble/port/sys.h>
 
 #include "reed_solomon_encoder.h"
 #include "utils/bitarray.h"
@@ -36,6 +38,8 @@
 #define HUBBLE_SYMBOL_SIZE             6
 
 #define HUBBLE_PACKET_FRAME_MAX_SIZE   25
+
+#define HUBBLE_SAT_CHANNEL_DEFAULT     5U
 
 static const uint8_t _hubble_mac_frame_symbols[] = {
 	11, 13, 15, 17, 19, 21, 23, 25,
@@ -116,6 +120,7 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, uint64_t device_id,
 	uint8_t packet_length;
 	uint8_t symbol_index;
 	uint8_t ecc;
+	uint8_t channel;
 	int symbols[HUBBLE_PACKET_FRAME_MAX_SIZE];
 	int *rs_symbols;
 
@@ -211,5 +216,14 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, uint64_t device_id,
 	}
 
 	packet->length = _hubble_packet_total_symbols[symbol_index];
+
+	if (hubble_rand_get(&channel, sizeof(channel)) != 0) {
+		HUBBLE_LOG_WARNING("Could not get a random channel, falling "
+				   "back to default channel");
+		packet->channel = HUBBLE_SAT_CHANNEL_DEFAULT;
+	} else {
+		packet->channel = channel % HUBBLE_SAT_NUM_CHANNELS;
+	}
+
 	return 0;
 }
