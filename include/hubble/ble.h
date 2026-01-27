@@ -83,6 +83,17 @@ int hubble_ble_advertise_get(const uint8_t *input, size_t input_len,
 			     uint8_t *out, size_t *out_len);
 
 /**
+ * @brief Gets the time remaining until the BLE advertisement expires.
+ *
+ * Returns the number of milliseconds until the current BLE advertisement
+ * expires and a new one should be generated. This helps applications refresh
+ * their advertisements in synchronization with the EID rotation period.
+ *
+ * @return Milliseconds until the current advertisement expires.
+ */
+uint32_t hubble_ble_advertise_expiration_get(void);
+
+/**
  * @}
  */
 

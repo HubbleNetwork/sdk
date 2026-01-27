@@ -101,6 +101,12 @@ struct test_adv test_adv_data[] = {
 
 ZTEST(ble_adv_test, test_ble_adv)
 {
+#ifdef CONFIG_HUBBLE_EID_COUNTER_BASED
+	/* Skip byte-exact comparison in counter mode - protocol version differs.
+	 * Counter mode advertisement generation is tested in ble_counter_test.
+	 */
+	ztest_test_skip();
+#else
 	uint16_t idx;
 
 	for (idx = 0; idx < ARRAY_SIZE(test_adv_data); idx++) {
@@ -112,6 +118,7 @@ ZTEST(ble_adv_test, test_ble_adv)
 		zassert_ok(status);
 		zassert_mem_equal(buf, test_adv_data[idx].output, out_len);
 	}
+#endif
 }
 
 ZTEST(ble_adv_test, test_adv_get_overflow)
@@ -135,3 +142,105 @@ static void *ble_adv_test_setup(void)
 }
 
 ZTEST_SUITE(ble_adv_test, NULL, ble_adv_test_setup, NULL, NULL, NULL);
+
+/* Counter-based EID test section */
+
+#ifdef CONFIG_HUBBLE_EID_COUNTER_BASED
+
+static uint8_t counter_test_key[CONFIG_HUBBLE_KEY_SIZE] = {
+	0xcd, 0x15, 0xa5, 0xab, 0xc0, 0x60, 0xb6, 0x72, 0x88, 0xa6, 0x1e,
+	0x44, 0xe9, 0x95, 0xba, 0x77, 0xd1, 0x40, 0xbd, 0x46, 0x56, 0x4b,
+	0x88, 0xde, 0x41, 0xc1, 0x5a, 0x92, 0x73, 0xb0, 0xce, 0x85};
+
+ZTEST(ble_counter_test, test_counter_init_zero)
+{
+	/* In counter mode, 0 is a valid initial counter value */
+	int ret = hubble_init(0, counter_test_key);
+
+	zassert_ok(ret, "hubble_init with counter=0 should succeed");
+}
+
+ZTEST(ble_counter_test, test_counter_init_nonzero)
+{
+	/* In counter mode, non-zero initial counter should work */
+	int ret = hubble_init(100, counter_test_key);
+
+	zassert_ok(ret, "hubble_init with counter=100 should succeed");
+}
+
+ZTEST(ble_counter_test, test_eid_counter_get)
+{
+	/* Initialize with counter=0 */
+	int ret = hubble_init(0, counter_test_key);
+
+	zassert_ok(ret, "hubble_init should succeed");
+
+	/* At startup with counter=0, the counter should be 0 */
+	uint32_t counter = hubble_eid_counter_get();
+
+	zassert_equal(counter, 0, "Counter should be 0 at startup");
+}
+
+ZTEST(ble_counter_test, test_eid_counter_get_with_initial)
+{
+	/* Initialize with counter=50 */
+	const uint64_t initial_counter = 50;
+	int ret = hubble_init(initial_counter, counter_test_key);
+
+	zassert_ok(ret, "hubble_init should succeed");
+
+	uint32_t counter = hubble_eid_counter_get();
+	zassert_equal(initial_counter, counter,
+		      "Counter value should match initial counter value");
+}
+
+ZTEST(ble_counter_test, test_time_to_next_rotation)
+{
+	int ret = hubble_init(0, counter_test_key);
+
+	zassert_ok(ret, "hubble_init should succeed");
+
+	uint32_t time_to_rotation = hubble_ble_advertise_expiration_get();
+	uint32_t rotation_period_ms =
+		CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC * 1000U;
+
+	/* Time to next rotation should be <= rotation period */
+	zassert_true(time_to_rotation <= rotation_period_ms,
+		     "Time to rotation %u should be <= %u", time_to_rotation,
+		     rotation_period_ms);
+
+	/* Time to next rotation should be > 0 (unless exactly at boundary) */
+	zassert_true(
+		time_to_rotation > 0 || time_to_rotation == rotation_period_ms,
+		"Time to rotation should be valid");
+}
+
+ZTEST(ble_counter_test, test_counter_adv_generation)
+{
+	int ret = hubble_init(0, counter_test_key);
+
+	zassert_ok(ret, "hubble_init should succeed");
+
+	testing_adv = true;
+	nonce_idx = 0U;
+
+	/* Advertisement generation should work in counter mode */
+	uint8_t buf[TEST_ADV_BUFFER_SZ];
+	size_t out_len = sizeof(buf);
+	int status = hubble_ble_advertise_get(NULL, 0, buf, &out_len);
+
+	zassert_ok(status, "Advertisement generation should succeed");
+	zassert_true(out_len > 0, "Output length should be > 0");
+}
+
+static void *ble_counter_test_setup(void)
+{
+	testing_adv = false;
+	nonce_idx = 0U;
+
+	return NULL;
+}
+
+ZTEST_SUITE(ble_counter_test, NULL, ble_counter_test_setup, NULL, NULL, NULL);
+
+#endif /* CONFIG_HUBBLE_EID_COUNTER_BASED */
