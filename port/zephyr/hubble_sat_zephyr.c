@@ -31,8 +31,7 @@ static inline int16_t _time_offset_get_ms(void)
 	return offset_values[rand_value / 52];
 }
 
-int hubble_sat_port_packet_send(uint8_t channel,
-				const struct hubble_sat_packet *packet,
+int hubble_sat_port_packet_send(const struct hubble_sat_packet *packet,
 				uint8_t retries, uint8_t interval_s)
 {
 	int ret;
@@ -46,7 +45,7 @@ int hubble_sat_port_packet_send(uint8_t channel,
 	}
 
 	while (retries-- > 0) {
-		ret = hubble_sat_board_packet_send(channel, packet);
+		ret = hubble_sat_board_packet_send(packet);
 		if (ret != 0) {
 			goto end;
 		}

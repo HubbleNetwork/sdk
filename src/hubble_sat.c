@@ -115,8 +115,7 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 	retries = HUBBLE_MIN(UINT8_MAX,
 			     retries + _additional_retries_count(interval_s));
 
-	ret = hubble_sat_port_packet_send(packet->channel, packet, retries,
-					  interval_s);
+	ret = hubble_sat_port_packet_send(packet, retries, interval_s);
 	if (ret < 0) {
 		HUBBLE_LOG_WARNING(
 			"Hubble Satellite packet transmission failed");

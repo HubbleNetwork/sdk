@@ -49,10 +49,8 @@ int hubble_sat_board_disable(void)
 
 static uint8_t _transmission_count;
 
-int hubble_sat_board_packet_send(uint8_t channel,
-				 const struct hubble_sat_packet *packet)
+int hubble_sat_board_packet_send(const struct hubble_sat_packet *packet)
 {
-	ARG_UNUSED(channel);
 	ARG_UNUSED(packet);
 
 	_transmission_count--;

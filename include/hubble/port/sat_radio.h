@@ -118,15 +118,13 @@ int hubble_sat_channel_next_hop_get(uint8_t hopping_sequence, uint8_t channel,
  * @note This function blocks the caller during the whole transmission.
  * @note This API is thread safe.
  *
- * @param channel The channel (frequency) to transmit on.
  * @param packet Pointer to the packet structure containing the data to transmit.
  * @param retries The number of times this packet must be transmit.
  * @param interval_s The time interval between transmissions.
  *
  * @return 0 on successful transmission, negative error code on failure.
  */
-int hubble_sat_port_packet_send(uint8_t channel,
-				const struct hubble_sat_packet *packet,
+int hubble_sat_port_packet_send(const struct hubble_sat_packet *packet,
 				uint8_t retries, uint8_t interval_s);
 
 /**
