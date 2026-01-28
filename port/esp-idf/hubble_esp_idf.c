@@ -5,6 +5,7 @@
  */
 
 #include "esp_log.h"
+#include "esp_random.h"
 
 #include <hubble/port/sys.h>
 
@@ -26,5 +27,11 @@ int hubble_log(enum hubble_log_level level, const char *format, ...)
 	va_end(args);
 #endif /* defined(CONFIG_LOG) */
 
+	return 0;
+}
+
+int hubble_rand_get(uint8_t *buffer, size_t len)
+{
+	esp_fill_random(buffer, len);
 	return 0;
 }

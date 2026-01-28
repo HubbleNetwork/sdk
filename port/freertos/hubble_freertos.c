@@ -57,7 +57,7 @@ uint64_t hubble_uptime_get(void)
 	       configTICK_RATE_HZ;
 }
 
-int hubble_rand_get(uint8_t *buffer, size_t len)
+HUBBLE_WEAK int hubble_rand_get(uint8_t *buffer, size_t len)
 {
 	/* TODO: It is needed for sat network */
 	return -ENOSYS;
