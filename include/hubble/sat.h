@@ -29,6 +29,8 @@ extern "C" {
  * longer because it increases the number of retries.
  */
 enum hubble_sat_transmission_mode {
+	/** No retries. The packet is transmitted one time. */
+	HUBBLE_SAT_RELIABILITY_NONE,
 	/** Good balance between reliability and power consumption */
 	HUBBLE_SAT_RELIABILITY_NORMAL,
 	/** High reliability and higher power consumption */
