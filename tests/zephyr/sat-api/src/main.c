@@ -113,6 +113,12 @@ ZTEST(sat_test, test_profile)
 	/* Checking no transmissions happened. */
 	zassert_equal(16U, _transmission_count);
 
+	/* Test no reliability. One time transmission */
+	_transmission_count = 1U;
+	err = hubble_sat_packet_send(&pkt, HUBBLE_SAT_RELIABILITY_NONE);
+	zassert_ok(err);
+	zassert_equal(0, _transmission_count);
+
 	/* Test normal reliability  - 8u */
 	_transmission_count = 8U;
 	err = hubble_sat_packet_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL);
