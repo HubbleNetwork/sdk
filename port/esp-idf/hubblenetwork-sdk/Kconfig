@@ -1,6 +1,31 @@
 # Copyright (c) 2025 Hubble Network, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+menuconfig HUBBLE_SAT_NETWORK
+	   bool "Hubble Satellite Network Library [EXPERIMENTAL]"
+	   select EXPERIMENTAL
+	   select ENTROPY_GENERATOR
+	   help
+		Enable library for communication with Hubble network
+
+if HUBBLE_SAT_NETWORK
+
+config HUBBLE_SAT_NETWORK_SMALL
+	   bool "Use smaller code size for fly by calculation"
+	   help
+		Reduces code using polynomial approximation
+		for trigonometric functions
+
+config HUBBLE_SAT_NETWORK_DEVICE_TDR
+	   int "Device time drift retry rate in PPM"
+	   default 500
+	   help
+		Adds additional retries proportional to time since
+		last time the device had utc time synced. It is
+		represented in PPM (parts per million).
+
+endif
+
 menuconfig HUBBLE_BLE_NETWORK
 	   bool "Hubble BLE Network Library"
 	   help
