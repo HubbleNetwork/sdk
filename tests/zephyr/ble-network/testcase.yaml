@@ -2,6 +2,7 @@ common:
   platform_allow:
     - nrf52840dk/nrf52840
     - nrf52_bsim
+    - native_sim/native/64
   tags:
     - ble
     - security
@@ -13,6 +14,22 @@ tests:
   ble.nonce:
     extra_configs:
       - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+      - CONFIG_HUBBLE_EID_UTC_BASED=y
   ble.nonce.psa:
     extra_configs:
       - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_EID_UTC_BASED=y
+  ble.counter:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_MBEDTLS=y
+      - CONFIG_HUBBLE_EID_COUNTER_BASED=y
+      - CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC=3600
+      - CONFIG_HUBBLE_EID_COUNTER_BITS=8
+      - CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM=y
+  ble.counter.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_BLE_NETWORK_PSA=y
+      - CONFIG_HUBBLE_EID_COUNTER_BASED=y
+      - CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC=3600
+      - CONFIG_HUBBLE_EID_COUNTER_BITS=8
+      - CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM=y
