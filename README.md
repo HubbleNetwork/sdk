@@ -1,20 +1,48 @@
-# Hubble Network SDK
+# Hubble Device SDK
 
-A software development library for connecting embedded devices to the
-[Hubble Network](https://hubblenetwork.com).
+Add global connectivity to your device using its Bluetooth chip.
 
-## Overview
+## What This Does
 
-This SDK provides a flexible solution for building applications capable of using Hubble Network stack. It is composed of two main functionalities:
+The SDK encodes your data into BLE advertisements. Hubble's gateways pick them up and deliver the data to your backend via API.
 
-* **Hubble Terrestrial Network**
-* **Hubble Satellite Network**
+No cellular modem. No SIM card. No gateway hardware to deploy. Just Hubble firmware.
 
-For information on how to use the SDK and technical details, please refer to the [Hubble Network SDK Documentation](https://docs.hubblenetwork.com/docs/device-sdk/intro).
+## Supported Platforms
 
-Getting Started
----------------
+Works with any Bluetooth LE 5.0+ chip.
 
-  | 📖 [Hubble Network SDK Documentation](https://docs.hubblenetwork.com/docs/device-sdk/intro)
-  | 🚀 [Getting Started with Zephyr](https://docs.hubblenetwork.com/docs/device-sdk/quick-start-guides/zephyr-quick-start)
-  | 🚀 [Getting Started with FreeRTOS](https://docs.hubblenetwork.com/docs/device-sdk/quick-start-guides/freertos-quick-start)
+→ [Full compatibility list](https://docs.hubble.com/docs/guides/supported-devices)
+
+## Quick Start
+
+**Fastest path:** Use a supported dev kit and follow the [Dash Quick Start](https://docs.hubble.com/docs/guides/dashboard/dash-quick-start). You'll have a device transmitting on the network in minutes.
+
+**Integrating into existing firmware:**
+
+1. Follow the guide for your RTOS:
+   - [Zephyr](https://docs.hubble.com/docs/guides/device-integration/quick-start-terrestrial/zephyr)
+   - [FreeRTOS](https://docs.hubble.com/docs/guides/device-integration/quick-start-terrestrial/freertos)
+   - [ESP-IDF (Espressif)](https://docs.hubble.com/docs/guides/device-integration/quick-start-terrestrial/espressif)
+   - [Bare-metal](https://docs.hubble.com/docs/guides/device-integration/quick-start-terrestrial/bare-metal)
+
+2. [Register your device](https://docs.hubble.com/docs/guides/cloud-integration/register-devices) to get encryption keys
+
+3. Start transmitting
+
+→ [Reference applications](https://docs.hubble.com/docs/guides/device-integration/reference-apps) for complete working examples
+
+## Resources
+
+| | |
+|---|---|
+| **Documentation** | [docs.hubble.com/docs/device-sdk/intro](https://docs.hubble.com/docs/device-sdk/intro) |
+| **Cloud API** | [docs.hubble.com/docs/api-specification/hubble-platform-api](https://docs.hubble.com/docs/api-specification/hubble-platform-api) |
+| **Network & Security** | [docs.hubble.com/docs/network/terrestrial/transmission-guidance](https://docs.hubble.com/docs/network/terrestrial/transmission-guidance) |
+| **Device Dashboard** | [dash.hubble.com](https://dash.hubble.com) |
+
+## Questions & Support
+
+- [GitHub Discussions](https://github.com/HubbleNetwork/hubble-device-sdk/discussions) — ask questions, share projects
+- [GitHub Issues](https://github.com/HubbleNetwork/hubble-device-sdk/issues) — report bugs, request features
+- [Contact Us](https://hubble.com/contact-us) — sales inquiries
