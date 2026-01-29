@@ -13,8 +13,11 @@
 #endif
 
 #include <errno.h>
+#include <stdlib.h>
 
 #include <hubble/port/sys.h>
+
+#include "utils/macros.h"
 
 /**
  * Define weak attribute.
@@ -59,8 +62,17 @@ uint64_t hubble_uptime_get(void)
 
 HUBBLE_WEAK int hubble_rand_get(uint8_t *buffer, size_t len)
 {
-	/* TODO: It is needed for sat network */
-	return -ENOSYS;
+	int random;
+	size_t to_copy;
+
+	while (len > 0) {
+		random = rand();
+		to_copy = HUBBLE_MIN(sizeof(random), len);
+		memcpy(buffer, &random, to_copy);
+		buffer += to_copy;
+		len -= to_copy;
+	}
+	return 0;
 }
 
 HUBBLE_WEAK int hubble_log(enum hubble_log_level level, const char *format, ...)
