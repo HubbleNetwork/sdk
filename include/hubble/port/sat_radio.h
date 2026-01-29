@@ -50,7 +50,7 @@ extern "C" {
 /**
  * @brief The max number of symbols to transmit in single frame.
  */
-#define HUBBLE_SAT_SYMBOLS_FRAME_MAX 14U
+#define HUBBLE_SAT_SYMBOLS_FRAME_MAX 16U
 #endif
 
 /**
@@ -77,7 +77,7 @@ extern "C" {
 #ifdef CONFIG_HUBBLE_SAT_NETWORK_PROTOCOL_DEPRECATED
 #define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){0, -1, 0, -1, 0, -1, 0, 0}
 #else
-#define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){0, 31, 0, 31, 0, 31, 0, 31}
+#define HUBBLE_SAT_PREAMBLE_SEQUENCE (int8_t[]){31, 0, 31, 0, 31, 0, 31, 31}
 #endif
 
 /**
