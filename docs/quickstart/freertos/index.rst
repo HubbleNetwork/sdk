@@ -34,7 +34,7 @@ Adding Hubble Network to FreeRTOS
      the encryption key size.
 
    * All symbols defined in this file will be available at build time
-     for all objects compiled using ``HUBBLENETWORK_SDK_BLE_FLAGS``.
+     for all objects compiled using ``HUBBLENETWORK_SDK_FLAGS``.
 
 * Since there is no standard cryptographic API, the application has to use one of
   the implementations available or implement the following APIs:
@@ -51,8 +51,8 @@ Adding Hubble Network to FreeRTOS
      system.
 
    * This fragment does not build any object files directly but provides:
-     - The list of source files to be built: ``HUBBLENETWORK_SDK_BLE_SOURCES``.
-     - The flags to be used during compilation: ``HUBBLENETWORK_SDK_BLE_FLAGS``.
+     - The list of source files to be built: ``HUBBLENETWORK_SDK_SOURCES``.
+     - The flags to be used during compilation: ``HUBBLENETWORK_SDK_FLAGS``.
 
 Example of including the Makefile fragment:
 
@@ -64,10 +64,10 @@ Example of including the Makefile fragment:
 
    define HUBBLE_RULE
    $(basename $(notdir $(1))).obj: $(1)
-        $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $$< -o $$@
+        $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_FLAGS) -c $$< -o $$@
    endef
 
-   $(foreach source_file,$(HUBBLENETWORK_SDK_BLE_SOURCES),$(eval $(call HUBBLE_RULE,$(source_file))))
+   $(foreach source_file,$(HUBBLENETWORK_SDK_SOURCES),$(eval $(call HUBBLE_RULE,$(source_file))))
 
    # Hubble Network SDK END
 

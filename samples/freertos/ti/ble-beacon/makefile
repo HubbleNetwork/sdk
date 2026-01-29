@@ -140,25 +140,25 @@ $(foreach c_file,$(SYSCFG_C_FILES),$(eval $(call C_RULE,$(c_file))))
 include $(HUBBLE_NETWORK_SDK)/port/freertos/hubblenetwork-sdk.mk
 
 
-OBJECTS += $(BUILD_DIR)/app_hubble_ble_ti.obj $(patsubst %.c,$(BUILD_DIR)/%.obj,$(notdir $(HUBBLENETWORK_SDK_BLE_SOURCES)))
+OBJECTS += $(BUILD_DIR)/app_hubble_ble_ti.obj $(patsubst %.c,$(BUILD_DIR)/%.obj,$(notdir $(HUBBLENETWORK_SDK_SOURCES)))
 
 define HUBBLE_RULE
 $(BUILD_DIR)/$(basename $(notdir $(1))).obj: $(1) $(BUILD_DIR)
 	@ echo Building $$@
-	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $$< -o $$@
+	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_FLAGS) -c $$< -o $$@
 endef
 
-$(foreach c_file,$(HUBBLENETWORK_SDK_BLE_SOURCES),$(eval $(call HUBBLE_RULE,$(c_file))))
+$(foreach c_file,$(HUBBLENETWORK_SDK_SOURCES),$(eval $(call HUBBLE_RULE,$(c_file))))
 
 $(BUILD_DIR)/app_hubble_ble_ti.obj: src/hubble_ble_ti.c $(BUILD_DIR)
 	@ echo Building $@
-	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $< -o $@
+	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_FLAGS) -c $< -o $@
 
 # HubbleNetwork SDK END
 
 $(BUILD_DIR)/app_main.obj: src/main.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
-	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $< -o $@
+	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_FLAGS) -c $< -o $@
 
 
 $(BUILD_DIR)/common_BLE_SysStat_blesysstat.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/stack_util/health_toolkit/src/ble_sys_stat.c $(SYSCFG_H_FILES) $(BUILD_DIR)
@@ -220,7 +220,7 @@ $(BUILD_DIR)/common_config_ble_user_config.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INS
 
 $(BUILD_DIR)/app_hubble_ble_adv.obj: src/hubble_ble_adv.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
-	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_BLE_FLAGS) -c $< -o $@
+	$(V) $(CC) $(CFLAGS) $(HUBBLENETWORK_SDK_FLAGS) -c $< -o $@
 
 $(BUILD_DIR)/common_Profiles_simple_gatt_simple_gatt_profile.obj: $(SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR)/source/ti/ble/profiles/simple_gatt/src/simple_gatt_profile.c $(SYSCFG_H_FILES) $(BUILD_DIR)
 	@ echo Building $@
