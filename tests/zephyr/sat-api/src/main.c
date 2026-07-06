@@ -224,6 +224,72 @@ ZTEST(sat_test, test_channel_hopping)
 	_test_hopping = false;
 }
 
+ZTEST(sat_test, test_packet_send_from_pass)
+{
+	int err;
+	struct hubble_sat_packet pkt;
+	struct hubble_sat_pass_info pass = {0};
+
+	err = hubble_sat_packet_get(&pkt, NULL, 0);
+	zassert_ok(err);
+
+	/* NULL packet must fail */
+	err = hubble_sat_packet_pass_send(NULL, HUBBLE_SAT_RELIABILITY_NORMAL,
+					  &pass);
+	zassert_not_ok(err);
+
+	/* NULL pass must fail */
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL,
+					  NULL);
+	zassert_not_ok(err);
+
+	/* Invalid mode must fail without transmitting */
+	_transmission_count = 8U;
+	err = hubble_sat_packet_pass_send(&pkt, 255, &pass);
+	zassert_not_ok(err);
+	zassert_equal(8U, _transmission_count);
+
+	/* RELIABILITY_NONE is invalid: a single shot does not cover a pass */
+	pass.duration = 160000U;
+	_transmission_count = 1U;
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_NONE,
+					  &pass);
+	zassert_not_ok(err);
+	zassert_equal(1U, _transmission_count);
+
+	/* RELIABILITY_NORMAL (20s interval): 160s pass -> 8 retries */
+	pass.duration = 160000U;
+	_transmission_count = 8U;
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL,
+					  &pass);
+	zassert_ok(err);
+	zassert_equal(0, _transmission_count);
+
+	/* RELIABILITY_HIGH (10s interval): 160s pass -> 16 retries */
+	pass.duration = 160000U;
+	_transmission_count = 16U;
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_HIGH,
+					  &pass);
+	zassert_ok(err);
+	zassert_equal(0, _transmission_count);
+
+	/* Shorter pass: 40s with NORMAL -> 2 retries, not the fixed 8 */
+	pass.duration = 40000U;
+	_transmission_count = 2U;
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL,
+					  &pass);
+	zassert_ok(err);
+	zassert_equal(0, _transmission_count);
+
+	/* Pass shorter than one interval -> minimum 1 retry */
+	pass.duration = 5000U;
+	_transmission_count = 1U;
+	err = hubble_sat_packet_pass_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL,
+					  &pass);
+	zassert_ok(err);
+	zassert_equal(0, _transmission_count);
+}
+
 static void *sat_test_setup(void)
 {
 	int err;
