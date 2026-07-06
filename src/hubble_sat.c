@@ -157,7 +157,8 @@ int hubble_sat_packet_pass_send(const struct hubble_sat_packet *packet,
 	int ret;
 	uint8_t interval_s, retries;
 
-	if (packet == NULL || pass == NULL) {
+	if (packet == NULL || pass == NULL ||
+	    mode == HUBBLE_SAT_RELIABILITY_NONE) {
 		return -EINVAL;
 	}
 
@@ -170,7 +171,8 @@ int hubble_sat_packet_pass_send(const struct hubble_sat_packet *packet,
 	if (interval_s > 0U) {
 		retries = (uint8_t)HUBBLE_MIN(
 			UINT8_MAX,
-			HUBBLE_MAX(1U, pass->duration / (1000U * interval_s)));
+			HUBBLE_MAX(1U, pass->duration / (HUBBLE_MSEC_PER_SEC *
+							 interval_s)));
 	}
 
 	HUBBLE_LOG_DEBUG("Number of retries: %u - interval: %u seconds",
