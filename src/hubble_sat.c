@@ -150,6 +150,44 @@ int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 	return 0;
 }
 
+int hubble_sat_packet_pass_send(const struct hubble_sat_packet *packet,
+				enum hubble_sat_transmission_mode mode,
+				const struct hubble_sat_pass_info *pass)
+{
+	int ret;
+	uint8_t interval_s, retries;
+
+	if (packet == NULL || pass == NULL) {
+		return -EINVAL;
+	}
+
+	ret = _transmission_params_get(mode, &retries, &interval_s);
+	if (ret < 0) {
+		HUBBLE_LOG_WARNING("Invalid mode given");
+		return ret;
+	}
+
+	if (interval_s > 0U) {
+		retries = (uint8_t)HUBBLE_MIN(
+			UINT8_MAX,
+			HUBBLE_MAX(1U, pass->duration / (1000U * interval_s)));
+	}
+
+	HUBBLE_LOG_DEBUG("Number of retries: %u - interval: %u seconds",
+			 retries, interval_s);
+
+	ret = hubble_sat_port_packet_send(packet, retries, interval_s);
+	if (ret < 0) {
+		HUBBLE_LOG_WARNING(
+			"Hubble Satellite packet transmission failed");
+		return ret;
+	}
+
+	HUBBLE_LOG_INFO("Hubble Satellite packet sent");
+
+	return 0;
+}
+
 #ifdef CONFIG_HUBBLE_SAT_NETWORK_DTM_MODE
 
 int hubble_sat_dtm_packet_send(enum hubble_sat_dtm_packet_type type,
