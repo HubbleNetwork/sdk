@@ -11,6 +11,7 @@
 #include <stdint.h>
 
 #include <hubble/sat/packet.h>
+#include <hubble/sat/pass_prediction.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,6 +82,34 @@ enum hubble_sat_transmission_mode {
  */
 int hubble_sat_packet_send(const struct hubble_sat_packet *packet,
 			   enum hubble_sat_transmission_mode mode);
+
+/**
+ * @brief Transmit a packet during a predicted satellite pass.
+ *
+ * This function sends a packet over the satellite communication channel,
+ * for the duration of time provided in the satellite pass info.
+ * The pass duration is used to derive the number of retransmissions,
+ * so the packet is transmitted as many times as possible while the satellite
+ * is overhead.
+ *
+ * @note This function is blocking: it does not return until the transmission
+ *       window defined by the pass has completed.
+ *
+ * @param packet A pointer to the @ref hubble_sat_packet structure containing
+ *               the data to be transmitted.
+ * @param mode   Desired reliability for the transmission.
+ * @param pass   A pointer to the @ref hubble_sat_pass_info structure describing
+ *               the satellite pass window.
+ *
+ * @return 0 on successful transmission, or a negative error code on failure.
+ *
+ * @warning This function checks if the packet and pass are NULL but does not
+ *          perform any validation on these structures. It is the caller's
+ *          responsibility to ensure they are correctly formatted.
+ */
+int hubble_sat_packet_pass_send(const struct hubble_sat_packet *packet,
+				enum hubble_sat_transmission_mode mode,
+				const struct hubble_sat_pass_info *pass);
 
 /**
  * @}
