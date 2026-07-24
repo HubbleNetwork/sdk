@@ -40,6 +40,7 @@ aescmac.$name = "CONFIG_AESCTR0";
 
 Hubble.useTerrestrial = false;
 Hubble.useSatellite = true;
+Hubble.counterSource = "device-uptime";
 
 var hubble_radio = system.getScript("/hubble_radio.js");
 hubble_radio.config();
