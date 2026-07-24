@@ -29,10 +29,9 @@
 #else
 
 #pragma message(                                                               \
-	"Dummy key, replace with actual key by running ./embed_key_time.py -b b64key to set key and time")
+	"Dummy key, replace with actual key by running ./embed_key_time.py -b <your-b64key> to set key")
 
 static uint8_t master_key[CONFIG_HUBBLE_KEY_SIZE];
-static uint64_t unix_time = 0xdeadbeef;
 
 #endif
 
@@ -41,7 +40,11 @@ void *mainThread(void *arg0)
 	struct hubble_sat_packet packet;
 	int ret;
 
-	ret = hubble_init(unix_time, master_key);
+	/*
+	 * This sample uses the device uptime counter source,
+	 * so it is acceptable to give the initial time as 0.
+	 */
+	ret = hubble_init(0, master_key);
 	if (ret != 0) {
 		/* TODO: Call Error Handler */
 		return NULL;

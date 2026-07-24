@@ -19,6 +19,12 @@ as the operating system. It is originally based on the TI
 [`rfCarrierWave`](https://github.com/TexasInstruments/simplelink-prop_rf-examples/tree/main/examples/rtos/LP_EM_CC2340R5/prop_rf/rfCarrierWave)
 example and has been extended to support Hubble Satellite transmission.
 
+> [!NOTE]
+> The sample uses the **device uptime** counter source
+> (`CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME`), so it does not need UTC time
+> provisioned: the EID counter used for encryption starts at 0 and advances with
+> device uptime. Only the master key has to be embedded before building.
+
 ## Features
 
 - Integration with the **Hubble Device SDK** for satellite-specific transmission.
@@ -46,14 +52,14 @@ export TICLANG_ARMCOMPILER=/path/to/ti/ti-cgt-armllvm
 export SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR=/path/to/ti/simplelink_lowpower_f3_sdk
 export SYSCONFIG_TOOL=/path/to/ti/sysconfig/sysconfig_cli.sh
 ```
-2. **Provision Time and Key (Optional)**
+2. **Provision Key**
 
 The device's Hubble key must be baked into the firmware at build time. Use the
-*embed_key_time.py* script to generate the key in hex and time in Unix. The tool will generate
-`key.c` and `time.c` into your project's /src directory.
+*embed_key_time.py* script to generate the key in hex. The tool will generate
+`key.c` and `time.c` into your project's src/ directory.
 
 ```bash
-python ../../../../tools/embed_key_time.py --base64 <path-to-key> -o src
+python ../../../../tools/embed_key_time.py --base64 <path-to-key> -o src/
 ```
 
 3. **Build the Project**
