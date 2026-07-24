@@ -18,7 +18,7 @@
 #include <hubble/hubble.h>
 #include <hubble/sat/packet.h>
 
-#define SAT_TX_SLEEP_MS 2000
+#define SAT_TX_SLEEP_MS 10000
 
 static const char *APP_TAG = "sat_continuous";
 static uint8_t _hubble_key[CONFIG_HUBBLE_KEY_SIZE];
@@ -64,7 +64,12 @@ void app_main(void)
 			return;
 		}
 
-		err = hubble_sat_packet_send(&pkt, HUBBLE_SAT_RELIABILITY_NORMAL);
+		/*
+		 * Set reliability to NONE. This will trigger a single
+		 * transmission instead of a sequence. This is only for testing
+		 * purposes and not recommended for production.
+		 */
+		err = hubble_sat_packet_send(&pkt, HUBBLE_SAT_RELIABILITY_NONE);
 		if (err != 0) {
 			ESP_LOGE(APP_TAG,
 				 "Failed to transmit packet, error: %d", err);
