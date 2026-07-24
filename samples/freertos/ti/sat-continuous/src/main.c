@@ -21,7 +21,8 @@
 /* Stack size in bytes */
 #define THREADSTACKSIZE 2048
 
-#define SLEEP_PERIOD_MS 1000
+/* Sleep interval between each sat packet */
+#define SLEEP_PERIOD_MS 10000
 
 #if defined(HUBBLE_KEY_TIME_SET)
 #include "key.c"
@@ -57,8 +58,13 @@ void *mainThread(void *arg0)
 			return NULL;
 		}
 
+		/*
+		 * Set reliability to NONE. This will trigger a single
+		 * transmission instead of a sequence. This is only for testing
+		 * purposes and not recommended for production.
+		 */
 		ret = hubble_sat_packet_send(&packet,
-					     HUBBLE_SAT_RELIABILITY_NORMAL);
+					     HUBBLE_SAT_RELIABILITY_NONE);
 		if (ret != 0) {
 			/* TODO: Call Error Handler */
 			return NULL;
