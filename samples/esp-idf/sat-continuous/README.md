@@ -21,6 +21,15 @@ This project is designed to:
 Once running, the device initializes the Hubble Device SDK and then enters a loop that
 builds and transmits a satellite packet with normal reliability.
 
+> [!NOTE]
+> The sample uses the **device uptime** counter source
+> (`CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME`), so it does not need UTC time
+> provisioned: the EID counter used for encryption starts at 0 and advances with
+> device uptime. Only the master key has to be embedded before building.
+
+> [!WARNING]
+> Make sure that your generated secret key from [Hubble API](https://hubble.com/docs/api-specification/register-new-devices)
+> is using the same key size (AES-128 or AES-256) and counter source (DEVICE_UPTIME) as the sample.
 
 ## Configuration
 

@@ -25,6 +25,10 @@ example and has been extended to support Hubble Satellite transmission.
 > provisioned: the EID counter used for encryption starts at 0 and advances with
 > device uptime. Only the master key has to be embedded before building.
 
+> [!WARNING]
+> Make sure that your generated secret key from [Hubble API](https://hubble.com/docs/api-specification/register-new-devices)
+> is using the same key size (AES-128) and counter source (DEVICE_UPTIME) as the sample.
+
 ## Features
 
 - Integration with the **Hubble Device SDK** for satellite-specific transmission.

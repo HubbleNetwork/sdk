@@ -61,11 +61,14 @@ west flash
 After flashing, the device builds a satellite packet and transmits it every
 `CONFIG_SAMPLE_SAT_TX_INTERVAL_SECONDS` seconds (10 by default).
 
-> [!NOTE]
+> [!WARNING]
 > The decoded key length must match `CONFIG_HUBBLE_KEY_SIZE` (32 bytes for a
-> 256-bit key, 16 for 128-bit). A wrong or wrong-size key is rejected at startup
-> with a logged error and the sample exits; if `-DCONFIG_SAMPLE_HUBBLE_KEY` is omitted the
-> firmware uses an all-zero placeholder (with a warning) so it still builds and
+> 256-bit key, 16 for 128-bit). Make sure that your generated secret key from
+> [Hubble API](https://hubble.com/docs/api-specification/register-new-devices)
+> is using the same key size and counter source (DEVICE_UPTIME) as the sample.
+> A wrong-size key is rejected at startup with a logged error and the sample exits;
+> if `-DCONFIG_SAMPLE_HUBBLE_KEY` is omitted the firmware uses an all-zero placeholder
+> (with a warning) so it still builds and
 > runs in CI.
 
 > [!TIP]
