@@ -6,8 +6,10 @@
 #include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "hubble_priv.h"
+#include "utils/hdcv.h"
 
 #include <hubble/hubble.h>
 
@@ -96,7 +98,8 @@ int hubble_init(uint64_t initial_time, const void *key)
 	}
 #endif /* CONFIG_HUBBLE_SAT_NETWORK */
 
-	HUBBLE_LOG_INFO("Hubble Device SDK initialized\n");
+	HUBBLE_LOG_INFO("Hubble Device SDK initialized (%s)\n",
+			HUBBLE_DEVICE_CONFIG_VECTOR);
 
 	return 0;
 }
@@ -136,4 +139,18 @@ int hubble_counter_get(uint32_t *counter)
 #endif
 
 	return 0;
+}
+
+const char *hubble_config_vector_get(void)
+{
+	return HUBBLE_DEVICE_CONFIG_VECTOR;
+}
+
+bool hubble_config_vector_check(const char *hdcv)
+{
+	if (hdcv == NULL) {
+		return false;
+	}
+
+	return strcmp(HUBBLE_DEVICE_CONFIG_VECTOR, hdcv) == 0;
 }
