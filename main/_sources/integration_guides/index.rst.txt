@@ -7,3 +7,4 @@ Integration Guides
    :maxdepth: 1
 
    ncs/index
+   ti/index

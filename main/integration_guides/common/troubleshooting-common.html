@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESP-IDF &mdash; Hubble Device SDK Documentation</title>
+  <title>hubble_init returns an error &mdash; Hubble Device SDK Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -16,7 +16,7 @@
 
   
     <link rel="shortcut icon" href="../../_static/hubble.png"/>
-    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/quickstart/esp-idf/index.html" />
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/integration_guides/common/troubleshooting-common.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=2709fde1"></script>
@@ -32,8 +32,6 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Bare Metal" href="../bare-metal/index.html" />
-    <link rel="prev" title="TI SDK (SysConfig)" href="../ti/index.html" />
   <meta name="color-scheme" content="dark light">
   
   <noscript id="dark-mode-toggle-stylesheets">
@@ -71,7 +69,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
   <div data-nosnippet>
     
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#the-networks">The Networks</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
@@ -95,76 +93,76 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Quick Start</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../zephyr/index.html">Zephyr</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/index.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../freertos/index.html">FreeRTOS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../freertos/index.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ti/index.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#building-the-application">Building the Application</a></li>
-</ul>
-</li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ESP-IDF</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../bare-metal/index.html">Bare Metal</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#requirements">Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#overview">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#counter-source">Counter Source</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#source-files">Source Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#complete-example">Complete Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#validation">Validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../integration_guides/index.html">Integration Guides</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -329,9 +327,7 @@
 
   <li><a href="../../index.html">Docs</a> &raquo;</li>
   
-     <li><a href="../index.html">Quick Start</a> &raquo;</li>
-  
-  <li>ESP-IDF</li>
+  <li><code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> returns an error</li>
 
 
   <li class="wy-breadcrumbs-aside">
@@ -347,104 +343,52 @@
   
            <div itemprop="articleBody">
              
-  <section id="esp-idf">
-<span id="esp-idf-quick-start"></span><h1>ESP-IDF<a class="headerlink" href="#esp-idf" title="Link to this heading"></a></h1>
-<p>This guide explains how to integrate the Hubble Device SDK into an
-<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html">ESP-IDF</a>
-project. The SDK ships as an ESP-IDF component that can be pulled into any
-ESP-IDF application via <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>.</p>
-<section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html">ESP-IDF</a>
-installed and exported in the current shell (e.g. <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/esp/esp-idf/export.sh</span></code>).</p></li>
-<li><p>A supported ESP32 target. The BLE Network module works on any ESP32 chip
-with a Bluetooth® Low Energy controller supported by ESP-IDF. The Satellite
-Network module currently targets the <strong>ESP32-C6</strong>.</p></li>
-<li><p>The Hubble Device SDK cloned or added to your project as a Git submodule.</p></li>
-</ul>
+  <section id="hubble-init-returns-an-error">
+<h1><code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> returns an error<a class="headerlink" href="#hubble-init-returns-an-error" title="Link to this heading"></a></h1>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">Unix</span> <span class="pre">Epoch</span> <span class="pre">time</span></code></p>
+<p><strong>Cause:</strong> <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> passed to <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.
+The SDK requires a valid non-zero Unix timestamp.</p>
+<p><strong>Fix:</strong> Ensure time is provisioned (over BLE, NTP, GPS, or RTC) before
+calling <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>. See the <strong>Preparing for Satellite
+Transmission</strong> section in this guide.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">key</span></code></p>
+<p><strong>Cause:</strong> The key buffer is NULL, zero-length, or the wrong size for the
+configured key type.</p>
+<p><strong>Fix:</strong> Verify the key is correctly decoded and its length matches the
+configured key size.</p>
 </section>
-<section id="adding-hubble-network-to-an-esp-idf-project">
-<h2>Adding Hubble Network to an ESP-IDF Project<a class="headerlink" href="#adding-hubble-network-to-an-esp-idf-project" title="Link to this heading"></a></h2>
-<ol class="arabic">
-<li><p>Add the Hubble Device SDK to your application, for example as a submodule:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/HubbleNetwork/hubble-device-sdk
-</pre></div>
-</div>
-</li>
-<li><p>Point your top-level <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> at the SDK’s ESP-IDF component
-directory using <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>, and add <code class="docutils literal notranslate"><span class="pre">hubblenetwork-sdk</span></code> to
-the component list:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.13.1</span><span class="p">)</span>
-
-<span class="nb">set</span><span class="p">(</span><span class="s">EXTRA_COMPONENT_DIRS</span><span class="w"> </span><span class="s">path/to/hubble-device-sdk/port/esp-idf/</span><span class="p">)</span>
-
-<span class="nb">set</span><span class="p">(</span><span class="s">COMPONENTS</span>
-<span class="w">        </span><span class="s2">&quot;main&quot;</span>
-<span class="w">        </span><span class="s2">&quot;bt&quot;</span>
-<span class="w">        </span><span class="s2">&quot;hubblenetwork-sdk&quot;</span>
-<span class="p">)</span>
-
-<span class="nb">include</span><span class="p">(</span><span class="o">$ENV{</span><span class="nv">IDF_PATH</span><span class="o">}</span><span class="s">/tools/cmake/project.cmake</span><span class="p">)</span>
-
-<span class="nb">project</span><span class="p">(</span><span class="s">my-app</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">C</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Enable the desired Hubble modules. Either run <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> and
-toggle them under <em>Component config</em> → <em>Hubble</em>, or set them in your
-project’s <code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code>:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terrestrial (BLE) Network</span>
-CONFIG_HUBBLE_BLE_NETWORK=y
-
-<span class="c1"># Satellite Network</span>
-CONFIG_HUBBLE_SAT_NETWORK=y
-</pre></div>
-</div>
-<p>When enabling the BLE Network module on ESP32 chips, you will also want the
-standard BLE controller bits:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span>CONFIG_BT_ENABLED=y
-CONFIG_BT_BLE_50_FEATURES_SUPPORTED=n
-CONFIG_BT_BLE_42_FEATURES_SUPPORTED=y
-</pre></div>
-</div>
-</li>
-</ol>
-</section>
-<section id="satellite-network-on-esp32-c6-required-phy-blob">
-<h2>Satellite Network on ESP32-C6: Required PHY Blob<a class="headerlink" href="#satellite-network-on-esp32-c6-required-phy-blob" title="Link to this heading"></a></h2>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The Satellite Network module requires a PHY library blob from Espressif
-that is currently in Early Access (EA). The <code class="docutils literal notranslate"><span class="pre">libphy</span></code> shipped with ESP-IDF
-does <strong>not</strong> include this API yet, so the blob must be swapped in manually
-before building any Satellite Network application on the ESP32-C6.</p>
-</div>
-<ol class="arabic">
-<li><p>Download the Espressif PHY blob:</p>
-<p><a class="reference external" href="https://dl.espressif.com/AE/libphy_C6_20260317_c83212e%20(2).zip">libphy_C6_20260317_c83212e.zip</a></p>
-</li>
-<li><p>Unzip the archive and copy the extracted <code class="docutils literal notranslate"><span class="pre">*.a</span></code> files over the matching
-files in your ESP-IDF installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">&quot;libphy_C6_20260317_c83212e.zip&quot;</span>
-cp<span class="w"> </span>*.a<span class="w"> </span><span class="nv">$IDF_PATH</span>/components/esp_phy/lib/esp32c6/
-</pre></div>
-</div>
-</li>
-</ol>
-<p>This step is temporary. Once Espressif ships the API upstream, the SDK
-will consume it directly and the blob swap will no longer be needed.</p>
-</section>
+<section id="pass-prediction-returns-an-error">
+<h1>Pass prediction returns an error<a class="headerlink" href="#pass-prediction-returns-an-error" title="Link to this heading"></a></h1>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">next</span> <span class="pre">pass</span> <span class="pre">get:</span> <span class="pre">no</span> <span class="pre">satellites</span> <span class="pre">configured</span></code></p>
+<p><strong>Cause:</strong> <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> was not called before
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code>.</p>
+<p><strong>Fix:</strong> Call <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> with a valid orbital
+parameters array immediately after <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">next</span> <span class="pre">pass</span> <span class="pre">get:</span> <span class="pre">no</span> <span class="pre">pass</span> <span class="pre">found</span></code></p>
+<p><strong>Cause:</strong> No satellite pass is visible from the given location within the
+search window. Most commonly caused by incorrect device coordinates or a
+stale Unix timestamp.</p>
+<p><strong>Fix:</strong> Verify that <code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code> and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> are correct
+and that <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> reflects current wall-clock time.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> Firmware appears to hang or stall inside
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code>.</p>
+<p><strong>Cause:</strong> The pass prediction algorithm iterates forward orbit-by-orbit until
+it finds a pass. If the input time is near zero (e.g. Unix time was passed in
+<strong>seconds</strong> instead of <strong>milliseconds</strong>), or if <code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code>
+and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> are invalid, the loop can spin through thousands of
+orbits before returning.</p>
+<p><strong>Fix:</strong> Confirm <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> is in <strong>milliseconds</strong> and that
+<code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code> and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> hold the actual device coordinates.</p>
 </section>
 
 
            </div>
           </div>
 
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../ti/index.html" class="btn btn-neutral float-left" title="TI SDK (SysConfig)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../bare-metal/index.html" class="btn btn-neutral float-right" title="Bare Metal" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

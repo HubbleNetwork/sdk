@@ -46,38 +46,11 @@ board API implementations for the following development kits out of the box:
 For custom boards, refer to the :ref:`board bring-up <ncs_sat_board_bringup>`
 section.
 
-Prerequisites
-*************
+.. include:: ../common/prerequisites.rst
+   :start-after: hubble-integration-prerequisites
 
-Before starting, ensure you have the following:
-
-* **A supported development kit or custom board** with a PA or FEM capable of
-  at least +20 dBm transmit output power. The Hubble satellite link budget
-  requires this minimum output to reach the network reliably.
-* **An antenna tuned to the Hubble satellite frequency band**, connected to
-  the RF output of the PA or FEM.
-* **A Hubble account and API key** to fetch ephemeris data for pass prediction.
-  See :ref:`Create your Hubble Account <ncs_sat_hubble_account>` below.
-* **ADALM-PLUTO SDR** *(optional, recommended for custom board bring-up)*:
-  used to verify RF output at the physical layer. Available from common
-  distributors such as DigiKey and Mouser. See the `ADALM-PLUTO product page`_
-  for details, and :ref:`Next Steps <ncs_sat_next_steps>` for the verification
-  workflow.
-
-.. _ncs_sat_hubble_account:
-
-Create your Hubble Account
-**************************
-
-A Hubble account is required to access the Hubble Dashboard and generate an
-API key for fetching ephemeris data used in pass prediction.
-
-#. Create an account at the `Hubble Dashboard`_.
-#. Once logged in, follow the `Hubble Platform API documentation`_ to
-   authenticate and generate your API key.
-
-Keep your API key accessible. It is used later in this guide when fetching
-orbital parameters for pass prediction.
+.. include:: ../common/account-setup.rst
+   :start-after: hubble-integration-account-setup
 
 SDK Setup
 *********
@@ -346,148 +319,19 @@ Other common options for a dual-stack application:
    CONFIG_FPU=y
 
 
-.. _ncs_sat_data_requirements:
-
-Preparing for Satellite Transmission
-*************************************
-
-The satellite stack requires three inputs before it can schedule and transmit:
-
-* **Unix time**: used for pass prediction and key derivation
-* **Device location**: latitude and longitude, used to compute satellite passes
-* **Orbital parameters**: satellite ephemeris data describing each satellite's
-  orbit
-
-How these are provisioned is up to the application.
-
-Time
-====
-
-Many approaches work: BLE provisioning from a phone, NTP over Wi-Fi, GPS, an
-RTC, or reading from persistent storage across reboots. See
-:ref:`hubble_timing` for best practices and trade-offs.
-
-Location
-========
-
-If the device is deployed at a fixed location, latitude and longitude can be
-hard-coded directly in firmware:
-
-.. code-block:: c
-
-   struct hubble_sat_device_pos device_pos = {
-       .lat = 47.6,
-       .lon = -122.3,
-   };
-
-For mobile devices, location can be obtained from an onboard GPS module if
-present, or provisioned at runtime from a companion app. For example,
-delivered over BLE from a phone/gateway that has GPS access.
-
-Orbital Parameters
-==================
-
-Orbital parameters describe each satellite's orbit and are used by
-:c:func:`hubble_sat_next_pass_get` to predict when a satellite will be
-visible from the device location.
-
-Since Hubble satellites are station-keeping, orbital parameters are stable
-enough to be baked into firmware at build time. Use the
-``tools/orbital_params_fetch.py`` helper to fetch current parameters from the
-Hubble API and generate a ``sat_params.c`` file ready to compile into your
-application:
-
-.. code-block:: bash
-
-   export HUBBLE_API_TOKEN=<your-api-token>
-   python tools/orbital_params_fetch.py path/to/output
-
-.. TODO: Add recommended maximum age for baked-in orbital parameters before
-   a firmware update is needed to refresh them.
-
-See :ref:`hubble_satellite_orbital_params` for details on the generated format and
-how to register the array with the SDK.
+.. include:: ../common/data-requirements.rst
+   :start-after: hubble-integration-data-requirements
 
 
-Initializing the Hubble Device SDK
-**********************************
-
-Once time, location, and orbital parameters are available, initialize the SDK
-before calling any other Hubble API:
-
-.. code-block:: c
-
-   /*
-    * At this point unix_time_ms, device_pos, and orb_params are assumed to be
-    * valid. Either baked into firmware or received via BLE provisioning.
-    */
-   err = hubble_init(unix_time_ms, master_key);
-   if (err != 0) {
-       LOG_ERR("Failed to initialize Hubble Device SDK (err %d)", err);
-       return err;
-   }
-
-   err = hubble_sat_satellites_set(orb_params, orb_params_count);
-   if (err != 0) {
-       LOG_ERR("Failed to set orbital parameters (err %d)", err);
-       return err;
-   }
-
-:c:func:`hubble_init` takes the current Unix time in milliseconds and a
-pointer to the master key. :c:func:`hubble_sat_satellites_set` registers the
-orbital parameters array with the SDK.
-
-.. warning::
-
-   * **The key buffer MUST remain valid for the lifetime of SDK usage.** The
-     SDK stores the pointer directly and does not copy the key. Do not use a
-     stack or temporary buffer.
-   * **Unix time must be non-zero.** Passing ``0`` in
-     ``CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME`` mode returns an error.
-   * **The orbital parameters array MUST remain valid** for as long as pass
-     prediction is used. The SDK stores a pointer and does not copy the array.
+.. include:: ../common/sdk-init.rst
+   :start-after: hubble-integration-sdk-init
 
 
 The Pass Prediction Loop
 ************************
 
-With the SDK initialized, the application enters the main dual-stack loop:
-compute the next satellite pass, beacon over BLE while waiting, stop BLE,
-transmit to the satellite, then repeat.
-
-Compute the Next Pass
-=====================
-
-.. code-block:: c
-
-   /*
-    * Before this loop, make sure that the Bluetooth stack has been
-    * properly initialized by calling bt_init()
-    */
-   for (;;) {
-       now_ms = hubble_time_get();
-
-       err = hubble_sat_next_pass_get(now_ms, &device_pos, &pass_info);
-       if (err != 0) {
-           LOG_ERR("Failed to get next pass (err %d)", err);
-           return err;
-       }
-
-       /* If the pass has already started, find the next one. */
-       if (pass_info.start <= now_ms) {
-           err = hubble_sat_next_pass_get(
-               pass_info.start + pass_info.duration,
-               &device_pos, &pass_info);
-           if (err != 0) {
-               LOG_ERR("Failed to get next pass (err %d)", err);
-               return err;
-           }
-       }
-
-:c:func:`hubble_sat_next_pass_get` returns the soonest pass visible from the
-device location. If ``pass_info.start`` is already in the past, a pass is in
-progress, skip it and compute the next one by searching from after its end
-(``pass_info.start + pass_info.duration``).
+.. include:: ../common/pass-prediction.rst
+   :start-after: hubble-integration-pass-prediction
 
 Beacon over BLE While Waiting
 ==============================
@@ -624,63 +468,8 @@ radio library.
 
    west blobs fetch hubblenetwork-sdk
 
-``hubble_init`` returns an error
-=================================
-
-**Symptom:** ``<wrn> hubblenetwork: Failed to set Unix Epoch time``
-
-**Cause:** ``unix_time_ms`` passed to :c:func:`hubble_init` is ``0``.
-The SDK requires a valid non-zero Unix timestamp.
-
-**Fix:** Ensure time is provisioned (over BLE, NTP, GPS, or RTC) before
-calling :c:func:`hubble_init`. See :ref:`ncs_sat_data_requirements`.
-
----
-
-**Symptom:** ``<wrn> hubblenetwork: Failed to set key``
-
-**Cause:** The key buffer is NULL, zero-length, or the wrong size for the
-configured key type (``CONFIG_HUBBLE_NETWORK_KEY_128`` or
-``CONFIG_HUBBLE_NETWORK_KEY_256``).
-
-**Fix:** Verify the key is correctly decoded and its length matches
-``CONFIG_HUBBLE_KEY_SIZE``.
-
-Pass prediction returns an error
-=================================
-
-**Symptom:** ``<wrn> hubblenetwork: Hubble Satellite next pass get: no satellites configured``
-
-**Cause:** :c:func:`hubble_sat_satellites_set` was not called before
-:c:func:`hubble_sat_next_pass_get`.
-
-**Fix:** Call :c:func:`hubble_sat_satellites_set` with a valid orbital
-parameters array immediately after :c:func:`hubble_init`.
-
----
-
-**Symptom:** ``<wrn> hubblenetwork: Hubble Satellite next pass get: no pass found``
-
-**Cause:** No satellite pass is visible from the given location within the
-search window. Most commonly caused by incorrect device coordinates or a
-stale Unix timestamp.
-
-**Fix:** Verify that ``device_pos.lat`` and ``device_pos.lon`` are correct
-and that ``unix_time_ms`` reflects current wall-clock time.
-
----
-
-**Symptom:** Firmware appears to hang or stall inside
-:c:func:`hubble_sat_next_pass_get`.
-
-**Cause:** The pass prediction algorithm iterates forward orbit-by-orbit until
-it finds a pass. If the input time is near zero (e.g. Unix time was passed in
-**seconds** instead of **milliseconds**), or if ``device_pos.lat``
-and ``device_pos.lon`` are invalid, the loop can spin
-through thousands of orbits before returning.
-
-**Fix:** Confirm ``unix_time_ms`` is in **milliseconds** and that
-``device_pos.lat`` and ``device_pos.lon`` hold the actual device coordinates.
+.. include:: ../common/troubleshooting-common.rst
+   :start-after: hubble-integration-troubleshooting-common
 
 Transmission fails
 ==================
@@ -709,55 +498,8 @@ board implementation.
 
 .. _ncs_sat_next_steps:
 
-Next Steps
-**********
-
-RF Verification with an SDR
-============================
-
-Before waiting for a live satellite pass, you can verify that your device is
-transmitting a valid Hubble packet at the physical layer using an
-`ADALM-PLUTO product page`_ and the `pyhubblenetwork`_ Python library.
-
-Install the library:
-
-.. code-block:: bash
-
-   pip install pyhubblenetwork
-
-Connect the ADALM-PLUTO near the device antenna and run the scanner with your
-device key to decode captured packets in real time:
-
-.. code-block:: bash
-
-   hubblenetwork sat scan --key "<your-device-key>"
-
-A successfully decoded packet confirms the RF output, packet framing, channel
-hopping sequence, and PA/FEM sequencing are all correct. For the full list of
-available commands, run:
-
-.. code-block:: bash
-
-   hubblenetwork --help
-
-See the `pyhubblenetwork`_ repository for detailed usage and setup
-instructions.
-
-Viewing Upcoming Passes
-========================
-
-Use the **Hubble Pass Explorer** on the `Hubble Dashboard`_ to see when the
-next satellite pass is predicted for your location. This is useful to
-cross-check pass prediction results from the device and to plan test windows.
-
-Dashboard Verification
-======================
-
-Once a live satellite pass has occurred and :c:func:`hubble_sat_packet_send`
-returned without error, after the downlink data is successful, log into the
-`Hubble Dashboard`_ to confirm the packet was received by the network. A packet
-appearing on the dashboard is end-to-end proof that the device is operational
-on the Hubble satellite network.
+.. include:: ../common/next-steps.rst
+   :start-after: hubble-integration-next-steps
 
 Further Reading
 ===============
@@ -777,9 +519,5 @@ Further Reading
 
 .. _NCS installation guide: https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/installation/install_ncs.html
 .. _nRF Connect SDK: https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/index.html
-.. _ADALM-PLUTO product page: https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html#eb-overview
-.. _pyhubblenetwork: https://github.com/HubbleNetwork/pyhubblenetwork
-.. _Hubble Dashboard: https://dash.hubble.com/create-account
-.. _Hubble Platform API documentation: https://hubble.com/docs/api-specification/hubble-platform-api
 .. _Zephyr board porting guide: https://docs.zephyrproject.org/latest/hardware/porting/board_porting.html
 .. _Hubble Thingy\:53 reference application: https://github.com/HubbleNetwork/hubble-reference-thingy53
