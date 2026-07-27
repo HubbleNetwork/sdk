@@ -18,3 +18,7 @@ zephyr_link_libraries(libhubble_sat_nrf54)
 if(CONFIG_BOARD_NRF54L15DK)
 	zephyr_library_sources(nrf54l15dk.c)
 endif()
+
+if(CONFIG_BOARD_NRF54L15TAG)
+	zephyr_library_sources(nrf54l15tag.c)
+endif()

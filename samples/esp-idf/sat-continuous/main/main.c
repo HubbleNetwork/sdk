@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include "driver/gpio.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -22,6 +23,38 @@
 
 static const char *APP_TAG = "sat_continuous";
 static uint8_t _hubble_key[CONFIG_HUBBLE_KEY_SIZE];
+
+// Conditional external antenna selection
+static void select_external_antenna(void)
+{
+#ifdef CONFIG_EXTERNAL_ANTENNA
+    // GPIO3: RF switch power enable (active LOW)
+    gpio_config_t io_conf3 = {
+        .pin_bit_mask = (1ULL << GPIO_NUM_3),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    ESP_ERROR_CHECK(gpio_config(&io_conf3));
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_NUM_3, 0));  // LOW = power ON
+
+    // GPIO14: Antenna select (HIGH = external)
+    gpio_config_t io_conf14 = {
+        .pin_bit_mask = (1ULL << GPIO_NUM_14),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    ESP_ERROR_CHECK(gpio_config(&io_conf14));
+    ESP_ERROR_CHECK(gpio_set_level(GPIO_NUM_14, 1));  // HIGH = external antenna
+
+    ESP_LOGI(APP_TAG, "External antenna selected (GPIO3=LOW, GPIO14=HIGH)");
+#else
+    ESP_LOGI(APP_TAG, "Using default (onboard) antenna");
+#endif
+}
 
 void app_main(void)
 {
@@ -45,6 +78,8 @@ void app_main(void)
 		ESP_LOG_BUFFER_HEX_LEVEL(APP_TAG, _hubble_key, outlen,
 					 ESP_LOG_DEBUG);
 	}
+	// Select external antenna
+	select_external_antenna();
 
 	err = hubble_init(0, _hubble_key);
 	if (err != 0) {

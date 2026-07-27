@@ -11,4 +11,10 @@ menu "Sat Continuous Sample Configuration"
     help
         Hubble device's cryptographic key
 
+    config EXTERNAL_ANTENNA
+    bool "Select XIAO ESP32-C6 External Antenna"
+    default n
+    help
+        Select XIAO ESP32-C6 External Antenna - ufL
+
 endmenu
