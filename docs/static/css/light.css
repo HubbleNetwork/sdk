@@ -117,9 +117,16 @@
     --btn-neutral-background-color: var(--link-blue);
     --btn-neutral-hover-background-color: var(--hubble-blue);
     --footer-color: var(--gravity-grey);
-    --tabs-hover: var(--deep-space-blue);
-    --tabs-color: rgba(255, 255, 255, 0.7);
+    /* Dark text, so hover matches the background instead of inverting it */
+    --tabs-hover: var(--off-white);
+    --tabs-color: rgba(0, 0, 0, 0.7);
     --tabs-divider: rgba(120, 115, 115, 0.14);
+    /*
+     * From Hubble Brand Guidelines v1.0 Blue 050: a tint off the page,
+     * so the panel and the selected tab is visible instead of blending
+     * into the background.
+     */
+    --tabs-panel-background-color: #EFEFFB;
 
     --grid-icons-color: var(--link-blue);
     --grid-icons-bg-color: transparent;
