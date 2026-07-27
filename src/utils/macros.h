@@ -10,8 +10,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define HUBBLE_ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
+#define HUBBLE_STRINGIFY2(x)     #x
+#define HUBBLE_STRINGIFY(x)      HUBBLE_STRINGIFY2(x)
 
+#define HUBBLE_ARRAY_SIZE(array) (sizeof(array) / sizeof((array)[0]))
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define HUBBLE_CPU_TO_BE32(val)                                                \

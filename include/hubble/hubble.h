@@ -7,6 +7,7 @@
 #ifndef INCLUDE_HUBBLE_HUBBLE_H
 #define INCLUDE_HUBBLE_HUBBLE_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #ifdef CONFIG_HUBBLE_SAT_NETWORK
@@ -126,6 +127,36 @@ int hubble_key_set(const void *key);
  * @return 0 on success, negative error code on failure (Unix time mode only, if time not set)
  */
 int hubble_counter_get(uint32_t *counter);
+
+/**
+ * @brief Get the Hubble Device Configuration Vector (HDCV) for this build.
+ *
+ * Returns a compact, fixed-format string that describes the crypto,
+ * EID-rotation and network configuration compiled into the SDK, for example
+ * `HDCV:1.0/E:256/CS:UT/RP:S86400/N:T/TV:1`. The string is derived entirely
+ * from build-time options, so it can be logged, stored, or reported to identify
+ * how a device is configured.
+ *
+ * @return Pointer to a static, NUL-terminated HDCV string. Never NULL.
+ */
+const char *hubble_config_vector_get(void);
+
+/**
+ * @brief Check whether a Hubble Device Configuration Vector (HDCV) string
+ * matches this build's configuration.
+ *
+ * Compares @p hdcv against the Hubble Device Configuration Vector for this
+ * build (the string returned by @ref hubble_config_vector_get). Use it to
+ * confirm that a device is configured as expected — for example, that the
+ * vector a provisioning tool or the Cloud recorded still matches the firmware.
+ *
+ * @param hdcv NUL-terminated HDCV string to check.
+ *
+ * @return
+ *          - true if @p hdcv is non-NULL and equals this build's HDCV string.
+ *          - false otherwise (including when @p hdcv is NULL).
+ */
+bool hubble_config_vector_check(const char *hdcv);
 
 /**
  * @}
