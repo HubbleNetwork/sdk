@@ -9,6 +9,7 @@
 #include <zephyr/ztest.h>
 
 #include <stdint.h>
+#include <string.h>
 
 static uint64_t _unix_time = 1760210751803ULL;
 static uint8_t _key[CONFIG_HUBBLE_KEY_SIZE];
@@ -199,6 +200,64 @@ ZTEST(hubble_api_test, test_counter_get)
 	/* Device uptime counter wraps at HUBBLE_EID_POOL_SIZE (128) */
 	zassert_true(counter < 128U);
 #endif
+}
+
+ZTEST(hubble_api_test, test_config_vector_get)
+{
+	const char *hdcv = hubble_config_vector_get();
+
+	/* Must return a non-NULL, versioned HDCV string. */
+	zassert_not_null(hdcv);
+	zassert_true(strncmp(hdcv, "HDCV:1.0/", strlen("HDCV:1.0/")) == 0,
+		     "unexpected HDCV prefix: %s", hdcv);
+}
+
+ZTEST(hubble_api_test, test_config_vector_check_self)
+{
+	/* The build's own vector must be recognized as matching. */
+	zassert_true(hubble_config_vector_check(hubble_config_vector_get()));
+}
+
+ZTEST(hubble_api_test, test_config_vector_check_null)
+{
+	/* NULL is never a match. */
+	zassert_false(hubble_config_vector_check(NULL));
+}
+
+ZTEST(hubble_api_test, test_config_vector_check_mismatch)
+{
+	/* An empty string does not match. */
+	zassert_false(hubble_config_vector_check(""));
+
+	/* Garbage does not match. */
+	zassert_false(hubble_config_vector_check("not-an-hdcv"));
+
+	/*
+	 * A well-formed but different vector must not match.  This build is
+	 * satellite-only (N:S), so a terrestrial vector can never equal it.
+	 */
+	zassert_false(hubble_config_vector_check(
+		"HDCV:1.0/E:128/CS:UT/RP:S1/N:T/TV:0"));
+}
+
+ZTEST(hubble_api_test, test_config_vector_check_is_exact)
+{
+	const char *hdcv = hubble_config_vector_get();
+	size_t len = strlen(hdcv);
+	char buf[64];
+
+	zassert_true(len + sizeof("/X:1") <= sizeof(buf),
+		     "HDCV string too long for test buffer");
+
+	/* A truncated prefix of the real vector must not match. */
+	memcpy(buf, hdcv, len + 1);
+	buf[len - 1] = '\0';
+	zassert_false(hubble_config_vector_check(buf));
+
+	/* The real vector with an extra trailing field must not match. */
+	memcpy(buf, hdcv, len + 1);
+	strcat(buf, "/X:1");
+	zassert_false(hubble_config_vector_check(buf));
 }
 
 static void *hubble_api_test_setup(void)
