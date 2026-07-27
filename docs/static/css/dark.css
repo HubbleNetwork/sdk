@@ -124,6 +124,12 @@
     --tabs-hover: var(--deep-space-blue);
     --tabs-color: rgba(255, 255, 255, 0.7);
     --tabs-divider: rgba(120, 115, 115, 0.14);
+    --tabs-panel-background-color: var(--eclipse-blue);
+    /*
+     * The panel fill is also the code block background in this theme, so shift
+     * code blocks inside a tab one shade darker to keep them visible.
+     */
+    --tabs-code-background-color: var(--deep-space-blue);
 
     --grid-icons-color: var(--orion-mist);
     --grid-icons-bg-color: transparent;
