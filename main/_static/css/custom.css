@@ -377,7 +377,7 @@ code,
 .ui.tabular.menu .active.item,
 .ui.segment,
 .sphinx-tabs-panel {
-    background-color: var(--code-background-color) !important;
+    background-color: var(--tabs-panel-background-color) !important;
 }
 
 .sphinx-tabs-tab {
@@ -385,8 +385,8 @@ code,
 }
 
 .sphinx-tabs-tab[aria-selected="true"] {
-    background-color: var(--code-background-color) !important;
-    border-bottom: 1px solid var(--code-background-color) !important;
+    background-color: var(--tabs-panel-background-color) !important;
+    border-bottom: 1px solid var(--tabs-panel-background-color) !important;
 }
 
 .sphinx-tabs .closeable {
@@ -407,6 +407,18 @@ code,
     border: none !important;
     border-top: 1px solid rgba(120, 115, 115, 0.14) !important;
     border-radius: 0 0 var(--default-radius) var(--default-radius) !important;
+}
+
+/*
+ * Code blocks keep their usual styling inside a tab, but a theme may need to
+ * override the background so it does not match the panel fill.
+ */
+.sphinx-tabs-panel .highlight {
+    background-color: var(--tabs-code-background-color, var(--highlight-background-color));
+}
+
+.sphinx-tabs-panel .highlight pre {
+    border-color: var(--tabs-code-background-color, var(--highlight-border-color));
 }
 /* Code literals */
 a.internal code.literal {
