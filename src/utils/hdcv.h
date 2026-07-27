@@ -15,7 +15,7 @@
  * It is derived entirely from build options so the device can report or log
  * its configuration.
  *
- *     HDCV:<version>/E:<enc>[/CS:<src>][/EC:<count>][/RP:<period>][/N:<net>][/TV:<ver>][/SV:<ver>]
+ * HDCV:<version>/E:<enc>[/CS:<src>][/EC:<count>][/RP:<period>][/N:<net>][/TV:<ver>][/SV:<ver>]
  */
 
 /* E — encryption / key size */
