@@ -13,6 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=267b3856" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
 
   
     <link rel="shortcut icon" href="../../_static/hubble.png"/>
@@ -29,6 +30,7 @@
       <script>let toggleOpenOnPrint = 'true';</script>
       <script src="../../_static/togglebutton.js?v=b8b12719"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../_static/tabs.js?v=3030b3cb"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -445,7 +447,7 @@ module by including the following in your project’s sub-manifest or
 <span class="w">  </span><span class="nt">projects</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubblenetwork-sdk</span>
 <span class="w">      </span><span class="nt">repo-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubble-device-sdk</span>
-<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"> </span><span class="c1"># replace with a release tag for production use</span>
 <span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modules/lib/hubblenetwork-sdk</span>
 <span class="w">      </span><span class="nt">remote</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubble</span>
 </pre></div>
@@ -457,14 +459,27 @@ module by including the following in your project’s sub-manifest or
 </section>
 <section id="initialize-a-new-workspace">
 <h3>Initialize a New Workspace<a class="headerlink" href="#initialize-a-new-workspace" title="Link to this heading"></a></h3>
-<p>To start a fresh workspace with Hubble Network as the manifest repository,
-use the <code class="docutils literal notranslate"><span class="pre">west-ncs.yml</span></code> to import NCS:</p>
+<p>To start a fresh workspace with Hubble Network as the manifest repository:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Terminal</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">VS Code</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Use the <code class="docutils literal notranslate"><span class="pre">west-ncs.yml</span></code> to import NCS:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>init<span class="w"> </span>-m<span class="w"> </span>git@github.com:HubbleNetwork/hubble-device-sdk.git<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--mf<span class="w"> </span>west-ncs.yml<span class="w"> </span>~/hubblenetwork-workspace
 <span class="nb">cd</span><span class="w"> </span>~/hubblenetwork-workspace
 west<span class="w"> </span>update
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><ol class="arabic simple">
+<li><p>Install the <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=nordic-semiconductor.nrf-connect-extension-pack">nRF Connect Extension Pack</a> for VS Code.</p></li>
+<li><p>Open the <strong>nRF Connect</strong> sidebar and navigate to
+<strong>nRF Connect SDK Add-ons</strong> → <strong>Create a new application</strong> →
+<strong>Browse nRF Connect SDK Add-on Index</strong>.</p></li>
+<li><p>Search for <strong>Hubble Device SDK</strong>.</p></li>
+<li><p>Alternatively, open the <a class="reference external" href="https://nrfconnect.github.io/ncs-app-index/">nRF Connect SDK Add-ons index</a>
+in your browser → search for <strong>Hubble Device SDK</strong>.</p></li>
+<li><p>Click <strong>Open in nRF Connect for VS Code</strong> to import the workspace
+directly into VS Code.</p></li>
+</ol>
+</div></div>
 </section>
 <section id="fetch-the-satellite-radio-blobs">
 <h3>Fetch the Satellite Radio Blobs<a class="headerlink" href="#fetch-the-satellite-radio-blobs" title="Link to this heading"></a></h3>

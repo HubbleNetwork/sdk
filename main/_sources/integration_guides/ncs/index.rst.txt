@@ -80,7 +80,7 @@ module by including the following in your project's sub-manifest or
      projects:
        - name: hubblenetwork-sdk
          repo-path: hubble-device-sdk
-         revision: main
+         revision: main # replace with a release tag for production use
          path: modules/lib/hubblenetwork-sdk
          remote: hubble
 
@@ -93,15 +93,32 @@ Then run:
 Initialize a New Workspace
 ==========================
 
-To start a fresh workspace with Hubble Network as the manifest repository,
-use the ``west-ncs.yml`` to import NCS:
+To start a fresh workspace with Hubble Network as the manifest repository:
 
-.. code-block:: bash
+.. tabs::
 
-   west init -m git@github.com:HubbleNetwork/hubble-device-sdk.git \
-       --mf west-ncs.yml ~/hubblenetwork-workspace
-   cd ~/hubblenetwork-workspace
-   west update
+   .. tab:: Terminal
+
+      Use the ``west-ncs.yml`` to import NCS:
+
+      .. code-block:: bash
+
+         west init -m git@github.com:HubbleNetwork/hubble-device-sdk.git \
+             --mf west-ncs.yml ~/hubblenetwork-workspace
+         cd ~/hubblenetwork-workspace
+         west update
+
+   .. tab:: VS Code
+
+      #. Install the `nRF Connect Extension Pack`_ for VS Code.
+      #. Open the **nRF Connect** sidebar and navigate to
+         **nRF Connect SDK Add-ons** → **Create a new application** →
+         **Browse nRF Connect SDK Add-on Index**.
+      #. Search for **Hubble Device SDK**.
+      #. Alternatively, open the `nRF Connect SDK Add-ons index`_
+         in your browser → search for **Hubble Device SDK**.
+      #. Click **Open in nRF Connect for VS Code** to import the workspace
+         directly into VS Code.
 
 Fetch the Satellite Radio Blobs
 ================================
@@ -521,3 +538,5 @@ Further Reading
 .. _nRF Connect SDK: https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/index.html
 .. _Zephyr board porting guide: https://docs.zephyrproject.org/latest/hardware/porting/board_porting.html
 .. _Hubble Thingy\:53 reference application: https://github.com/HubbleNetwork/hubble-reference-thingy53
+.. _nRF Connect Extension Pack: https://marketplace.visualstudio.com/items?itemName=nordic-semiconductor.nrf-connect-extension-pack
+.. _nRF Connect SDK Add-ons index: https://nrfconnect.github.io/ncs-app-index/
