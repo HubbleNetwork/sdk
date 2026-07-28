@@ -11,7 +11,7 @@ The Hubble Terrestrial Network is the name Hubble uses for its network built on
 Bluetooth® Low Energy (BLE). It is a framework designed to provide secure and
 efficient communication within a Bluetooth Low Energy (BLE) environment.
 Advanced encryption techniques and Bluetooth technology protect data
-integrity and privacy across distributed systems. The Hubble Terrestrial API, definede
+integrity and privacy across distributed systems. The Hubble Terrestrial API, defined
 in the **hubble/ble.h** header file, provides a comprehensive set of functions
 for initializing, configuring, and managing network operations.
 

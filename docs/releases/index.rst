@@ -191,8 +191,8 @@ Support Policy
 The Hubble Device SDK maintains different support levels depending on release
 type:
 
-Stable  Releases
-================
+Stable Releases
+===============
 
 The current and previous releases receive:
 
