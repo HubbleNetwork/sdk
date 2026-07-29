@@ -18,6 +18,13 @@ can be configured alongside the TI SDK drivers in the same script.
    :ref:`freertos_quick_start` instead — it describes how to include the SDK
    sources and flags directly via the provided Makefile fragment.
 
+.. seealso::
+
+   This page covers TI SDK setup and SysConfig integration. For a complete,
+   end-to-end **satellite dual-stack** application on TI hardware — pass
+   prediction, BLE beaconing, and RF verification — see the
+   :ref:`ti_integration_guide`.
+
 Prerequisites
 *************
 

@@ -86,11 +86,11 @@ Additional Resources
 
    introduction/index
    architecture/index
+   terrestrial/index
+   satellite/index
    quickstart/index
    integration_guides/index
    best-practices/index
-   terrestrial/index
-   satellite/index
    security/index
    releases/index
 
