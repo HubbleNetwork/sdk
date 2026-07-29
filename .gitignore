@@ -11,6 +11,7 @@ docs/_doxygen/
 **/build/**
 .cache/
 .ruff_cache/
+**/__pycache__/
 
 # generated files
 **/key.c
