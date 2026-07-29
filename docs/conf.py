@@ -107,6 +107,7 @@ def _fix_breathe_toc_entries(app, doctree):
 def setup(app):
     # theme customizations
     app.add_css_file("css/custom.css")
+    app.add_js_file("js/version-selector.js")
     # Priority 499 < default 500 so our handler runs before TocTreeCollector.process_doc,
     # which builds sidebar entries from _toc_name/_toc_parts at priority 500.
     app.connect("doctree-read", _fix_breathe_toc_entries, priority=499)

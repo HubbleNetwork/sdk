@@ -26,6 +26,7 @@
   </div>
 {% endblock %}
 {% block extrahead %}
+  <meta name="docs-base-path" content="{{ docs_base_path }}">
   <meta name="color-scheme" content="dark light">
   {# Use dark mode loader script to prevent "flashing" of the page on load.
      As we need a <noscript> tag and very specific orderding of the tags, this can't be done via
