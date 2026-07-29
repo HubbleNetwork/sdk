@@ -139,3 +139,30 @@ jobs:
           destination_dir: ${{ needs.build.outputs.slug }}
           keep_files: true
           commit_message: "Deploy docs for ${{ needs.build.outputs.slug }}"
+
+      # Check out gh-pages so we can update the versions file
+      - name: Check out gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Update Versions File
+        working-directory: gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # get the list of branches, filter to main and release/*,
+          # and write to versions.json
+          gh api "repos/$GITHUB_REPOSITORY/branches" --paginate --jq '.[].name' \
+            | grep -E '^main$|^release/' \
+            | jq -R . | jq -s . > versions.json
+          git add versions.json
+          if git diff --cached --quiet; then
+            echo "versions.json unchanged - nothing to commit"
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update versions.json"
+            git push
+          fi

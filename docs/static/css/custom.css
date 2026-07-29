@@ -858,6 +858,88 @@ a.icon.icon-home {
     opacity: 0.9;
 }
 
+/* Documentation version selector */
+.version-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.9rem 1.5rem;
+    background-color: var(--navbar-background-color);
+    border-top: 1px solid var(--navbar-side-divider);
+}
+
+/* label styled like the nav section captions (e.g. "REFERENCE") */
+.version-label {
+    color: var(--navbar-heading-color);
+    font-family: var(--header-font-family), sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.version-selector-wrapper {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.version-selector {
+    box-sizing: border-box;
+    /* compact; extra right padding leaves room for the drop-down arrow */
+    padding: 6px 26px 6px 12px;
+    border: 1px solid var(--search-input-border-color);
+    border-radius: var(--default-radius);
+    background-color: var(--input-background-color);
+    /* sidebar text color: stays light in both themes */
+    color: var(--navbar-color);
+    box-shadow: none;
+    font-size: 13px;
+    font-family: var(--system-font-family), monospace;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.version-selector:hover,
+.version-selector:focus {
+    /* brand blue (--hubble-blue) accent, same as the search box active state */
+    border-color: var(--search-input-border-color-active);
+    outline: none;
+}
+
+/* dropdown option list (opaque sidebar background so it's readable) */
+.version-selector option {
+    background-color: var(--navbar-background-color);
+    color: var(--navbar-color);
+}
+
+/* custom drop-down, since appearance:none removes the native arrow */
+.version-selector-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--navbar-color);
+}
+
+/* pin the section to the bottom of the sidebar (desktop) */
+@media only screen and (min-width: 769px) {
+    .version-section {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+
 /* First level of navigation items */
 
 .wy-menu-vertical a {
@@ -1048,7 +1130,12 @@ a.icon.icon-home {
 .wy-menu.wy-menu-vertical {
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: calc(100% - 243px);
+    /*
+     * Keep the scrolling nav between the fixed top and bottom regions:
+     * subtract 243px reserved at the TOP (logo + search box) and
+     * 64px reserved at the BOTTOM (pinned version section).
+     */
+    max-height: calc(100% - 243px - 64px);
 }
 @media screen and (max-width: 768px) {
     .wy-nav-side {
