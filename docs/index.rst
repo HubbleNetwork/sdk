@@ -65,7 +65,7 @@ Additional Resources
 	   <p>Service modules, port layer, code organization &amp; conventions</p>
        </li>
        <li class="grid-item">
-	   <a href="ble/index.html">
+	   <a href="terrestrial/index.html">
                <span class="grid-icon fa fa-bluetooth-b"></span>
 	       <h2>Terrestrial Network</h2>
 	   </a>
