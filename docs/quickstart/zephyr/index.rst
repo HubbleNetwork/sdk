@@ -138,6 +138,12 @@ the upstream Zephyr steps above, with the differences below.
 
 .. note::
 
+   This covers NCS workspace setup only. For a complete satellite dual-stack
+   application on Nordic hardware — board bring-up, pass prediction, BLE
+   provisioning, and verification — see the :ref:`ncs_integration_guide`.
+
+.. note::
+
    Adding Hubble Network as a *module* to an existing NCS application is
    identical to the `Adding Hubble Network to Zephyr`_ step, only the
    manifest and toolchain differ.
