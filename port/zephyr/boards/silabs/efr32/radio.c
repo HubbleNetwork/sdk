@@ -262,7 +262,7 @@ int hubble_sat_board_packet_send(const struct hubble_sat_packet_frames *packet)
 
 	symbol_start = sl_rail_get_time(_rail_handle);
 
-	for (uint8_t i = 0; i < packet->total_number_of_symbols; i++) {
+	for (size_t i = 0; i < packet->total_number_of_symbols; i++) {
 		uint8_t data_pos = i % HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE;
 
 		if (data_pos == 0) {
