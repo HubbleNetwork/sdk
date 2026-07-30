@@ -76,6 +76,9 @@
     --highlight-background-color: var(--eclipse-blue);
     --highlight-border-color: var(--eclipse-blue);
     --highlight-background-emph-color: var(--eclipse-blue);
+    /* API signature fill: a subtle tint above the page (unchanged look). */
+    --api-signature-background-color: var(--eclipse-blue);
+    --document-dl-border-color: transparent;
     --highlight-default-color: var(--moon-silver);
     --highlight-comment-color: var(--lunar-dust);
     --highlight-keyword-color: var(--status-red);

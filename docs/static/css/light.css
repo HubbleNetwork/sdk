@@ -72,6 +72,13 @@
     --highlight-background-color: var(--moon-silver);
     --highlight-border-color: var(--moon-silver);
     --highlight-background-emph-color: var(--moon-silver);
+    /*
+     * API signature fill: a faint hubble-blue tint instead of the grey code
+     * background, so signatures read as a soft flush card on the near-white
+     * page, matching the borderless look of the dark theme.
+     */
+    --api-signature-background-color: rgba(87, 97, 255, 0.06);
+    --document-dl-border-color: transparent;
     --highlight-default-color: var(--meteor-grey);
     --highlight-comment-color: var(--meteor-grey);
     --highlight-keyword-color: var(--status-dark-red);

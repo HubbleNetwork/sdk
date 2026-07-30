@@ -196,7 +196,12 @@ html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(
 }
 html.writer-html5 .rst-content dl:not(.docutils) > dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.citation):not(.glossary):not(.simple) > dt {
     border-top: none;
-    background: var(--highlight-background-color);
+    /*
+     * API signature fill. Uses a soft, low-contrast tint so the signature
+     * reads as a flush card in both themes rather than a hard grey box in
+     * light. Falls back to the code-block background where unset.
+     */
+    background: var(--api-signature-background-color, var(--highlight-background-color));
 }
 html.writer-html5 .rst-content dl:not(.docutils) dl:not(.option-list):not(.field-list):not(.footnote):not(.citation):not(.glossary):not(.simple) > dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.citation):not(.glossary):not(.simple) dl:not(.option-list):not(.field-list):not(.footnote):not(.citation):not(.glossary):not(.simple) > dt {
     border-left-color: var(--highlight-background-emph-color);
@@ -1434,8 +1439,8 @@ html.writer-html5 .rst-content dl.field-list>dd {
 }
 
 .document dl {
-    border-left: 1px solid rgba(35, 33, 55, 0.32);
-    border-bottom: 1px solid rgba(35, 33, 55, 0.32);
+    border-left: 1px solid var(--document-dl-border-color);
+    border-bottom: 1px solid var(--document-dl-border-color);
 
     & dt {
         padding: 8px 16px;
