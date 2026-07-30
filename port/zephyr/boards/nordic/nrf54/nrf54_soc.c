@@ -290,7 +290,7 @@ int hubble_sat_soc_packet_send(const struct hubble_sat_packet_frames *packet)
 	_dppi_enable();
 	_timer_enable(WAIT_SYMBOL_OFF_US, WAIT_SYMBOL_OFF_US + WAIT_SYMBOL_US);
 
-	for (uint8_t i = 0; i < packet->total_number_of_symbols; i++) {
+	for (size_t i = 0; i < packet->total_number_of_symbols; i++) {
 		uint8_t data_pos = i % HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE;
 
 		if (data_pos == 0) {
