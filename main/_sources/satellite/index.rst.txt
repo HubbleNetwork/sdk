@@ -100,9 +100,10 @@ recommended workflow for battery-powered devices.
 
 .. seealso::
 
-   For guidance on selecting pass options — choosing the minimum elevation
-   angle, interpreting the pass result, and computing multiple upcoming passes —
-   see :ref:`hubble_pass_prediction_best_practices`.
+   :ref:`hubble_pass_prediction_best_practices` is the complete guide to pass
+   prediction: choosing the minimum elevation angle, reading the pass result,
+   and computing multiple upcoming passes. This section covers only the inputs
+   the SDK needs and how to obtain them.
 
 .. warning::
 
@@ -205,40 +206,14 @@ Hard-coded parameters are simple and work well for fixed firmware images or
 devices without a provisioning channel. Refresh and rebuild the generated file
 when the orbital data used by your product needs to be updated.
 
-Computing the Next Pass
-=======================
+Computing a Pass
+================
 
-After the SDK has time, location, and orbital data, use
-:c:func:`hubble_sat_next_pass_get` to find the next pass for one location:
-
-.. code-block:: c
-
-   struct hubble_sat_device_pos pos = {
-           .lat = 47.0,
-           .lon = -122.0,
-   };
-   struct hubble_sat_pass_info pass;
-   uint64_t now_ms = hubble_time_get();
-
-   err = hubble_sat_next_pass_get(now_ms, &pos, &pass);
-   if (err != 0) {
-           /* No pass found or invalid input. */
-   }
-
-``pass.start`` is the recommended time to begin the satellite transmission
-sequence. ``pass.culmination`` is the time of maximum pass alignment.
-``pass.duration`` is the expected transmission window duration in milliseconds.
-``pass.max_elevation_angle`` reports the maximum elevation angle for the pass.
-
-If a pass is already in progress, compute the next one by starting the search
-after the current pass window:
-
-.. code-block:: c
-
-   if (pass.start <= now_ms) {
-           err = hubble_sat_next_pass_get(pass.start + pass.duration,
-                                          &pos, &pass);
-   }
+Once time, location, and orbital data are available, use
+:c:func:`hubble_sat_next_pass_get` to find the next pass and schedule the
+transmission against ``pass.start``. Reading the result, selecting a minimum
+elevation angle, and looking several passes into the future are all covered in
+:ref:`hubble_pass_prediction_best_practices`.
 
 Common API Workflow
 *******************
@@ -347,157 +322,11 @@ Typical workflow:
 
 This workflow is appropriate for devices that already use BLE for local
 connectivity, provisioning, or nearby network operation and only need satellite
-transmission during predicted windows.
-
-Transmission Logic
-******************
-
-The reliability mode controls how many times the SDK asks the platform radio
-port to send the same packet and how far apart those transmissions are spaced.
-
-.. list-table:: Satellite Reliability Modes
-   :widths: 30 20 20 30
-   :header-rows: 1
-
-   * - Mode
-     - Baseline transmissions
-     - Interval
-     - Intended use
-   * - ``HUBBLE_SAT_RELIABILITY_NONE``
-     - 1
-     - 0 seconds
-     - Testing or externally managed retries
-   * - ``HUBBLE_SAT_RELIABILITY_NORMAL``
-     - 8
-     - 20 seconds
-     - Default balance of reliability and power
-   * - ``HUBBLE_SAT_RELIABILITY_HIGH``
-     - 16
-     - 10 seconds
-     - Higher reliability with higher energy cost
-
-.. _hubble_satellite_clock_drift:
-
-Clock Drift Compensation
-========================
-
-For modes with retries, the SDK may add extra transmissions to account for
-estimated clock drift since the last time synchronization. The drift estimate is
-based on ``CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR`` in parts per million (PPM).
-
-The SDK computes the elapsed time since the last time sync, estimates drift, and
-adds one retry for each full retransmission interval of drift. This widens the
-effective transmission coverage when the device clock may be early or late.
-
-Pass prediction also accounts for drift by starting the calculated transmission
-window earlier. Keep Unix time synchronized when possible to reduce unnecessary
-extra retries.
-
-Understanding PPM
------------------
-
-PPM (parts per million) is the maximum frequency deviation of an oscillator from
-its nominal frequency. A clock rated at 50 PPM can drift at most 50 microseconds
-per second, which accumulates to:
-
-* 50 ms per 1,000 seconds (~17 minutes)
-* 180 ms per hour
-* 4.3 seconds per day
-
-The SDK uses ``CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR`` to estimate the total
-accumulated drift since the last time synchronization:
-
-.. code-block:: none
-
-   drift_ms = (elapsed_since_last_sync_ms × TDR_ppm) / 1,000,000
-
-One additional retry is then added for each full retransmission interval covered
-by that drift. For example, with ``HUBBLE_SAT_RELIABILITY_NORMAL`` (20-second
-interval) and a 100 PPM clock that has not synced for 3 hours:
-
-.. code-block:: none
-
-   drift_ms          = 10,800,000 ms × 100 / 1,000,000 = 1,080 ms
-   additional_retries = 1,080 ms / 20,000 ms            = 0
-
-At 30 hours without a sync:
-
-.. code-block:: none
-
-   drift_ms          = 108,000,000 ms × 100 / 1,000,000 = 10,800 ms
-   additional_retries = 10,800 ms / 20,000 ms            = 0  (rounds down)
-
-At 56 hours without a sync:
-
-.. code-block:: none
-
-   drift_ms          = 201,600,000 ms × 100 / 1,000,000 = 20,160 ms
-   additional_retries = 20,160 ms / 20,000 ms            = 1
-
-For most devices syncing time at least once per day, drift compensation adds
-zero or one extra retries. Higher-PPM oscillators or longer sync gaps produce
-more extra retries.
-
-Maximum Additional Retries
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Two caps bound the total number of retries:
-
-* The drift estimate is capped at **90 minutes** regardless of how long the
-  device has gone without a time sync.
-* The total retry count (baseline + additional) is capped to 90 min / retry interval.
-
-In practice these ceilings are only reached by high-PPM oscillators that have
-not synchronized time for many days. At 100 PPM, reaching 90 minutes of
-accumulated drift requires roughly 625 days without a sync.
-
-Finding the TDR for Your Hardware
-----------------------------------
-
-The Time Drift Rate (TDR) value to configure comes directly from the oscillator
-used as the device clock source. The typical lookup path is:
-
-1. **Identify the clock source.** Check the board schematic or SoC reference
-   manual to find which oscillator drives the timekeeping peripheral (RTC or
-   low-frequency oscillator). It is usually a 32.768 kHz crystal or, for
-   lower-cost designs, an internal RC oscillator.
-
-2. **Read the datasheet.** Open the crystal or oscillator datasheet and look
-   for the **frequency accuracy** or **frequency tolerance** specification,
-   typically in a table labelled *Electrical Characteristics* or *AC
-   Characteristics*. The value is expressed as ±X ppm over a stated temperature
-   and supply-voltage range.
-
-3. **Use the worst-case figure.** Datasheets often list both an initial
-   tolerance at room temperature and a wider tolerance over the full operating
-   temperature range. Use the larger value.
-
-Typical ranges by oscillator type:
-
-.. list-table::
-   :widths: 40 20 40
-   :header-rows: 1
-
-   * - Oscillator type
-     - Typical PPM
-     - Notes
-   * - TCXO (temperature-compensated crystal)
-     - 0.5 – 5
-     - Best accuracy; used in communication-grade designs
-   * - External crystal (XTAL)
-     - 10 – 100
-     - Most common; check datasheet for your specific part
-   * - Internal RC oscillator
-     - 200 – 5,000
-     - Factory calibration at room temperature only; degrades with temperature
-
-If you cannot obtain the exact figure, use a conservative (higher) estimate.
-Underestimating PPM causes the device to transmit fewer extra retries than
-needed, which reduces delivery probability when the clock has drifted
-significantly.
+transmission during predicted windows. For a complete, platform-specific
+walkthrough of this pattern, see the :ref:`hubble_integration_guides`.
 
 Radio Timing
-============
+************
 
 :c:func:`hubble_sat_packet_send` is synchronous. During the call, the platform
 port typically:
@@ -515,37 +344,23 @@ starting conflicting radio activity until it returns. Dual-stack applications
 should stop BLE before satellite transmission unless the platform explicitly
 supports concurrent operation.
 
+Reliability and Clock Drift
+***************************
+
+The reliability mode selects the number of retries and their spacing, trading
+delivery probability against energy use. For modes with retries, the SDK also
+adds transmissions to compensate for accumulated clock drift.
+
+* :ref:`hubble_satellite_reliability` — the reliability modes and how to choose
+  one for your power budget.
+* :ref:`hubble_satellite_clock_drift` — the drift model, the PPM math, and how
+  to find the ``CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR`` value for your hardware.
+
 Supporting New Boards
 *********************
 
 See :ref:`board_support` for integration paths, required APIs, SoC-specific
 guidance, and the board support checklist.
-
-.. _hubble_satellite_reliability:
-
-Power Consumption and Reliability
-*********************************
-
-Satellite reliability and power consumption are directly related. More retries
-increase the chance that a satellite receives the packet, but they keep the
-radio active for longer and increase total energy use.
-
-Use these guidelines when selecting a mode:
-
-* Use ``HUBBLE_SAT_RELIABILITY_NONE`` only for testing, lab validation, or
-  applications that implement their own scheduling and retry policy.
-* Use ``HUBBLE_SAT_RELIABILITY_NORMAL`` as the default production setting.
-* Use ``HUBBLE_SAT_RELIABILITY_HIGH`` when delivery probability is more
-  important than energy consumption.
-* Use pass prediction to avoid transmitting when a satellite is unlikely to be
-  visible.
-* Keep time synchronized to minimize drift-compensation retries.
-* Avoid very short continuous-transmission intervals on battery-powered devices.
-
-For battery-powered products, the most power-efficient design is usually a
-pass-predicted workflow: sleep or use low-power BLE between passes, wake before
-``pass.start``, transmit with the lowest reliability mode that meets the product
-delivery requirement, then return to the low-power state.
 
 Configuration Notes
 *******************
@@ -564,10 +379,10 @@ Important related options include:
 See :ref:`hubble_configuration` for the complete configuration reference. The
 full satellite API is documented in the :ref:`hubble_sat_api` reference.
 
-Board Support
-*************
-
 .. toctree::
    :maxdepth: 1
+   :hidden:
 
+   reliability
+   clock-drift
    board-support

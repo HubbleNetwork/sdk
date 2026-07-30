@@ -32,8 +32,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Security" href="../security/index.html" />
-    <link rel="prev" title="Satellite Network Overview" href="index.html" />
+    <link rel="next" title="Platform Setup" href="../quickstart/index.html" />
+    <link rel="prev" title="Clock Drift Compensation" href="clock-drift.html" />
   <meta name="color-scheme" content="dark light">
   
   <noscript id="dark-mode-toggle-stylesheets">
@@ -95,7 +95,49 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Quick Start</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Satellite Network Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#configuration-notes">Configuration Notes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Platform Setup</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../quickstart/zephyr/index.html">Zephyr</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
@@ -190,51 +232,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Satellite Network Overview</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#how-it-works">How It Works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#packet-generation">Packet Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#transmission">Transmission</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#pass-prediction">Pass Prediction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#computing-the-next-pass">Computing the Next Pass</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#common-api-workflow">Common API Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#continuous-transmission">Continuous Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#transmission-logic">Transmission Logic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="index.html#clock-drift-compensation">Clock Drift Compensation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#radio-timing">Radio Timing</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#supporting-new-boards">Supporting New Boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#power-consumption-and-reliability">Power Consumption and Reliability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#configuration-notes">Configuration Notes</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html#board-support">Board Support</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Supporting New Boards</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../security/cryptography.html">Cryptographic Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#key-concepts">Key concepts</a></li>
@@ -272,7 +269,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../releases/index.html#support-policy">Support Policy</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#id1">Stable  Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#id1">Stable Releases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
 </ul>
 </li>
@@ -538,8 +535,8 @@ on hardware.</p></li>
           </div>
 
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Satellite Network Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../security/index.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="clock-drift.html" class="btn btn-neutral float-left" title="Clock Drift Compensation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../quickstart/index.html" class="btn btn-neutral float-right" title="Platform Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

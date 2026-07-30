@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terrestrial Network Overview &mdash; Hubble Device SDK Documentation</title>
+  <title>Reliability and Power Consumption &mdash; Hubble Device SDK Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -16,7 +16,7 @@
 
   
     <link rel="shortcut icon" href="../_static/hubble.png"/>
-    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/terrestrial/index.html" />
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/satellite/reliability.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=2709fde1"></script>
@@ -32,8 +32,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Satellite Network Overview" href="../satellite/index.html" />
-    <link rel="prev" title="Project Organization" href="../architecture/project-organization.html" />
+    <link rel="next" title="Clock Drift Compensation" href="clock-drift.html" />
+    <link rel="prev" title="Satellite Network Overview" href="index.html" />
   <meta name="color-scheme" content="dark light">
   
   <noscript id="dark-mode-toggle-stylesheets">
@@ -95,44 +95,44 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Terrestrial Network Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#api-overview">API Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#time-management">Time Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encryption-key-management">Encryption Key Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#advertisement-retrieval">Advertisement Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Satellite Network Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#transmission">Transmission</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#computing-a-pass">Computing a Pass</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#configuration-notes">Configuration Notes</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="board-support.html">Supporting New Boards</a></li>
 </ul>
 </li>
 </ul>
@@ -326,7 +326,9 @@
 
   <li><a href="../index.html">Docs</a> &raquo;</li>
   
-  <li>Terrestrial Network Overview</li>
+     <li><a href="index.html">Satellite Network Overview</a> &raquo;</li>
+  
+  <li>Reliability and Power Consumption</li>
 
 
   <li class="wy-breadcrumbs-aside">
@@ -342,90 +344,72 @@
   
            <div itemprop="articleBody">
              
-  <section id="terrestrial-network-overview">
-<span id="hubble-terrestrial-introduction"></span><h1>Terrestrial Network Overview<a class="headerlink" href="#terrestrial-network-overview" title="Link to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>The Hubble Terrestrial Network is the name Hubble uses for its network built on
-Bluetooth® Low Energy (BLE). It is a framework designed to provide secure and
-efficient communication within a Bluetooth Low Energy (BLE) environment.
-Advanced encryption techniques and Bluetooth technology protect data
-integrity and privacy across distributed systems. The Hubble Terrestrial API, defined
-in the <strong>hubble/ble.h</strong> header file, provides a comprehensive set of functions
-for initializing, configuring, and managing network operations.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>While this network is called the <em>Hubble Terrestrial Network</em>, the SDK code
-and APIs use the <code class="docutils literal notranslate"><span class="pre">ble</span></code> namespace for it. Terrestrial functions, types, and
-configuration options carry a <code class="docutils literal notranslate"><span class="pre">ble</span></code> marker — for example the
-<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_ble_advertise_get()</span></code> function, the <code class="docutils literal notranslate"><span class="pre">hubble/ble.h</span></code> header, and
-the <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_BLE_NETWORK</span></code> option — reflecting the Bluetooth Low
-Energy technology the network is built on.</p>
-</div>
-<section id="key-features">
-<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
-<section id="secure-communication">
-<h4>Secure Communication<a class="headerlink" href="#secure-communication" title="Link to this heading"></a></h4>
-<p>The Hubble Terrestrial Network uses a 128 or 256-bit encryption key to safeguard all
-transmitted data, minimizing the risk of unauthorized access and data
-breaches. See <a class="reference internal" href="../security/cryptography.html#hubble-ble-security"><span class="std std-ref">Cryptographic Overview</span></a></p>
+  <section id="reliability-and-power-consumption">
+<span id="hubble-satellite-reliability"></span><h1>Reliability and Power Consumption<a class="headerlink" href="#reliability-and-power-consumption" title="Link to this heading"></a></h1>
+<p>The reliability mode passed to <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> controls how
+many times the SDK asks the platform radio port to send the same packet and how
+far apart those transmissions are spaced. It is the primary trade-off between
+delivery probability and energy use.</p>
+<section id="reliability-modes">
+<h2>Reliability Modes<a class="headerlink" href="#reliability-modes" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Satellite Reliability Modes</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>Baseline transmissions</p></th>
+<th class="head"><p>Interval</p></th>
+<th class="head"><p>Intended use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NONE</span></code></p></td>
+<td><p>1</p></td>
+<td><p>0 seconds</p></td>
+<td><p>Testing or externally managed retries</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NORMAL</span></code></p></td>
+<td><p>8</p></td>
+<td><p>20 seconds</p></td>
+<td><p>Default balance of reliability and power</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_HIGH</span></code></p></td>
+<td><p>16</p></td>
+<td><p>10 seconds</p></td>
+<td><p>Higher reliability with higher energy cost</p></td>
+</tr>
+</tbody>
+</table>
+<p>For modes with retries, the SDK may add extra transmissions to compensate for
+estimated clock drift since the last time synchronization. See
+<a class="reference internal" href="clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for the drift model and how to configure it.</p>
 </section>
-<section id="time-synchronization">
-<h4>Time Synchronization<a class="headerlink" href="#time-synchronization" title="Link to this heading"></a></h4>
-<p>Functions are available to initialize the network with the current time and
-update it as needed. This ensures that all nodes remain synchronized, which
-facilitates coordinated operations and data consistency. See <a class="reference internal" href="../best-practices/time-management.html#hubble-timing"><span class="std std-ref">Time Management</span></a>
-for best practices on provisioning time and accounting for clock drift.</p>
-</section>
-<section id="advertisement-management">
-<h4>Advertisement Management<a class="headerlink" href="#advertisement-management" title="Link to this heading"></a></h4>
-<p>The Hubble Terrestrial Network API processes input data to generate Bluetooth advertisements.
-These advertisements are essential for device discovery and communication
-within the BLE network. The API returns platform-specific pointers to the
-generated advertisements, allowing for seamless integration with various
-hardware and software platforms.</p>
-</section>
-</section>
-</section>
-<section id="api-overview">
-<h2>API Overview<a class="headerlink" href="#api-overview" title="Link to this heading"></a></h2>
-<section id="initialization">
-<h3>Initialization<a class="headerlink" href="#initialization" title="Link to this heading"></a></h3>
-<p>Initialize the network with the current Unix time before calling other Hubble
-Terrestrial API functions. The <code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> function sets up the required
-configurations and prepares the network for operation:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_init</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">initial_time</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">);</span>
-</pre></div>
-</div>
-</section>
-<section id="time-management">
-<h3>Time Management<a class="headerlink" href="#time-management" title="Link to this heading"></a></h3>
-<p>The API provides functions to set and update the Unix time (milliseconds since the
-Unix epoch). The <cite>hubble_time_set</cite> function enables precise time
-synchronization throughout the network:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_time_set</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">unix_time</span><span class="p">);</span>
-</pre></div>
-</div>
-</section>
-<section id="encryption-key-management">
-<h3>Encryption Key Management<a class="headerlink" href="#encryption-key-management" title="Link to this heading"></a></h3>
-<p>An encryption key secures all network communication. The
-<cite>hubble_key_set</cite> function configures this key for ongoing network
-operations:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_key_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">);</span>
-</pre></div>
-</div>
-</section>
-<section id="advertisement-retrieval">
-<h3>Advertisement Retrieval<a class="headerlink" href="#advertisement-retrieval" title="Link to this heading"></a></h3>
-<p>The <cite>hubble_ble_advertise_get</cite> function processes input data to create
-Bluetooth advertisements, a critical step in enabling device discovery and
-interaction within the network:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_ble_advertise_get</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_len</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>The full API is documented in the <a class="reference internal" href="../api/ble.html#hubble-ble-api"><span class="std std-ref">BLE Network API</span></a> reference.</p>
-</section>
+<section id="choosing-a-mode">
+<h2>Choosing a Mode<a class="headerlink" href="#choosing-a-mode" title="Link to this heading"></a></h2>
+<p>Satellite reliability and power consumption are directly related. More retries
+increase the chance that a satellite receives the packet, but they keep the
+radio active for longer and increase total energy use.</p>
+<p>Use these guidelines when selecting a mode:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NONE</span></code> only for testing, lab validation, or
+applications that implement their own scheduling and retry policy.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NORMAL</span></code> as the default production setting.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_HIGH</span></code> when delivery probability is more
+important than energy consumption.</p></li>
+<li><p>Use pass prediction to avoid transmitting when a satellite is unlikely to be
+visible.</p></li>
+<li><p>Keep time synchronized to minimize drift-compensation retries.</p></li>
+<li><p>Avoid very short continuous-transmission intervals on battery-powered devices.</p></li>
+</ul>
+<p>For battery-powered products, the most power-efficient design is usually a
+pass-predicted workflow: sleep or use low-power BLE between passes, wake before
+<code class="docutils literal notranslate"><span class="pre">pass.start</span></code>, transmit with the lowest reliability mode that meets the product
+delivery requirement, then return to the low-power state.</p>
 </section>
 </section>
 
@@ -434,8 +418,8 @@ interaction within the network:</p>
           </div>
 
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../architecture/project-organization.html" class="btn btn-neutral float-left" title="Project Organization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../satellite/index.html" class="btn btn-neutral float-right" title="Satellite Network Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Satellite Network Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="clock-drift.html" class="btn btn-neutral float-right" title="Clock Drift Compensation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

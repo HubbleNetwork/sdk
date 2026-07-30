@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terrestrial Network Overview &mdash; Hubble Device SDK Documentation</title>
+  <title>Clock Drift Compensation &mdash; Hubble Device SDK Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -16,7 +16,7 @@
 
   
     <link rel="shortcut icon" href="../_static/hubble.png"/>
-    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/terrestrial/index.html" />
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/satellite/clock-drift.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=2709fde1"></script>
@@ -32,8 +32,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Satellite Network Overview" href="../satellite/index.html" />
-    <link rel="prev" title="Project Organization" href="../architecture/project-organization.html" />
+    <link rel="next" title="Supporting New Boards" href="board-support.html" />
+    <link rel="prev" title="Reliability and Power Consumption" href="reliability.html" />
   <meta name="color-scheme" content="dark light">
   
   <noscript id="dark-mode-toggle-stylesheets">
@@ -95,44 +95,44 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Terrestrial Network Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#api-overview">API Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#time-management">Time Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encryption-key-management">Encryption Key Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#advertisement-retrieval">Advertisement Retrieval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Satellite Network Overview</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#transmission">Transmission</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#computing-a-pass">Computing a Pass</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#configuration-notes">Configuration Notes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="board-support.html">Supporting New Boards</a></li>
 </ul>
 </li>
 </ul>
@@ -326,7 +326,9 @@
 
   <li><a href="../index.html">Docs</a> &raquo;</li>
   
-  <li>Terrestrial Network Overview</li>
+     <li><a href="index.html">Satellite Network Overview</a> &raquo;</li>
+  
+  <li>Clock Drift Compensation</li>
 
 
   <li class="wy-breadcrumbs-aside">
@@ -342,90 +344,116 @@
   
            <div itemprop="articleBody">
              
-  <section id="terrestrial-network-overview">
-<span id="hubble-terrestrial-introduction"></span><h1>Terrestrial Network Overview<a class="headerlink" href="#terrestrial-network-overview" title="Link to this heading"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
-<p>The Hubble Terrestrial Network is the name Hubble uses for its network built on
-Bluetooth® Low Energy (BLE). It is a framework designed to provide secure and
-efficient communication within a Bluetooth Low Energy (BLE) environment.
-Advanced encryption techniques and Bluetooth technology protect data
-integrity and privacy across distributed systems. The Hubble Terrestrial API, defined
-in the <strong>hubble/ble.h</strong> header file, provides a comprehensive set of functions
-for initializing, configuring, and managing network operations.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>While this network is called the <em>Hubble Terrestrial Network</em>, the SDK code
-and APIs use the <code class="docutils literal notranslate"><span class="pre">ble</span></code> namespace for it. Terrestrial functions, types, and
-configuration options carry a <code class="docutils literal notranslate"><span class="pre">ble</span></code> marker — for example the
-<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_ble_advertise_get()</span></code> function, the <code class="docutils literal notranslate"><span class="pre">hubble/ble.h</span></code> header, and
-the <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_BLE_NETWORK</span></code> option — reflecting the Bluetooth Low
-Energy technology the network is built on.</p>
-</div>
-<section id="key-features">
-<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
-<section id="secure-communication">
-<h4>Secure Communication<a class="headerlink" href="#secure-communication" title="Link to this heading"></a></h4>
-<p>The Hubble Terrestrial Network uses a 128 or 256-bit encryption key to safeguard all
-transmitted data, minimizing the risk of unauthorized access and data
-breaches. See <a class="reference internal" href="../security/cryptography.html#hubble-ble-security"><span class="std std-ref">Cryptographic Overview</span></a></p>
-</section>
-<section id="time-synchronization">
-<h4>Time Synchronization<a class="headerlink" href="#time-synchronization" title="Link to this heading"></a></h4>
-<p>Functions are available to initialize the network with the current time and
-update it as needed. This ensures that all nodes remain synchronized, which
-facilitates coordinated operations and data consistency. See <a class="reference internal" href="../best-practices/time-management.html#hubble-timing"><span class="std std-ref">Time Management</span></a>
-for best practices on provisioning time and accounting for clock drift.</p>
-</section>
-<section id="advertisement-management">
-<h4>Advertisement Management<a class="headerlink" href="#advertisement-management" title="Link to this heading"></a></h4>
-<p>The Hubble Terrestrial Network API processes input data to generate Bluetooth advertisements.
-These advertisements are essential for device discovery and communication
-within the BLE network. The API returns platform-specific pointers to the
-generated advertisements, allowing for seamless integration with various
-hardware and software platforms.</p>
-</section>
-</section>
-</section>
-<section id="api-overview">
-<h2>API Overview<a class="headerlink" href="#api-overview" title="Link to this heading"></a></h2>
-<section id="initialization">
-<h3>Initialization<a class="headerlink" href="#initialization" title="Link to this heading"></a></h3>
-<p>Initialize the network with the current Unix time before calling other Hubble
-Terrestrial API functions. The <code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> function sets up the required
-configurations and prepares the network for operation:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_init</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">initial_time</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">);</span>
+  <section id="clock-drift-compensation">
+<span id="hubble-satellite-clock-drift"></span><h1>Clock Drift Compensation<a class="headerlink" href="#clock-drift-compensation" title="Link to this heading"></a></h1>
+<p>For reliability modes with retries, the SDK may add extra transmissions to
+account for estimated clock drift since the last time synchronization. The drift
+estimate is based on <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR</span></code> in parts per
+million (PPM).</p>
+<p>The SDK computes the elapsed time since the last time sync, estimates drift, and
+adds one retry for each full retransmission interval of drift. This widens the
+effective transmission coverage when the device clock may be early or late.</p>
+<p>Pass prediction also accounts for drift by starting the calculated transmission
+window earlier. Keep Unix time synchronized when possible to reduce unnecessary
+extra retries.</p>
+<section id="understanding-ppm">
+<h2>Understanding PPM<a class="headerlink" href="#understanding-ppm" title="Link to this heading"></a></h2>
+<p>PPM (parts per million) is the maximum frequency deviation of an oscillator from
+its nominal frequency. A clock rated at 50 PPM can drift at most 50 microseconds
+per second, which accumulates to:</p>
+<ul class="simple">
+<li><p>50 ms per 1,000 seconds (~17 minutes)</p></li>
+<li><p>180 ms per hour</p></li>
+<li><p>4.3 seconds per day</p></li>
+</ul>
+<p>The SDK uses <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR</span></code> to estimate the total
+accumulated drift since the last time synchronization:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>drift_ms = (elapsed_since_last_sync_ms × TDR_ppm) / 1,000,000
 </pre></div>
 </div>
-</section>
-<section id="time-management">
-<h3>Time Management<a class="headerlink" href="#time-management" title="Link to this heading"></a></h3>
-<p>The API provides functions to set and update the Unix time (milliseconds since the
-Unix epoch). The <cite>hubble_time_set</cite> function enables precise time
-synchronization throughout the network:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_time_set</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">unix_time</span><span class="p">);</span>
+<p>One additional retry is then added for each full retransmission interval covered
+by that drift. For example, with <code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NORMAL</span></code> (20-second
+interval) and a 100 PPM clock that has not synced for 3 hours:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>drift_ms           = 10,800,000 ms × 100 / 1,000,000 = 1,080 ms
+additional_retries = 1,080 ms / 20,000 ms            = 0
 </pre></div>
 </div>
-</section>
-<section id="encryption-key-management">
-<h3>Encryption Key Management<a class="headerlink" href="#encryption-key-management" title="Link to this heading"></a></h3>
-<p>An encryption key secures all network communication. The
-<cite>hubble_key_set</cite> function configures this key for ongoing network
-operations:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_key_set</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">);</span>
+<p>At 30 hours without a sync:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>drift_ms           = 108,000,000 ms × 100 / 1,000,000 = 10,800 ms
+additional_retries = 10,800 ms / 20,000 ms            = 0  (rounds down)
 </pre></div>
 </div>
-</section>
-<section id="advertisement-retrieval">
-<h3>Advertisement Retrieval<a class="headerlink" href="#advertisement-retrieval" title="Link to this heading"></a></h3>
-<p>The <cite>hubble_ble_advertise_get</cite> function processes input data to create
-Bluetooth advertisements, a critical step in enabling device discovery and
-interaction within the network:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_ble_advertise_get</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">input_len</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_len</span><span class="p">);</span>
+<p>At 56 hours without a sync:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>drift_ms           = 201,600,000 ms × 100 / 1,000,000 = 20,160 ms
+additional_retries = 20,160 ms / 20,000 ms            = 1
 </pre></div>
 </div>
-<p>The full API is documented in the <a class="reference internal" href="../api/ble.html#hubble-ble-api"><span class="std std-ref">BLE Network API</span></a> reference.</p>
+<p>For most devices syncing time at least once per day, drift compensation adds
+zero or one extra retries. Higher-PPM oscillators or longer sync gaps produce
+more extra retries.</p>
+<section id="maximum-additional-retries">
+<h3>Maximum Additional Retries<a class="headerlink" href="#maximum-additional-retries" title="Link to this heading"></a></h3>
+<p>Two caps bound the total number of retries:</p>
+<ul class="simple">
+<li><p>The drift estimate is capped at <strong>90 minutes</strong> regardless of how long the
+device has gone without a time sync.</p></li>
+<li><p>The total retry count (baseline + additional) is capped to 90 min / retry interval.</p></li>
+</ul>
+<p>In practice these ceilings are only reached by high-PPM oscillators that have
+not synchronized time for many days. At 100 PPM, reaching 90 minutes of
+accumulated drift requires roughly 625 days without a sync.</p>
 </section>
+</section>
+<section id="finding-the-tdr-for-your-hardware">
+<h2>Finding the TDR for Your Hardware<a class="headerlink" href="#finding-the-tdr-for-your-hardware" title="Link to this heading"></a></h2>
+<p>The Time Drift Rate (TDR) value to configure comes directly from the oscillator
+used as the device clock source. The typical lookup path is:</p>
+<ol class="arabic simple">
+<li><p><strong>Identify the clock source.</strong> Check the board schematic or SoC reference
+manual to find which oscillator drives the timekeeping peripheral (RTC or
+low-frequency oscillator). It is usually a 32.768 kHz crystal or, for
+lower-cost designs, an internal RC oscillator.</p></li>
+<li><p><strong>Read the datasheet.</strong> Open the crystal or oscillator datasheet and look
+for the <strong>frequency accuracy</strong> or <strong>frequency tolerance</strong> specification,
+typically in a table labelled <em>Electrical Characteristics</em> or <em>AC
+Characteristics</em>. The value is expressed as ±X ppm over a stated temperature
+and supply-voltage range.</p></li>
+<li><p><strong>Use the worst-case figure.</strong> Datasheets often list both an initial
+tolerance at room temperature and a wider tolerance over the full operating
+temperature range. Use the larger value.</p></li>
+</ol>
+<p>Typical ranges by oscillator type:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Oscillator type</p></th>
+<th class="head"><p>Typical PPM</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TCXO (temperature-compensated crystal)</p></td>
+<td><p>0.5 – 5</p></td>
+<td><p>Best accuracy; used in communication-grade designs</p></td>
+</tr>
+<tr class="row-odd"><td><p>External crystal (XTAL)</p></td>
+<td><p>10 – 100</p></td>
+<td><p>Most common; check datasheet for your specific part</p></td>
+</tr>
+<tr class="row-even"><td><p>Internal RC oscillator</p></td>
+<td><p>200 – 5,000</p></td>
+<td><p>Factory calibration at room temperature only; degrades with temperature</p></td>
+</tr>
+</tbody>
+</table>
+<p>If you cannot obtain the exact figure, use a conservative (higher) estimate.
+Underestimating PPM causes the device to transmit fewer extra retries than
+needed, which reduces delivery probability when the clock has drifted
+significantly.</p>
 </section>
 </section>
 
@@ -434,8 +462,8 @@ interaction within the network:</p>
           </div>
 
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../architecture/project-organization.html" class="btn btn-neutral float-left" title="Project Organization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../satellite/index.html" class="btn btn-neutral float-right" title="Satellite Network Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="reliability.html" class="btn btn-neutral float-left" title="Reliability and Power Consumption" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="board-support.html" class="btn btn-neutral float-right" title="Supporting New Boards" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
