@@ -8,6 +8,12 @@ This guide explains how to integrate the Hubble Device SDK into an
 project. The SDK ships as an ESP-IDF component that can be pulled into any
 ESP-IDF application via ``EXTRA_COMPONENT_DIRS``.
 
+.. seealso::
+
+   This page covers ESP-IDF SDK setup and component integration. For a complete,
+   end-to-end **satellite dual-stack** application on ESP32 hardware — pass
+   prediction, BLE beaconing, and RF verification — see the
+   :ref:`esp_idf_integration_guide`.
 
 Prerequisites
 *************
