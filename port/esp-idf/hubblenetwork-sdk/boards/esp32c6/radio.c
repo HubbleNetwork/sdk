@@ -279,7 +279,7 @@ int hubble_sat_board_packet_send(const struct hubble_sat_packet_frames *packet)
 	xSemaphoreTake(_transmit_sem, portMAX_DELAY);
 	xSemaphoreTake(_symbol_sem, 0); /* Reset semaphore */
 
-	for (uint8_t i = 0; i < packet->total_number_of_symbols; i++) {
+	for (size_t i = 0; i < packet->total_number_of_symbols; i++) {
 		uint16_t step;
 		uint8_t data_pos = i % HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE;
 
