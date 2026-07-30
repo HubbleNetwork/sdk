@@ -351,12 +351,11 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, const void *payload,
 	 * due lfsr7 state.
 	 */
 	memcpy(&symbols[ret], rs_symbols, ecc * sizeof(int));
+	packet->length = payload_len + ecc;
 
-	for (uint8_t i = 0; i < payload_len + ecc; i++) {
+	for (size_t i = 0; i < packet->length; i++) {
 		packet->data[i] = symbols[i];
 	}
-
-	packet->length = payload_len + ecc;
 
 #undef _CHECK_RET
 
@@ -459,7 +458,7 @@ int hubble_sat_packet_frames_get(const struct hubble_sat_packet *packet,
 	ret = _whitening(channel, (uint8_t *)symbols, packet->length);
 	_CHECK_RET(ret);
 
-	for (uint8_t i = 0; i < packet->length; i++) {
+	for (size_t i = 0; i < packet->length; i++) {
 		if ((frame_pos % HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE) == 0) {
 			frame_pos = 0;
 			frames_size++;
