@@ -1,0 +1,24 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Hubble SDK CodeQL config"
+
+# The SDK has no standalone build: its sources are only ever compiled as part of
+# a sample or a test application. Those builds therefore drag in the whole
+# Zephyr tree / ESP-IDF tree, which CodeQL extracts as well. Restrict reporting
+# to code that actually lives in this repository.
+paths:
+  - include
+  - port
+  - samples
+  - src
+  - tests
+  - tools
+
+paths-ignore:
+  # Vendor-generated radio configuration tables, not hand-written code.
+  - port/freertos/boards/ti/cc23xx_cc27xx/radio_config
+  - docs
+
+queries:
+  - uses: security-extended

@@ -1,0 +1,159 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+name: CodeQL
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
+
+jobs:
+  cpp-zephyr:
+    name: Analyze C/C++ (Zephyr samples + tests)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Setup Zephyr project (SDK + modules)
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          # west.yml lives at the repo root
+          app-path: .
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: c-cpp
+          build-mode: manual
+          config-file: ./.github/codeql/codeql-config.yaml
+
+      - name: Build Zephyr tests and samples
+        env:
+          ZEPHYR_TOOLCHAIN_VARIANT: zephyr
+          USE_CCACHE: "0"
+        run: |
+          set -euxo pipefail
+          west twister -T tests/zephyr --build-only \
+            --quarantine-list tools/ci/twister-quarantine.yaml \
+            --outdir twister-out-tests
+          west twister -T samples/zephyr/sat-continuous/ -T samples/zephyr/ble-beacon \
+            --build-only --quarantine-list tools/ci/twister-quarantine.yaml \
+            --outdir twister-out-samples
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:c-cpp/build:zephyr"
+          output: sarif-results
+
+  cpp-esp-idf:
+    name: Analyze C/C++ (ESP-IDF samples)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      # Also gives the SARIF filter step a pip-installable interpreter; the
+      # system python3 on the runner is externally managed.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install ESP-IDF
+        run: |
+          set -euxo pipefail
+          git clone --depth 1 --recursive \
+            https://github.com/espressif/esp-idf.git "$HOME/esp-idf"
+          "$HOME/esp-idf/install.sh" esp32c6
+
+      - name: Generate key and time
+        run: |
+          set -euxo pipefail
+          echo -n "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" > master.key
+          python3 tools/embed_key_time.py -b master.key \
+            -o samples/esp-idf/ble-beacon/main/
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: c-cpp
+          build-mode: manual
+          config-file: ./.github/codeql/codeql-config.yaml
+
+      - name: Build ESP-IDF samples
+        run: |
+          set -euxo pipefail
+          # shellcheck disable=SC1091
+          . "$HOME/esp-idf/export.sh"
+          pip install idf-build-apps
+          idf-build-apps build \
+            -p samples/esp-idf \
+            --recursive \
+            --target esp32c6 \
+            --manifest-file tools/ci/esp-idf-build-manifest.yaml
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:c-cpp/build:esp-idf"
+          output: sarif-results
+
+  # CI helper scripts under tools/ - no build step required.
+  python:
+    name: Analyze Python
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: python
+          build-mode: none
+          config-file: ./.github/codeql/codeql-config.yaml
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:python"
