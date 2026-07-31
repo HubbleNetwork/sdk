@@ -60,7 +60,7 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 	psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
 	psa_mac_operation_t operation = PSA_MAC_OPERATION_INIT;
 
-	psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_SIGN_HASH);
+	psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_SIGN_MESSAGE);
 	psa_set_key_type(&attributes, PSA_KEY_TYPE_AES);
 	psa_set_key_algorithm(&attributes, PSA_ALG_CMAC);
 	psa_set_key_bits(&attributes, HUBBLE_KEY_SIZE_BITS);
