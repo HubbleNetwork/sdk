@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Detect changed areas
         id: filter
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           filters: |
             zephyr:
@@ -84,7 +84,7 @@ jobs:
           echo "reviewer=$reviewer" >> "$GITHUB_OUTPUT"
 
       - name: Assign PR
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const assignee = "${{ steps.pick.outputs.assignee }}"
@@ -99,7 +99,7 @@ jobs:
             });
 
       - name: Assign reviewers PR
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const author = context.payload.pull_request.user.login;
