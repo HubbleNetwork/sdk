@@ -6,15 +6,10 @@ module-str = HubbleNetwork
 source "subsys/logging/Kconfig.template.log_config"
 
 config HUBBLE_SAT_NETWORK
-	bool "Hubble Satellite Network Library [PRE-PRODUCTION]"
-	select EXPERIMENTAL
+	bool "Hubble Satellite Network Library"
 	select ENTROPY_GENERATOR
 	help
 	  Enable the satellite communication module.
-
-	  This feature is in pre-production. APIs and behavior
-	  may change in future releases. Not recommended for
-	  production deployments.
 
 if HUBBLE_SAT_NETWORK
 

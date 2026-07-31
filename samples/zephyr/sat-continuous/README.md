@@ -9,10 +9,6 @@ The sample uses the **device uptime** counter source
 provisioned: the EID counter used for encryption starts at 0 and advances with
 device uptime. Only the master key has to be embedded before building.
 
-> [!NOTE]
-> Satellite functionality is pre-production and not yet ready for production
-> deployments.
-
 ## Requirements
 
 - A cryptographic key provided by Hubble Network.

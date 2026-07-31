@@ -74,7 +74,7 @@ Additional Resources
        <li class="grid-item">
 	   <a href="satellite/index.html">
                <span class="grid-icon fa fa-wifi"></span>
-	       <h2>Satellite Network (Pre-Production)</h2>
+	       <h2>Satellite Network</h2>
 	   </a>
 	   <p>Satellite Network, build &amp; run a sample application</p>
        </li>
