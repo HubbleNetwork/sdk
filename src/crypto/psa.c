@@ -89,7 +89,7 @@ mac_setup_error:
 	psa_destroy_key(key_id);
 
 import_key_error:
-	return status == PSA_SUCCESS ? 0 : -EINVAL;
+	return _psa_status_to_errno(status);
 }
 
 int hubble_crypto_aes_ctr(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
@@ -139,7 +139,7 @@ cipher_iv_error:
 cipher_setup_error:
 	(void)psa_destroy_key(key_id);
 import_key_error:
-	return status == PSA_SUCCESS ? 0 : -EINVAL;
+	return _psa_status_to_errno(status);
 }
 
 void hubble_crypto_zeroize(void *buf, size_t len)
