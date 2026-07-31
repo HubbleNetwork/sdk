@@ -26,11 +26,6 @@ and BLE communication.
 Satellite Module
 ================
 
-.. warning::
-
-   The satellite module is currently in **pre-production** and is not yet ready
-   for production deployments.
-
 Provides APIs to transmit data to the Hubble Network. Because satellite
 communication relies on Hubble Network, this module assumes ownership of the
 target radio and possibly other devices when in use.

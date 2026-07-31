@@ -27,12 +27,10 @@ config HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME
 endchoice
 
 menuconfig HUBBLE_SAT_NETWORK
-	   bool "Hubble Satellite Network Library [PRE-PRODUCTION]"
+	   bool "Hubble Satellite Network Library"
 	   select ESP_PHY_ENABLE_CERT_TEST
 	   help
 		Enable library for communication with Hubble network.
-		This feature is in pre-production and is not yet ready
-		for production deployments.
 
 if HUBBLE_SAT_NETWORK
 
