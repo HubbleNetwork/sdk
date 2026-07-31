@@ -6,18 +6,17 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nordic nRF Connect SDK Integration Guide &mdash; Hubble Device SDK Documentation</title>
+  <title>ESP-IDF Integration Guide &mdash; Hubble Device SDK Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=5f22eee8" />
-      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
 
   
     <link rel="shortcut icon" href="../../_static/hubble.png"/>
-    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/integration_guides/ncs/index.html" />
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/main/integration_guides/esp-idf/index.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=2709fde1"></script>
@@ -31,12 +30,11 @@
       <script>let toggleOpenOnPrint = 'true';</script>
       <script src="../../_static/togglebutton.js?v=b8b12719"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-      <script src="../../_static/tabs.js?v=3030b3cb"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="TI SimpleLink Integration Guide" href="../ti/index.html" />
-    <link rel="prev" title="Integration Guides" href="../index.html" />
+    <link rel="next" title="Best Practices" href="../../best-practices/index.html" />
+    <link rel="prev" title="TI SimpleLink Integration Guide" href="../ti/index.html" />
   <meta name="docs-base-path" content="/hubble-device-sdk/">
   <meta name="color-scheme" content="dark light">
   
@@ -182,20 +180,20 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guides</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Nordic nRF Connect SDK Integration Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#create-your-hubble-account">Create your Hubble Account</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sdk-setup">SDK Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#board-bring-up">Board Bring-Up</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#project-configuration">Project Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#building-and-flashing">Building and Flashing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#verifying-the-application">Verifying the Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ti/index.html">TI SimpleLink Integration Guide</a><ul>
@@ -213,19 +211,19 @@
 <li class="toctree-l3"><a class="reference internal" href="../ti/index.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#sdk-setup">SDK Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#project-configuration">Project Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -347,7 +345,7 @@
   
      <li><a href="../index.html">Integration Guides</a> &raquo;</li>
   
-  <li>Nordic nRF Connect SDK Integration Guide</li>
+  <li>ESP-IDF Integration Guide</li>
 
 
   <li class="wy-breadcrumbs-aside">
@@ -363,56 +361,38 @@
   
            <div itemprop="articleBody">
              
-  <section id="nordic-nrf-connect-sdk-integration-guide">
-<span id="ncs-integration-guide"></span><h1>Nordic nRF Connect SDK Integration Guide<a class="headerlink" href="#nordic-nrf-connect-sdk-integration-guide" title="Link to this heading"></a></h1>
+  <section id="esp-idf-integration-guide">
+<span id="id1"></span><h1>ESP-IDF Integration Guide<a class="headerlink" href="#esp-idf-integration-guide" title="Link to this heading"></a></h1>
 <p>This guide walks through integrating the Hubble Network dual-stack Satellite
-and BLE application with the <a class="reference external" href="https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/index.html">nRF Connect SDK</a> (NCS).
-NCS is Nordic Semiconductor’s production-ready SDK built on top of the Zephyr
-RTOS, and is the recommended platform for Nordic nRF52, nRF53, and nRF54 Series
-devices.</p>
+and BLE application with <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/index.html">Espressif’s IoT Development Framework</a> (ESP-IDF).</p>
 <p>By the end of this guide you will know how to:</p>
 <ul class="simple">
 <li><p>Integrate the Hubble Satellite and Terrestrial (BLE) network stacks into an
-NCS application.</p></li>
+ESP-IDF application.</p></li>
 <li><p>Obtain ephemeris data and use pass prediction to schedule satellite
 transmissions.</p></li>
-<li><p>Transmit data to the Hubble satellite network from a Nordic device.</p></li>
+<li><p>Transmit data to the Hubble satellite network from an ESP32 device.</p></li>
 </ul>
-<section id="supported-ncs-version-and-boards">
-<h2>Supported NCS Version and Boards<a class="headerlink" href="#supported-ncs-version-and-boards" title="Link to this heading"></a></h2>
-<p>The Hubble Device SDK currently supports <strong>NCS v3.4.0</strong>. If you require
+<section id="supported-devices-and-sdk-version">
+<h2>Supported Devices and SDK Version<a class="headerlink" href="#supported-devices-and-sdk-version" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK currently supports <strong>ESP-IDF v6.0</strong>. If you require
 support for a different version, <a class="reference external" href="mailto:support&#37;&#52;&#48;hubble&#46;com">contact us</a>.</p>
-<p>Nordic nRF52, nRF53, and nRF54 Series SoCs are supported. The SDK includes
-board API implementations for the following development kits out of the box:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 50.0%" />
-<col style="width: 25.0%" />
-<col style="width: 25.0%" />
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Board</p></th>
-<th class="head"><p>Target</p></th>
-<th class="head"><p>SoC Family</p></th>
+<tr class="row-odd"><th class="head"><p>SoC</p></th>
+<th class="head"><p>Notes</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>nRF21540 DK</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">nrf21540dk/nrf52840</span></code></p></td>
-<td><p>nRF52</p></td>
-</tr>
-<tr class="row-odd"><td><p>Nordic Thingy:53</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">thingy53/nrf5340/cpunet</span></code></p></td>
-<td><p>nRF53</p></td>
-</tr>
-<tr class="row-even"><td><p>nRF54L15 DK</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">nrf54l15dk/nrf54l15/cpuapp</span></code></p></td>
-<td><p>nRF54</p></td>
+<tr class="row-even"><td><p>ESP32-C6</p></td>
+<td><p>RISC-V, 20 dBm integrated PA</p></td>
 </tr>
 </tbody>
 </table>
-<p>For custom boards, refer to the <a class="reference internal" href="#ncs-sat-board-bringup"><span class="std std-ref">board bring-up</span></a>
-section.</p>
 </section>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
@@ -444,240 +424,100 @@ orbital parameters for pass prediction.</p>
 </section>
 <section id="sdk-setup">
 <h2>SDK Setup<a class="headerlink" href="#sdk-setup" title="Link to this heading"></a></h2>
-<section id="install-the-ncs-toolchain">
-<h3>Install the NCS Toolchain<a class="headerlink" href="#install-the-ncs-toolchain" title="Link to this heading"></a></h3>
-<p>Follow the <a class="reference external" href="https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/installation/install_ncs.html">NCS installation guide</a> to install the NCS toolchain and
-all required dependencies before proceeding.</p>
-</section>
-<section id="add-hubble-network-to-an-existing-ncs-project">
-<h3>Add Hubble Network to an Existing NCS Project<a class="headerlink" href="#add-hubble-network-to-an-existing-ncs-project" title="Link to this heading"></a></h3>
-<p>If you already have an NCS workspace, add the Hubble Device SDK as a West
-module by including the following in your project’s sub-manifest or
-<code class="docutils literal notranslate"><span class="pre">west.yml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">manifest</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">remotes</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubble</span>
-<span class="w">      </span><span class="nt">url-base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/HubbleNetwork</span>
-<span class="w">  </span><span class="nt">projects</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubblenetwork-sdk</span>
-<span class="w">      </span><span class="nt">repo-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubble-device-sdk</span>
-<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"> </span><span class="c1"># replace with a release tag for production use</span>
-<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">modules/lib/hubblenetwork-sdk</span>
-<span class="w">      </span><span class="nt">remote</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hubble</span>
-</pre></div>
-</div>
-<p>Then run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>update<span class="w"> </span>hubblenetwork-sdk
+<section id="install-esp-idf">
+<h3>Install ESP-IDF<a class="headerlink" href="#install-esp-idf" title="Link to this heading"></a></h3>
+<p>Follow the <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/get-started/index.html">ESP-IDF Getting Started guide</a> to install ESP-IDF v6.0 and all
+required dependencies. Once installed, source the export script to set up the
+environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="w"> </span><span class="nv">$IDF_PATH</span>/export.sh
 </pre></div>
 </div>
 </section>
-<section id="initialize-a-new-workspace">
-<h3>Initialize a New Workspace<a class="headerlink" href="#initialize-a-new-workspace" title="Link to this heading"></a></h3>
-<p>To start a fresh workspace with Hubble Network as the manifest repository:</p>
-<div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Terminal</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">VS Code</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Use the <code class="docutils literal notranslate"><span class="pre">west-ncs.yml</span></code> to import NCS:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>init<span class="w"> </span>-m<span class="w"> </span>git@github.com:HubbleNetwork/hubble-device-sdk.git<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--mf<span class="w"> </span>west-ncs.yml<span class="w"> </span>~/hubblenetwork-workspace
-<span class="nb">cd</span><span class="w"> </span>~/hubblenetwork-workspace
-west<span class="w"> </span>update
+<section id="clone-the-hubble-device-sdk">
+<h3>Clone the Hubble Device SDK<a class="headerlink" href="#clone-the-hubble-device-sdk" title="Link to this heading"></a></h3>
+<p>Clone the SDK alongside your application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HubbleNetwork/hubble-device-sdk.git
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><ol class="arabic simple">
-<li><p>Install the <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=nordic-semiconductor.nrf-connect-extension-pack">nRF Connect Extension Pack</a> for VS Code.</p></li>
-<li><p>Open the <strong>nRF Connect</strong> sidebar and navigate to
-<strong>nRF Connect SDK Add-ons</strong> → <strong>Create a new application</strong> →
-<strong>Browse nRF Connect SDK Add-on Index</strong>.</p></li>
-<li><p>Search for <strong>Hubble Device SDK</strong>.</p></li>
-<li><p>Alternatively, open the <a class="reference external" href="https://nrfconnect.github.io/ncs-app-index/">nRF Connect SDK Add-ons index</a>
-in your browser → search for <strong>Hubble Device SDK</strong>.</p></li>
-<li><p>Click <strong>Open in nRF Connect for VS Code</strong> to import the workspace
-directly into VS Code.</p></li>
+</section>
+<section id="add-the-hubble-port-as-an-esp-idf-component">
+<h3>Add the Hubble Port as an ESP-IDF Component<a class="headerlink" href="#add-the-hubble-port-as-an-esp-idf-component" title="Link to this heading"></a></h3>
+<p>Register the ESP-IDF port as a component by setting <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>
+in your application’s <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">EXTRA_COMPONENT_DIRS</span><span class="w"> </span><span class="s">/path/to/hubble-device-sdk/port/esp-idf/</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="o">$ENV{</span><span class="nv">IDF_PATH</span><span class="o">}</span><span class="s">/tools/cmake/project.cmake</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">your-app</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">C</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">samples/esp-idf/sat-dual-stack/CMakeLists.txt</span></code> for a complete reference.</p>
+</section>
+<section id="fetch-the-satellite-phy-blob-esp32-c6">
+<span id="esp-idf-sat-phy-blob"></span><h3>Fetch the Satellite PHY Blob (ESP32-C6)<a class="headerlink" href="#fetch-the-satellite-phy-blob-esp32-c6" title="Link to this heading"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Satellite Network module requires a PHY library blob from Espressif
+that is currently in Early Access (EA). The <code class="docutils literal notranslate"><span class="pre">libphy</span></code> shipped with
+ESP-IDF does <strong>not</strong> include this API yet and must be swapped in manually
+before building.</p>
+</div>
+<ol class="arabic">
+<li><p>Download the Espressif PHY blob:</p>
+<p><a class="reference external" href="https://dl.espressif.com/AE/libphy_C6_20260317_c83212e%20(2).zip">libphy_C6_20260317_c83212e.zip</a></p>
+</li>
+<li><p>Unzip and copy the extracted <code class="docutils literal notranslate"><span class="pre">*.a</span></code> files into your ESP-IDF installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">&quot;libphy_C6_20260317_c83212e.zip&quot;</span>
+cp<span class="w"> </span>*.a<span class="w"> </span><span class="nv">$IDF_PATH</span>/components/esp_phy/lib/esp32c6/
+</pre></div>
+</div>
+</li>
 </ol>
-</div></div>
-</section>
-<section id="fetch-the-satellite-radio-blobs">
-<h3>Fetch the Satellite Radio Blobs<a class="headerlink" href="#fetch-the-satellite-radio-blobs" title="Link to this heading"></a></h3>
-<p>The satellite radio port for Nordic SoCs relies on prebuilt libraries
-distributed as West blobs. These are required for the satellite stack to
-build and must be fetched explicitly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>blobs<span class="w"> </span>fetch<span class="w"> </span>hubblenetwork-sdk
-</pre></div>
-</div>
-<p>The blobs are placed under <code class="docutils literal notranslate"><span class="pre">modules/lib/hubblenetwork-sdk/zephyr/blobs/</span></code>
-and linked automatically when <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK=y</span></code> is set for a
-supported Nordic board.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you skip this step, the build will fail with a missing library error
-when <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK=y</span></code> is enabled.</p>
-</div>
-</section>
-</section>
-<section id="board-bring-up">
-<span id="ncs-sat-board-bringup"></span><h2>Board Bring-Up<a class="headerlink" href="#board-bring-up" title="Link to this heading"></a></h2>
-<p>If you are using one of the supported development kits from the
-<a class="reference internal" href="#supported-ncs-version-and-boards">Supported NCS Version and Boards</a> section, skip ahead to
-<a class="reference internal" href="#ncs-sat-project-config"><span class="std std-ref">Project Configuration</span></a>.</p>
-<p>For custom boards, this section walks through implementing the satellite
-board API using the nRF21540 DK as a concrete example. If your board does
-not yet have a Zephyr board definition, follow the
-<a class="reference external" href="https://docs.zephyrproject.org/latest/hardware/porting/board_porting.html">Zephyr board porting guide</a> first before proceeding.</p>
-<p>The full board API contract and integration checklist are documented in
-<a class="reference internal" href="../../satellite/board-support.html#board-support"><span class="std std-ref">Supporting New Boards</span></a>. This section focuses on the NCS/Zephyr path.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>nRF53 (dual-core) boards:</strong> The nRF5340 has a dedicated network core
-(Cortex-M33) for radio activity and an application core for application
-logic. The satellite and BLE radio stacks run on the network core, while
-your application runs on the application core. Communication between the
-two cores requires IPC.</p>
-<p>When building for an nRF53 target, use <code class="docutils literal notranslate"><span class="pre">sysbuild</span></code> to compile both cores’
-firmware in a single build invocation. For a complete dual-core project
-structure with IPC wiring and application/network core split, see the
-<a class="reference external" href="https://github.com/HubbleNetwork/hubble-reference-thingy53">Hubble Thingy:53 reference application</a>.</p>
-</div>
-<section id="implementing-the-board-api">
-<h3>Implementing the Board API<a class="headerlink" href="#implementing-the-board-api" title="Link to this heading"></a></h3>
-<p>Create a <code class="docutils literal notranslate"><span class="pre">.c</span></code> file for your board and implement the four functions declared
-in <code class="docutils literal notranslate"><span class="pre">port/zephyr/sat_board.h</span></code>. The nRF21540 DK implementation at
-<code class="docutils literal notranslate"><span class="pre">port/zephyr/boards/nordic/nrf52/nrf21540dk.c</span></code> is used as the reference
-throughout.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>A common FEM implementation uses generic two-pin PA/LNA control, such as
-a Skyworks SKY66112-11 or similar. See
-<code class="docutils literal notranslate"><span class="pre">port/zephyr/boards/nordic/nrf52/fem.c</span></code> for a reference on how these
-routines are implemented.</p>
-</div>
-<section id="hubble-sat-board-init">
-<h4><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_init()</span></code><a class="headerlink" href="#hubble-sat-board-init" title="Link to this heading"></a></h4>
-<p>Called once during SDK initialization. Initialize your board hardware here:
-GPIOs, PA/FEM configuration, and any static power defaults:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_sat_board_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="cm">/* Initialize your board hardware here, e.g. PA/FEM GPIOs. */</span>
-<span class="w">    </span><span class="n">hubble_board_fem_setup</span><span class="p">();</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="hubble-sat-board-enable">
-<h4><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_enable()</span></code><a class="headerlink" href="#hubble-sat-board-enable" title="Link to this heading"></a></h4>
-<p>Called before each transmission window. Enable your board’s RF components,
-setting power to the right level (+20 dBm) before handing off to the SoC layer:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_sat_board_enable</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="cm">/* Enable your board hardware here */</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">hubble_sat_soc_enable</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="hubble-sat-board-disable">
-<h4><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_disable()</span></code><a class="headerlink" href="#hubble-sat-board-disable" title="Link to this heading"></a></h4>
-<p>Called after each transmission window. Disable your RF components and return
-the board to its idle state:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_sat_board_disable</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="cm">/* Disable your board hardware here */</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">hubble_sat_soc_disable</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="hubble-sat-board-packet-send">
-<h4><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_packet_send()</span></code><a class="headerlink" href="#hubble-sat-board-packet-send" title="Link to this heading"></a></h4>
-<p>Called by the SDK for each transmission, including retries. Enable the PA/FEM
-path before transmission and put it back to sleep/bypass afterwards:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_sat_board_packet_send</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">hubble_sat_packet_frames</span><span class="w"> </span><span class="o">*</span><span class="n">packet</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-
-<span class="w">    </span><span class="cm">/* Enable your PA/FEM before transmitting. */</span>
-<span class="w">    </span><span class="n">board_fem_enable</span><span class="p">();</span>
-
-<span class="w">    </span><span class="cm">/*</span>
-<span class="cm">     * Optional: default power for each SoC is 0 dBm,</span>
-<span class="cm">     * however, the board may and can set the SoC radio power</span>
-<span class="cm">     * to a higher level supported by the SoC based on the gain</span>
-<span class="cm">     * of the PA/FEM to reach +20 dBm output.</span>
-<span class="cm">     * e.g. nrf_radio_txpower_set(NRF_RADIO, desired_power_level);</span>
-<span class="cm">     */</span>
-<span class="w">    </span><span class="n">board_fem_set_power_level</span><span class="p">(</span><span class="n">desired_power_level</span><span class="p">);</span>
-
-<span class="w">    </span><span class="cm">/* Call the SoC layer to handle packet transmission */</span>
-<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_soc_packet_send</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="cm">/* Handle error */</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="cm">/* Optional: if power level was set, restore previous power level */</span>
-<span class="w">    </span><span class="n">board_fem_set_power_level</span><span class="p">(</span><span class="n">previous_power_level</span><span class="p">);</span>
-
-<span class="w">    </span><span class="cm">/* Return PA/FEM to sleep/bypass after transmission. */</span>
-<span class="w">    </span><span class="n">board_fem_sleep</span><span class="p">();</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="register-the-board-in-the-build-system">
-<h3>Register the Board in the Build System<a class="headerlink" href="#register-the-board-in-the-build-system" title="Link to this heading"></a></h3>
-<p>Your board source file, which includes the PA/FEM setup routines and the
-board API implementation above, must be registered with the Zephyr build
-system. This can be done from within the SDK’s <code class="docutils literal notranslate"><span class="pre">port/zephyr/boards/</span></code>
-directory or from within your application’s own source tree as an out-of-tree
-module.</p>
-<p>Conditioned on your board’s Kconfig symbol, add the following to the relevant
-<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>. Using the nRF21540 DK as an example:</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">CONFIG_BOARD_NRF21540DK_NRF52840</span><span class="p">)</span>
-<span class="w">    </span><span class="nb">zephyr_include_directories</span><span class="p">(</span>
-<span class="w">        </span><span class="o">${</span><span class="nv">ZEPHYR_BASE</span><span class="o">}</span><span class="s">/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="w">    </span><span class="nb">zephyr_library_sources</span><span class="p">(</span><span class="s">fem.c</span><span class="p">)</span>
-<span class="w">    </span><span class="nb">zephyr_library_sources</span><span class="p">(</span><span class="s">nrf21540dk.c</span><span class="p">)</span>
-<span class="nb">endif</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">CONFIG_BOARD_NRF21540DK_NRF52840</span></code> with the Kconfig symbol for your
-board (<code class="docutils literal notranslate"><span class="pre">CONFIG_BOARD_&lt;YOUR_BOARD&gt;</span></code>), and list your FEM and board source
-files accordingly. The prebuilt satellite radio blob for the SoC family is
-linked automatically by the existing SDK SoC <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<p>This step is temporary. Once Espressif ships the API upstream, the blob swap
+will no longer be needed.</p>
 </section>
 </section>
 <section id="project-configuration">
-<span id="ncs-sat-project-config"></span><h2>Project Configuration<a class="headerlink" href="#project-configuration" title="Link to this heading"></a></h2>
-<p>Enable the Hubble dual-stack by adding the following to your <code class="docutils literal notranslate"><span class="pre">prj.conf</span></code>:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span>CONFIG_HUBBLE_BLE_NETWORK=y
+<span id="esp-idf-sat-project-config"></span><h2>Project Configuration<a class="headerlink" href="#project-configuration" title="Link to this heading"></a></h2>
+<section id="sdkconfig-defaults">
+<h3>sdkconfig.defaults<a class="headerlink" href="#sdkconfig-defaults" title="Link to this heading"></a></h3>
+<p>Enable the Hubble dual-stack by adding the following to your
+<code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code>:</p>
+<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hubble Network</span>
+CONFIG_HUBBLE_BLE_NETWORK=y
 CONFIG_HUBBLE_SAT_NETWORK=y
 
 <span class="c1"># Set to your oscillator&#39;s PPM rating (check your crystal datasheet)</span>
 CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR=10
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR</span></code> sets the clock drift rate of your
-oscillator in parts per million (PPM). Configuring this correctly ensures the
-SDK adds the right number of retransmissions to compensate for accumulated
-clock drift since the last time sync. An incorrect value reduces satellite
-delivery probability. See <a class="reference internal" href="../../satellite/clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for a detailed
-explanation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR</span></code> sets the clock drift rate in parts
+per million (PPM). See <a class="reference internal" href="../../satellite/clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for details.</p>
 <p>For the full set of available options, see <a class="reference internal" href="../../configuration/index.html#hubble-configuration"><span class="std std-ref">Configuration Options</span></a>.</p>
 <p>Other common options for a dual-stack application:</p>
 <div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bluetooth</span>
-CONFIG_BT=y
-CONFIG_BT_PERIPHERAL=y
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
 
-<span class="c1"># Satellite pass windows can be 12+ hours away,</span>
-<span class="c1"># so we need a 64-bit timeout to avoid overflow.</span>
-CONFIG_TIMEOUT_64BIT=y
+<span class="c1"># Hubble uses legacy advertising, not extended advertising</span>
+CONFIG_BT_NIMBLE_50_FEATURE_SUPPORT=n
 
-<span class="c1"># Optional: enable FPU if supported</span>
-CONFIG_FPU=y
+<span class="c1"># Optional: enable logging</span>
+CONFIG_LOG_VERSION_2=y
 </pre></div>
 </div>
+</section>
+<section id="register-application-components">
+<h3>Register Application Components<a class="headerlink" href="#register-application-components" title="Link to this heading"></a></h3>
+<p>In your <code class="docutils literal notranslate"><span class="pre">main/CMakeLists.txt</span></code>, declare the required component dependencies:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">idf_component_register</span><span class="p">(</span><span class="s">SRCS</span><span class="w"> </span><span class="o">${</span><span class="nv">YOUR_APP_SOURCES</span><span class="o">}</span>
+<span class="w">                       </span><span class="s">PRIV_REQUIRES</span><span class="w"> </span><span class="s">bt</span><span class="w"> </span><span class="s">nvs_flash</span><span class="w"> </span><span class="s">esp_timer</span><span class="w"> </span><span class="s">hubblenetwork-sdk</span>
+<span class="w">                       </span><span class="s">INCLUDE_DIRS</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">bt</span></code> and <code class="docutils literal notranslate"><span class="pre">hubblenetwork-sdk</span></code> are required for the dual-stack. <code class="docutils literal notranslate"><span class="pre">nvs_flash</span></code>
+is required by NimBLE. <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code> is used in the reference sample for pass
+scheduling, however, any timer peripheral works.</p>
+</section>
 </section>
 <section id="preparing-for-satellite-transmission">
 <h2>Preparing for Satellite Transmission<a class="headerlink" href="#preparing-for-satellite-transmission" title="Link to this heading"></a></h2>
@@ -763,6 +603,29 @@ stack or temporary buffer.</p></li>
 prediction is used. The SDK stores a pointer and does not copy the array.</p></li>
 </ul>
 </div>
+<p>On ESP-IDF, <code class="docutils literal notranslate"><span class="pre">nvs_flash_init()</span></code> must be called before initializing the NimBLE
+stack and registering GATT characteristics and services:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* NVS flash init, dependency of NimBLE stack */</span>
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvs_flash_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ESP_ERR_NVS_NO_FREE_PAGES</span><span class="w"> </span><span class="o">||</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ESP_ERR_NVS_NEW_VERSION_FOUND</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">nvs_flash_erase</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvs_flash_init</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">ESP_ERROR_CHECK</span><span class="p">(</span><span class="n">ret</span><span class="p">);</span>
+
+<span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nimble_port_init</span><span class="p">();</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ESP_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">BLE_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to init NimBLE (rc=%d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Call your BLE setup function here. For example:</span>
+<span class="cm"> * Register GATT services, configs, callbacks, NimBLE host task, etc.</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
 </section>
 <section id="the-pass-prediction-loop">
 <h2>The Pass Prediction Loop<a class="headerlink" href="#the-pass-prediction-loop" title="Link to this heading"></a></h2>
@@ -799,17 +662,17 @@ progress, skip it and compute the next one by searching from after its end
 </section>
 <section id="beacon-over-ble-while-waiting">
 <h3>Beacon over BLE While Waiting<a class="headerlink" href="#beacon-over-ble-while-waiting" title="Link to this heading"></a></h3>
-<p>Start a timer for the pass window and begin BLE advertising while the device
-waits:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">k_timer_start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sat_timer</span><span class="p">,</span><span class="w"> </span><span class="n">K_MSEC</span><span class="p">(</span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">now_ms</span><span class="p">),</span>
-<span class="w">              </span><span class="n">K_NO_WAIT</span><span class="p">);</span>
+<p>Schedule a one-shot timer for the pass window and start BLE advertising while
+the device waits. The example below uses <code class="docutils literal notranslate"><span class="pre">esp_timer</span></code>; any timer peripheral
+that can schedule a future callback works equally well.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sat_wait_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">now_ms</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">US_PER_MS</span><span class="p">;</span>
+<span class="n">esp_timer_start_once</span><span class="p">(</span><span class="n">_sat_timer</span><span class="p">,</span><span class="w"> </span><span class="n">sat_wait_us</span><span class="p">);</span>
 
 <span class="cm">/*</span>
-<span class="cm"> * Enable Bluetooth by calling bt_enable(), get the Hubble beacon</span>
-<span class="cm"> * payload via hubble_ble_advertise_get() and start BLE advertising</span>
-<span class="cm"> * with bt_le_adv_start().</span>
+<span class="cm"> * Get the Hubble beacon payload using hubble_ble_advertise_get()</span>
+<span class="cm"> * and start BLE advertising with ble_gap_adv_start().</span>
 <span class="cm"> */</span>
-<span class="n">start_ble_advertising</span><span class="p">();</span>
+<span class="n">ble_adv_start</span><span class="p">();</span>
 
 <span class="cm">/*</span>
 <span class="cm"> * Block and wait until the pass timer fires. Common approaches are</span>
@@ -818,29 +681,25 @@ waits:</p>
 <span class="n">block_until_timer_expires</span><span class="p">();</span>
 </pre></div>
 </div>
-<p>The timer callback signals the waiting thread when the pass window is overhead.</p>
+<p>The timer callback signals the waiting task when the pass window is overhead.</p>
 </section>
 <section id="transmit-to-the-satellite">
 <h3>Transmit to the Satellite<a class="headerlink" href="#transmit-to-the-satellite" title="Link to this heading"></a></h3>
-<p>Before transmitting, the BLE stack must be fully stopped to release the radio.
-Call <code class="docutils literal notranslate"><span class="pre">bt_le_adv_stop()</span></code> to stop advertising, then <code class="docutils literal notranslate"><span class="pre">bt_disable()</span></code> to
-disable the Bluetooth stack entirely. The satellite radio requires exclusive
-access to the radio hardware:</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="cm">/* Stop advertising and disable BLE to release the radio. */</span>
-<span class="w">    </span><span class="n">bt_le_adv_stop</span><span class="p">();</span>
-<span class="w">    </span><span class="n">bt_disable</span><span class="p">();</span>
+<p>Stop advertising, then build and send the packet:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="cm">/* Stop advertising to release the radio. */</span>
+<span class="w">    </span><span class="n">ble_gap_adv_stop</span><span class="p">();</span>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to build packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to build packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="cm">/* Blocking call, retries are handled internally by the SDK */</span>
+<span class="w">    </span><span class="cm">/* Blocking call. Retries are handled internally by the SDK */</span>
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">HUBBLE_SAT_RELIABILITY_NORMAL</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to send packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to send packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span><span class="w"> </span><span class="cm">/* end while loop, back to compute the next pass, re-enable bluetooth, and beacon */</span>
 </pre></div>
@@ -853,60 +712,62 @@ their effect on power consumption.</p>
 </section>
 <section id="building-and-flashing">
 <h2>Building and Flashing<a class="headerlink" href="#building-and-flashing" title="Link to this heading"></a></h2>
-<p>Build your application with the <code class="docutils literal notranslate"><span class="pre">ncs-dual-stack</span></code> snippet. This snippet is
-required for all NCS applications using the Hubble dual-stack. It enables
-the Multiprotocol Service Layer (MPSL) for BLE and satellite radio coexistence:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>build<span class="w"> </span>-p<span class="w"> </span>-b<span class="w"> </span>&lt;your_board&gt;<span class="w"> </span>&lt;your_app&gt;<span class="w"> </span>-S<span class="w"> </span>ncs-dual-stack
-west<span class="w"> </span>flash
+<p>Set the target, build, flash, and open the serial monitor:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>idf.py<span class="w"> </span>set-target<span class="w"> </span>esp32c6
+idf.py<span class="w"> </span>build<span class="w"> </span>flash<span class="w"> </span>monitor
 </pre></div>
 </div>
 </section>
 <section id="verifying-the-application">
 <h2>Verifying the Application<a class="headerlink" href="#verifying-the-application" title="Link to this heading"></a></h2>
-<p>Enable the Hubble Device SDK logging by adding the following to <code class="docutils literal notranslate"><span class="pre">prj.conf</span></code>:</p>
-<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span>CONFIG_LOG=y
-CONFIG_HUBBLE_LOG_LEVEL_DBG=y
+<section id="expected-log-output">
+<h3>Expected Log Output<a class="headerlink" href="#expected-log-output" title="Link to this heading"></a></h3>
+<p>Enable logging by adding the following to your <code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code>:</p>
+<div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span>CONFIG_LOG_VERSION_2=y
 </pre></div>
 </div>
-<p>Open a serial terminal to the device at 115200 baud (e.g. <code class="docutils literal notranslate"><span class="pre">nrfutil</span></code>,
-<code class="docutils literal notranslate"><span class="pre">minicom</span></code> or any serial terminal application).</p>
-<section id="expected-sdk-log-output">
-<h3>Expected SDK Log Output<a class="headerlink" href="#expected-sdk-log-output" title="Link to this heading"></a></h3>
 <p>After a successful <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> call, the SDK logs:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;inf&gt; hubblenetwork: Hubble Device SDK initialized
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>I (xxx) hubblenetwork: Hubble Device SDK initialized (HDCV:1.0/E:256/CS:UT/RP:S86400/N:TS/TV:0/SV:0)
 </pre></div>
 </div>
-<p>At debug level, once pass prediction runs and a transmission is scheduled, you
-will see the retry count computed from your TDR setting and the time elapsed
-since the last sync:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;dbg&gt; hubblenetwork: Time drift since last sync: 20000 ms
-&lt;dbg&gt; hubblenetwork: Number of additional retries due TDR: 1
-&lt;dbg&gt; hubblenetwork: Number of retries: 9 - interval: 20 seconds
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using ESP-IDF Log v1 (<code class="docutils literal notranslate"><span class="pre">CONFIG_LOG_VERSION_1=y</span></code>), the log level prefix
+and timestamp are omitted and only the plain message appears, e.g.:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Hubble Device SDK initialized (HDCV:1.0/E:256/CS:UT/RP:S86400/N:TS/TV:0/SV:0)
 </pre></div>
 </div>
-<p>After <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> completes the full transmission
-sequence:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;inf&gt; hubblenetwork: Hubble Satellite packet sent
+</div>
+<p>At debug level, once pass prediction runs and a transmission is scheduled:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>D (xxx) hubblenetwork: Time drift since last sync: 20000 ms
+D (xxx) hubblenetwork: Number of additional retries due TDR: 1
+D (xxx) hubblenetwork: Number of retries: 9 - interval: 20 seconds
 </pre></div>
 </div>
-<p>If this line appears without any preceding <code class="docutils literal notranslate"><span class="pre">&lt;err&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span></code> from the
-<code class="docutils literal notranslate"><span class="pre">hubblenetwork</span></code> module, the device has successfully transmitted to the
-satellite network. For RF-level verification using an SDR, see
-<a class="reference internal" href="#ncs-sat-next-steps"><span class="std std-ref">Next Steps</span></a>.</p>
+<p>After <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> completes:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>I (xxx) hubblenetwork: Hubble Satellite packet sent
+</pre></div>
+</div>
+<p>If this line appears without any preceding error from the <code class="docutils literal notranslate"><span class="pre">hubblenetwork</span></code>
+tag, the device has successfully transmitted to the satellite network.</p>
+</section>
+<section id="verify-ble">
+<h3>Verify BLE<a class="headerlink" href="#verify-ble" title="Link to this heading"></a></h3>
+<p>Use the SDK’s scan script to confirm BLE advertising is working:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools/requirements-scan.txt
+python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="verify-satellite-rf">
+<h3>Verify Satellite RF<a class="headerlink" href="#verify-satellite-rf" title="Link to this heading"></a></h3>
+<p>To verify the satellite RF output before a live pass, use an ADALM-PLUTO SDR
+and the <code class="docutils literal notranslate"><span class="pre">pyhubblenetwork</span></code> scan tool. See the <strong>RF Verification with an SDR</strong>
+section in <strong>Next Steps</strong> below for full instructions.</p>
 </section>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
-<section id="build-fails-with-missing-library">
-<h3>Build fails with missing library<a class="headerlink" href="#build-fails-with-missing-library" title="Link to this heading"></a></h3>
-<p><strong>Symptom:</strong> Linker error referencing a missing <code class="docutils literal notranslate"><span class="pre">hubblenetwork</span></code> or satellite
-radio library.</p>
-<p><strong>Cause:</strong> West blobs were not fetched.</p>
-<p><strong>Fix:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>west<span class="w"> </span>blobs<span class="w"> </span>fetch<span class="w"> </span>hubblenetwork-sdk
-</pre></div>
-</div>
-</section>
 <section id="hubble-init-returns-an-error">
 <h3><code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> returns an error<a class="headerlink" href="#hubble-init-returns-an-error" title="Link to this heading"></a></h3>
 <p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">Unix</span> <span class="pre">Epoch</span> <span class="pre">time</span></code></p>
@@ -947,26 +808,22 @@ orbits before returning.</p>
 <p><strong>Fix:</strong> Confirm <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> is in <strong>milliseconds</strong> and that
 <code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code> and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> hold the actual device coordinates.</p>
 </section>
-<section id="transmission-fails">
-<h3>Transmission fails<a class="headerlink" href="#transmission-fails" title="Link to this heading"></a></h3>
-<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">packet</span> <span class="pre">transmission</span> <span class="pre">failed</span></code></p>
-<p><strong>Cause:</strong> The board API returned an error from
-<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_packet_send()</span></code>, or the BLE stack was still active
-when <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> was called.</p>
-<p><strong>Fix:</strong> Ensure <code class="docutils literal notranslate"><span class="pre">bt_le_adv_stop()</span></code> and <code class="docutils literal notranslate"><span class="pre">bt_disable()</span></code> are called before
-<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code>. If the error comes from the board API,
-check your PA/FEM GPIO sequencing in
-<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_packet_send()</span></code>.</p>
-<p>—</p>
-<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;err&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">Network</span> <span class="pre">initialization</span> <span class="pre">failed</span></code></p>
-<p><strong>Cause:</strong> <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_init()</span></code> returned an error during SDK
-initialization, common cause is the board init failed.</p>
-<p><strong>Fix:</strong> Check the return value of <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_board_init()</span></code> in your
-board implementation.</p>
+<section id="build-fails-with-missing-phy-symbols">
+<h3>Build fails with missing PHY symbols<a class="headerlink" href="#build-fails-with-missing-phy-symbols" title="Link to this heading"></a></h3>
+<p><strong>Symptom:</strong> Linker error referencing undefined symbols.</p>
+<p><strong>Cause:</strong> The EA PHY blob was not swapped into the ESP-IDF installation.</p>
+<p><strong>Fix:</strong> Follow the <a class="reference internal" href="#esp-idf-sat-phy-blob"><span class="std std-ref">Fetch the Satellite PHY Blob (ESP32-C6)</span></a> steps in the SDK Setup section.</p>
+</section>
+<section id="nimble-fails-to-initialize">
+<h3>NimBLE fails to initialize<a class="headerlink" href="#nimble-fails-to-initialize" title="Link to this heading"></a></h3>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">nimble_port_init()</span></code> returns an error.</p>
+<p><strong>Cause:</strong> <code class="docutils literal notranslate"><span class="pre">nvs_flash_init()</span></code> was not called before initializing the NimBLE
+stack.</p>
+<p><strong>Fix:</strong> Ensure <code class="docutils literal notranslate"><span class="pre">nvs_flash_init()</span></code> is called before <code class="docutils literal notranslate"><span class="pre">nimble_port_init()</span></code>.</p>
 </section>
 </section>
 <section id="next-steps">
-<span id="ncs-sat-next-steps"></span><h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<span id="esp-idf-sat-next-steps"></span><h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
 <section id="rf-verification-with-an-sdr">
 <h3>RF Verification with an SDR<a class="headerlink" href="#rf-verification-with-an-sdr" title="Link to this heading"></a></h3>
 <p>Before waiting for a live satellite pass, you can verify that your device is
@@ -1009,13 +866,12 @@ on the Hubble satellite network.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../../satellite/index.html#hubble-satellite-introduction"><span class="std std-ref">Satellite Network Overview</span></a>: satellite protocol details,
 reliability modes, and power trade-offs.</p></li>
-<li><p><a class="reference internal" href="../../best-practices/pass-prediction.html#hubble-pass-prediction-best-practices"><span class="std std-ref">Pass Prediction</span></a>: choosing pass options,
-interpreting pass results, and computing multiple upcoming passes.</p></li>
-<li><p><a class="reference internal" href="../../configuration/index.html#hubble-configuration"><span class="std std-ref">Configuration Options</span></a>: full Kconfig reference for all
+<li><p><a class="reference internal" href="../../configuration/index.html#hubble-configuration"><span class="std std-ref">Configuration Options</span></a>: full configuration reference for all
 <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_*</span></code> options.</p></li>
 <li><p><a class="reference internal" href="../../best-practices/time-management.html#hubble-timing"><span class="std std-ref">Time Management</span></a>: time management best practices for devices
 with and without a real-time clock.</p></li>
-<li><p><a class="reference internal" href="../../satellite/board-support.html#board-support"><span class="std std-ref">Supporting New Boards</span></a>: full board API contract and integration checklist.</p></li>
+<li><p><a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/index.html">Espressif’s IoT Development Framework</a>: ESP-IDF documentation,
+examples, and API reference.</p></li>
 </ul>
 </section>
 </section>
@@ -1026,8 +882,8 @@ with and without a real-time clock.</p></li>
           </div>
 
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Integration Guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../ti/index.html" class="btn btn-neutral float-right" title="TI SimpleLink Integration Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../ti/index.html" class="btn btn-neutral float-left" title="TI SimpleLink Integration Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../best-practices/index.html" class="btn btn-neutral float-right" title="Best Practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
