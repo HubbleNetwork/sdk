@@ -255,7 +255,8 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, const void *payload,
 	struct hubble_bitarray bit_array;
 	int symbols[HUBBLE_PACKET_MAX_SIZE] = {0};
 	int *rs_symbols;
-	uint8_t payload_len, ecc;
+	int8_t ecc;
+	uint8_t payload_len;
 	uint8_t auth_tag[HUBBLE_AUTH_TAG_SIZE / HUBBLE_BITS_PER_BYTE];
 	uint8_t out[HUBBLE_PAYLOAD_MAX_SIZE] = {0};
 	uint16_t seq_no;
@@ -339,10 +340,8 @@ int hubble_sat_packet_get(struct hubble_sat_packet *packet, const void *payload,
 
 	/* generate error control symbols */
 	rse_gf_generate();
-	ret = _packet_payload_ecc_get(length);
-	_CHECK_RET(ret);
-
-	ecc = ret;
+	ecc = _packet_payload_ecc_get(length);
+	_CHECK_RET(ecc);
 
 	rse_poly_generate(ecc / 2);
 	rs_symbols = rse_rs_encode(symbols, ret, ecc / 2);
