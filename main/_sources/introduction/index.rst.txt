@@ -37,12 +37,6 @@ transmits the advertisements the SDK produces.
 Satellite Network
 =================
 
-.. warning::
-
-   The satellite functionality is currently in **pre-production** and is not yet
-   ready for production deployments. APIs and behavior may change in future
-   releases.
-
 The :ref:`Hubble Satellite Network <hubble_satellite_introduction>` lets devices
 send short messages directly to Hubble's satellites, extending connectivity
 beyond terrestrial coverage. The application decides *when* to transmit —
