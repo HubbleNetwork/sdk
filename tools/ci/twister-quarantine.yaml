@@ -13,4 +13,5 @@
     - ble.nonce
     - ble.counter
     - satellite.api.counter.mbedtls
+    - sat.packet.unit.mbedtls
   comment: "mbedTLS APIs not available since Zephyr 4.4.0"

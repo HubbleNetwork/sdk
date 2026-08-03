@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+common:
+  # Some test platforms fail because they don't enable the random subsys.
+  platform_allow:
+    - native_sim
+    - native_sim/native/64
+  tags:
+    - satellite
+    - packet
+    - crypto
+    - unit
+
+tests:
+  sat.packet.unit.mbedtls:
+    extra_configs:
+      - CONFIG_HUBBLE_NETWORK_CRYPTO_MBEDTLS=y
+
+  sat.packet.unit.psa:
+    extra_configs:
+      - CONFIG_HUBBLE_NETWORK_CRYPTO_PSA=y
