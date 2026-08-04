@@ -143,6 +143,7 @@ Satellite Network APIs:
 - :c:func:`hubble_sat_satellites_set` — configure orbital parameters
 - :c:func:`hubble_sat_next_pass_get` — predict the next pass over a point
 - :c:func:`hubble_sat_next_pass_region_get` — predict the next pass over a region
+  (**experimental**)
 - :c:func:`hubble_sat_min_elevation_angle_set` — set the minimum pass elevation
 - :c:func:`hubble_sat_dtm_packet_send`,
   :c:func:`hubble_sat_dtm_power_set`,
