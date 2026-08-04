@@ -154,6 +154,8 @@ int hubble_sat_next_pass_get(uint64_t t, const struct hubble_sat_device_pos *pos
  * rectangular geographic region defined by latitude and longitude
  * bounds, based on satellites orbital parameters.
  *
+ * @experimental
+ *
  * @param t Current time or the time to start the calculation (milliseconds since Unix epoch).
  * @param region Pointer to the geographic region definition.
  * @param pass The next satellite pass in case of success.
