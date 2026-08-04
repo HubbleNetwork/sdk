@@ -16,6 +16,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <hubble/toolchain.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -157,6 +159,7 @@ int hubble_sat_next_pass_get(uint64_t t, const struct hubble_sat_device_pos *pos
  * @param pass The next satellite pass in case of success.
  * @return 0 on success or a negative value in case of error.
  */
+HUBBLE_EXPERIMENTAL
 int hubble_sat_next_pass_region_get(
 	uint64_t t, const struct hubble_sat_device_region *region,
 	struct hubble_sat_pass_info *pass);

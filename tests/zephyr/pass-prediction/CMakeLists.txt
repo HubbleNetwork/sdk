@@ -6,3 +6,7 @@ project(ephemeris)
 
 FILE(GLOB app_sources src/*.c)
 target_sources(app PRIVATE ${app_sources})
+
+# This test uses experimental API (marked HUBBLE_EXPERIMENTAL). Acknowledge
+# it so the test output stays clean.
+target_compile_definitions(app PRIVATE HUBBLE_SILENCE_EXPERIMENTAL_WARNINGS)
