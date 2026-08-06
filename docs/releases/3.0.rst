@@ -3,9 +3,7 @@
 Release 3.0.0
 #############
 
-**Status**: Release Candidate (``v3.0.0-rc1``)
-
-**Release Date**: TBD
+**Release Date**: August 06, 2026
 
 Release 3.0.0 is a major release focused on the **Satellite Network**. It
 matures the satellite pass-prediction pipeline, introduces a Direct Test Mode
