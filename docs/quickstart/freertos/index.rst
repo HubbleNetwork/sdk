@@ -15,6 +15,8 @@ Prerequisites
 
 - FreeRTOS installed and configured for your platform.
 - A working build system (e.g., Makefile-based).
+- Device ``key`` (generated when you register a new device to your organization
+  through the Hubble Cloud API).
 
 
 Adding Hubble Network to FreeRTOS

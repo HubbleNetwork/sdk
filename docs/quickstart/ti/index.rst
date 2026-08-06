@@ -32,6 +32,8 @@ Prerequisites
 - `TI ARM LLVM Compiler <https://www.ti.com/tool/CCSTUDIO>`_ installed.
 - SysConfig CLI tool (``sysconfig_cli.sh`` / ``sysconfig_cli.bat``) available.
 - The Hubble Device SDK cloned or added as a submodule.
+- Device ``key`` (generated when you register a new device to your organization
+  through the Hubble Cloud API).
 
 Set the following environment variables before building:
 
