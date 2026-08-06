@@ -13,6 +13,22 @@ Network. Designed for developers who want a straightforward and reliable way to
 harness Hubble’s powerful capabilities, this SDK provides a suite of tools and
 libraries that make it easy to interact with all of Hubble’s services.
 
+Create your Hubble Account
+**************************
+
+To register a device on the network, you'll need a Hubble account — sign up for
+free at `dash.hubble.com <https://dash.hubble.com/create-account>`_ if you don't
+already have one.
+
+From there you can `register a device
+<https://hubble.com/docs/guides/cloud-integration/register-devices>`_ and start
+receiving its data over the cloud.
+
+* In the Dashboard: Use "Add a Device" to generate a device key.
+* Via API: Use the `Cloud API
+  <https://hubble.com/docs/api-specification/hubble-platform-api>`_, with an API
+  token and Org ID from your Dashboard.
+
 Using Hubble Device SDK
 ************************
 
