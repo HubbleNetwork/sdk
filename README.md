@@ -41,7 +41,7 @@ Get started by signing up for your **Hubble Dashboard** for free: [dash.hubble.c
 |---|---|
 | **Sign Up or Sign In** | [dash.hubble.com](https://dash.hubble.com) |
 | **Terrestrial Coverage** | [network.hubble.com](https://network.hubble.com/) |
-| **Device SDK Documentation** | [hubble.com/docs/device-sdk/intro](https://hubble.com/docs/device-sdk/intro) |
+| **Device SDK Documentation** | [hubblenetwork.github.io/hubble-device-sdk/main](https://hubblenetwork.github.io/hubble-device-sdk/main/) |
 | **Cloud API Reference** | [hubble.com/docs/api-specification/hubble-platform-api](https://hubble.com/docs/api-specification/hubble-platform-api) |
 | **Network & Security** | [hubble.com/docs/security/network](https://hubble.com/docs/security/network) |
 | **How Terrestrial Network Works** | [hubble.com/docs/network/terrestrial/how-it-works](https://hubble.com/docs/network/terrestrial/how-it-works) |
