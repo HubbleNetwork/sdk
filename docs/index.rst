@@ -94,6 +94,13 @@ Additional Resources
 	   </a>
 	   <p>Satellite Network, build &amp; run a sample application</p>
        </li>
+       <li class="grid-item">
+	   <a href="https://dash.hubble.com">
+               <span class="grid-icon grid-icon-hubble"></span>
+	       <h2>Hubble Dashboard</h2>
+	   </a>
+	   <p>Register devices, view device data, manage users, setup your backend integration.</p>
+       </li>
    </ul>
 
 .. toctree::
