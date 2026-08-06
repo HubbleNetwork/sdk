@@ -24,6 +24,8 @@ Prerequisites
   with a Bluetooth® Low Energy controller supported by ESP-IDF. The Satellite
   Network module currently targets the **ESP32-C6**.
 - The Hubble Device SDK cloned or added to your project as a Git submodule.
+- Device ``key`` (generated when you register a new device to your organization
+  through the Hubble Cloud API).
 
 
 Adding Hubble Network to an ESP-IDF Project
