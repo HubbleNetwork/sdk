@@ -9,7 +9,7 @@ from pathlib import Path
 # -- Project information -----------------------------------------------------
 
 project = "Hubble Device SDK"
-copyright = "2025, Hubble Network, Inc"
+copyright = "2025-2026, Hubble Network, Inc"
 author = "HubbleNetwork"
 release = "0.1"
 
