@@ -166,8 +166,9 @@ a C source file with hard-coded satellite parameters and build it into the
 application. The ``tools/orbital_params_fetch.py`` helper fetches current
 orbital parameters from the Hubble API and writes ``sat_params.c``.
 
-Set ``HUBBLE_API_TOKEN`` to a Hubble API bearer token, then run the tool from the
-SDK repository:
+Set ``HUBBLE_API_TOKEN`` to a Hubble API bearer token (create one in the
+`Hubble Dashboard <https://dash.hubble.com/developer/api-tokens>`_), then run
+the tool from the SDK repository:
 
 .. code-block:: console
 
