@@ -254,7 +254,8 @@ rotating.
 
 Typical workflow:
 
-1. Provision the Hubble key.
+1. Provision the Hubble key (see `Register devices
+   <https://hubble.com/docs/guides/cloud-integration/register-devices>`_).
 2. Initialize the SDK with the initial value required by the selected counter
    source.
 3. Build an advertisement, optionally with customer data.
