@@ -1297,6 +1297,22 @@ dark-mode-toggle::part(toggleLabel){
     color: var(--grid-icons-color);
 }
 
+/* Image-based grid icon. The image is used as a mask and painted with
+ * currentColor so it follows the light/dark theme and the hover color
+ * just like the font icons.
+ */
+.grid-icon-hubble {
+    display: inline-block;
+    width: 3rem;
+    /* The font icons occupy a 3rem/1.5 line box, so match that height to keep
+     * the heading below the icon aligned with the other cards.
+     */
+    height: calc(3rem * 1.5);
+    background-color: currentColor;
+    -webkit-mask: url("../images/hubble.png") no-repeat center / contain;
+    mask: url("../images/hubble.png") no-repeat center / contain;
+}
+
 .lastupdated {
     font-weight: 200;
     font-size: 0.9rem;

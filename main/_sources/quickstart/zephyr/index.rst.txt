@@ -171,6 +171,13 @@ Once the workspace is set up using either approach above, the system is ready
 to use Hubble Network. The following commands demonstrate how to build and
 flash a BLE Network application.
 
+Prerequisites
+-------------
+
+- Device ``key`` (generated when you register a new device to your organization
+  through the Hubble Cloud API).
+
+
 Build the application
 ---------------------
 
