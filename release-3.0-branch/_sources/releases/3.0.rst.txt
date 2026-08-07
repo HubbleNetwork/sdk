@@ -1,0 +1,174 @@
+.. _release_3_0_0:
+
+Release 3.0.0
+#############
+
+**Release Date**: August 06, 2026
+
+Release 3.0.0 is a major release focused on the **Satellite Network**. It
+matures the satellite pass-prediction pipeline, introduces a Direct Test Mode
+(DTM) for RF bring-up, and adds broad new platform and board support across
+Zephyr, FreeRTOS/TI, and ESP-IDF. With this release, the Satellite Network
+graduates to a production-ready, stable API, which drives the MAJOR version
+increment.
+
+Overview
+********
+
+The headline of 3.0.0 is a substantially more capable and correct Satellite
+Network. Pass prediction now reports the maximum elevation angle, pass start
+time, and pass duration, and lets applications filter passes by a configurable
+minimum elevation angle. A new Direct Test Mode exposes low-level transmit and
+continuous-wave controls for RF validation and certification. Satellite radio
+support has been added for TI CC27xx/CC23xx, Nordic nRF52/nRF53/nRF54 (including a
+SoftDevice-based path), Silicon Labs EFR32xG24, and Espressif ESP32-C6, and a
+full set of dual-stack, continuous, and DTM samples ships for each platform.
+
+As part of stabilizing the API, the pass-prediction functions were moved into
+the ``hubble_sat_`` namespace and now use milliseconds for all time values,
+aligning them with the rest of the SDK.
+
+Key Features
+************
+
+Satellite Pass Prediction
+=========================
+
+- Pass results now report richer information via ``struct hubble_sat_pass_info``:
+  the maximum elevation angle (``max_elevation_angle``), the pass start time
+  (``start``), and the pass duration (``duration``).
+- :c:func:`hubble_sat_min_elevation_angle_set` filters out passes whose peak
+  elevation is below a caller-defined angle, so applications only transmit when a
+  satellite is high enough in the sky.
+- All pass-prediction time values now use **milliseconds** since the Unix epoch,
+  consistent with the rest of the SDK time API.
+- Numerous accuracy and robustness improvements to the orbital-mechanics core,
+  including use of the sidereal day, refined pass culmination, corrected
+  longitude tolerance and range reduction, and underflow-safe altitude
+  computation. The math avoids linking ``libm`` by providing small internal
+  ``pow()`` and ``sin()`` implementations.
+
+Direct Test Mode (DTM)
+======================
+
+A new DTM interface (``hubble/sat/dtm.h``) supports RF bring-up, certification,
+and manufacturing test:
+
+- :c:func:`hubble_sat_dtm_packet_send` — transmit a single test packet of a
+  chosen payload pattern (``HUBBLE_SAT_DTM_PACKET_SINGLE_FRAME``, ``_0``, ``_4``,
+  ``_9``, ``_13``) on a specific channel, or hop across channels.
+- :c:func:`hubble_sat_dtm_power_set` — set the transmit power.
+- :c:func:`hubble_sat_dtm_cw_start` / :c:func:`hubble_sat_dtm_cw_stop` — start and
+  stop a continuous-wave carrier on a given channel.
+- A "one frame only" mode (``HUBBLE_SAT_DTM_PACKET_ONE_FRAME_ONLY_LEN``)
+  transmits just the first frame of a packet.
+
+Clock Drift and Reliability
+===========================
+
+- Satellite packet keys are now derived from the configured counter source,
+  unifying key derivation across Unix-time and device-uptime modes.
+- Drift-based retry compensation uses the internal time-drift estimate; the
+  accumulated drift is clamped to 90 minutes to bound worst-case behavior.
+- The default device time-drift rate (``CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR``)
+  changed to **10 ppm**.
+
+Platform and Board Support
+==========================
+
+- **FreeRTOS / TI**: Satellite radio support for **CC27xx** and **CC23xx**;
+  DTM support; board files and radio flags driven through SysConfig.
+- **Zephyr / Nordic**: SoftDevice-based satellite implementation; dual-stack
+  support; DTM support.
+- **Zephyr / Silicon Labs**: Satellite radio support for **EFR32xG24**
+  using the RAIL radio abstraction; DTM support.
+- **ESP-IDF / Espressif**: **ESP32-C6** satellite support; the required PHY
+  library is selected automatically when the satellite network is enabled; DTM support.
+
+Terrestrial (BLE) Network
+=========================
+
+- :c:func:`hubble_init` now accepts a ``NULL`` key, deferring key configuration
+  to a later :c:func:`hubble_key_set` call.
+- New ``ble-beacon-mfg-data`` sample demonstrates advertising with manufacturer
+  data.
+
+Device Configuration Vector (HDCV)
+===================================
+
+A new Hubble Device Configuration Vector (HDCV) API reports a device's
+build-time configuration as a compact, versioned string, for example
+``HDCV:1.0/E:256/CS:UT/RP:S86400/N:T/TV:1``:
+
+- :c:func:`hubble_config_vector_get` returns this build's HDCV string. It
+  encodes key size, EID counter source and rotation period, and which
+  networks (terrestrial, satellite, or both) and protocol versions are
+  compiled in, so it can be logged, stored, or reported without any extra
+  configuration.
+- :c:func:`hubble_config_vector_check` compares a stored or reported HDCV
+  string against the running build's vector, letting an application
+  confirm a device is still configured as expected.
+
+Sample Applications
+*******************
+
+New samples shipping with 3.0.0:
+
+- **ESP-IDF**: ``sat-continuous``, ``sat-dtm``, and ``sat-dual-stack``.
+- **Zephyr**: ``sat-dual-stack``, ``sat-dtm``, ``sat-continuous`` (with board
+  overlays, including Silicon Labs xG24 dev boards), and ``ble-beacon-mfg-data``.
+- **FreeRTOS / TI**: ``sat-continuous``, ``sat-dtm``, and ``sat-dual-stack``.
+
+Documentation
+*************
+
+- New Satellite Network overview, plus dedicated reliability, clock-drift, and
+  board-support pages.
+- New platform integration guides for the Nordic nRF Connect SDK, TI SimpleLink,
+  and ESP-IDF.
+- Pass-prediction best-practices guide covering minimum elevation angle, reading
+  the pass result, and computing multiple upcoming passes.
+- Terrestrial Network overview and clarified BLE/terrestrial naming.
+
+API Highlights
+**************
+
+Satellite Network APIs:
+
+- :c:func:`hubble_sat_packet_get` — build a packet from payload bytes
+- :c:func:`hubble_sat_packet_frames_get` — split a packet into radio frames
+- :c:func:`hubble_sat_packet_send` — transmit a packet to satellite
+- :c:func:`hubble_sat_satellites_set` — configure orbital parameters
+- :c:func:`hubble_sat_next_pass_get` — predict the next pass over a point
+- :c:func:`hubble_sat_next_pass_region_get` — predict the next pass over a region
+  (**experimental**)
+- :c:func:`hubble_sat_min_elevation_angle_set` — set the minimum pass elevation
+- :c:func:`hubble_sat_dtm_packet_send`,
+  :c:func:`hubble_sat_dtm_power_set`,
+  :c:func:`hubble_sat_dtm_cw_start`,
+  :c:func:`hubble_sat_dtm_cw_stop` — Direct Test Mode controls
+
+Device Configuration Vector API:
+
+- :c:func:`hubble_config_vector_get` — get this build's HDCV string
+- :c:func:`hubble_config_vector_check` — check a device's HDCV against this
+  build's vector
+
+Compatibility
+*************
+
+- **API compatibility**: Both the BLE Terrestrial Network API and the Satellite
+  Network API are stable within the 3.x series.
+
+Testing
+*******
+
+This release has been validated through:
+
+- Unit tests for BLE advertisement generation and encryption
+- Unit tests for EID generation in both counter source modes
+- Satellite packet encoding, frame-splitting, and payload-length validation tests
+- Pass-prediction (ephemeris) unit tests
+- HDCV generation and matching, including mismatched, truncated, and malformed
+  vectors
+- Platform-specific CI builds: Zephyr, FreeRTOS (TI), ESP-IDF and NCS (nRF Connect SDK)

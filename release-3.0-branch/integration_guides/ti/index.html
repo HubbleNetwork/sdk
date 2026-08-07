@@ -1,0 +1,1030 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TI SimpleLink Integration Guide &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=d42fa807" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+
+  
+    <link rel="shortcut icon" href="../../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/integration_guides/ti/index.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ESP-IDF Integration Guide" href="../esp-idf/index.html" />
+    <link rel="prev" title="Nordic nRF Connect SDK Integration Guide" href="../ncs/index.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture/index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture/index.html#port-layer">Port Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/project-organization.html">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart/index.html">Platform Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Integration Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/ble.html">BLE Network API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/satellite.html">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/satellite.html#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/satellite.html#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../../index.html">Docs</a> &raquo;</li>
+  
+     <li><a href="../index.html">Integration Guides</a> &raquo;</li>
+  
+  <li>TI SimpleLink Integration Guide</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/integration_guides/ti/index.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="ti-simplelink-integration-guide">
+<span id="ti-integration-guide"></span><h1>TI SimpleLink Integration Guide<a class="headerlink" href="#ti-simplelink-integration-guide" title="Link to this heading"></a></h1>
+<p>This guide walks through integrating the Hubble Network dual-stack Satellite
+and BLE application with the <a class="reference external" href="https://www.ti.com/tool/download/SIMPLELINK-LOWPOWER-F3-SDK/">TI SimpleLink Low Power F3 SDK</a>.</p>
+<p>By the end of this guide you will know how to:</p>
+<ul class="simple">
+<li><p>Integrate the Hubble Satellite and Terrestrial (BLE) network stacks into a
+TI SimpleLink application.</p></li>
+<li><p>Obtain ephemeris data and use pass prediction to schedule satellite
+transmissions.</p></li>
+<li><p>Transmit data to the Hubble satellite network from a TI device.</p></li>
+</ul>
+<section id="supported-devices-and-sdk-version">
+<h2>Supported Devices and SDK Version<a class="headerlink" href="#supported-devices-and-sdk-version" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK currently supports <strong>SimpleLink Low Power F3 SDK v9.20</strong>.
+If you require support for a different version, <a class="reference external" href="mailto:support&#37;&#52;&#48;hubble&#46;com">contact us</a>.</p>
+<p>The following TI SimpleLink device families are supported:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>Family</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CC2340R5</p></td>
+<td><p>CC23xx</p></td>
+<td><p>Max 8 dBm; external amplifier required to reach 20 dBm</p></td>
+</tr>
+<tr class="row-odd"><td><p>CC2755P10</p></td>
+<td><p>CC27xx</p></td>
+<td><p>20 dBm integrated PA</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following toolchain versions are validated against
+<strong>SimpleLink Low Power F3 SDK v9.20.00.81</strong>. See the
+<a class="reference external" href="https://software-dl.ti.com/simplelink/esd/simplelink_lowpower_f3_sdk/9.20.00.81/exports/release_notes_simplelink_lowpower_f3_sdk_9_20_00_81.html">SimpleLink Low Power F3 SDK v9.20.00.81 release notes</a> for the full
+compatibility matrix. For other patch or build versions, refer to their
+respective release notes.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Code Composer Studio</p></td>
+<td><p>20.4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>TI ARM Clang Compiler</p></td>
+<td><p>4.0.4.LTS</p></td>
+</tr>
+<tr class="row-even"><td><p>SysConfig</p></td>
+<td><p>1.26.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>UniFlash</p></td>
+<td><p>9.5.0</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before starting, ensure you have the following:</p>
+<ul class="simple">
+<li><p><strong>A supported development kit or custom board</strong> with a PA or FEM capable of
+at least +20 dBm transmit output power. The Hubble satellite link budget
+requires this minimum output to reach the network reliably.</p></li>
+<li><p><strong>An antenna tuned to the Hubble satellite frequency band</strong>, connected to
+the RF output of the PA or FEM.</p></li>
+<li><p><strong>A Hubble account and API key</strong> to fetch ephemeris data for pass prediction.</p></li>
+<li><p><strong>ADALM-PLUTO SDR</strong> <em>(optional, recommended for custom board bring-up)</em>:
+used to verify RF output at the physical layer. Available from common
+distributors such as DigiKey and Mouser. See the <a class="reference external" href="https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html#eb-overview">ADALM-PLUTO product page</a>
+for details.</p></li>
+</ul>
+</section>
+<section id="create-your-hubble-account">
+<h2>Create your Hubble Account<a class="headerlink" href="#create-your-hubble-account" title="Link to this heading"></a></h2>
+<p>A Hubble account is required to access the Hubble Dashboard and generate an
+API key for fetching ephemeris data used in pass prediction.</p>
+<ol class="arabic simple">
+<li><p>Create an account at the <a class="reference external" href="https://dash.hubble.com/create-account">Hubble Dashboard</a>.</p></li>
+<li><p>Once logged in, follow the <a class="reference external" href="https://hubble.com/docs/api-specification/hubble-platform-api">Hubble Platform API documentation</a> to
+authenticate and generate your API key.</p></li>
+</ol>
+<p>Keep your API key accessible. It is used later in this guide when fetching
+orbital parameters for pass prediction.</p>
+</section>
+<section id="sdk-setup">
+<h2>SDK Setup<a class="headerlink" href="#sdk-setup" title="Link to this heading"></a></h2>
+<p>Clone the Hubble Device SDK:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HubbleNetwork/hubble-device-sdk.git
+</pre></div>
+</div>
+<section id="adding-the-hubble-device-sdk-to-sysconfig">
+<h3>Adding the Hubble Device SDK to SysConfig<a class="headerlink" href="#adding-the-hubble-device-sdk-to-sysconfig" title="Link to this heading"></a></h3>
+<p>The steps below cover both <strong>Code Composer Studio (CCS)</strong> and a
+Makefile-based workflow.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">CCS</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Makefile</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>If you do not have a CCS project yet, refer to the
+<a class="reference external" href="https://software-dl.ti.com/ccs/esd/documents/users_guide/ccs_getting-started.html#creating-a-new-ccstudio-ide-project">TI CCS Getting Started guide</a> for instructions on creating one.</p>
+<ol class="arabic">
+<li><p>Right-click your project folder and select <strong>Properties</strong>.</p></li>
+<li><p>Navigate to <strong>Build</strong> → <strong>Tools</strong> → <strong>SysConfig</strong>.</p></li>
+<li><p>In the <strong>SysConfig Flags</strong> field, append:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-s &quot;/path/to/hubble-device-sdk/.metadata/product.json&quot;
+</pre></div>
+</div>
+</li>
+<li><p>Click the checkmark to confirm, then <strong>Save and Close</strong>.</p></li>
+</ol>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>Set the following environment variables before building:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">TICLANG_ARMCOMPILER</span><span class="o">=</span>/path/to/ti-cgt-armllvm
+<span class="nb">export</span><span class="w"> </span><span class="nv">SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR</span><span class="o">=</span>/path/to/simplelink_lowpower_f3_sdk
+<span class="nb">export</span><span class="w"> </span><span class="nv">SYSCONFIG_TOOL</span><span class="o">=</span>/path/to/sysconfig_cli.sh
+<span class="nb">export</span><span class="w"> </span><span class="nv">HUBBLE_NETWORK_SDK</span><span class="o">=</span>/path/to/hubble-device-sdk
+</pre></div>
+</div>
+<p>Pass both product descriptors to the SysConfig CLI:</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">SYSCFG_CMD_STUB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>SYSCONFIG_TOOL<span class="k">)</span><span class="w"> </span>--compiler<span class="w"> </span>ticlang<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--product<span class="w"> </span><span class="k">$(</span>SIMPLELINK_LOWPOWER_F3_SDK_INSTALL_DIR<span class="k">)</span>/.metadata/product.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-s<span class="w"> </span><span class="k">$(</span>HUBBLE_NETWORK_SDK<span class="k">)</span>/.metadata/product.json
+</pre></div>
+</div>
+<p>Generate the configuration files into your build directory:</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">SYSCFG_FILES</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="k">$(</span>SYSCFG_CMD_STUB<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--listGeneratedFiles<span class="w"> </span>--listReferencedFiles<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="k">$(</span>BUILD_DIR<span class="k">)</span><span class="w"> </span>your-app.syscfg<span class="o">)</span>
+
+<span class="nv">SYSCFG_C_FILES</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>filter<span class="w"> </span>%.c,<span class="k">$(</span>SYSCFG_FILES<span class="k">))</span>
+<span class="nv">SYSCFG_H_FILES</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>filter<span class="w"> </span>%.h,<span class="k">$(</span>SYSCFG_FILES<span class="k">))</span>
+<span class="nv">SYSCFG_OPT_FILES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">$(</span>filter<span class="w"> </span>%.opt,<span class="k">$(</span>SYSCFG_FILES<span class="k">))</span>
+</pre></div>
+</div>
+<p>Pass the generated <code class="docutils literal notranslate"><span class="pre">.opt</span></code> files to the compiler:</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CFLAGS</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">$(</span>addprefix<span class="w"> </span>@,<span class="k">$(</span>SYSCFG_OPT_FILES<span class="k">))</span>
+</pre></div>
+</div>
+<p>Besides this, you will need to pull in the correct header and source files
+from TI SimpleLink. See <code class="docutils literal notranslate"><span class="pre">samples/freertos/ti/sat-dual-stack</span></code> for a complete
+reference Makefile for each target device.</p>
+</div></div>
+</section>
+</section>
+<section id="project-configuration">
+<span id="ti-sat-project-config"></span><h2>Project Configuration<a class="headerlink" href="#project-configuration" title="Link to this heading"></a></h2>
+<p>Enable the Hubble dual-stack functionality by adding Hubble configuration
+options to your project’s <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> file.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">CCS</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Makefile</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><ol class="arabic">
+<li><p>Double-click your project’s <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> file to open it in the
+SysConfig editor.</p></li>
+<li><p>In the left pane, scroll to the bottom and locate
+<strong>HUBBLE DEVICE SDK</strong>. Click <strong>+</strong> to add it.</p></li>
+<li><p>Check <strong>Enable Hubble Satellite Network</strong> and
+<strong>Enable Hubble Terrestrial Network</strong>.</p></li>
+<li><p>Set <strong>Device time drift retry rate in PPM</strong> to your oscillator’s
+PPM rating (check your crystal datasheet). See
+<a class="reference internal" href="../../satellite/clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for details.</p></li>
+<li><p><strong>Use FreeRTOS Daemon Hook</strong> is enabled by default to automatically
+set up the BLE and satellite stacks. If you disable it, you must call
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> in your application <strong>before</strong> the BLE stack is
+started. More details are in the <a class="reference internal" href="#ti-sat-sdk-init"><span class="std std-ref">Initializing the Hubble Device SDK</span></a> section.</p></li>
+<li><p>Hover over the <strong>(?)</strong> icon next to each option to learn more, or
+refer to <a class="reference internal" href="../../configuration/index.html#hubble-configuration"><span class="std std-ref">Configuration Options</span></a> for the complete options
+reference.</p></li>
+<li><p>Save the file, then right-click it → <strong>Open With…</strong> → <strong>Text
+Editor</strong> and add the following at the bottom to enable
+both BLE and satellite stacks:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
+<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">&quot;ble&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>Add the following to your <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> file. <code class="docutils literal notranslate"><span class="pre">hubble_radio.js</span></code> sets
+up the <code class="docutils literal notranslate"><span class="pre">radioconfig</span></code> and the Dynamic Multi-protocol Manager (DMM)
+so the BLE and satellite stacks can share the radio:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<span class="nx">Hubble</span><span class="p">.</span><span class="nx">useSatellite</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="nx">Hubble</span><span class="p">.</span><span class="nx">useTerrestrial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="cm">/* Set to your oscillator&#39;s PPM rating (check your crystal datasheet) */</span>
+<span class="nx">Hubble</span><span class="p">.</span><span class="nx">deviceTDR</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
+<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">&quot;ble&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then set the following in your application’s <code class="docutils literal notranslate"><span class="pre">hubble_config.h</span></code>, which
+you need to include along with your source files in the Makefile:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define CONFIG_HUBBLE_SAT_NETWORK              1</span>
+<span class="cp">#define CONFIG_HUBBLE_BLE_NETWORK              1</span>
+<span class="cp">#define CONFIG_HUBBLE_KEY_SIZE                 16 </span><span class="cm">/* 16 for 128-bit, 32 for 256-bit */</span>
+<span class="cp">#define CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME 1</span>
+<span class="cp">#define CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR   10 </span><span class="cm">/* Check your oscillator&#39;s PPM rating */</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../../satellite/clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for details on TDR and how
+it affects retransmissions.</p>
+<p>Optionally, enable the Hubble FreeRTOS daemon hook to automatically
+set up the BLE and satellite stacks.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define CONFIG_HUBBLE_FREERTOS_DAEMON_HOOK 1</span>
+</pre></div>
+</div>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Crypto:</strong> A custom AES-CMAC and AES-CTR implementation is required.
+Make sure to select the correct crypto options in your <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> file.
+See <code class="docutils literal notranslate"><span class="pre">src/hubble_ti_crypto.c</span></code> in the Hubble samples for a reference
+implementation.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure the RCL command symbol in the custom RF settings is generated
+automatically (set <strong>Symbol Name Generation Method</strong> to <strong>Automatic</strong>).
+See <code class="docutils literal notranslate"><span class="pre">samples/freertos/ti/sat-dual-stack</span></code> for complete reference
+<code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> scripts.</p>
+</div>
+</section>
+<section id="preparing-for-satellite-transmission">
+<h2>Preparing for Satellite Transmission<a class="headerlink" href="#preparing-for-satellite-transmission" title="Link to this heading"></a></h2>
+<p>The satellite stack requires three inputs before it can schedule and transmit:</p>
+<ul class="simple">
+<li><p><strong>Unix time</strong>: used for pass prediction and key derivation</p></li>
+<li><p><strong>Device location</strong>: latitude and longitude, used to compute satellite passes</p></li>
+<li><p><strong>Orbital parameters</strong>: satellite ephemeris data describing each satellite’s
+orbit</p></li>
+</ul>
+<p>How these are provisioned is up to the application.</p>
+<section id="time">
+<h3>Time<a class="headerlink" href="#time" title="Link to this heading"></a></h3>
+<p>Many approaches work: BLE provisioning from a phone, NTP over Wi-Fi, GPS, an
+RTC, or reading from persistent storage across reboots. See
+<a class="reference internal" href="../../best-practices/time-management.html#hubble-timing"><span class="std std-ref">Time Management</span></a> for best practices and trade-offs.</p>
+</section>
+<section id="location">
+<h3>Location<a class="headerlink" href="#location" title="Link to this heading"></a></h3>
+<p>If the device is deployed at a fixed location, latitude and longitude can be
+hard-coded directly in firmware:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">hubble_sat_device_pos</span><span class="w"> </span><span class="n">device_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">.</span><span class="n">lat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">47.6</span><span class="p">,</span>
+<span class="w">    </span><span class="p">.</span><span class="n">lon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-122.3</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>For mobile devices, location can be obtained from an onboard GPS module if
+present, or provisioned at runtime from a companion app. For example,
+delivered over BLE from a phone/gateway that has GPS access.</p>
+</section>
+<section id="orbital-parameters">
+<h3>Orbital Parameters<a class="headerlink" href="#orbital-parameters" title="Link to this heading"></a></h3>
+<p>Orbital parameters describe each satellite’s orbit and are used by
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code> to predict when a satellite will be
+visible from the device location.</p>
+<p>Since Hubble satellites are station-keeping, orbital parameters are stable
+enough to be baked into firmware at build time. Use the
+<code class="docutils literal notranslate"><span class="pre">tools/orbital_params_fetch.py</span></code> helper to fetch current parameters from the
+Hubble API and generate a <code class="docutils literal notranslate"><span class="pre">sat_params.c</span></code> file ready to compile into your
+application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">HUBBLE_API_TOKEN</span><span class="o">=</span>&lt;your-api-token&gt;
+python<span class="w"> </span>tools/orbital_params_fetch.py<span class="w"> </span>path/to/output
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../../satellite/index.html#hubble-satellite-orbital-params"><span class="std std-ref">Orbital Parameters (Satellites information)</span></a> for details on the generated format
+and how to register the array with the SDK.</p>
+</section>
+</section>
+<section id="initializing-the-hubble-device-sdk">
+<span id="ti-sat-sdk-init"></span><h2>Initializing the Hubble Device SDK<a class="headerlink" href="#initializing-the-hubble-device-sdk" title="Link to this heading"></a></h2>
+<p>Once time, location, and orbital parameters are available, initialize the SDK
+before calling any other Hubble API:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * At this point unix_time_ms, device_pos, and orb_params are assumed to be</span>
+<span class="cm"> * valid. Either baked into firmware or received via BLE provisioning.</span>
+<span class="cm"> */</span>
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">unix_time_ms</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to initialize Hubble Device SDK (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_satellites_set</span><span class="p">(</span><span class="n">orb_params</span><span class="p">,</span><span class="w"> </span><span class="n">orb_params_count</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to set orbital parameters (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> takes the current Unix time in milliseconds and a
+pointer to the master key. <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> registers the
+orbital parameters array with the SDK.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p><strong>The key buffer MUST remain valid for the lifetime of SDK usage.</strong> The
+SDK stores the pointer directly and does not copy the key. Do not use a
+stack or temporary buffer.</p></li>
+<li><p><strong>Unix time must be non-zero.</strong> Passing <code class="docutils literal notranslate"><span class="pre">0</span></code> in
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME</span></code> mode returns an error.</p></li>
+<li><p><strong>The orbital parameters array MUST remain valid</strong> for as long as pass
+prediction is used. The SDK stores a pointer and does not copy the array.</p></li>
+</ul>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_FREERTOS_DAEMON_HOOK</span></code> is disabled, <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>
+must be called <strong>before</strong> <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_init</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Hardware initialization: Board_init(), clocks, peripherals, etc. */</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * unix_time_ms must be &gt; device uptime in CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME</span>
+<span class="cm"> * mode. We can use UINT64_MAX as a sentinel value until real Unix time is provisioned.</span>
+<span class="cm"> */</span>
+<span class="n">hubble_init</span><span class="p">(</span><span class="n">UINT64_MAX</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
+
+<span class="cm">/* Update user configuration of the BLE stack */</span>
+<span class="n">user0Cfg</span><span class="p">.</span><span class="n">appServiceInfo</span><span class="o">-&gt;</span><span class="n">timerTickPeriod</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">ICall_getTickPeriod</span><span class="p">();</span>
+<span class="n">user0Cfg</span><span class="p">.</span><span class="n">appServiceInfo</span><span class="o">-&gt;</span><span class="n">timerMaxMillisecond</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ICall_getMaxMSecs</span><span class="p">();</span>
+
+<span class="n">BLEAppUtil_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">criticalErrorHandler</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">App_StackInitDoneHandler</span><span class="p">,</span>
+<span class="w">                </span><span class="o">&amp;</span><span class="n">appMainParams</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">appMainPeriCentParams</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once real Unix time and orbital parameters are available (e.g. provisioned
+over BLE), call <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> before starting pass
+prediction.</p>
+</section>
+<section id="the-pass-prediction-loop">
+<h2>The Pass Prediction Loop<a class="headerlink" href="#the-pass-prediction-loop" title="Link to this heading"></a></h2>
+<p>With the SDK initialized, the application enters the main dual-stack loop:
+compute the next satellite pass, beacon over BLE while waiting, stop BLE,
+transmit to the satellite, then repeat.</p>
+<section id="compute-the-next-pass">
+<h3>Compute the Next Pass<a class="headerlink" href="#compute-the-next-pass" title="Link to this heading"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">now_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_time_get</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_get</span><span class="p">(</span><span class="n">now_ms</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* If the pass has already started, find the next one. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">now_ms</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_get</span><span class="p">(</span>
+<span class="w">            </span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pass_info</span><span class="p">.</span><span class="n">duration</span><span class="p">,</span>
+<span class="w">            </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code> returns the soonest pass visible from the
+device location. If <code class="docutils literal notranslate"><span class="pre">pass_info.start</span></code> is already in the past, a pass is in
+progress, skip it and compute the next one by searching from after its end
+(<code class="docutils literal notranslate"><span class="pre">pass_info.start</span> <span class="pre">+</span> <span class="pre">pass_info.duration</span></code>).</p>
+</section>
+<section id="beacon-over-ble-while-waiting">
+<h3>Beacon over BLE While Waiting<a class="headerlink" href="#beacon-over-ble-while-waiting" title="Link to this heading"></a></h3>
+<p>Schedule a timer for the pass window and start BLE advertising while the
+device waits. The example below uses <code class="docutils literal notranslate"><span class="pre">ClockP</span></code>; any timer peripheral that
+can schedule a future callback works equally well.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Schedule a ClockP timer for the satellite pass window.</span>
+<span class="cm"> * Verify configTICK_RATE_HZ: the sleep duration must not exceed</span>
+<span class="cm"> * the maximum timeout ClockP supports at your tick rate.</span>
+<span class="cm">  */</span>
+<span class="n">ClockP_setTimeout</span><span class="p">(</span><span class="o">&amp;</span><span class="n">satPassClock</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">ClockP_usToTicks</span><span class="p">((</span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">now_ms</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000U</span><span class="p">));</span>
+<span class="n">ClockP_start</span><span class="p">(</span><span class="o">&amp;</span><span class="n">satPassClock</span><span class="p">);</span>
+
+<span class="cm">/* Get the Hubble beacon payload and start advertising */</span>
+<span class="n">hubble_ble_advertise_get</span><span class="p">(</span><span class="n">inputBuf</span><span class="p">,</span><span class="w"> </span><span class="n">inputBufLen</span><span class="p">,</span><span class="w"> </span><span class="n">outBuf</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outBufLen</span><span class="p">);</span>
+<span class="n">ble_adv_start</span><span class="p">();</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Block until the pass timer fires. Common approaches are</span>
+<span class="cm"> * a semaphore, task notification, or event flag.</span>
+<span class="cm"> */</span>
+<span class="n">SemaphoreP_pend</span><span class="p">(</span><span class="o">&amp;</span><span class="n">satPassSem</span><span class="p">,</span><span class="w"> </span><span class="n">SemaphoreP_WAIT_FOREVER</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transmit-to-the-satellite">
+<h3>Transmit to the Satellite<a class="headerlink" href="#transmit-to-the-satellite" title="Link to this heading"></a></h3>
+<p>Stop advertising, then build and send the packet:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">ble_adv_stop</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to build packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/* Blocking call. Retries are handled internally by the SDK */</span>
+<span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">HUBBLE_SAT_RELIABILITY_NORMAL</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to send packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* end while loop, back to compute the next pass, re-enable bluetooth, and beacon */</span>
+</pre></div>
+</div>
+<p><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> is blocking. It returns only after the full
+transmission sequence completes, including all retries. See
+<a class="reference internal" href="../../satellite/reliability.html#hubble-satellite-reliability"><span class="std std-ref">Reliability and Power Consumption</span></a> for guidance on reliability modes and
+their effect on power consumption.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStart</span></code> and <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStop</span></code> must be called from
+within the BLEAppUtil context. Calling them directly from another thread
+will cause a crash or silently fail.
+Use <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_invokeFunction</span></code> to put the call into the correct context:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bStatus_t</span><span class="w"> </span><span class="nf">ble_adv_start</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">BLEAppUtil_invokeFunction</span><span class="p">(</span>
+<span class="w">        </span><span class="p">(</span><span class="n">InvokeFromBLEAppUtilContext_t</span><span class="p">)</span><span class="n">_beacon_start</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">bStatus_t</span><span class="w"> </span><span class="nf">ble_adv_stop</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">BLEAppUtil_invokeFunction</span><span class="p">(</span>
+<span class="w">        </span><span class="p">(</span><span class="n">InvokeFromBLEAppUtilContext_t</span><span class="p">)</span><span class="n">_beacon_stop</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">_beacon_start</span></code> calls
+<code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStart(_beacon_adv_handle,</span> <span class="pre">&amp;_hubble_start_adv_set)</span></code>
+and <code class="docutils literal notranslate"><span class="pre">_beacon_stop</span></code> calls <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStop(_beacon_adv_handle)</span></code>.
+See <code class="docutils literal notranslate"><span class="pre">samples/freertos/ti/sat-dual-stack</span></code> for a complete reference
+implementation.</p>
+</div>
+</section>
+</section>
+<section id="building-and-flashing">
+<h2>Building and Flashing<a class="headerlink" href="#building-and-flashing" title="Link to this heading"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">CCS</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Makefile</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><ol class="arabic simple">
+<li><p>Right-click your project in the <strong>Project Explorer</strong> and select
+<strong>Build Project</strong> (or use <strong>Project</strong> → <strong>Build Project</strong> from the
+menu bar).</p></li>
+<li><p>Once the build succeeds, right-click the project and select
+<strong>Flash Project</strong> to flash the firmware to the device.</p></li>
+</ol>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><p>Build your application by invoking the Makefile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-f<span class="w"> </span>&lt;your-makefile&gt;
+</pre></div>
+</div>
+<p>To flash, use <a class="reference external" href="https://www.ti.com/tool/UNIFLASH">UniFlash</a>. Connect your device and
+load the built <code class="docutils literal notranslate"><span class="pre">.hex</span></code> or <code class="docutils literal notranslate"><span class="pre">.out</span></code> file.</p>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>CC2755P10 (CC27xx):</strong> If the Hardware Security Module (HSM) has not
+been provisioned on your device yet, BLE may not function correctly.
+Refer to the <a class="reference external" href="https://dev.ti.com/tirex/content/simplelink_lowpower_f3_sdk_9_20_00_81/docs/simplelink_mcu_sdk/html/quickstart-guide/quickstart-intro-cc23xx.html#build-your-first-program-for-the-device-device">TI SimpleLink CC27xx Getting Started guide</a> for
+instructions on loading the HSM before running your application.</p>
+</div>
+</section>
+<section id="verifying-the-application">
+<h2>Verifying the Application<a class="headerlink" href="#verifying-the-application" title="Link to this heading"></a></h2>
+<p>Unlike other ports, the TI port does not include a logging backend built in
+for Hubble Device SDK log. Verification is done using external tools, or
+enabling logging module and calling log functions manually in your application.</p>
+<section id="verify-ble">
+<h3>Verify BLE<a class="headerlink" href="#verify-ble" title="Link to this heading"></a></h3>
+<p>Use the SDK’s scan script to confirm BLE advertising is working. Install the
+dependencies and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools/requirements-scan.txt
+python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+</pre></div>
+</div>
+<p>The script scans for Hubble BLE beacons (UUID 0xFCA6) and prints decoded
+packets in real time. Running without <code class="docutils literal notranslate"><span class="pre">--key</span></code> prints raw packets without
+decryption.</p>
+<p>Alternatively, use the <strong>Hubble Connect</strong> mobile app to see nearby Hubble
+devices:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://apps.apple.com/us/app/hubble-connect/id6751236191">Hubble Connect on the App Store</a></p></li>
+<li><p><a class="reference external" href="https://play.google.com/store/apps/details?id=com.hubble.connect">Hubble Connect on Google Play</a></p></li>
+</ul>
+</section>
+<section id="verify-satellite-rf">
+<h3>Verify Satellite RF<a class="headerlink" href="#verify-satellite-rf" title="Link to this heading"></a></h3>
+<p>To verify the satellite RF output before a live pass, use an ADALM-PLUTO SDR
+and the <code class="docutils literal notranslate"><span class="pre">pyhubblenetwork</span></code> scan tool. See the <strong>RF Verification with an SDR</strong>
+section in <strong>Next Steps</strong> below for full instructions.</p>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="hubble-init-returns-an-error">
+<h3><code class="docutils literal notranslate"><span class="pre">hubble_init</span></code> returns an error<a class="headerlink" href="#hubble-init-returns-an-error" title="Link to this heading"></a></h3>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">Unix</span> <span class="pre">Epoch</span> <span class="pre">time</span></code></p>
+<p><strong>Cause:</strong> <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> passed to <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.
+The SDK requires a valid non-zero Unix timestamp.</p>
+<p><strong>Fix:</strong> Ensure time is provisioned (over BLE, NTP, GPS, or RTC) before
+calling <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>. See the <strong>Preparing for Satellite
+Transmission</strong> section in this guide.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">set</span> <span class="pre">key</span></code></p>
+<p><strong>Cause:</strong> The key buffer is NULL, zero-length, or the wrong size for the
+configured key type.</p>
+<p><strong>Fix:</strong> Verify the key is correctly decoded and its length matches the
+configured key size.</p>
+</section>
+<section id="pass-prediction-returns-an-error">
+<h3>Pass prediction returns an error<a class="headerlink" href="#pass-prediction-returns-an-error" title="Link to this heading"></a></h3>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">next</span> <span class="pre">pass</span> <span class="pre">get:</span> <span class="pre">no</span> <span class="pre">satellites</span> <span class="pre">configured</span></code></p>
+<p><strong>Cause:</strong> <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> was not called before
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code>.</p>
+<p><strong>Fix:</strong> Call <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_satellites_set()</span></code> with a valid orbital
+parameters array immediately after <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;wrn&gt;</span> <span class="pre">hubblenetwork:</span> <span class="pre">Hubble</span> <span class="pre">Satellite</span> <span class="pre">next</span> <span class="pre">pass</span> <span class="pre">get:</span> <span class="pre">no</span> <span class="pre">pass</span> <span class="pre">found</span></code></p>
+<p><strong>Cause:</strong> No satellite pass is visible from the given location within the
+search window. Most commonly caused by incorrect device coordinates or a
+stale Unix timestamp.</p>
+<p><strong>Fix:</strong> Verify that <code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code> and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> are correct
+and that <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> reflects current wall-clock time.</p>
+<p>—</p>
+<p><strong>Symptom:</strong> Firmware appears to hang or stall inside
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code>.</p>
+<p><strong>Cause:</strong> The pass prediction algorithm iterates forward orbit-by-orbit until
+it finds a pass. If the input time is near zero (e.g. Unix time was passed in
+<strong>seconds</strong> instead of <strong>milliseconds</strong>), or if <code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code>
+and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> are invalid, the loop can spin through thousands of
+orbits before returning.</p>
+<p><strong>Fix:</strong> Confirm <code class="docutils literal notranslate"><span class="pre">unix_time_ms</span></code> is in <strong>milliseconds</strong> and that
+<code class="docutils literal notranslate"><span class="pre">device_pos.lat</span></code> and <code class="docutils literal notranslate"><span class="pre">device_pos.lon</span></code> hold the actual device coordinates.</p>
+</section>
+<section id="transmission-fails">
+<h3>Transmission fails<a class="headerlink" href="#transmission-fails" title="Link to this heading"></a></h3>
+<p><strong>Symptom:</strong> <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> returns an error or BLE
+silently fails to send any advertising packets.</p>
+<p><strong>Cause:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStop</span></code> or <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_advStart</span></code> was not called from
+within the <code class="docutils literal notranslate"><span class="pre">BLEAppUtil</span></code> context.</p></li>
+<li><p>Stack is too tight: the call stack needs to have enough space
+to handle both BLE and satellite stack operations.</p></li>
+</ul>
+<p><strong>Fix:</strong></p>
+<ul class="simple">
+<li><p>Verify the return status of <code class="docutils literal notranslate"><span class="pre">BLEAppUtil_invokeFunction</span></code>.</p></li>
+<li><p>Increase the stack size of the task that calls <code class="docutils literal notranslate"><span class="pre">hubble_sat_packet_send</span></code>,
+pass prediction API, or BLE advertising start/stop.</p></li>
+</ul>
+</section>
+</section>
+<section id="next-steps">
+<span id="ti-sat-next-steps"></span><h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<section id="rf-verification-with-an-sdr">
+<h3>RF Verification with an SDR<a class="headerlink" href="#rf-verification-with-an-sdr" title="Link to this heading"></a></h3>
+<p>Before waiting for a live satellite pass, you can verify that your device is
+transmitting a valid Hubble packet at the physical layer using an
+<a class="reference external" href="https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html#eb-overview">ADALM-PLUTO product page</a> and the <a class="reference external" href="https://github.com/HubbleNetwork/pyhubblenetwork">pyhubblenetwork</a> Python library.</p>
+<p>Install the library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyhubblenetwork
+</pre></div>
+</div>
+<p>Connect the ADALM-PLUTO near the device antenna and run the scanner with your
+device key to decode captured packets in real time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>sat<span class="w"> </span>scan<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+</pre></div>
+</div>
+<p>A successfully decoded packet confirms the RF output, packet framing, channel
+hopping sequence, and PA/FEM sequencing are all correct. For the full list of
+available commands, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://github.com/HubbleNetwork/pyhubblenetwork">pyhubblenetwork</a> repository for detailed usage and setup
+instructions.</p>
+</section>
+<section id="viewing-upcoming-passes">
+<h3>Viewing Upcoming Passes<a class="headerlink" href="#viewing-upcoming-passes" title="Link to this heading"></a></h3>
+<p>Use the <a class="reference external" href="https://dash.hubble.com/satellite/pass-explorer">Hubble Pass Explorer</a> to see when the next satellite pass is predicted
+for your location. This is useful to cross-check pass prediction results from the
+device and to plan test windows.</p>
+</section>
+<section id="dashboard-verification">
+<h3>Dashboard Verification<a class="headerlink" href="#dashboard-verification" title="Link to this heading"></a></h3>
+<p>Once a live satellite pass has occurred and <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code>
+returned without error, after the downlink data is successful, log into the
+<a class="reference external" href="https://dash.hubble.com/devices">Hubble Dashboard Devices Page</a> to confirm the packet was received by the network. A packet
+appearing on the dashboard is end-to-end proof that the device is operational
+on the Hubble satellite network.</p>
+</section>
+<section id="further-reading">
+<h3>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../satellite/index.html#hubble-satellite-introduction"><span class="std std-ref">Satellite Network Overview</span></a>: satellite protocol details,
+reliability modes, and power trade-offs.</p></li>
+<li><p><a class="reference internal" href="../../configuration/index.html#hubble-configuration"><span class="std std-ref">Configuration Options</span></a>: full configuration reference for all
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_*</span></code> options.</p></li>
+<li><p><a class="reference internal" href="../../best-practices/time-management.html#hubble-timing"><span class="std std-ref">Time Management</span></a>: time management best practices for devices
+with and without a real-time clock.</p></li>
+<li><p><a class="reference external" href="https://www.ti.com/tool/download/SIMPLELINK-LOWPOWER-F3-SDK/">TI SimpleLink Low Power F3 SDK</a>: TI’s SDK documentation, examples, and release notes.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../ncs/index.html" class="btn btn-neutral float-left" title="Nordic nRF Connect SDK Integration Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../esp-idf/index.html" class="btn btn-neutral float-right" title="ESP-IDF Integration Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

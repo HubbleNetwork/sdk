@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes and Lifecycle &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d42fa807" />
+
+  
+    <link rel="shortcut icon" href="../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/releases/index.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Release 3.0.0" href="3.0.html" />
+    <link rel="prev" title="Vulnerabilities" href="../security/vulnerabilities.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#port-layer">Port Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/project-organization.html">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Platform Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guides/index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/ble.html">BLE Network API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/satellite.html">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/satellite.html#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/satellite.html#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  
+  <li>Release Notes and Lifecycle</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/releases/index.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="release-notes-and-lifecycle">
+<span id="hubble-release-notes"></span><h1>Release Notes and Lifecycle<a class="headerlink" href="#release-notes-and-lifecycle" title="Link to this heading"></a></h1>
+<p>This document describes the Hubble Device SDK release process, versioning
+strategy, and support policies. Understanding these policies helps developers
+plan their integration efforts and make informed decisions about when to upgrade
+to new releases.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK follows a structured release lifecycle designed to ensure
+stability, reliability, and backward compatibility. Releases progress through
+distinct phases from initial development through release candidates to stable
+production releases. The SDK adheres to <a class="reference external" href="https://semver.org/">Semantic Versioning</a> principles to
+clearly communicate the nature and impact of each release.</p>
+</section>
+<section id="release-lifecycle">
+<h2>Release Lifecycle<a class="headerlink" href="#release-lifecycle" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK release process consists of three primary phases:</p>
+<section id="development-phase">
+<h3>Development Phase<a class="headerlink" href="#development-phase" title="Link to this heading"></a></h3>
+<p>All new development work is integrated into the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. During this
+phase:</p>
+<ul class="simple">
+<li><p>New features, enhancements, and experimental functionality are added</p></li>
+<li><p>API changes may be introduced</p></li>
+<li><p>Breaking changes may occur without prior notice</p></li>
+<li><p>No stability guarantees are provided</p></li>
+</ul>
+<p><strong>Important</strong>: Code from the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch is not recommended for production
+use. When sufficient changes accumulate or significant new features are ready,
+the development team schedules a release and transitions to the release
+candidate phase.</p>
+</section>
+<section id="release-candidate-phase">
+<h3>Release Candidate Phase<a class="headerlink" href="#release-candidate-phase" title="Link to this heading"></a></h3>
+<p>When a release is scheduled, the following process begins:</p>
+<dl class="simple">
+<dt><strong>Release Candidate Creation</strong></dt><dd><ul class="simple">
+<li><p>A release candidate tag (e.g., <code class="docutils literal notranslate"><span class="pre">v1.4.0-rc1</span></code>) is created from the <code class="docutils literal notranslate"><span class="pre">main</span></code>
+branch</p></li>
+<li><p>The release candidate is published for testing and validation</p></li>
+</ul>
+</dd>
+<dt><strong>Feature Freeze</strong></dt><dd><ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> branch enters a feature freeze period</p></li>
+<li><p>Only the following types of changes are permitted:</p>
+<ul>
+<li><p>Critical bug fixes</p></li>
+<li><p>Test fixes and improvements</p></li>
+<li><p>Documentation updates and corrections</p></li>
+<li><p>Security patches</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><strong>Issue Tracking</strong></dt><dd><ul class="simple">
+<li><p>All known issues are documented and categorized</p></li>
+<li><p>Issues are classified as either:</p>
+<ul>
+<li><p><strong>Release blockers</strong>: Must be resolved before the stable release</p></li>
+<li><p><strong>Known limitations</strong>: Documented and acceptable for the release</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="hardening-and-validation-phase">
+<h3>Hardening and Validation Phase<a class="headerlink" href="#hardening-and-validation-phase" title="Link to this heading"></a></h3>
+<p>Before a stable release, comprehensive validation is performed across multiple
+dimensions:</p>
+<dl class="simple">
+<dt><strong>Functional Testing</strong></dt><dd><ul class="simple">
+<li><p><strong>Unit Tests</strong>: Validate individual components in isolation</p>
+<ul>
+<li><p>Cryptographic primitives and signing flows</p></li>
+<li><p>Message encoding and decoding operations</p></li>
+<li><p>BLE advertising payload formatting (including edge cases, maximum length handling, and truncation scenarios)</p></li>
+</ul>
+</li>
+<li><p><strong>Integration Tests</strong>: Verify end-to-end functionality</p>
+<ul>
+<li><p>Complete signing and verification workflows between the SDK and reference backend systems</p></li>
+<li><p>Cross-platform compatibility validation</p></li>
+<li><p>Interoperability testing with Hubble Network services</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt><strong>Quality Assurance</strong></dt><dd><ul class="simple">
+<li><p>Code review and static analysis</p></li>
+<li><p>Memory safety and resource leak detection</p></li>
+<li><p>Performance benchmarking</p></li>
+<li><p>Documentation review and accuracy verification</p></li>
+</ul>
+</dd>
+<dt><strong>Platform Validation</strong></dt><dd><ul class="simple">
+<li><p>Testing across all supported platforms (Zephyr, FreeRTOS, ESP-IDF)</p></li>
+<li><p>Hardware-in-the-loop testing where applicable</p></li>
+<li><p>Regression testing against previous releases</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+<section id="release-model">
+<h2>Release Model<a class="headerlink" href="#release-model" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK uses <a class="reference external" href="https://semver.org/">Semantic Versioning</a> with the format
+<code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.PATCH</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">1.4.2</span></code>).</p>
+<section id="version-components">
+<h3>Version Components<a class="headerlink" href="#version-components" title="Link to this heading"></a></h3>
+<dl>
+<dt><em>MAJOR</em> Version Increment</dt><dd><p>Indicates breaking changes that may require modifications to existing code:</p>
+<ul class="simple">
+<li><p>Changes to public API function signatures</p></li>
+<li><p>Modifications to public data structures that affect binary compatibility</p></li>
+<li><p>Changes to documented protocol behavior</p></li>
+<li><p>Removal or deprecation of previously supported features</p></li>
+</ul>
+<p><strong>Example</strong>: Upgrading from <code class="docutils literal notranslate"><span class="pre">v1.x.x</span></code> to <code class="docutils literal notranslate"><span class="pre">v2.x.x</span></code> may require code
+changes in your application.</p>
+</dd>
+<dt><em>MINOR</em> Version Increment</dt><dd><p>Indicates backward-compatible feature additions:</p>
+<ul class="simple">
+<li><p>New API functions or methods</p></li>
+<li><p>New configuration options</p></li>
+<li><p>Enhanced functionality that doesn’t break existing code</p></li>
+<li><p>Performance improvements</p></li>
+</ul>
+<p><strong>Example</strong>: Upgrading from <code class="docutils literal notranslate"><span class="pre">v1.4.x</span></code> to <code class="docutils literal notranslate"><span class="pre">v1.5.x</span></code> adds new features but
+maintains compatibility with existing code.</p>
+</dd>
+<dt><em>PATCH</em> Version Increment</dt><dd><p>Indicates backward-compatible bug fixes:</p>
+<ul class="simple">
+<li><p>Bug fixes that don’t change API behavior</p></li>
+<li><p>Security patches</p></li>
+<li><p>Documentation corrections</p></li>
+<li><p>Internal improvements with no user-visible changes</p></li>
+</ul>
+<p><strong>Example</strong>: Upgrading from <code class="docutils literal notranslate"><span class="pre">v1.4.0</span></code> to <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code> fixes issues without
+introducing new features or breaking changes.</p>
+</dd>
+</dl>
+</section>
+<section id="versioning-rules">
+<h3>Versioning Rules<a class="headerlink" href="#versioning-rules" title="Link to this heading"></a></h3>
+<p>The following guidelines determine version increments:</p>
+<ul class="simple">
+<li><p><strong>MAJOR bump</strong>: Required when public structs, function signatures, or
+documented behavior change in ways that could break existing user code</p></li>
+<li><p><strong>MINOR bump</strong>: Used when adding new APIs or options without breaking
+existing functionality</p></li>
+<li><p><strong>PATCH bump</strong>: Applied for bug fixes and security updates that maintain
+backward compatibility for documented use cases</p></li>
+</ul>
+</section>
+</section>
+<section id="release-types">
+<h2>Release Types<a class="headerlink" href="#release-types" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK maintains two types of releases:</p>
+<section id="stable-releases">
+<h3>Stable Releases<a class="headerlink" href="#stable-releases" title="Link to this heading"></a></h3>
+<p>Stable releases (e.g., <code class="docutils literal notranslate"><span class="pre">v1.4.0</span></code>, <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code>) represent production-ready
+versions of the SDK:</p>
+<ul class="simple">
+<li><p><strong>Fully validated</strong>: Complete testing and quality assurance processes have
+been completed</p></li>
+<li><p><strong>Production approved</strong>: Suitable for use in production environments</p></li>
+<li><p><strong>Documented</strong>: Comprehensive release notes and migration guides are provided</p></li>
+<li><p><strong>Supported</strong>: Receive bug fixes and security updates according to the
+support policy</p></li>
+</ul>
+</section>
+<section id="long-term-support-lts-releases">
+<h3>Long-Term Support (LTS) Releases<a class="headerlink" href="#long-term-support-lts-releases" title="Link to this heading"></a></h3>
+<p>LTS releases (e.g., <code class="docutils literal notranslate"><span class="pre">v2.0.x</span></code>) are designated stable releases with extended
+support periods:</p>
+<ul class="simple">
+<li><p><strong>Extended lifecycle</strong>: Receive security updates and critical bug fixes for
+an extended period (typically 12-24 months)</p></li>
+<li><p><strong>Target audience</strong>: Designed for high-volume deployments and long-lived
+products that require stability over new features</p></li>
+<li><p><strong>Predictable maintenance</strong>: Regular security patches and critical fixes
+without feature additions</p></li>
+<li><p><strong>Migration path</strong>: Clear upgrade paths documented for transitioning to newer
+LTS or stable releases</p></li>
+</ul>
+<p>LTS releases are explicitly marked in release announcements and documentation.</p>
+</section>
+</section>
+<section id="support-policy">
+<h2>Support Policy<a class="headerlink" href="#support-policy" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK maintains different support levels depending on release
+type:</p>
+<section id="id1">
+<h3>Stable Releases<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>The current and previous releases receive:</p>
+<ul class="simple">
+<li><p><strong>Security updates</strong>: All security patches</p></li>
+<li><p><strong>Critical bug fixes</strong>: High-severity issues affecting production deployments</p></li>
+<li><p><strong>Documentation updates</strong>: Corrections and clarifications as needed</p></li>
+<li><p><strong>No new features</strong>: Feature additions are not backported to stable releases</p></li>
+</ul>
+</section>
+<section id="long-term-support-releases">
+<h3>Long-Term Support Releases<a class="headerlink" href="#long-term-support-releases" title="Link to this heading"></a></h3>
+<p>LTS releases receive:</p>
+<ul class="simple">
+<li><p><strong>Security updates</strong>: All security patches</p></li>
+<li><p><strong>Critical bug fixes</strong>: High-severity issues affecting production deployments</p></li>
+<li><p><strong>Documentation updates</strong>: Corrections and clarifications as needed</p></li>
+<li><p><strong>No new features</strong>: Feature additions are not backported to LTS releases</p></li>
+</ul>
+</section>
+</section>
+<section id="release-schedule">
+<h2>Release Schedule<a class="headerlink" href="#release-schedule" title="Link to this heading"></a></h2>
+<p>The Hubble Device SDK follows a predictable release schedule:</p>
+<section id="regular-releases">
+<h3>Regular Releases<a class="headerlink" href="#regular-releases" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Major releases</strong>: depending on feature development and user needs</p></li>
+<li><p><strong>Minor releases</strong>: depending on feature development and user needs</p></li>
+<li><p><strong>Patch releases</strong>: Released as needed for bug fixes and security updates</p></li>
+<li><p><strong>Release candidates</strong>: Published 2-4 weeks before stable releases for
+community testing</p></li>
+</ul>
+</section>
+<section id="release-announcements">
+<h3>Release Announcements<a class="headerlink" href="#release-announcements" title="Link to this heading"></a></h3>
+<p>All releases are announced through:</p>
+<ul class="simple">
+<li><p>GitHub releases page</p></li>
+<li><p>SDK documentation updates</p></li>
+<li><p>Release notes with detailed changelogs</p></li>
+<li><p>Migration guides for major version upgrades</p></li>
+</ul>
+<p>For the most current release information, visit the <a class="reference external" href="https://github.com/hubblenetwork/hubble-device-sdk">Hubble Device SDK GitHub
+repository</a>.</p>
+</section>
+</section>
+<section id="migration-and-upgrade-guidance">
+<h2>Migration and Upgrade Guidance<a class="headerlink" href="#migration-and-upgrade-guidance" title="Link to this heading"></a></h2>
+<p>When upgrading between SDK versions:</p>
+<ul class="simple">
+<li><p><strong>Review release notes</strong>: Understand changes, deprecations, and new features</p></li>
+<li><p><strong>Check migration guides</strong>: Follow platform-specific upgrade instructions</p></li>
+<li><p><strong>Test thoroughly</strong>: Validate your application with the new SDK version</p></li>
+<li><p><strong>Update dependencies</strong>: Ensure compatible versions of platform dependencies</p></li>
+</ul>
+<p>For detailed migration instructions, refer to the release notes for your target
+version.</p>
+</section>
+<section id="release-notes">
+<h2>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading"></a></h2>
+<p>Detailed release notes for each version:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.0.html">Release 1.0.0</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../security/vulnerabilities.html" class="btn btn-neutral float-left" title="Vulnerabilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="3.0.html" class="btn btn-neutral float-right" title="Release 3.0.0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

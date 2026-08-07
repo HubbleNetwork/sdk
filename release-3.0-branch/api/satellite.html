@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satellite Network API &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d42fa807" />
+
+  
+    <link rel="shortcut icon" href="../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/api/satellite.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Options" href="../configuration/index.html" />
+    <link rel="prev" title="BLE Network API" href="ble.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#port-layer">Port Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/project-organization.html">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Platform Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guides/index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ble.html">BLE Network API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  
+     <li><a href="index.html">API</a> &raquo;</li>
+  
+  <li>Satellite Network API</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/api/satellite.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="satellite-network-api">
+<span id="hubble-sat-api"></span><h1>Satellite Network API<a class="headerlink" href="#satellite-network-api" title="Link to this heading"></a></h1>
+<section id="application-apis">
+<h2>Application APIs<a class="headerlink" href="#application-apis" title="Link to this heading"></a></h2>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="target" id="group__hubble__sat__api"></span><em><span class="pre">group</span></em> <span class="sig-name descname"><span class="pre">Satellite</span> <span class="pre">Network</span> <span class="pre">Function</span> <span class="pre">APIs</span></span></dt>
+<dd><p>Hubble Sat Network Function APIs. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv428hubble_sat_transmission_mode">
+<span id="_CPPv328hubble_sat_transmission_mode"></span><span id="_CPPv228hubble_sat_transmission_mode"></span><span class="target" id="group__hubble__sat__api_1ga51042606f905c1be07e4300922336f5e"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_transmission_mode</span></span></span><a class="headerlink" href="#_CPPv428hubble_sat_transmission_mode" title="Link to this definition"></a><br /></dt>
+<dd><p>Satellite transmission mode. </p>
+<p>It tells what is the desired reliability when transmitting a packet. Higher reliability consumes higher power because it increases the number of retries.</p>
+<p>
+The drift is estimated from the device’s Time Drift Rate (TDR), configured through <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR</span></code> and expressed in parts per million (PPM). The accumulated drift is computed as (time since last sync) * TDR, so a higher TDR yields more additional retries for the same elapsed time. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The retry counts listed below are baselines. Extra retries are added to compensate for the device’s clock drift accumulated since the last time synchronization: one additional retry is added for every full retransmission interval worth of drift. The longer the device goes without synchronizing its clock, the more retries are performed. Modes with no retries (<a class="reference internal" href="#group__hubble__sat__api_1gga51042606f905c1be07e4300922336f5ea042e15a495b3d4d7553afc74e72fde36"><span class="std std-ref">HUBBLE_SAT_RELIABILITY_NONE</span></a>) are not affected.</p>
+</div>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_NONEE">
+<span id="_CPPv3N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_NONEE"></span><span id="_CPPv2N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_NONEE"></span><span class="target" id="group__hubble__sat__api_1gga51042606f905c1be07e4300922336f5ea042e15a495b3d4d7553afc74e72fde36"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_RELIABILITY_NONE</span></span></span><a class="headerlink" href="#_CPPv4N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_NONEE" title="Link to this definition"></a><br /></dt>
+<dd><p>No retries. The packet is transmitted one time. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N28hubble_sat_transmission_mode29HUBBLE_SAT_RELIABILITY_NORMALE">
+<span id="_CPPv3N28hubble_sat_transmission_mode29HUBBLE_SAT_RELIABILITY_NORMALE"></span><span id="_CPPv2N28hubble_sat_transmission_mode29HUBBLE_SAT_RELIABILITY_NORMALE"></span><span class="target" id="group__hubble__sat__api_1gga51042606f905c1be07e4300922336f5eab3840b9050d4dce449fa0272649ce5c6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_RELIABILITY_NORMAL</span></span></span><a class="headerlink" href="#_CPPv4N28hubble_sat_transmission_mode29HUBBLE_SAT_RELIABILITY_NORMALE" title="Link to this definition"></a><br /></dt>
+<dd><p>Good balance between reliability and power consumption. The packet is transmitted 8 times with a 20 second interval between transmissions. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_HIGHE">
+<span id="_CPPv3N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_HIGHE"></span><span id="_CPPv2N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_HIGHE"></span><span class="target" id="group__hubble__sat__api_1gga51042606f905c1be07e4300922336f5eac476483c23322d5ae11cf4be887e7392"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_RELIABILITY_HIGH</span></span></span><a class="headerlink" href="#_CPPv4N28hubble_sat_transmission_mode27HUBBLE_SAT_RELIABILITY_HIGHE" title="Link to this definition"></a><br /></dt>
+<dd><p>High reliability and higher power consumption. The packet is transmitted 16 times with a 10 second interval between transmissions. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422hubble_sat_packet_sendPK17hubble_sat_packet28hubble_sat_transmission_mode">
+<span id="_CPPv322hubble_sat_packet_sendPK17hubble_sat_packet28hubble_sat_transmission_mode"></span><span id="_CPPv222hubble_sat_packet_sendPK17hubble_sat_packet28hubble_sat_transmission_mode"></span><span id="hubble_sat_packet_send__hubble_sat_packetCP.hubble_sat_transmission_mode"></span><span class="target" id="group__hubble__sat__api_1ga98a2939d4878f0ea81902e61d5a75f44"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_packet_send</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417hubble_sat_packet" title="hubble_sat_packet"><span class="n"><span class="pre">hubble_sat_packet</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">packet</span></span>, <span class="k"><span class="pre">enum</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv428hubble_sat_transmission_mode" title="hubble_sat_transmission_mode"><span class="n"><span class="pre">hubble_sat_transmission_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422hubble_sat_packet_sendPK17hubble_sat_packet28hubble_sat_transmission_mode" title="Link to this definition"></a><br /></dt>
+<dd><p>Transmit a packet using the Hubble satellite communication system. </p>
+<p>This function sends a packet over the satellite communication channel. The packet must be properly formatted and adhere to the Hubble protocol.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is blocking: it does not return until the transmission period has completed.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function checks if the packet is NULL but does not perform any validation on the packet structure. It is the caller’s responsibility to ensure the packet is correctly formatted. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>packet</strong> – A pointer to the <a class="reference internal" href="#structhubble__sat__packet"><span class="std std-ref">hubble_sat_packet</span></a> structure containing the data to be transmitted. </p></li>
+<li><p><strong>mode</strong> – Desired reliability for the transmission.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 on successful transmission, or a negative error code on failure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425hubble_sat_satellites_setPCK25hubble_sat_orbital_params6size_t">
+<span id="_CPPv325hubble_sat_satellites_setPCK25hubble_sat_orbital_params6size_t"></span><span id="_CPPv225hubble_sat_satellites_setPCK25hubble_sat_orbital_params6size_t"></span><span id="hubble_sat_satellites_set__hubble_sat_orbital_paramsCPC.s"></span><span class="target" id="group__hubble__sat__api_1ga7512e4ef1976b111f44f8252886a3338"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_satellites_set</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv425hubble_sat_orbital_params" title="hubble_sat_orbital_params"><span class="n"><span class="pre">hubble_sat_orbital_params</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">satellites</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425hubble_sat_satellites_setPCK25hubble_sat_orbital_params6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Set orbital information for satellites. </p>
+<p>This function stores orbital parameters for one or more satellites. The parameters are used by <a class="reference internal" href="#group__hubble__sat__api_1ga2db2929eecaa85e6e775dd9dbcde6687"><span class="std std-ref">hubble_sat_next_pass_get()</span></a> and <a class="reference internal" href="#group__hubble__sat__api_1gaf516cb7d90a2a3ce5e1d389de057c28c"><span class="std std-ref">hubble_sat_next_pass_region_get()</span></a> to compute the next satellite pass across all configured satellites.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The caller must ensure the <code class="docutils literal notranslate"><span class="pre">satellites</span></code> array remains valid for the lifetime of subsequent pass calculations, as the data is not copied internally.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To clear the satellite list, call with <code class="docutils literal notranslate"><span class="pre">satellites</span></code> set to NULL and <code class="docutils literal notranslate"><span class="pre">count</span></code> set to 0.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>satellites</strong> – Pointer to an array of satellite orbital parameters. May be NULL only if <code class="docutils literal notranslate"><span class="pre">count</span></code> is 0. </p></li>
+<li><p><strong>count</strong> – Number of entries in the array. Pass 0 to clear the satellite list. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>-EINVAL</strong> – if <code class="docutils literal notranslate"><span class="pre">satellites</span></code> is NULL and <code class="docutils literal notranslate"><span class="pre">count</span></code> is greater than 0. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0 on success. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424hubble_sat_next_pass_get8uint64_tPK21hubble_sat_device_posP20hubble_sat_pass_info">
+<span id="_CPPv324hubble_sat_next_pass_get8uint64_tPK21hubble_sat_device_posP20hubble_sat_pass_info"></span><span id="_CPPv224hubble_sat_next_pass_get8uint64_tPK21hubble_sat_device_posP20hubble_sat_pass_info"></span><span id="hubble_sat_next_pass_get__uint64_t.hubble_sat_device_posCP.hubble_sat_pass_infoP"></span><span class="target" id="group__hubble__sat__api_1ga2db2929eecaa85e6e775dd9dbcde6687"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_next_pass_get</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv421hubble_sat_device_pos" title="hubble_sat_device_pos"><span class="n"><span class="pre">hubble_sat_device_pos</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pos</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv420hubble_sat_pass_info" title="hubble_sat_pass_info"><span class="n"><span class="pre">hubble_sat_pass_info</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424hubble_sat_next_pass_get8uint64_tPK21hubble_sat_device_posP20hubble_sat_pass_info" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the next satellite pass. </p>
+<p>This function calculates the next pass of a satellite over a given location, based on satellites orbital parameters and the device’s location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> – Current time or the time to start the calculation (milliseconds since Unix epoch). </p></li>
+<li><p><strong>pos</strong> – Pointer to the device’s location. </p></li>
+<li><p><strong>pass</strong> – The next satellite pass in case of success. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 on success or a negative value in case of error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431hubble_sat_next_pass_region_get8uint64_tPK24hubble_sat_device_regionP20hubble_sat_pass_info">
+<span id="_CPPv331hubble_sat_next_pass_region_get8uint64_tPK24hubble_sat_device_regionP20hubble_sat_pass_info"></span><span id="_CPPv231hubble_sat_next_pass_region_get8uint64_tPK24hubble_sat_device_regionP20hubble_sat_pass_info"></span><span id="hubble_sat_next_pass_region_get__uint64_t.hubble_sat_device_regionCP.hubble_sat_pass_infoP"></span><span class="target" id="group__hubble__sat__api_1gaf516cb7d90a2a3ce5e1d389de057c28c"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_next_pass_region_get</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv424hubble_sat_device_region" title="hubble_sat_device_region"><span class="n"><span class="pre">hubble_sat_device_region</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">region</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv420hubble_sat_pass_info" title="hubble_sat_pass_info"><span class="n"><span class="pre">hubble_sat_pass_info</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">pass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431hubble_sat_next_pass_region_get8uint64_tPK24hubble_sat_device_regionP20hubble_sat_pass_info" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the next satellite pass over a geographic region. </p>
+<p>This function calculates the next pass of a satellite over a rectangular geographic region defined by latitude and longitude bounds, based on satellites orbital parameters.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Experimental API.</strong> This interface may change or be removed in any release.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> – Current time or the time to start the calculation (milliseconds since Unix epoch). </p></li>
+<li><p><strong>region</strong> – Pointer to the geographic region definition. </p></li>
+<li><p><strong>pass</strong> – The next satellite pass in case of success. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 on success or a negative value in case of error. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv434hubble_sat_min_elevation_angle_set7uint8_t">
+<span id="_CPPv334hubble_sat_min_elevation_angle_set7uint8_t"></span><span id="_CPPv234hubble_sat_min_elevation_angle_set7uint8_t"></span><span id="hubble_sat_min_elevation_angle_set__uint8_t"></span><span class="target" id="group__hubble__sat__api_1gadedb28419736732be803344d36582467"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_min_elevation_angle_set</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">angle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv434hubble_sat_min_elevation_angle_set7uint8_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the minimum elevation angle for a satellite pass. </p>
+<p>This function configures the minimum elevation angle above the horizon that a satellite must reach at culmination for a pass to be reported by <a class="reference internal" href="#group__hubble__sat__api_1ga2db2929eecaa85e6e775dd9dbcde6687"><span class="std std-ref">hubble_sat_next_pass_get()</span></a> and <a class="reference internal" href="#group__hubble__sat__api_1gaf516cb7d90a2a3ce5e1d389de057c28c"><span class="std std-ref">hubble_sat_next_pass_region_get()</span></a>. Passes whose maximum elevation angle is below this threshold are ignored.</p>
+<p>Raising the angle restricts results to higher, closer passes (typically better link quality) at the cost of fewer reported passes. The default minimum elevation angle is 45 degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>angle</strong> – Minimum elevation angle in degrees. Must be in the range [30, 90]. </p>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>-EINVAL</strong> – if <code class="docutils literal notranslate"><span class="pre">angle</span></code> is outside the range [30, 90]. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0 on success. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv425hubble_sat_orbital_params">
+<span id="_CPPv325hubble_sat_orbital_params"></span><span id="_CPPv225hubble_sat_orbital_params"></span><span id="hubble_sat_orbital_params"></span><span class="target" id="structhubble__sat__orbital__params"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_orbital_params</span></span></span><a class="headerlink" href="#_CPPv425hubble_sat_orbital_params" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;pass_prediction.h&gt;</em></div>
+<p>Represents the orbital parameters of a satellite. </p>
+<p>This structure contains the parameters required to describe the orbit of a satellite, including its position, motion, and orientation. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params2t0E">
+<span id="_CPPv3N25hubble_sat_orbital_params2t0E"></span><span id="_CPPv2N25hubble_sat_orbital_params2t0E"></span><span id="hubble_sat_orbital_params::t0__uint64_t"></span><span class="target" id="structhubble__sat__orbital__params_1afff2e94cddcf8ecfabdab8b57daaed10"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">t0</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params2t0E" title="Link to this definition"></a><br /></dt>
+<dd><p>Reference epoch time (seconds since Unix epoch) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params2n0E">
+<span id="_CPPv3N25hubble_sat_orbital_params2n0E"></span><span id="_CPPv2N25hubble_sat_orbital_params2n0E"></span><span id="hubble_sat_orbital_params::n0__double"></span><span class="target" id="structhubble__sat__orbital__params_1a11ea9c490682920c9c4d86dbf76ab7f5"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">n0</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params2n0E" title="Link to this definition"></a><br /></dt>
+<dd><p>Mean motion at epoch (radians per second) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params4ndotE">
+<span id="_CPPv3N25hubble_sat_orbital_params4ndotE"></span><span id="_CPPv2N25hubble_sat_orbital_params4ndotE"></span><span id="hubble_sat_orbital_params::ndot__double"></span><span class="target" id="structhubble__sat__orbital__params_1a83e62a6810a0e721e0beafee26889bb7"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ndot</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params4ndotE" title="Link to this definition"></a><br /></dt>
+<dd><p>Rate of change of mean motion (radians per second^2) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params5raan0E">
+<span id="_CPPv3N25hubble_sat_orbital_params5raan0E"></span><span id="_CPPv2N25hubble_sat_orbital_params5raan0E"></span><span id="hubble_sat_orbital_params::raan0__double"></span><span class="target" id="structhubble__sat__orbital__params_1a14f2cfe9475e60c92375eee2e9e16cd1"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">raan0</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params5raan0E" title="Link to this definition"></a><br /></dt>
+<dd><p>Right ascension of ascending node at epoch (radians) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params7raandotE">
+<span id="_CPPv3N25hubble_sat_orbital_params7raandotE"></span><span id="_CPPv2N25hubble_sat_orbital_params7raandotE"></span><span id="hubble_sat_orbital_params::raandot__double"></span><span class="target" id="structhubble__sat__orbital__params_1abadcfe4ebb992e7ac0385609fc8829b8"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">raandot</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params7raandotE" title="Link to this definition"></a><br /></dt>
+<dd><p>Rate of change of RAAN (radians per second) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params4aop0E">
+<span id="_CPPv3N25hubble_sat_orbital_params4aop0E"></span><span id="_CPPv2N25hubble_sat_orbital_params4aop0E"></span><span id="hubble_sat_orbital_params::aop0__double"></span><span class="target" id="structhubble__sat__orbital__params_1a0bce00fba2d6223a93aa1414b3da098f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aop0</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params4aop0E" title="Link to this definition"></a><br /></dt>
+<dd><p>Argument of perigee at epoch (radians) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params6aopdotE">
+<span id="_CPPv3N25hubble_sat_orbital_params6aopdotE"></span><span id="_CPPv2N25hubble_sat_orbital_params6aopdotE"></span><span id="hubble_sat_orbital_params::aopdot__double"></span><span class="target" id="structhubble__sat__orbital__params_1a4050262513be1b337fa1f6aa66ec72cb"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">aopdot</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params6aopdotE" title="Link to this definition"></a><br /></dt>
+<dd><p>Rate of change of argument of perigee (radians per second) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params11inclinationE">
+<span id="_CPPv3N25hubble_sat_orbital_params11inclinationE"></span><span id="_CPPv2N25hubble_sat_orbital_params11inclinationE"></span><span id="hubble_sat_orbital_params::inclination__double"></span><span class="target" id="structhubble__sat__orbital__params_1a36350d288e4a6e662732b8c43ec82d41"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inclination</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params11inclinationE" title="Link to this definition"></a><br /></dt>
+<dd><p>Inclination (degrees) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params12eccentricityE">
+<span id="_CPPv3N25hubble_sat_orbital_params12eccentricityE"></span><span id="_CPPv2N25hubble_sat_orbital_params12eccentricityE"></span><span id="hubble_sat_orbital_params::eccentricity__double"></span><span class="target" id="structhubble__sat__orbital__params_1ac268771b1a5afae07dedebf2fd840b46"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eccentricity</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params12eccentricityE" title="Link to this definition"></a><br /></dt>
+<dd><p>Eccentricity (unitless, 0=circular) </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N25hubble_sat_orbital_params12satellite_idE">
+<span id="_CPPv3N25hubble_sat_orbital_params12satellite_idE"></span><span id="_CPPv2N25hubble_sat_orbital_params12satellite_idE"></span><span id="hubble_sat_orbital_params::satellite_id__uint32_t"></span><span class="target" id="structhubble__sat__orbital__params_1a46a66dca9d23f7b535c46c7f5a4d6c19"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">satellite_id</span></span></span><a class="headerlink" href="#_CPPv4N25hubble_sat_orbital_params12satellite_idE" title="Link to this definition"></a><br /></dt>
+<dd><p>NORAD ID of the satellite </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv421hubble_sat_device_pos">
+<span id="_CPPv321hubble_sat_device_pos"></span><span id="_CPPv221hubble_sat_device_pos"></span><span id="hubble_sat_device_pos"></span><span class="target" id="structhubble__sat__device__pos"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_device_pos</span></span></span><a class="headerlink" href="#_CPPv421hubble_sat_device_pos" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;pass_prediction.h&gt;</em></div>
+<p>Represents the location of a device. </p>
+<p>This structure contains the latitude and longitude of a device on Earth. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21hubble_sat_device_pos3latE">
+<span id="_CPPv3N21hubble_sat_device_pos3latE"></span><span id="_CPPv2N21hubble_sat_device_pos3latE"></span><span id="hubble_sat_device_pos::lat__double"></span><span class="target" id="structhubble__sat__device__pos_1a1dcdccd2f1d0ece5c4e2d4bc91872376"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lat</span></span></span><a class="headerlink" href="#_CPPv4N21hubble_sat_device_pos3latE" title="Link to this definition"></a><br /></dt>
+<dd><p>Latitude in degrees. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21hubble_sat_device_pos3lonE">
+<span id="_CPPv3N21hubble_sat_device_pos3lonE"></span><span id="_CPPv2N21hubble_sat_device_pos3lonE"></span><span id="hubble_sat_device_pos::lon__double"></span><span class="target" id="structhubble__sat__device__pos_1a83ce19cd8fc60849cd483dcf827aee63"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lon</span></span></span><a class="headerlink" href="#_CPPv4N21hubble_sat_device_pos3lonE" title="Link to this definition"></a><br /></dt>
+<dd><p>Longitude in degrees. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv424hubble_sat_device_region">
+<span id="_CPPv324hubble_sat_device_region"></span><span id="_CPPv224hubble_sat_device_region"></span><span id="hubble_sat_device_region"></span><span class="target" id="structhubble__sat__device__region"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_device_region</span></span></span><a class="headerlink" href="#_CPPv424hubble_sat_device_region" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;pass_prediction.h&gt;</em></div>
+<p>Represents a rectangular geographic region. </p>
+<p>This structure defines a rectangular region using a center point (latitude/longitude) and range values. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_device_region7lat_midE">
+<span id="_CPPv3N24hubble_sat_device_region7lat_midE"></span><span id="_CPPv2N24hubble_sat_device_region7lat_midE"></span><span id="hubble_sat_device_region::lat_mid__double"></span><span class="target" id="structhubble__sat__device__region_1a1f98ccf121268b619fd8bab2ef64a385"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lat_mid</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_device_region7lat_midE" title="Link to this definition"></a><br /></dt>
+<dd><p>Latitude of the region center in degrees. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_device_region9lat_rangeE">
+<span id="_CPPv3N24hubble_sat_device_region9lat_rangeE"></span><span id="_CPPv2N24hubble_sat_device_region9lat_rangeE"></span><span id="hubble_sat_device_region::lat_range__double"></span><span class="target" id="structhubble__sat__device__region_1a3b2b55afd054062cd8f96368f976226d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lat_range</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_device_region9lat_rangeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Total latitude range in degrees (region extends lat_range/2 above and below lat_mid). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_device_region7lon_midE">
+<span id="_CPPv3N24hubble_sat_device_region7lon_midE"></span><span id="_CPPv2N24hubble_sat_device_region7lon_midE"></span><span id="hubble_sat_device_region::lon_mid__double"></span><span class="target" id="structhubble__sat__device__region_1aa8b7f8558a78de035c6e98ed684185fb"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lon_mid</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_device_region7lon_midE" title="Link to this definition"></a><br /></dt>
+<dd><p>Longitude of the region center in degrees. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_device_region9lon_rangeE">
+<span id="_CPPv3N24hubble_sat_device_region9lon_rangeE"></span><span id="_CPPv2N24hubble_sat_device_region9lon_rangeE"></span><span id="hubble_sat_device_region::lon_range__double"></span><span class="target" id="structhubble__sat__device__region_1a2fcf902aa0d7741ffd7d059bae9da2a0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lon_range</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_device_region9lon_rangeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Total longitude range in degrees (region extends lon_range/2 east and west of lon_mid). </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv420hubble_sat_pass_info">
+<span id="_CPPv320hubble_sat_pass_info"></span><span id="_CPPv220hubble_sat_pass_info"></span><span id="hubble_sat_pass_info"></span><span class="target" id="structhubble__sat__pass__info"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_pass_info</span></span></span><a class="headerlink" href="#_CPPv420hubble_sat_pass_info" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;pass_prediction.h&gt;</em></div>
+<p>Represents information about a satellite pass. </p>
+<p>This structure contains details about a satellite’s pass over a specific location, including the time, longitude, and whether the satellite is ascending or descending. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N20hubble_sat_pass_info3lonE">
+<span id="_CPPv3N20hubble_sat_pass_info3lonE"></span><span id="_CPPv2N20hubble_sat_pass_info3lonE"></span><span id="hubble_sat_pass_info::lon__double"></span><span class="target" id="structhubble__sat__pass__info_1ad5d47dfcbd3741a2ed4a0ac26f4589d0"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lon</span></span></span><a class="headerlink" href="#_CPPv4N20hubble_sat_pass_info3lonE" title="Link to this definition"></a><br /></dt>
+<dd><p>Longitude of the satellite pass (degrees, East positive). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N20hubble_sat_pass_info19max_elevation_angleE">
+<span id="_CPPv3N20hubble_sat_pass_info19max_elevation_angleE"></span><span id="_CPPv2N20hubble_sat_pass_info19max_elevation_angleE"></span><span id="hubble_sat_pass_info::max_elevation_angle__double"></span><span class="target" id="structhubble__sat__pass__info_1a594cda452ca84d2919e2f8558cfbfc5b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_elevation_angle</span></span></span><a class="headerlink" href="#_CPPv4N20hubble_sat_pass_info19max_elevation_angleE" title="Link to this definition"></a><br /></dt>
+<dd><p>Maximum elevation angle of the satellite above the horizon at culmination (degrees). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N20hubble_sat_pass_info5startE">
+<span id="_CPPv3N20hubble_sat_pass_info5startE"></span><span id="_CPPv2N20hubble_sat_pass_info5startE"></span><span id="hubble_sat_pass_info::start__uint64_t"></span><span class="target" id="structhubble__sat__pass__info_1ac9a7a982095ce71dfb068e5aa470483c"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><a class="headerlink" href="#_CPPv4N20hubble_sat_pass_info5startE" title="Link to this definition"></a><br /></dt>
+<dd><p>Pass start time (Unix time, milliseconds since epoch). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N20hubble_sat_pass_info11culminationE">
+<span id="_CPPv3N20hubble_sat_pass_info11culminationE"></span><span id="_CPPv2N20hubble_sat_pass_info11culminationE"></span><span id="hubble_sat_pass_info::culmination__uint64_t"></span><span class="target" id="structhubble__sat__pass__info_1aaf466e70f5d51b02d7cd382aec35cbed"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">culmination</span></span></span><a class="headerlink" href="#_CPPv4N20hubble_sat_pass_info11culminationE" title="Link to this definition"></a><br /></dt>
+<dd><p>Time the satellite reaches culmination (Unix time, milliseconds since epoch). </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N20hubble_sat_pass_info8durationE">
+<span id="_CPPv3N20hubble_sat_pass_info8durationE"></span><span id="_CPPv2N20hubble_sat_pass_info8durationE"></span><span id="hubble_sat_pass_info::duration__uint32_t"></span><span class="target" id="structhubble__sat__pass__info_1ab39a63c39d9ae527cbed880ca3f53043"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">duration</span></span></span><a class="headerlink" href="#_CPPv4N20hubble_sat_pass_info8durationE" title="Link to this definition"></a><br /></dt>
+<dd><p>Time duration of the pass in milliseconds. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl>
+<dt class="sig sig-object cpp">
+<span class="target" id="group__hubble__sat__packet__api"></span><em><span class="pre">group</span></em> <span class="sig-name descname"><span class="pre">Satellite</span> <span class="pre">Network</span> <span class="pre">packet</span> <span class="pre">APIs</span></span></dt>
+<dd><p>Hubble Sat Network Packet APIs. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_PACKET_MAX_SIZE">
+<span class="target" id="group__hubble__sat__packet__api_1gac79446ed702409e4765c5ed80c478991"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_PACKET_MAX_SIZE</span></span></span><a class="headerlink" href="#c.HUBBLE_PACKET_MAX_SIZE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_SAT_PAYLOAD_MAX">
+<span class="target" id="group__hubble__sat__packet__api_1ga9678d8316f37e04f2d4f664acf845d18"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_PAYLOAD_MAX</span></span></span><a class="headerlink" href="#c.HUBBLE_SAT_PAYLOAD_MAX" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE">
+<span class="target" id="group__hubble__sat__packet__api_1ga7d37095ec50f672eeeca3c827612d690"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE</span></span></span><a class="headerlink" href="#c.HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_PACKET_FRAME_MAX_SIZE">
+<span class="target" id="group__hubble__sat__packet__api_1ga2c6b10a382ac82c74ac1cc81c1b804ab"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_PACKET_FRAME_MAX_SIZE</span></span></span><a class="headerlink" href="#c.HUBBLE_PACKET_FRAME_MAX_SIZE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421hubble_sat_packet_getP17hubble_sat_packetPKv6size_t">
+<span id="_CPPv321hubble_sat_packet_getP17hubble_sat_packetPKv6size_t"></span><span id="_CPPv221hubble_sat_packet_getP17hubble_sat_packetPKv6size_t"></span><span id="hubble_sat_packet_get__hubble_sat_packetP.voidCP.s"></span><span class="target" id="group__hubble__sat__packet__api_1ga3666c1552f2ce907fcee0159944acdf1"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_packet_get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417hubble_sat_packet" title="hubble_sat_packet"><span class="n"><span class="pre">hubble_sat_packet</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">packet</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">payload</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421hubble_sat_packet_getP17hubble_sat_packetPKv6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Build a Hubble satellite packet from a payload. </p>
+<p>This function constructs a Hubble satellite packet by encoding the provided payload data into the packet structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>packet</strong> – Pointer to the packet structure to be populated. </p></li>
+<li><p><strong>payload</strong> – Pointer to the payload data to be included in the packet. </p></li>
+<li><p><strong>length</strong> – Length of the payload data in bytes. Must be one of the supported sizes: 0, 4, 9, or 13 bytes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>0</strong> – On success. </p></li>
+<li><p><strong>-EINVAL</strong> – If any of the input parameters are invalid. </p></li>
+<li><p><strong>-ENOMEM</strong> – If the payload length exceeds the maximum allowed size. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428hubble_sat_packet_frames_getPK17hubble_sat_packetP24hubble_sat_packet_frames">
+<span id="_CPPv328hubble_sat_packet_frames_getPK17hubble_sat_packetP24hubble_sat_packet_frames"></span><span id="_CPPv228hubble_sat_packet_frames_getPK17hubble_sat_packetP24hubble_sat_packet_frames"></span><span id="hubble_sat_packet_frames_get__hubble_sat_packetCP.hubble_sat_packet_framesP"></span><span class="target" id="group__hubble__sat__packet__api_1ga74413d540e3872ab8f4c915c3e55c37d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_packet_frames_get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417hubble_sat_packet" title="hubble_sat_packet"><span class="n"><span class="pre">hubble_sat_packet</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">packet</span></span>, <span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv424hubble_sat_packet_frames" title="hubble_sat_packet_frames"><span class="n"><span class="pre">hubble_sat_packet_frames</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frames</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428hubble_sat_packet_frames_getPK17hubble_sat_packetP24hubble_sat_packet_frames" title="Link to this definition"></a><br /></dt>
+<dd><p>Split a Hubble satellite packet into transmission frames. </p>
+<p>This function divides the encoded data of a Hubble packet into one or more frames suitable for transmission. Each frame carries a portion of the packet payload along with its associated channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>packet</strong> – Pointer to the source packet to split. </p></li>
+<li><p><strong>frames</strong> – Pointer to the frames structure to be populated.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>0</strong> – On success. </p></li>
+<li><p><strong>-EINVAL</strong> – If any of the input parameters are invalid. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv417hubble_sat_packet">
+<span id="_CPPv317hubble_sat_packet"></span><span id="_CPPv217hubble_sat_packet"></span><span id="hubble_sat_packet"></span><span class="target" id="structhubble__sat__packet"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_packet</span></span></span><a class="headerlink" href="#_CPPv417hubble_sat_packet" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;packet.h&gt;</em></div>
+<p>Structure representing a Hubble packet. </p>
+<p>This structure is used to represent a Hubble packet, the data is a set symbols that represents the frequency in a specific channel.</p>
+<p>Since the preamble is a fixed pattern that is formed by the reference frequency and the complete absence of transmission for a certain period, it is NOT included in this structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The preamble is NOT included in this struct. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17hubble_sat_packet4dataE">
+<span id="_CPPv3N17hubble_sat_packet4dataE"></span><span id="_CPPv2N17hubble_sat_packet4dataE"></span><span id="hubble_sat_packet::data__uint8_tA"></span><span class="target" id="structhubble__sat__packet_1afc48382d764f4efe97dd7a9441f99077"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">HUBBLE_PACKET_MAX_SIZE</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N17hubble_sat_packet4dataE" title="Link to this definition"></a><br /></dt>
+<dd><p>Data of the packet. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17hubble_sat_packet6lengthE">
+<span id="_CPPv3N17hubble_sat_packet6lengthE"></span><span id="_CPPv2N17hubble_sat_packet6lengthE"></span><span id="hubble_sat_packet::length__s"></span><span class="target" id="structhubble__sat__packet_1a02eb000e98152032ed2168a656028a81"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">length</span></span></span><a class="headerlink" href="#_CPPv4N17hubble_sat_packet6lengthE" title="Link to this definition"></a><br /></dt>
+<dd><p>Number of symbols in the packet. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv424hubble_sat_packet_frames">
+<span id="_CPPv324hubble_sat_packet_frames"></span><span id="_CPPv224hubble_sat_packet_frames"></span><span id="hubble_sat_packet_frames"></span><span class="target" id="structhubble__sat__packet__frames"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_packet_frames</span></span></span><a class="headerlink" href="#_CPPv424hubble_sat_packet_frames" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;packet.h&gt;</em></div>
+<p>Structure representing a set of Hubble packet frames. </p>
+<p>A single Hubble packet may be split into multiple frames for transmission. Each frame carries a chunk of the encoded packet payload along with the channel on which it should be transmitted.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The preamble is included in this struct. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_packet_frames4dataE">
+<span id="_CPPv3N24hubble_sat_packet_frames4dataE"></span><span id="_CPPv2N24hubble_sat_packet_frames4dataE"></span><span id="hubble_sat_packet_frames::data__uint8_tA"></span><span class="target" id="structhubble__sat__packet__frames_1ab3a3093df65a521075b392eba0b795ef"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_packet_frames4dataE" title="Link to this definition"></a><br /></dt>
+<dd><p>Encoded payload data for this frame. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_packet_frames7channelE">
+<span id="_CPPv3N24hubble_sat_packet_frames7channelE"></span><span id="_CPPv2N24hubble_sat_packet_frames7channelE"></span><span id="hubble_sat_packet_frames::channel__uint8_t"></span><span class="target" id="structhubble__sat__packet__frames_1a7d5bdd77101116b9591e58f17ee3acca"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">channel</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_packet_frames7channelE" title="Link to this definition"></a><br /></dt>
+<dd><p>Channel on which this frame should be transmitted. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_packet_frames5frameE">
+<span id="_CPPv3N24hubble_sat_packet_frames5frameE"></span><span id="_CPPv2N24hubble_sat_packet_frames5frameE"></span><span id="hubble_sat_packet_frames::frame__hubble_sat_packet_framesA"></span><span class="target" id="structhubble__sat__packet__frames_1ac5040ad946eafb266eb444243351ed85"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv424hubble_sat_packet_frames" title="hubble_sat_packet_frames"><span class="n"><span class="pre">hubble_sat_packet_frames</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">frame</span></span></span><span class="p"><span class="pre">[</span></span><span class="n"><span class="pre">HUBBLE_PACKET_FRAME_MAX_SIZE</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_packet_frames5frameE" title="Link to this definition"></a><br /></dt>
+<dd><p>Individual frames derived from a Hubble packet. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24hubble_sat_packet_frames23total_number_of_symbolsE">
+<span id="_CPPv3N24hubble_sat_packet_frames23total_number_of_symbolsE"></span><span id="_CPPv2N24hubble_sat_packet_frames23total_number_of_symbolsE"></span><span id="hubble_sat_packet_frames::total_number_of_symbols__s"></span><span class="target" id="structhubble__sat__packet__frames_1a961dc4848ee16ea2c68e83adec9b5b2b"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">total_number_of_symbols</span></span></span><a class="headerlink" href="#_CPPv4N24hubble_sat_packet_frames23total_number_of_symbolsE" title="Link to this definition"></a><br /></dt>
+<dd><p>Total number of symbols used. The number of frame is (int)ceil(total_number_of_symbols / HUBBLE_PACKET_FRAME_PAYLOAD_MAX_SIZE) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="port-apis">
+<h2>Port APIs<a class="headerlink" href="#port-apis" title="Link to this heading"></a></h2>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="target" id="group__hubble__sat__radio__port"></span><em><span class="pre">group</span></em> <span class="sig-name descname"><span class="pre">Hubble</span> <span class="pre">Network</span> <span class="pre">Satellite</span> <span class="pre">Radio</span> <span class="pre">Port</span> <span class="pre">APIs</span></span></dt>
+<dd><p>Hubble Network Satellite Radio Port APIs. </p>
+<p>Platform-specific functions that need to be implemented for satellite communication. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_WAIT_SYMBOL_US">
+<span class="target" id="group__hubble__sat__radio__port_1gadadcfa7bd7e8e62f6b5f7b739f22d80a"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_WAIT_SYMBOL_US</span></span></span><a class="headerlink" href="#c.HUBBLE_WAIT_SYMBOL_US" title="Link to this definition"></a><br /></dt>
+<dd><p>Duration to wait for a symbol transmission in microseconds. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_WAIT_SYMBOL_OFF_US">
+<span class="target" id="group__hubble__sat__radio__port_1gae9d480471379770aedb206ea3a189e8c"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_WAIT_SYMBOL_OFF_US</span></span></span><a class="headerlink" href="#c.HUBBLE_WAIT_SYMBOL_OFF_US" title="Link to this definition"></a><br /></dt>
+<dd><p>Duration to wait for a symbol off period in microseconds. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_SAT_SYMBOLS_FRAME_MAX">
+<span class="target" id="group__hubble__sat__radio__port_1ga7efdd87d50a6fc534e33c9bc96f0b60c"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_SYMBOLS_FRAME_MAX</span></span></span><a class="headerlink" href="#c.HUBBLE_SAT_SYMBOLS_FRAME_MAX" title="Link to this definition"></a><br /></dt>
+<dd><p>The max number of symbols to transmit in single frame. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_SAT_NUM_CHANNELS">
+<span class="target" id="group__hubble__sat__radio__port_1ga880d4a210825ed58753ab74c3eab5135"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_NUM_CHANNELS</span></span></span><a class="headerlink" href="#c.HUBBLE_SAT_NUM_CHANNELS" title="Link to this definition"></a><br /></dt>
+<dd><p>Number of available channels for transmissions. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_SAT_PREAMBLE_SEQUENCE">
+<span class="target" id="group__hubble__sat__radio__port_1ga637499092f0ea46a350f4812271bd919"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_SAT_PREAMBLE_SEQUENCE</span></span></span><a class="headerlink" href="#c.HUBBLE_SAT_PREAMBLE_SEQUENCE" title="Link to this definition"></a><br /></dt>
+<dd><p>Preamble sequence pattern for satellite communication. </p>
+<p>This array defines the frequency step pattern used for the preamble. Values represent frequency steps relative to the reference frequency:<ul class="simple">
+<li><p>0: reference frequency</p></li>
+<li><p>-1: no transmission</p></li>
+<li><p>31: center channel frequency </p></li>
+</ul>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420hubble_sat_port_initv">
+<span id="_CPPv320hubble_sat_port_initv"></span><span id="_CPPv220hubble_sat_port_initv"></span><span id="hubble_sat_port_init__void"></span><span class="target" id="group__hubble__sat__radio__port_1ga9d34f62766065627647d14151965d942"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_port_init</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420hubble_sat_port_initv" title="Link to this definition"></a><br /></dt>
+<dd><p>Initialize the satellite radio port. </p>
+<p>This function performs platform-specific initialization of the satellite radio hardware. It is called before any other satellite radio operations are performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0 on success, negative error code on failure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427hubble_sat_port_packet_sendPK17hubble_sat_packet7uint8_t7uint8_t">
+<span id="_CPPv327hubble_sat_port_packet_sendPK17hubble_sat_packet7uint8_t7uint8_t"></span><span id="_CPPv227hubble_sat_port_packet_sendPK17hubble_sat_packet7uint8_t7uint8_t"></span><span id="hubble_sat_port_packet_send__hubble_sat_packetCP.uint8_t.uint8_t"></span><span class="target" id="group__hubble__sat__radio__port_1ga79ef67483a21ea8535a761eef11b4e25"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_port_packet_send</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417hubble_sat_packet" title="hubble_sat_packet"><span class="n"><span class="pre">hubble_sat_packet</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">packet</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">retries</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">interval_s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427hubble_sat_port_packet_sendPK17hubble_sat_packet7uint8_t7uint8_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Transmit a packet over the satellite radio. </p>
+<p>This function transmits a packet using the satellite radio hardware. The packet is sent on the specified channel (frequency) using the platform-specific radio implementation. It handles re-transmissions internally.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function blocks the caller during the whole transmission. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This API is thread safe.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>packet</strong> – Pointer to the packet structure containing the data to transmit. </p></li>
+<li><p><strong>retries</strong> – The number of times this packet must be transmit. </p></li>
+<li><p><strong>interval_s</strong> – The time interval between transmissions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 on successful transmission, negative error code on failure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv431hubble_sat_dtm_port_packet_sendPK17hubble_sat_packet6int8_t">
+<span id="_CPPv331hubble_sat_dtm_port_packet_sendPK17hubble_sat_packet6int8_t"></span><span id="_CPPv231hubble_sat_dtm_port_packet_sendPK17hubble_sat_packet6int8_t"></span><span id="hubble_sat_dtm_port_packet_send__hubble_sat_packetCP.int8_t"></span><span class="target" id="group__hubble__sat__radio__port_1ga8a64f3af52ec7580bcab27e562d8705a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_dtm_port_packet_send</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv417hubble_sat_packet" title="hubble_sat_packet"><span class="n"><span class="pre">hubble_sat_packet</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">packet</span></span>, <span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">channel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431hubble_sat_dtm_port_packet_sendPK17hubble_sat_packet6int8_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Transmit a DTM test packet over the satellite radio. </p>
+<p>Platform-specific implementation for sending a single DTM packet on the specified channel. When <code class="docutils literal notranslate"><span class="pre">channel</span></code> is -1, the transmission follows the standard channel-hopping scheme used by <a class="reference internal" href="#group__hubble__sat__radio__port_1ga79ef67483a21ea8535a761eef11b4e25"><span class="std std-ref">hubble_sat_port_packet_send</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>packet</strong> – Pointer to the packet structure containing the data to transmit. </p></li>
+<li><p><strong>channel</strong> – RF channel to transmit on. -1 to hop between channels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>0</strong> – Success. </p></li>
+<li><p><strong>-EINVAL</strong> – Invalid channel. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429hubble_sat_dtm_port_power_set6int8_t">
+<span id="_CPPv329hubble_sat_dtm_port_power_set6int8_t"></span><span id="_CPPv229hubble_sat_dtm_port_power_set6int8_t"></span><span id="hubble_sat_dtm_port_power_set__int8_t"></span><span class="target" id="group__hubble__sat__radio__port_1ga4e208ff586d3dc49819a8410cfc05fde"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_dtm_port_power_set</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">power</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429hubble_sat_dtm_port_power_set6int8_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the transmit power level (port implementation). </p>
+<p>Platform-specific implementation for configuring the output power used for subsequent DTM transmissions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>power</strong> – Desired TX power in dBm.</p>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>0</strong> – Success. </p></li>
+<li><p><strong>-EINVAL</strong> – Power level is out of the supported range. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428hubble_sat_dtm_port_cw_start7uint8_t">
+<span id="_CPPv328hubble_sat_dtm_port_cw_start7uint8_t"></span><span id="_CPPv228hubble_sat_dtm_port_cw_start7uint8_t"></span><span id="hubble_sat_dtm_port_cw_start__uint8_t"></span><span class="target" id="group__hubble__sat__radio__port_1ga6c2b23c88e8ec5c06a7216fbc08e57e3"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_dtm_port_cw_start</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">channel</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428hubble_sat_dtm_port_cw_start7uint8_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Start continuous wave (CW) transmission (port implementation). </p>
+<p>Platform-specific implementation that begins transmitting an unmodulated carrier on the specified channel. Call <a class="reference internal" href="#group__hubble__sat__radio__port_1ga7ed15858aaefa605e5c6969563744bfc"><span class="std std-ref">hubble_sat_dtm_port_cw_stop</span></a> to end the transmission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channel</strong> – RF channel index to transmit on.</p>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>0</strong> – Success. </p></li>
+<li><p><strong>-EINVAL</strong> – Invalid channel. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427hubble_sat_dtm_port_cw_stopv">
+<span id="_CPPv327hubble_sat_dtm_port_cw_stopv"></span><span id="_CPPv227hubble_sat_dtm_port_cw_stopv"></span><span id="hubble_sat_dtm_port_cw_stop__void"></span><span class="target" id="group__hubble__sat__radio__port_1ga7ed15858aaefa605e5c6969563744bfc"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_sat_dtm_port_cw_stop</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427hubble_sat_dtm_port_cw_stopv" title="Link to this definition"></a><br /></dt>
+<dd><p>Stop continuous wave (CW) transmission (port implementation). </p>
+<p>Platform-specific implementation that halts the unmodulated carrier started by <a class="reference internal" href="#group__hubble__sat__radio__port_1ga6c2b23c88e8ec5c06a7216fbc08e57e3"><span class="std std-ref">hubble_sat_dtm_port_cw_start</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>0</strong> – Success. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ble.html" class="btn btn-neutral float-left" title="BLE Network API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../configuration/index.html" class="btn btn-neutral float-right" title="Configuration Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

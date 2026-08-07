@@ -1,0 +1,227 @@
+.. _release_2_0_0:
+
+Release 2.0.0
+#############
+
+**Release Date**: April 24, 2026
+
+Release 2.0.0 is a major release delivering the **timeless protocol** for the
+Hubble Terrestrial (BLE) Network, along with a set of API refinements that
+required a major version bump.
+
+Overview
+********
+
+The headline change in 2.0.0 is a new counter source mode that lets BLE devices
+participate in the Hubble Terrestrial Network **without a real-time clock**.
+Previously, devices had to know the current Unix time before they could generate
+valid advertisement packets. With the device uptime counter source, a device
+derives its EID counter purely from elapsed uptime, removing the dependency on
+time synchronization entirely. This unlocks simpler hardware designs and more
+robust firmware that does not need to handle clock loss or NTP failures.
+
+In addition, this release ships an early preview of the Satellite Network module
+(pre-production) and includes several API renames that form the breaking changes
+driving the MAJOR version increment.
+
+See `Breaking Changes`_ before upgrading from 1.x.
+
+Key Features
+************
+
+Timeless Protocol for BLE Terrestrial Network
+==============================================
+
+Devices can now operate without a real-time clock by selecting the device uptime
+counter source (``CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME``). In this mode:
+
+- The EID counter is derived from device uptime rather than Unix time, so no
+  time synchronization is required.
+- :c:func:`hubble_init` accepts an initial counter value of ``0`` (start at
+  epoch 0) or a previously saved counter for continuity across reboots.
+- :c:func:`hubble_counter_get` exposes the current counter value so
+  applications can persist it to flash and resume from a known state after
+  a power cycle.
+- The EID rotation period is now configurable via
+  ``CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC``, giving integrators control over the
+  trade-off between privacy and power consumption.
+- The EID pool size is fixed at 128, which is reflected in the counter wrap
+  behavior for uptime mode.
+
+The original Unix time mode (``CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME``) is
+unchanged and remains the default for devices that do have a reliable clock.
+
+New BLE Terrestrial APIs
+=========================
+
+- ``HUBBLE_BLE_ADV_HEADER_SIZE`` — public constant (``12``) exposing the fixed
+  overhead added to every BLE advertisement, simplifying output buffer sizing.
+- :c:func:`hubble_counter_get` — returns the current EID time counter value
+  regardless of counter source mode.
+- EID rotation period defined via ``CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC``.
+
+Platform Updates
+================
+
+- **Zephyr**: Bumped to Zephyr 4.4.0.
+- **FreeRTOS**: PSA crypto backend support added (``CONFIG_HUBBLE_NETWORK_CRYPTO_PSA``).
+- **FreeRTOS**: Satellite network port implemented; disabled by default.
+- **ESP-IDF**: Satellite protocol version is now configurable.
+- **ESP-IDF**: Added version check for the crypto implementation at build time.
+
+Documentation
+=============
+
+- Configuration reference auto-generated from Kconfig — always in sync with
+  the actual build options.
+- Per-branch documentation published automatically to GitHub Pages
+  subdirectories.
+- Clarified ``hubble_rand_get`` is only required for the Satellite Network.
+- Clarified key pointer lifetime requirement in :c:func:`hubble_init` and
+  :c:func:`hubble_key_set`.
+
+Satellite Network (Pre-Production)
+===================================
+
+.. warning::
+
+   The Satellite Network module is **pre-production** and not intended for
+   production deployments. APIs and on-air protocol details may change in
+   future releases.
+
+The Satellite Network module is included for early evaluation:
+
+- **Packet construction**: :c:func:`hubble_sat_packet_get` builds a satellite
+  packet from a payload (up to ``HUBBLE_SAT_PAYLOAD_MAX`` bytes).
+- **Frame splitting**: :c:func:`hubble_sat_packet_frames_get` divides a packet
+  into up to four radio frames, each with its channel assignment.
+- **Transmission**: :c:func:`hubble_sat_packet_send` transmits a packet with
+  configurable reliability (``HUBBLE_SAT_RELIABILITY_NONE``,
+  ``HUBBLE_SAT_RELIABILITY_NORMAL``, ``HUBBLE_SAT_RELIABILITY_HIGH``).
+
+Pass Prediction (Ephemeris)
+-----------------------------
+
+- :c:func:`hubble_sat_satellites_set` — load orbital parameters for one or more
+  satellites.
+- :c:func:`hubble_next_pass_get` — compute the next pass over a geographic
+  point.
+- :c:func:`hubble_next_pass_region_get` — compute the next pass over a
+  rectangular geographic region.
+- Multi-satellite pass computation: all configured satellites are evaluated and
+  the earliest pass is returned.
+
+Sample Applications
+*******************
+
+New samples shipping with 2.0.0:
+
+- **Satellite Continuous (Zephyr)**: Demonstrates continuous satellite packet
+  transmission (``samples/zephyr/sat-continuous``).
+
+Existing samples:
+
+- BLE Beacon (Zephyr, FreeRTOS/TI, ESP-IDF)
+- BLE Network (Zephyr)
+
+API Highlights
+**************
+
+BLE Terrestrial Network APIs:
+
+- :c:func:`hubble_counter_get` — get the current EID time counter value
+- :c:func:`hubble_ble_advertise_expiration_get` — get the time remaining until the BLE advertisement expires
+- ``HUBBLE_BLE_ADV_HEADER_SIZE`` — fixed advertisement header size constant
+
+Satellite Network APIs (pre-production):
+
+- :c:func:`hubble_sat_packet_get` — build a packet from payload bytes
+- :c:func:`hubble_sat_packet_frames_get` — split a packet into radio frames
+- :c:func:`hubble_sat_packet_send` — transmit a packet via satellite
+- :c:func:`hubble_sat_satellites_set` — configure orbital parameters
+- :c:func:`hubble_next_pass_get` — predict next pass over a point
+- :c:func:`hubble_next_pass_region_get` — predict next pass over a region
+
+Breaking Changes
+****************
+
+This release contains the following incompatible API changes.
+
+UTC identifiers renamed to Unix time
+======================================
+
+Public symbols containing ``utc`` have been renamed for consistency:
+
+.. list-table::
+   :header-rows: 1
+
+   * - 1.0 symbol
+     - 2.0 symbol
+   * - ``hubble_init()`` ``utc_time`` parameter
+     - ``initial_time`` parameter
+   * - ``hubble_utc_set()``
+     - :c:func:`hubble_time_set`
+
+Satellite API redesigned
+=========================
+
+The experimental satellite API from 1.0 has been fully redesigned. All 1.0
+satellite functions are removed:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Removed (1.0)
+     - Replacement (2.0)
+   * - ``hubble_sat_init()``
+     - *(initialization now handled internally)*
+   * - ``hubble_sat_enable()``
+     - *(managed by the radio port)*
+   * - ``hubble_sat_disable()``
+     - *(managed by the radio port)*
+   * - ``hubble_sat_transmit_packet()``
+     - :c:func:`hubble_sat_packet_send`
+   * - ``hubble_sat_packet_get(pkt, dev_id, payload, len)``
+     - :c:func:`hubble_sat_packet_get` ``(pkt, payload, len)``
+
+:c:func:`hubble_sat_packet_frames_get` is a new function with no 1.0 equivalent.
+
+Migration Guide
+***************
+
+1. **Rename UTC calls**: Replace ``hubble_utc_set()`` with
+   :c:func:`hubble_time_set`. Rename the ``utc_time`` argument to
+   ``initial_time`` in :c:func:`hubble_init` calls (position and type are
+   unchanged).
+
+Known Limitations
+*****************
+
+- **Satellite Network is pre-production**: APIs and on-air protocol details may
+  change in a future minor or patch release.
+
+Compatibility
+*************
+
+- **API compatibility**: The BLE Terrestrial Network API is stable within the
+  2.x series. The Satellite Network API may receive breaking changes in a
+  pre-production minor release before it is declared stable.
+
+Testing
+*******
+
+This release has been validated through:
+
+- Unit tests for BLE advertisement generation and encryption
+- Unit tests for EID generation in both counter source modes
+- Integration tests for the BLE Terrestrial Network module
+- Platform-specific CI builds: Zephyr (QEMU, native_sim), FreeRTOS (TI), ESP-IDF
+- Satellite packet encoding and frame-splitting tests
+- Ephemeris pass-prediction tests
+
+Support
+*******
+
+- **Documentation**: https://hubble.com/docs/device-sdk/intro
+- **GitHub Repository**: https://github.com/hubblenetwork/hubble-device-sdk
+- **Issues**: Report issues via GitHub Issues

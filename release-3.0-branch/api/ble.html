@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLE Network API &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d42fa807" />
+
+  
+    <link rel="shortcut icon" href="../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/api/ble.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Satellite Network API" href="satellite.html" />
+    <link rel="prev" title="Core API" href="core.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/index.html#port-layer">Port Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../architecture/project-organization.html">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Platform Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guides/index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BLE Network API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="satellite.html">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="satellite.html#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="satellite.html#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  
+     <li><a href="index.html">API</a> &raquo;</li>
+  
+  <li>BLE Network API</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/api/ble.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="ble-network-api">
+<span id="hubble-ble-api"></span><h1>BLE Network API<a class="headerlink" href="#ble-network-api" title="Link to this heading"></a></h1>
+<dl>
+<dt class="sig sig-object cpp">
+<span class="target" id="group__hubble__ble__api"></span><em><span class="pre">group</span></em> <span class="sig-name descname"><span class="pre">BLE</span> <span class="pre">Network</span> <span class="pre">Function</span> <span class="pre">APIs</span></span></dt>
+<dd><p>Hubble BLE Network Function APIs. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_BLE_UUID">
+<span class="target" id="group__hubble__ble__api_1ga41fb50c39db4be60769f17cc59abd26f"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_BLE_UUID</span></span></span><a class="headerlink" href="#c.HUBBLE_BLE_UUID" title="Link to this definition"></a><br /></dt>
+<dd><p>Hubble BLE Network UUID. </p>
+<p>This is the UUID should be listed in the services list. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_BLE_MAX_DATA_LEN">
+<span class="target" id="group__hubble__ble__api_1ga11ed4310044e81bef4eb485a9b10079e"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_BLE_MAX_DATA_LEN</span></span></span><a class="headerlink" href="#c.HUBBLE_BLE_MAX_DATA_LEN" title="Link to this definition"></a><br /></dt>
+<dd><p>Maximum amount of data sendable in bytes. </p>
+<p>This is the maximum length of data that can be sent with Hubble. If other services or service data are advertised then this number will be smaller for your application given the finite length of advertisements. </p>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.HUBBLE_BLE_ADV_HEADER_SIZE">
+<span class="target" id="group__hubble__ble__api_1ga1f0a64639c5aa897e03f895c01d97a3e"></span><span class="sig-name descname"><span class="n"><span class="pre">HUBBLE_BLE_ADV_HEADER_SIZE</span></span></span><a class="headerlink" href="#c.HUBBLE_BLE_ADV_HEADER_SIZE" title="Link to this definition"></a><br /></dt>
+<dd><p>Fixed header size of a Hubble BLE advertisement in bytes. </p>
+<p>Every advertisement produced by <a class="reference internal" href="#group__hubble__ble__api_1gaaf81e6fb42b8a80311a1f085c2ebcc7a"><span class="std std-ref">hubble_ble_advertise_get</span></a> contains this many fixed-overhead bytes (UUID prefix, device address, and authentication tag) before any caller-supplied data.</p>
+<p>Use this to size the output buffer: <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>uint8_t buf[HUBBLE_BLE_ADV_HEADER_SIZE + my_data_len];
+size_t buf_len = sizeof(buf);
+hubble_ble_advertise_get(data, my_data_len, buf, &amp;buf_len);
+</pre></div>
+</div>
+</p>
+<p>The maximum possible output length is: <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>HUBBLE_BLE_ADV_HEADER_SIZE + HUBBLE_BLE_MAX_DATA_LEN   // = 25 bytes
+</pre></div>
+</div>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424hubble_ble_advertise_getPK7uint8_t6size_tP7uint8_tP6size_t">
+<span id="_CPPv324hubble_ble_advertise_getPK7uint8_t6size_tP7uint8_tP6size_t"></span><span id="_CPPv224hubble_ble_advertise_getPK7uint8_t6size_tP7uint8_tP6size_t"></span><span id="hubble_ble_advertise_get__uint8_tCP.s.uint8_tP.sP"></span><span class="target" id="group__hubble__ble__api_1gaaf81e6fb42b8a80311a1f085c2ebcc7a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_ble_advertise_get</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">input</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">input_len</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">out</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">out_len</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424hubble_ble_advertise_getPK7uint8_t6size_tP7uint8_tP6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieves advertisements from the provided data. </p>
+<p>This function processes the input data and creates the advertisement payload. The returned data should be used with Service Data - 16 bit UUID advertisement type (0x16).</p>
+<p>It is also required to add Hubble 16-bit service UUID in the complete list of 16-bit service class UUID (0x03).</p>
+<p>Example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>int status = hubble_ble_advertise_get(data, data_len, out, &amp;out_len);
+</pre></div>
+</div>
+<p>The following advertisement packet shows a valid example and where the returned data fits in.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>| len   | ad type | data   | len                  | ad type | data       |
+|-------+---------+--------+----------------------+---------+------------|
+| 0x03  | 0x03    | 0xFCA6 | out_len + 0x01       | 0x16    | ad_data    |
+|       |         |        | (ad type len)        |         |            |
+|       |         |        | (out_len is adv_data |         |            |
+|       |         |        |  len - returned by   |         |            |
+|       |         |        |  this API)           |         |            |
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>- This function is neither thread-safe nor reentrant. The caller must ensure proper synchronization.<ul class="simple">
+<li><p>The payload is encrypted using the key set by <a class="reference internal" href="core.html#group__hubble__api_1ga888299129a16a442594958fb5d1585c9"><span class="std std-ref">hubble_key_set</span></a></p></li>
+<li><p>Legacy packet type (Extended Advertisements not supported)</p></li>
+</ul>
+</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – Pointer to the input data. </p></li>
+<li><p><strong>input_len</strong> – Length of the input data. </p></li>
+<li><p><strong>out</strong> – Output buffer to place data into </p></li>
+<li><p><strong>out_len</strong> – in: Size of the <code class="docutils literal notranslate"><span class="pre">out</span></code> buffer in bytes. Must be at least <a class="reference internal" href="#group__hubble__ble__api_1ga1f0a64639c5aa897e03f895c01d97a3e"><span class="std std-ref">HUBBLE_BLE_ADV_HEADER_SIZE</span></a> + <code class="docutils literal notranslate"><span class="pre">input_len</span></code>. out: Actual advertisement length written.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>0 on success</p></li>
+<li><p>Non-zero on failure </p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv435hubble_ble_advertise_expiration_getv">
+<span id="_CPPv335hubble_ble_advertise_expiration_getv"></span><span id="_CPPv235hubble_ble_advertise_expiration_getv"></span><span id="hubble_ble_advertise_expiration_get__void"></span><span class="target" id="group__hubble__ble__api_1gabdcc6e98b1abc90916a123b0d9fc4c02"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hubble_ble_advertise_expiration_get</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435hubble_ble_advertise_expiration_getv" title="Link to this definition"></a><br /></dt>
+<dd><p>Gets the time remaining until the BLE advertisement expires. </p>
+<p>Returns the number of milliseconds until the current BLE advertisement expires and a new one should be generated. This helps applications refresh their advertisements in synchronization with the EID rotation period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Milliseconds until the current advertisement expires. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.html" class="btn btn-neutral float-left" title="Core API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="satellite.html" class="btn btn-neutral float-right" title="Satellite Network API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Organization &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=d42fa807" />
+
+  
+    <link rel="shortcut icon" href="../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/architecture/project-organization.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Terrestrial Network Overview" href="../terrestrial/index.html" />
+    <link rel="prev" title="Architecture" href="index.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Architecture</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#port-layer">Port Layer</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Platform Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart/bare-metal/index.html">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart/bare-metal/index.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integration_guides/index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../integration_guides/esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../integration_guides/esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../releases/index.html">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/index.html#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../releases/index.html#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../releases/1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/ble.html">BLE Network API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/satellite.html">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/satellite.html#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/satellite.html#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  
+     <li><a href="index.html">Architecture</a> &raquo;</li>
+  
+  <li>Project Organization</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/architecture/project-organization.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="project-organization">
+<span id="id1"></span><h1>Project Organization<a class="headerlink" href="#project-organization" title="Link to this heading"></a></h1>
+<p>The Hubble Device SDK is organized around a small common core, public headers,
+and platform-specific ports. The common code implements the SDK protocols and
+state management. The port code adapts those protocols to a specific RTOS,
+crypto provider, radio driver, and board.</p>
+<p>This page describes how the source tree is laid out, how the layers depend on
+one another, the naming conventions used throughout, and where new code should
+go.</p>
+<section id="layering-model">
+<h2>Layering Model<a class="headerlink" href="#layering-model" title="Link to this heading"></a></h2>
+<p>Everything in the SDK follows one rule: <strong>dependencies flow downward through the
+layers</strong>. A layer may call the layer below it, never the layer above.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>application
+   |
+   v
+include/hubble          public APIs
+   |
+   v
+src                     common SDK implementation
+   |
+   v
+include/hubble/port     port contracts
+   |
+   v
+port/&lt;rtos&gt;             RTOS / framework glue
+   |
+   v
+port/&lt;rtos&gt;/boards      board and hardware implementation
+</pre></div>
+</div>
+<p>Applications call the public <code class="docutils literal notranslate"><span class="pre">hubble_*</span></code> APIs. Common SDK code implements the
+protocol and calls <em>port contracts</em> when it needs a platform service. Port and
+board files implement those contracts using RTOS, vendor SDK, or hardware
+facilities. When common code needs a new platform capability, the fix is to add
+a port contract — not to scatter RTOS-specific conditionals through <code class="docutils literal notranslate"><span class="pre">src</span></code>.</p>
+<p>Keeping this direction intact is what lets the protocol logic be tested and
+reused across every supported platform.</p>
+</section>
+<section id="directory-layout">
+<h2>Directory Layout<a class="headerlink" href="#directory-layout" title="Link to this heading"></a></h2>
+<p>Each directory maps to one layer of the model above and owns a specific
+responsibility.</p>
+<section id="public-apis-include-hubble">
+<h3>Public APIs – <code class="docutils literal notranslate"><span class="pre">include/hubble</span></code><a class="headerlink" href="#public-apis-include-hubble" title="Link to this heading"></a></h3>
+<p>Application-facing headers. Applications and ports include SDK interfaces from
+here instead of reaching into <code class="docutils literal notranslate"><span class="pre">src</span></code>. These declarations are the stable
+integration surface, use the <code class="docutils literal notranslate"><span class="pre">hubble_*</span></code> namespace, and must not leak RTOS or
+board-specific types into their signatures.</p>
+<p>Key headers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble.h</span></code>: top-level SDK initialization, time, key, and counter APIs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ble.h</span></code>: BLE Network advertisement APIs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sat.h</span></code>: Satellite Network packet transmission API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version.h</span></code>: SDK version information.</p></li>
+</ul>
+</section>
+<section id="port-contracts-include-hubble-port">
+<h3>Port Contracts – <code class="docutils literal notranslate"><span class="pre">include/hubble/port</span></code><a class="headerlink" href="#port-contracts-include-hubble-port" title="Link to this heading"></a></h3>
+<p>The interfaces a platform integration must implement. These headers are public
+in the sense that ports implement them, but they are not application-facing
+APIs. Common SDK code calls them; applications normally do not.</p>
+<p>The current port contracts are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sys.h</span></code>: system services such as uptime, logging, sequence
+counters, and random bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto.h</span></code>: cryptographic provider interface used by the common SDK code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sat_radio.h</span></code>: satellite radio operations implemented by each satellite
+platform.</p></li>
+</ul>
+</section>
+<section id="common-implementation-src">
+<h3>Common Implementation – <code class="docutils literal notranslate"><span class="pre">src</span></code><a class="headerlink" href="#common-implementation-src" title="Link to this heading"></a></h3>
+<p>Behavior that should be identical on every platform: input validation, BLE
+advertisement formatting, satellite packet formatting and send policy, key
+derivation, nonce-safety checks, encryption and authentication flow,
+pass-prediction math, and the feature logic guarded by <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_*</span></code>
+options.</p>
+<p>Common code may include public SDK headers, private <code class="docutils literal notranslate"><span class="pre">src</span></code> headers, and port
+contract headers. It must <strong>not</strong> include RTOS or board headers directly.</p>
+<p>Important files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble.c</span></code>: SDK initialization and common time/key entry points.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_ble.c</span></code>: BLE advertisement construction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_crypto.c</span></code>: common key derivation, nonce validation, encryption, and
+authentication flow.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_sat.c</span></code>: common satellite send and DTM flow.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_sat_packet.c</span></code>: satellite packet encoding.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_sat_pass_prediction.c</span></code>: pass prediction logic.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crypto/</span></code>: concrete crypto provider adapters, currently mbedTLS and PSA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utils/</span></code> and <code class="docutils literal notranslate"><span class="pre">reed_solomon_encoder.*</span></code>: internal helpers used by common
+protocol code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_priv.h</span></code>: private declarations shared only by common implementation
+files.</p></li>
+</ul>
+</section>
+<section id="rtos-and-framework-glue-port-rtos">
+<h3>RTOS and framework glue – <code class="docutils literal notranslate"><span class="pre">port/&lt;rtos&gt;</span></code><a class="headerlink" href="#rtos-and-framework-glue-port-rtos" title="Link to this heading"></a></h3>
+<p>Adapts the SDK to an RTOS or framework. Each port selects the common sources it
+needs, provides configuration integration, and implements the port contracts
+required by the enabled SDK features. Typical responsibilities are build-system
+integration, the <code class="docutils literal notranslate"><span class="pre">sys.h</span></code> implementation, crypto provider selection and
+initialization, satellite radio implementation when satellite support is
+enabled, and include-path and configuration injection.</p>
+<p>Current ports:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">port/zephyr</span></code>: Zephyr module integration, Kconfig, common Zephyr system
+glue, Zephyr satellite radio glue, and board/SOC-specific radio support. The
+Zephyr port selects sources from <code class="docutils literal notranslate"><span class="pre">port/zephyr/CMakeLists.txt</span></code> based on
+Kconfig options.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port/freertos</span></code>: FreeRTOS makefile integration (<code class="docutils literal notranslate"><span class="pre">hubblenetwork-sdk.mk</span></code>),
+default configuration header flow, system glue, and satellite radio glue.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port/esp-idf</span></code>: ESP-IDF component-style wrapper and system glue for ESP-IDF
+applications.</p></li>
+</ul>
+</section>
+<section id="board-and-hardware-implementation-port-rtos-boards">
+<h3>Board and Hardware Implementation – <code class="docutils literal notranslate"><span class="pre">port/&lt;rtos&gt;/boards</span></code><a class="headerlink" href="#board-and-hardware-implementation-port-rtos-boards" title="Link to this heading"></a></h3>
+<p>The lowest layer. Board files bind the generic satellite radio contract to
+concrete SOC peripherals. For example, Zephyr satellite support has board
+families under <code class="docutils literal notranslate"><span class="pre">port/zephyr/boards</span></code> for Nordic and Silicon Labs targets.</p>
+<p>Use board-specific files for the details that cannot be expressed as common SDK
+logic:</p>
+<ul class="simple">
+<li><p>vendor radio driver setup;</p></li>
+<li><p>RF channel and power mapping;</p></li>
+<li><p>front-end module (FEM) control;</p></li>
+<li><p>vendor binary library integration;</p></li>
+<li><p>SOC-family differences, timing quirks, and board selection logic.</p></li>
+</ul>
+<p>A board implementation should answer <em>“how this hardware transmits”</em>, while
+<code class="docutils literal notranslate"><span class="pre">src</span></code> answers <em>“what the SDK needs to transmit”</em>. Keep protocol behavior out
+of board files.</p>
+</section>
+<section id="samples-and-tests">
+<h3>Samples and Tests<a class="headerlink" href="#samples-and-tests" title="Link to this heading"></a></h3>
+<p>Samples show application integration for each supported environment
+(<code class="docutils literal notranslate"><span class="pre">samples/&lt;rtos&gt;</span></code>). Tests exercise SDK behavior and platform builds. The
+common code should be structured so protocol behavior can be tested without
+duplicating RTOS-specific glue.</p>
+</section>
+</section>
+<section id="naming-and-namespace-conventions">
+<h2>Naming and Namespace Conventions<a class="headerlink" href="#naming-and-namespace-conventions" title="Link to this heading"></a></h2>
+<p>The prefix of a symbol tells you which layer owns it.</p>
+<section id="public-and-common-symbols-hubble">
+<h3>Public and Common Symbols – <code class="docutils literal notranslate"><span class="pre">hubble_*</span></code><a class="headerlink" href="#public-and-common-symbols-hubble" title="Link to this heading"></a></h3>
+<p>Names without a more specific internal or port marker are public or common SDK
+symbols. If a symbol is declared in <code class="docutils literal notranslate"><span class="pre">include/hubble</span></code> and documented on an API
+page, it is application-facing; if it is defined in <code class="docutils literal notranslate"><span class="pre">src</span></code> without a public
+declaration, treat it carefully, since C symbols have global linkage unless
+declared <code class="docutils literal notranslate"><span class="pre">static</span></code>.</p>
+<p>Use this namespace for stable application APIs and SDK-wide constants. Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_init()</span></code>, <code class="docutils literal notranslate"><span class="pre">hubble_time_set()</span></code>, <code class="docutils literal notranslate"><span class="pre">hubble_time_get()</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">hubble_key_set()</span></code> from <code class="docutils literal notranslate"><span class="pre">hubble.h</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_ble_advertise_get()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">hubble_ble_advertise_expiration_get()</span></code> from <code class="docutils literal notranslate"><span class="pre">ble.h</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> from <code class="docutils literal notranslate"><span class="pre">sat.h</span></code>;</p></li>
+<li><p>satellite packet, pass prediction, and DTM helpers under <code class="docutils literal notranslate"><span class="pre">include/hubble/sat</span></code>.</p></li>
+</ul>
+<p>When adding a public API, place its declaration in <code class="docutils literal notranslate"><span class="pre">include/hubble</span></code>, add
+Doxygen comments, keep the name under the <code class="docutils literal notranslate"><span class="pre">hubble_*</span></code> namespace, and avoid
+leaking RTOS or board-specific types into the signature.</p>
+</section>
+<section id="private-helpers-hubble-internal">
+<h3>Private Helpers – <code class="docutils literal notranslate"><span class="pre">hubble_internal_*</span></code><a class="headerlink" href="#private-helpers-hubble-internal" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">hubble_internal_*</span></code> symbols are SDK-private helpers declared in
+<code class="docutils literal notranslate"><span class="pre">src/hubble_priv.h</span></code>. They connect common implementation files to each other
+without exposing those details to applications or ports.</p>
+<p>Applications and port implementations should not call <code class="docutils literal notranslate"><span class="pre">hubble_internal_*</span></code>
+functions. If a port needs a capability currently hidden behind one, add an
+explicit port contract or public API rather than including <code class="docutils literal notranslate"><span class="pre">src/hubble_priv.h</span></code>.</p>
+</section>
+<section id="port-contract-symbols-hubble-port">
+<h3>Port-Contract Symbols – <code class="docutils literal notranslate"><span class="pre">hubble_*_port_*</span></code><a class="headerlink" href="#port-contract-symbols-hubble-port" title="Link to this heading"></a></h3>
+<p>Symbols with <code class="docutils literal notranslate"><span class="pre">_port_</span></code> in the name are implemented by a port or board
+layer and called by common SDK code — for example
+<code class="docutils literal notranslate"><span class="pre">hubble_sat_port_init()</span></code> and <code class="docutils literal notranslate"><span class="pre">hubble_sat_port_packet_send()</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">_port_</span></code> suffix implies there is an equivalent common function that
+shares code across all ports, for example <code class="docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code>.</p>
+<p>Not every port contract carries <code class="docutils literal notranslate"><span class="pre">_port_</span></code> in its
+name. <code class="docutils literal notranslate"><span class="pre">hubble_uptime_get()</span></code>, <code class="docutils literal notranslate"><span class="pre">hubble_log()</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">hubble_crypto_*()</span></code> are declared in <code class="docutils literal notranslate"><span class="pre">include/hubble/port</span></code> and are
+still port-provider APIs by contract. These APIs are implemented
+completely in the port layer and share no common code.</p>
+<p>When adding port APIs, place declarations under <code class="docutils literal notranslate"><span class="pre">include/hubble/port</span></code>,
+document who calls the function, and keep RTOS-specific types out of the common
+contract unless the contract is intentionally limited to one port.</p>
+</section>
+</section>
+<section id="configuration-conventions">
+<h2>Configuration Conventions<a class="headerlink" href="#configuration-conventions" title="Link to this heading"></a></h2>
+<p>Feature and provider selection use <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_*</span></code> macros. Zephyr defines
+these through Kconfig; FreeRTOS injects a configuration header through the
+makefile integration. Other ports should provide equivalent configuration values
+before compiling the common sources.</p>
+<p>Keep configuration checks close to the feature boundary:</p>
+<ul class="simple">
+<li><p>build files select source files for major features and providers;</p></li>
+<li><p>headers expose APIs conditionally only when the feature requires it;</p></li>
+<li><p>common implementation code uses <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_*</span></code> for small behavioral
+decisions within an already-selected feature.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../terrestrial/index.html" class="btn btn-neutral float-right" title="Terrestrial Network Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

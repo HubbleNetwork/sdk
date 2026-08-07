@@ -1,0 +1,1031 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bare Metal &mdash; Hubble Device SDK Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=d42fa807" />
+
+  
+    <link rel="shortcut icon" href="../../_static/hubble.png"/>
+    <link rel="canonical" href="https://HubbleNetwork.github.io/hubble-device-sdk/release-3.0-branch/quickstart/bare-metal/index.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/js/version-selector.js?v=f9710a61"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Integration Guides" href="../../integration_guides/index.html" />
+    <link rel="prev" title="ESP-IDF" href="../esp-idf/index.html" />
+  <meta name="docs-base-path" content="/hubble-device-sdk/">
+  <meta name="color-scheme" content="dark light">
+  
+  <noscript id="dark-mode-toggle-stylesheets">
+    <link rel="stylesheet" href="../../_static/css/light.css" type="text/css" media="(prefers-color-scheme: light)"/>
+    <link rel="stylesheet" href="../../_static/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)"/>
+  </noscript>
+  <script src="../../_static/js/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script type="module" src="../../_static/js/dark-mode-toggle.min.mjs"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Hubble Device SDK
+              <img src="../../_static/hubble-logo.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  <div data-nosnippet>
+    
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#the-networks">The Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../introduction/index.html#terrestrial-network-ble">Terrestrial Network (BLE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../introduction/index.html#satellite-network">Satellite Network</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#key-characteristics">Key Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#platform-support">Platform Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction/index.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture/index.html#service-modules">Service Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/index.html#satellite-module">Satellite Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/index.html#ble-network-module">BLE Network Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../architecture/index.html#port-layer">Port Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../architecture/project-organization.html">Project Organization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../terrestrial/index.html">Terrestrial Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#how-it-works">How It Works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#advertising-packet">Advertising Packet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#packet-header">Packet Header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#addressing">Addressing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#payload-structure">Payload Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#customer-payload">Customer Payload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#api-overview">API Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#time-management">Time Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#encryption-key-management">Encryption Key Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../terrestrial/index.html#advertisement-retrieval">Advertisement Retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#common-api-workflow">Common API Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../terrestrial/index.html#configuration-notes">Configuration Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../satellite/index.html">Satellite Network Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#how-it-works">How It Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#packet-generation">Packet Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#transmission">Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#pass-prediction">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#orbital-parameters-satellites-information">Orbital Parameters (Satellites information)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#computing-a-pass">Computing a Pass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#common-api-workflow">Common API Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#continuous-transmission">Continuous Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/index.html#dual-stack-with-pass-prediction">Dual Stack with Pass Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#radio-timing">Radio Timing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#reliability-and-clock-drift">Reliability and Clock Drift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#supporting-new-boards">Supporting New Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../satellite/index.html#configuration-notes">Configuration Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/reliability.html">Reliability and Power Consumption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/clock-drift.html">Clock Drift Compensation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../satellite/board-support.html">Supporting New Boards</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Platform Setup</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../zephyr/index.html">Zephyr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../zephyr/index.html#adding-hubble-network-to-zephyr">Adding Hubble Network to Zephyr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../zephyr/index.html#using-hubble-network-as-the-manifest-repository">Using Hubble Network as the manifest repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../freertos/index.html">FreeRTOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../freertos/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../freertos/index.html#adding-hubble-network-to-freertos">Adding Hubble Network to FreeRTOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ti/index.html">TI SDK (SysConfig)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#adding-the-hubble-device-sdk-sysconfig-product">Adding the Hubble Device SDK SysConfig Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#configuring-the-hubble-module-in-a-syscfg-script">Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#configuring-the-radio-for-satellite">Configuring the Radio for Satellite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#using-code-composer-studio-ccs">Using Code Composer Studio (CCS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ti/index.html#building-the-application">Building the Application</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../esp-idf/index.html">ESP-IDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../esp-idf/index.html#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bare Metal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#counter-source">Counter Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-files">Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-defines">Configuration Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abstraction-layers">Abstraction Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-example">Complete Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integration_guides/index.html">Integration Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guides/ncs/index.html">Nordic nRF Connect SDK Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#supported-ncs-version-and-boards">Supported NCS Version and Boards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#board-bring-up">Board Bring-Up</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ncs/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guides/ti/index.html">TI SimpleLink Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/ti/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../integration_guides/esp-idf/index.html">ESP-IDF Integration Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#supported-devices-and-sdk-version">Supported Devices and SDK Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#create-your-hubble-account">Create your Hubble Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#sdk-setup">SDK Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#project-configuration">Project Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#preparing-for-satellite-transmission">Preparing for Satellite Transmission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#initializing-the-hubble-device-sdk">Initializing the Hubble Device SDK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#the-pass-prediction-loop">The Pass Prediction Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#building-and-flashing">Building and Flashing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#verifying-the-application">Verifying the Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../integration_guides/esp-idf/index.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../best-practices/index.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../best-practices/time-management.html">Time Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#provisioning-unix-time">Provisioning Unix Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#accounting-for-time-drifts">Accounting for Time Drifts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#tips-for-handling-time-persistence-across-power-cycles">Tips for Handling Time Persistence Across Power Cycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/time-management.html#encryption-and-time-dependency">Encryption and Time Dependency</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../best-practices/pass-prediction.html">Pass Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#the-api-at-a-glance">The API at a Glance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#getting-a-satellite-pass">Getting a satellite pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#reading-the-result">Reading the Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#selecting-the-minimum-elevation-angle">Selecting the Minimum Elevation Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#getting-multiple-passes-in-the-future">Getting Multiple Passes in the Future</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#time-drift-and-the-search-start">Time, Drift, and the Search Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../best-practices/pass-prediction.html#decision-summary">Decision Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/index.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../security/cryptography.html">Cryptographic Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#key-concepts">Key concepts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#encryption-steps">Encryption steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/cryptography.html#additional-references">Additional references</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/vulnerability-process.html">Hubble Network Security Vulnerability Handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#security-issue-management">Security Issue Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#fix-recommendations">Fix Recommendations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#vulnerability-notification">Vulnerability Notification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../security/vulnerability-process.html#backporting-of-security-vulnerabilities">Backporting of Security Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../security/vulnerabilities.html">Vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases/index.html">Release Notes and Lifecycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-lifecycle">Release Lifecycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#development-phase">Development Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#release-candidate-phase">Release Candidate Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#hardening-and-validation-phase">Hardening and Validation Phase</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-model">Release Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#version-components">Version Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#versioning-rules">Versioning Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-types">Release Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#stable-releases">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#long-term-support-lts-releases">Long-Term Support (LTS) Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#support-policy">Support Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#id1">Stable Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#long-term-support-releases">Long-Term Support Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-schedule">Release Schedule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#regular-releases">Regular Releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/index.html#release-announcements">Release Announcements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#migration-and-upgrade-guidance">Migration and Upgrade Guidance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../releases/index.html#release-notes">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/3.0.html">Release 3.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/2.0.html">Release 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../releases/1.0.html">Release 1.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/core.html">Core API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/ble.html">BLE Network API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/satellite.html">Satellite Network API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/satellite.html#application-apis">Application APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/satellite.html#port-apis">Port APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration/index.html">Configuration Options</a></li>
+</ul>
+
+    
+  </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Hubble Device SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+  <!--  -->
+  
+  
+  
+  
+
+  <li><a href="../../index.html">Docs</a> &raquo;</li>
+  
+     <li><a href="../index.html">Platform Setup</a> &raquo;</li>
+  
+  <li>Bare Metal</li>
+
+
+  <li class="wy-breadcrumbs-aside">
+    <dark-mode-toggle id="dark-mode-toggle" appearance="three-way" permanent="true"/>
+  </li>
+  <li class="wy-breadcrumbs-aside">
+  </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+  
+    <div class="wy-alert wy-alert-danger" data-nosnippet>
+      The <a href="/hubble-device-sdk/main/quickstart/bare-metal/index.html">latest development version</a>
+      of this page may be more current than this released  version.
+    </div>
+  
+  
+           <div itemprop="articleBody">
+             
+  <section id="bare-metal">
+<span id="bare-metal-quick-start"></span><h1>Bare Metal<a class="headerlink" href="#bare-metal" title="Link to this heading"></a></h1>
+<p>Port the Hubble Device SDK to a bare metal environment — one without a
+traditional real-time operating system (RTOS) such as FreeRTOS or Zephyr.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Device <code class="docutils literal notranslate"><span class="pre">key</span></code> (generated when you register a new device to your organization
+through the Hubble Cloud API).</p></li>
+<li><p>A <strong>counter source</strong> for EID rotation and key derivation — either device
+uptime (recommended for bare metal, no clock required) or current Unix time.
+See <a class="reference internal" href="#bare-metal-counter-source"><span class="std std-ref">Counter Source</span></a> below.</p></li>
+<li><p>Encryption library or custom implementation.</p></li>
+</ul>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>Bare metal implementations run directly on the microcontroller hardware, often
+using vendor-provided Hardware Abstraction Layers (HALs) or custom timing
+infrastructure. This guide outlines how to compile a basic Bluetooth® Low
+Energy (BLE) beacon in a bare metal environment that advertises on the Hubble
+Terrestrial Network.</p>
+<p>Porting the Hubble Device SDK to a new platform requires</p>
+<ul class="simple">
+<li><p>Including Hubble <strong>source files</strong> and <strong>cryptographic</strong> implementation.</p></li>
+<li><p>Choosing a <strong>counter source</strong> (device uptime or Unix time).</p></li>
+<li><p>Specific <strong>configuration defines</strong>.</p></li>
+<li><p>Implementing two <strong>abstraction layers</strong>: system abstraction and cryptographic
+abstraction.</p></li>
+</ul>
+</section>
+<section id="counter-source">
+<span id="bare-metal-counter-source"></span><h2>Counter Source<a class="headerlink" href="#counter-source" title="Link to this heading"></a></h2>
+<p>The SDK derives a rotating <strong>time counter</strong> that drives EID rotation, key
+derivation, and BLE address generation. You select where that counter comes
+from at compile time. The two sources are mutually exclusive — defining both
+produces a build error.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 15.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Counter Source</p></th>
+<th class="head"><p>Define</p></th>
+<th class="head"><p>Requires a clock?</p></th>
+<th class="head"><p>Best for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Device uptime</strong> <em>(recommended for bare metal)</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Devices without a real-time clock (RTC), reliable time source, or a way
+to provision Unix time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Unix time</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Devices with an RTC or network time synchronization.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="device-uptime-recommended">
+<h3>Device Uptime (recommended)<a class="headerlink" href="#device-uptime-recommended" title="Link to this heading"></a></h3>
+<p>In device uptime mode the counter is derived <strong>purely from elapsed uptime</strong>, so
+no time synchronization is required. This is the simplest option for bare metal
+hardware that has no RTC and no way to provision the current time. It depends
+only on your <a class="reference internal" href="#bare-metal-uptime-get"><span class="std std-ref">hubble_uptime_get</span></a> implementation.</p>
+<p>The counter advances once per <a class="reference internal" href="#bare-metal-eid-rotation-period"><span class="std std-ref">EID rotation period</span></a> (daily by default) and wraps at the EID pool
+size of <code class="docutils literal notranslate"><span class="pre">128</span></code>.</p>
+<p><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> takes the <strong>initial counter value</strong> rather than a
+timestamp:</p>
+<ul class="simple">
+<li><p>Pass <code class="docutils literal notranslate"><span class="pre">0</span></code> to start at counter epoch 0 (valid).</p></li>
+<li><p>Pass a previously saved counter to resume from a known state after a reboot,
+preserving continuity across power cycles.</p></li>
+</ul>
+<p>Use <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_counter_get()</span></code> to read the current counter value so your
+application can persist it to non-volatile storage and reload it on the next
+boot. Its signature is <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">hubble_counter_get(uint32_t</span> <span class="pre">*counter)</span></code>: it returns
+a status code (<code class="docutils literal notranslate"><span class="pre">0</span></code> on success) and writes the counter value through the
+pointer. In device uptime mode the value it returns is the wrapped pool counter
+in the range <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">127</span></code>. That is exactly the form <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code>
+expects as its initial counter, so saving it and passing it back on the next
+boot restores counter continuity across the reboot.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Device uptime mode — start at counter epoch 0 */</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
+
+<span class="cm">/* Device uptime mode — resume from a saved counter after reboot.</span>
+<span class="cm"> * hubble_counter_get() writes a uint32_t (the wrapped 0..127 pool</span>
+<span class="cm"> * value), so store and reload the counter as uint32_t. hubble_init()</span>
+<span class="cm"> * accepts it as the uint64_t initial counter. */</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">saved_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u32</span><span class="p">(</span><span class="s">&quot;hubble_counter&quot;</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">saved_counter</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Because it removes the dependency on time synchronization, device uptime mode
+is the <strong>default recommendation for bare metal</strong>. Choose Unix time only when
+your device already maintains accurate wall-clock time.</p>
+</div>
+</section>
+<section id="unix-time">
+<h3>Unix Time<a class="headerlink" href="#unix-time" title="Link to this heading"></a></h3>
+<p>In Unix time mode the counter is derived from the current Unix Epoch time, so
+the device must know the wall-clock time before it can generate valid
+advertisements. <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> takes the <strong>current Unix time in
+milliseconds since the Unix epoch</strong>:</p>
+<ul class="simple">
+<li><p>A value of <code class="docutils literal notranslate"><span class="pre">0</span></code> is invalid and returns an error.</p></li>
+<li><p>Update the time later with <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_time_set()</span></code> (for example, after an
+RTC read or a network time sync).</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Unix time mode — provide current Unix time in milliseconds */</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="n">unix_time_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1705881600000</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">unix_time_ms</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="source-files">
+<h2>Source Files<a class="headerlink" href="#source-files" title="Link to this heading"></a></h2>
+<p>To build the <strong>Hubble Device SDK</strong>, include the following source files in your
+project. Ensure your build system includes the SDK’s <code class="docutils literal notranslate"><span class="pre">include/</span></code> directory in
+the header search path.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/hubble.c</span></code></p></td>
+<td><p>Core SDK initialization and counter source (device uptime / Unix time)
+management.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/hubble_ble.c</span></code></p></td>
+<td><p>BLE advertisement packet generation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/crypto/mbedtls.c</span></code> or <code class="docutils literal notranslate"><span class="pre">src/crypto/psa.c</span></code></p></td>
+<td><p>Cryptographic implementation (choose one, or implement and port your
+own).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Your port file(s)</p></td>
+<td><p>Platform-specific implementations of <code class="docutils literal notranslate"><span class="pre">sys.h</span></code> and optionally
+<code class="docutils literal notranslate"><span class="pre">crypto.h</span></code> (see <strong>Abstraction Layers</strong> below).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="configuration-defines">
+<span id="bare-metal-configuration-defines"></span><h2>Configuration Defines<a class="headerlink" href="#configuration-defines" title="Link to this heading"></a></h2>
+<p>Hubble Device SDK uses compile-time configuration defines. Create a
+configuration header or pass these as compiler flags.</p>
+<section id="required-defines">
+<span id="bare-metal-required-defines"></span><h3>Required Defines<a class="headerlink" href="#required-defines" title="Link to this heading"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Select the key size. Define exactly one of the following.</span>
+<span class="cm"> * This choice selects the AES-128 vs AES-256 cipher. */</span>
+<span class="cp">#define CONFIG_HUBBLE_NETWORK_KEY_128       </span><span class="cm">/* 128-bit keys */</span>
+<span class="cm">/* #define CONFIG_HUBBLE_NETWORK_KEY_256 */</span><span class="w"> </span><span class="cm">/* 256-bit keys */</span>
+
+<span class="cm">/* Enable BLE network functionality */</span>
+<span class="cp">#define CONFIG_HUBBLE_BLE_NETWORK</span>
+</pre></div>
+</div>
+<p>Define exactly one of <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_128</span></code> or
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_256</span></code>. If neither is defined the build fails with a
+compile error.</p>
+</section>
+<section id="counter-source-defines">
+<h3>Counter Source Defines<a class="headerlink" href="#counter-source-defines" title="Link to this heading"></a></h3>
+<p>Select exactly one counter source (see <a class="reference internal" href="#bare-metal-counter-source"><span class="std std-ref">Counter Source</span></a>).
+Defining both produces a build error; defining neither falls back to the SDK
+default of Unix time.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Recommended for bare metal: derive the counter from device uptime.</span>
+<span class="cm"> * No real-time clock or time provisioning required. */</span>
+<span class="cp">#define CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME</span>
+
+<span class="cm">/* Alternative: derive the counter from Unix time (requires a clock). */</span>
+<span class="cm">/* #define CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME */</span>
+</pre></div>
+</div>
+<p id="bare-metal-eid-rotation-period">The EID rotation period controls how often the counter advances. Currently only
+daily rotation (<code class="docutils literal notranslate"><span class="pre">86400</span></code> seconds) is supported for backend compatibility.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* EID rotation period in seconds (currently only 86400 / daily is supported) */</span>
+<span class="cp">#define CONFIG_HUBBLE_EID_ROTATION_PERIOD_SEC 86400</span>
+</pre></div>
+</div>
+</section>
+<section id="optional-defines">
+<span id="bare-metal-optional-defines"></span><h3>Optional Defines<a class="headerlink" href="#optional-defines" title="Link to this heading"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Strict nonce reuse checking. This is ENABLED BY DEFAULT in the SDK</span>
+<span class="cm"> * (the Kconfig default is y). A bare-metal build has no Kconfig</span>
+<span class="cm"> * defaults, so define it explicitly to keep the check active.</span>
+<span class="cm"> * Leaving it out disables the check, which is strongly discouraged</span>
+<span class="cm"> * outside of testing. */</span>
+<span class="cp">#define CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK</span>
+
+<span class="cm">/* Enable custom sequence counter implementation */</span>
+<span class="cp">#define CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="abstraction-layers">
+<h2>Abstraction Layers<a class="headerlink" href="#abstraction-layers" title="Link to this heading"></a></h2>
+<p>Two abstraction layers must be implemented to port Hubble Device SDK:</p>
+<ol class="arabic simple">
+<li><p><strong>System Abstraction</strong> (<code class="docutils literal notranslate"><span class="pre">sys.h</span></code>) — Provides timing, logging, and optional
+sequence counter functionality.</p></li>
+<li><p><strong>Cryptographic Abstraction</strong> (<code class="docutils literal notranslate"><span class="pre">crypto.h</span></code>) — Provides AES-CTR encryption,
+AES-CMAC authentication, and secure memory handling.</p></li>
+</ol>
+<section id="system-abstraction">
+<h3>System Abstraction<a class="headerlink" href="#system-abstraction" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">sys.h</span></code></p>
+<p>The system abstraction layer is defined in <code class="docutils literal notranslate"><span class="pre">include/hubble/port/sys.h</span></code>. You
+must implement the following functions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_uptime_get()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hubble_log()</span></code></p></li>
+<li><p>(Optional) <code class="docutils literal notranslate"><span class="pre">hubble_sequence_counter_get()</span></code></p></li>
+</ul>
+<section id="hubble-uptime-get">
+<span id="bare-metal-uptime-get"></span><h4>hubble_uptime_get<a class="headerlink" href="#hubble-uptime-get" title="Link to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">hubble_uptime_get</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Returns the system uptime in milliseconds since boot, and must provide
+monotonically increasing values. This function underpins <strong>both</strong> counter
+sources: in device uptime mode it is the sole input to the time counter, and in
+Unix time mode it is used alongside the provisioned timestamp to track Unix time
+between syncs.</p>
+<p><strong>Requirements</strong></p>
+<ul class="simple">
+<li><p>Return value in milliseconds.</p></li>
+<li><p>Must handle timer overflow/wraparound correctly.</p></li>
+<li><p>Timing precision requirement: ±500 ppm (0.05%) or better.</p></li>
+<li><p>The SDK expects this function to be called from a single execution context.
+Thread safety is not required for bare metal implementations.</p></li>
+</ul>
+<p><strong>Additional Context for Bare Metal Implementation</strong></p>
+<p>Most microcontrollers provide a hardware timer or system tick counter. Your
+implementation should:</p>
+<ul class="simple">
+<li><p>Read the hardware timer/counter value.</p></li>
+<li><p>Track overflows to extend beyond the native timer width.</p></li>
+<li><p>Convert to milliseconds based on the timer frequency.</p></li>
+</ul>
+<p><strong>Example Implementation Pattern</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hubble/port/sys.h&gt;</span>
+
+<span class="cm">/* Example using a 32-bit hardware timer at known frequency */</span>
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">hubble_uptime_get</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">overflow_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">current_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_hardware_timer_get</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Detect overflow (assumes function called frequently enough) */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">current_ticks</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">last_ticks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">overflow_count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="mi">1ULL</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">last_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_ticks</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">total_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_ticks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">overflow_count</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* Convert to milliseconds */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">total_ticks</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000ULL</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">YOUR_TIMER_FREQUENCY_HZ</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a real-world example using the <strong>Nordic SoftDevice</strong> with <code class="docutils literal notranslate"><span class="pre">app_timer</span></code>
+see the <code class="docutils literal notranslate"><span class="pre">hubble-reference-nordic-softdevice</span></code> implementation on <a class="reference external" href="https://github.com/HubbleNetwork/hubble-reference-nordic-softdevice/blob/main/README.md">GitHub</a>.</p>
+</div>
+</section>
+<section id="hubble-log">
+<h4>hubble_log<a class="headerlink" href="#hubble-log" title="Link to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_log</span><span class="p">(</span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+</pre></div>
+</div>
+<p>Logs a formatted message at the specified severity level. This function is
+application-specific and should integrate with your project’s logging
+infrastructure.</p>
+<p><strong>Log Levels</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">HUBBLE_LOG_DEBUG</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HUBBLE_LOG_INFO</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HUBBLE_LOG_WARNING</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HUBBLE_LOG_ERROR</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><strong>Additional Context for Bare Metal Implementation</strong></p>
+<ul class="simple">
+<li><p>Minimal/No-op: Return 0 without output (suitable for production with size
+constraints).</p></li>
+<li><p>UART/Serial: Format and transmit via UART.</p></li>
+<li><p>RTT/SWO: Use debug probe logging (J-Link RTT, SWO, etc.).</p></li>
+<li><p>Vendor Logging: Integrate with your MCU vendor’s logging framework.</p></li>
+</ul>
+<p><strong>Example: Minimal Implementation</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hubble_log</span><span class="p">(</span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">level</span><span class="p">;</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">format</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example: UART Implementation</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hubble/port/sys.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdarg.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">hubble_log</span><span class="p">(</span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">level_names</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;DBG&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;INF&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;WRN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERR&quot;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">va_list</span><span class="w"> </span><span class="n">args</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;[%s] &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">level_names</span><span class="p">[</span><span class="n">level</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vsnprintf</span><span class="p">(</span><span class="n">buffer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<span class="w">    </span><span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">your_uart_write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="hubble-sequence-counter-get">
+<h4>hubble_sequence_counter_get<a class="headerlink" href="#hubble-sequence-counter-get" title="Link to this heading"></a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint16_t</span><span class="w"> </span><span class="nf">hubble_sequence_counter_get</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Optional function returns a 10-bit sequence counter (0–1023) used for key
+rotation, nonce generation, and BLE address derivation. The counter should
+increment with each BLE advertisement and wrap from 1023 back to 0.</p>
+<p><strong>Default Behavior</strong></p>
+<p>If you do not define <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM</span></code>, the SDK
+provides a default implementation that maintains a simple incrementing counter
+in RAM. This is suitable for most bare metal applications.</p>
+<p><strong>When to Implement Custom</strong></p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">hubble_sequence_counter_get</span></code> is optional. Implement this function if
+you need:</p>
+<ul class="simple">
+<li><p>Persistence across device resets (requires non-volatile storage)</p></li>
+<li><p>Synchronization with external systems</p></li>
+<li><p>Custom counter management logic</p></li>
+</ul>
+<p><strong>Example: Custom Implementation with Non-Volatile Storage (NVS)</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM</span>
+
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">hubble_sequence_counter_get</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">initialized</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Load from non-volatile storage on first call */</span>
+<span class="w">        </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u16</span><span class="p">(</span><span class="s">&quot;hubble_seq&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">HUBBLE_BLE_MAX_SEQ_COUNTER</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 0x3FF = 1023 */</span>
+
+<span class="w">    </span><span class="cm">/* Persist periodically or on significant changes */</span>
+<span class="w">    </span><span class="n">your_nvs_write_u16</span><span class="p">(</span><span class="s">&quot;hubble_seq&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">current</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="cryptographic-abstraction">
+<h3>Cryptographic Abstraction<a class="headerlink" href="#cryptographic-abstraction" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">crypto.h</span></code></p>
+<p>The cryptographic abstraction layer is defined in
+<code class="docutils literal notranslate"><span class="pre">include/hubble/port/crypto.h</span></code>. The SDK requires AES-CTR encryption and
+AES-CMAC authentication.</p>
+<p>Using a Library</p>
+<p>The Hubble Device SDK includes ready-to-use implementations for common
+cryptographic libraries. To use a provided implementation, include the matching
+<strong>source file</strong> in your build and link against its underlying crypto library.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Kconfig-based builds the crypto backend is chosen with the
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_CRYPTO_MBEDTLS</span></code> /
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_CRYPTO_PSA</span></code> /
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_CRYPTO_CUSTOM</span></code> choice
+(<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_CRYPTO_PSA</span></code> is the default), and the build system
+compiles the matching file for you. The crypto source files themselves do
+<strong>not</strong> test that symbol, so a bare-metal build makes the same selection
+simply by compiling exactly one of <code class="docutils literal notranslate"><span class="pre">src/crypto/mbedtls.c</span></code>,
+<code class="docutils literal notranslate"><span class="pre">src/crypto/psa.c</span></code>, or your own implementation. You do not need to define
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_CRYPTO_*</span></code> for the source file to build. Note that
+both <code class="docutils literal notranslate"><span class="pre">mbedtls.c</span></code> and <code class="docutils literal notranslate"><span class="pre">psa.c</span></code> select the AES cipher from the
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_128</span></code> / <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_256</span></code> choice,
+so that define must still be set as described under
+<a class="reference internal" href="#bare-metal-required-defines"><span class="std std-ref">Required Defines</span></a>.</p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 35.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Source File</p></th>
+<th class="head"><p>Detail</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Mbed TLS</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">src/crypto/mbedtls.c</span></code></p></td>
+<td><p>Widely supported, good balance of size and features.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>PSA Crypto API</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">src/crypto/psa.c</span></code></p></td>
+<td><p>ARM’s standard crypto API, supports hardware acceleration.</p></td>
+</tr>
+</tbody>
+</table>
+<p>For most bare metal projects, <strong>we recommend using Mbed TLS or the PSA Crypto
+API.</strong></p>
+<ul class="simple">
+<li><p>Both are actively maintained and widely audited.</p></li>
+<li><p>Support hardware acceleration on many platforms.</p></li>
+<li><p>Provide configurable builds to minimize code size.</p></li>
+<li><p>Available from most MCU vendors’ SDKs.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We particularly recommend <strong>PSA Crypto API</strong> if your platform supports it, as
+it provides a standardized interface that can leverage hardware crypto
+accelerators when available.</p>
+</div>
+<p>An alternative is <strong>wolfSSL</strong>. This option offers small footprint optimizations
+(<code class="docutils literal notranslate"><span class="pre">--enable-smallstack</span></code>, <code class="docutils literal notranslate"><span class="pre">--enable-minimal</span></code>) and professional support.
+However it may require a commercial license for some use cases.</p>
+<p><strong>We do not recommend TinyCrypt.</strong> While some developers have used TinyCrypt due
+to its small size, we do not officially support it and recommend against its
+use.</p>
+<ul class="simple">
+<li><p>No longer maintained: The project has been abandoned by Intel.</p></li>
+<li><p>Limited side-channel protections: TinyCrypt implements only generic
+timing-attack countermeasures, making it potentially vulnerable on platforms
+where side-channel attacks are a concern.</p></li>
+<li><p>Known vulnerabilities: Static analysis has identified issues including integer
+overflows (CWE-190) and invalid pointer arithmetic (CWE-823).</p></li>
+<li><p>Limited algorithm support: Only supports AES-128, not AES-256.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If code size is a critical constraint, consider using <strong>Mbed TLS</strong> with a
+minimal configuration or the <strong>PSA Crypto API</strong> with hardware acceleration.</p>
+</div>
+<section id="custom-implementation">
+<h4>Custom Implementation<a class="headerlink" href="#custom-implementation" title="Link to this heading"></a></h4>
+<p>If you need to implement the crypto layer yourself (for example, to use hardware
+crypto peripherals directly), implement the Hubble Cryptographic Functions API
+(see the <a class="reference internal" href="../../api/core.html#hubble-core-api"><span class="std std-ref">Core API</span></a> reference).</p>
+</section>
+</section>
+</section>
+<section id="complete-example">
+<h2>Complete Example<a class="headerlink" href="#complete-example" title="Link to this heading"></a></h2>
+<p>Below is a complete example of a minimal bare metal port:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* hubble_port_bare_metal.c */</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hubble/port/sys.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;hubble/port/crypto.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdarg.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="cm">/* Include your platform headers */</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;your_hardware_timer.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;your_uart.h&quot;</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * System Abstraction</span>
+<span class="cm"> */</span>
+
+<span class="kt">uint64_t</span><span class="w"> </span><span class="nf">hubble_uptime_get</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">overflow_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hardware_timer_get_ticks</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">current</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">last_ticks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">overflow_ticks</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mh">0x100000000ULL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">last_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">((</span><span class="n">current</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">overflow_ticks</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000ULL</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">TIMER_FREQ_HZ</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">hubble_log</span><span class="p">(</span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Implement based on your logging needs, or leave as no-op */</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">level</span><span class="p">;</span>
+<span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">format</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * Note: hubble_sequence_counter_get() uses the SDK&#39;s default</span>
+<span class="cm"> * implementation unless CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM</span>
+<span class="cm"> * is defined.</span>
+<span class="cm"> */</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For cryptographic functions, link against <code class="docutils literal notranslate"><span class="pre">src/crypto/mbedtls.c</span></code> or
+<code class="docutils literal notranslate"><span class="pre">src/crypto/psa.c</span></code>, or provide your own implementation.</p>
+</div>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading"></a></h2>
+<p>Test your port by:</p>
+<ol class="arabic simple">
+<li><p>Verifying <code class="docutils literal notranslate"><span class="pre">hubble_uptime_get()</span></code> returns monotonically increasing values.</p></li>
+<li><p>Calling <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> with your key and the appropriate initial value
+for your counter source:</p>
+<ul class="simple">
+<li><p><strong>Device uptime mode:</strong> an initial counter value (<code class="docutils literal notranslate"><span class="pre">0</span></code> to start at epoch
+0, or a saved counter to resume).</p></li>
+<li><p><strong>Unix time mode:</strong> a known, non-zero Unix timestamp in milliseconds.</p></li>
+</ul>
+</li>
+<li><p>Generating advertisements with <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_ble_advertise_get()</span></code> and
+verifying output length.</p></li>
+<li><p>Checking logs (if implemented) for any error messages.</p></li>
+</ol>
+<p>In your main loop, use <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_ble_advertise_expiration_get()</span></code> to decide
+when to regenerate the advertisement. It returns the number of milliseconds
+until the current advertisement expires, which is the natural signal for a
+bare-metal loop to call <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_ble_advertise_get()</span></code> again and refresh the
+payload in step with the EID rotation period.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="linker-errors-for-crypto-functions">
+<h3>Linker errors for crypto functions<a class="headerlink" href="#linker-errors-for-crypto-functions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Ensure you’ve included either <code class="docutils literal notranslate"><span class="pre">src/crypto/mbedtls.c</span></code>, <code class="docutils literal notranslate"><span class="pre">src/crypto/psa.c</span></code>,
+or your own crypto implementation.</p></li>
+<li><p>Verify the crypto library (Mbed TLS, PSA, etc.) is properly linked.</p></li>
+</ul>
+</section>
+<section id="config-hubble-network-key-256-or-config-hubble-network-key-128-must-be-defined-error">
+<h3>“CONFIG_HUBBLE_NETWORK_KEY_256 or CONFIG_HUBBLE_NETWORK_KEY_128 must be defined” error<a class="headerlink" href="#config-hubble-network-key-256-or-config-hubble-network-key-128-must-be-defined-error" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Define exactly one of <code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_128</span></code> or
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_KEY_256</span></code> in your build or config header.</p></li>
+</ul>
+</section>
+<section id="cannot-define-both-counter-source-build-error">
+<h3>“Cannot define both … COUNTER_SOURCE …” build error<a class="headerlink" href="#cannot-define-both-counter-source-build-error" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The two counter sources are mutually exclusive. Define only
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME</span></code> <em>or</em>
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME</span></code>, not both.</p></li>
+</ul>
+</section>
+<section id="unix-epoch-time-not-initialized-warning">
+<h3>“Unix Epoch time not initialized” warning<a class="headerlink" href="#unix-epoch-time-not-initialized-warning" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>This appears in Unix time mode when no valid time has been set. Call
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_init()</span></code> with a non-zero Unix timestamp, or call
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_time_set()</span></code> once a time source is available.</p></li>
+<li><p>If your device has no clock, use device uptime mode
+(<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME</span></code>) instead, which needs no time
+provisioning.</p></li>
+</ul>
+</section>
+<section id="timer-overflow-causing-time-jumps">
+<h3>Timer overflow causing time jumps<a class="headerlink" href="#timer-overflow-causing-time-jumps" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">hubble_uptime_get()</span></code> is called frequently enough to detect
+overflows.</p></li>
+<li><p>For 32-bit timers at 1 MHz, overflow occurs every ~71 minutes.</p></li>
+</ul>
+</section>
+<section id="nonce-reuse-warnings">
+<h3>Nonce reuse warnings<a class="headerlink" href="#nonce-reuse-warnings" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>If you see “Re-using same nonce is insecure!” warnings, ensure your sequence
+counter is incrementing properly.</p></li>
+<li><p>These warnings come from
+<code class="docutils literal notranslate"><span class="pre">CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK</span></code>, which is enabled by
+default. In a bare-metal build without Kconfig defaults, define it explicitly
+to keep the check active (see <a class="reference internal" href="#bare-metal-optional-defines"><span class="std std-ref">Optional Defines</span></a>).</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../esp-idf/index.html" class="btn btn-neutral float-left" title="ESP-IDF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../integration_guides/index.html" class="btn btn-neutral float-right" title="Integration Guides" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+<p>
+  &#169; Copyright 2025-2026, Hubble Network, Inc.</p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
