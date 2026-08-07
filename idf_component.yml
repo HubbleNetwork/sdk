@@ -1,0 +1,21 @@
+description: "On-device SDK for connecting to Hubble's Terrestrial (Bluetooth Low Energy) and Satellite Networks, built on a modular architecture that ports across RTOSes and hardware."
+tags:
+  - "Bluetooth"
+  - "BLE"
+  - "Satellite"
+files:
+  use_gitignore: true
+  exclude:
+    - ".git/**/*"
+    - ".github/**/*"
+    - ".venv/**/*"
+examples:
+  - path: "samples/esp-idf/"
+url: "https://hubble.com"
+repository: "https://github.com/HubbleNetwork/hubble-device-sdk.git"
+documentation: "https://hubblenetwork.github.io/hubble-device-sdk/main/"
+issues: "https://github.com/HubbleNetwork/hubble-device-sdk/issues"
+discussion: "https://github.com/HubbleNetwork/hubble-device-sdk/discussions"
+dependencies:
+  idf:
+    version: ">=6.0"

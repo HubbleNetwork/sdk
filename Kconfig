@@ -1,0 +1,8 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+# As an ESP Component, in order for the Kconfig menu to show up in
+# idf.py menuconfig, the Kconfig file must present at the root
+if IDF_CMAKE
+rsource "port/esp-idf/hubblenetwork-sdk/Kconfig"
+endif

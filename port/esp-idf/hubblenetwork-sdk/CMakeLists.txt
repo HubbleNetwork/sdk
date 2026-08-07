@@ -1,4 +1,4 @@
-set(SDK_BASE_DIR ../../../)
+set(SDK_BASE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../..)
 
 set(SRCS
     "${SDK_BASE_DIR}/port/esp-idf/hubble_esp_idf.c"
