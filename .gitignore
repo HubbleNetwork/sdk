@@ -12,6 +12,7 @@ docs/_doxygen/
 .cache/
 .ruff_cache/
 **/__pycache__/
+dist/
 
 # generated files
 **/key.c
@@ -23,3 +24,6 @@ docs/_doxygen/
 zephyr/blobs/nrf52
 zephyr/blobs/nrf53
 zephyr/blobs/nrf54
+
+# Virtual environments
+.venv/**
