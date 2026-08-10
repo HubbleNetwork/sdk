@@ -25,7 +25,7 @@ extra-path=tools/ci/gitlint/
 # Comma-separated list of words that should not occur in the title. Matching is case
 # insensitive. It's fine if the keyword occurs as part of a larger word (so "WIPING"
 # will not cause a violation, but "WIP: my title" will.
-words=wip,test,temp
+words=wip
 
 [body-max-line-length]
 line-length=100
