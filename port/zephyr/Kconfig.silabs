@@ -1,6 +1,17 @@
 # Copyright (c) 2026 Hubble Network, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+# Zephyr declares SILABS_SISDK_RAIL_MULTIPROTOCOL in
+# modules/hal_silabs/simplicity_sdk/Kconfig, which only exists in trees that
+# carry the Simplicity SDK HAL glue. On older trees (for example the TI
+# simplelink-zephyr v3.7.0 fork) the configdefault below is the symbol's only
+# definition, so Kconfig reports it as typeless and the build aborts on the
+# warning. Declaring it here gives it a type everywhere; where the real
+# definition exists, Kconfig merges the two and its prompt and dependencies
+# still apply.
+config SILABS_SISDK_RAIL_MULTIPROTOCOL
+	bool
+
 if HUBBLE_SAT_NETWORK
 
 configdefault SOC_GECKO_CUSTOM_RADIO_PHY
