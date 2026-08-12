@@ -235,7 +235,14 @@ int hubble_sat_board_init(void)
 		return -EAGAIN;
 	}
 
+	/*
+	 * For ESP32C6, the call order doesn't matter.
+	 * However, for S3, this cause a crash if rftest init
+	 * is called before config.
+	 */
+	esp_phy_rftest_config(1);
 	esp_phy_rftest_init();
+	esp_phy_rftest_config(0);
 	return 0;
 }
 
