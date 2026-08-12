@@ -7,14 +7,28 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/flash.h>
 #include <zephyr/storage/flash_map.h>
+
+#include "version.h"
+
+#define NVS_PARTITION        storage_partition
+
+#if KERNEL_VERSION_NUMBER >= ZEPHYR_VERSION(4, 4, 0)
 #include <zephyr/kvss/nvs.h>
+
+#define NVS_PARTITION_DEVICE PARTITION_DEVICE(NVS_PARTITION)
+#define NVS_PARTITION_OFFSET PARTITION_OFFSET(NVS_PARTITION)
+
+#else
+
+#include <zephyr/fs/nvs.h>
+
+#define NVS_PARTITION_DEVICE FIXED_PARTITION_DEVICE(NVS_PARTITION)
+#define NVS_PARTITION_OFFSET FIXED_PARTITION_OFFSET(NVS_PARTITION)
+
+#endif /* KERNEL_VERSION_NUMBER >= ZEPHYR_VERSION(4, 4, 0)  */
 
 #include <hubble/port/crypto.h>
 #include <hubble/port/sys.h>
-
-#define NVS_PARTITION        storage_partition
-#define NVS_PARTITION_DEVICE PARTITION_DEVICE(NVS_PARTITION)
-#define NVS_PARTITION_OFFSET PARTITION_OFFSET(NVS_PARTITION)
 
 #define SEQUENCE_COUNTER_ID  1U
 #define NVS_SECTOR_COUNT     2U
