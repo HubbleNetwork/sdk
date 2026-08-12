@@ -18,7 +18,7 @@
 
 #include "rail_config.h"
 
-/* xG24 step size = 74.3865966796875 Hz */
+/* xG24, xG26 step size = 74.3865966796875 Hz */
 #define EFR32_STEP_SCALE(step) (step * 4)
 #define MAX_POWER_DDBM         200 /* DBm = 10 * dBm */
 
