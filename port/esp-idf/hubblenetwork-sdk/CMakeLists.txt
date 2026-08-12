@@ -46,14 +46,12 @@ if(CONFIG_HUBBLE_SAT_NETWORK)
     endif()
 
     # add board support
-    if(IDF_TARGET STREQUAL "esp32c6")
-        list(APPEND INC_DIRS
-            "${CMAKE_CURRENT_LIST_DIR}/boards/esp32c6"
-        )
-        list(APPEND SRCS
-            "${CMAKE_CURRENT_LIST_DIR}/boards/esp32c6/radio.c"
-        )
-    endif()
+    list(APPEND INC_DIRS
+        "${CMAKE_CURRENT_LIST_DIR}/boards/espressif"
+    )
+    list(APPEND SRCS
+        "${CMAKE_CURRENT_LIST_DIR}/boards/espressif/radio.c"
+    )
 endif()
 
 idf_component_register(
