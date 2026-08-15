@@ -173,6 +173,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ESP-IDF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-hubble-network-to-an-esp-idf-project">Adding Hubble Network to an ESP-IDF Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-hubble-modules">Enabling Hubble Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#satellite-network-on-esp32-c6-required-phy-blob">Satellite Network on ESP32-C6: Required PHY Blob</a></li>
 </ul>
 </li>
@@ -377,8 +378,9 @@
 <span id="esp-idf-quick-start"></span><h1>ESP-IDF<a class="headerlink" href="#esp-idf" title="Link to this heading"></a></h1>
 <p>This guide explains how to integrate the Hubble Device SDK into an
 <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html">ESP-IDF</a>
-project. The SDK ships as an ESP-IDF component that can be pulled into any
-ESP-IDF application via <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>.</p>
+project. The SDK ships as an ESP-IDF component, and can be added either from
+the <a class="reference external" href="https://components.espressif.com/components/hubblenetwork/hubble-device-sdk">ESP Component Registry</a>
+or from a local copy of the repository.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>This page covers ESP-IDF SDK setup and component integration. For a complete,
@@ -394,13 +396,39 @@ installed and exported in the current shell (e.g. <code class="docutils literal 
 <li><p>A supported ESP32 target. The BLE Network module works on any ESP32 chip
 with a Bluetooth® Low Energy controller supported by ESP-IDF. The Satellite
 Network module currently targets the <strong>ESP32-C6</strong>.</p></li>
-<li><p>The Hubble Device SDK cloned or added to your project as a Git submodule.</p></li>
 <li><p>Device <code class="docutils literal notranslate"><span class="pre">key</span></code> (generated when you register a new device to your organization
 through the Hubble Cloud API).</p></li>
 </ul>
 </section>
 <section id="adding-hubble-network-to-an-esp-idf-project">
 <h2>Adding Hubble Network to an ESP-IDF Project<a class="headerlink" href="#adding-hubble-network-to-an-esp-idf-project" title="Link to this heading"></a></h2>
+<section id="option-1-esp-component-registry-recommended">
+<h3>Option 1: ESP Component Registry (recommended)<a class="headerlink" href="#option-1-esp-component-registry-recommended" title="Link to this heading"></a></h3>
+<p>From the root of your project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># change &#39;^3.0.0&#39; to your desired version of the SDK in the Registry</span>
+idf.py<span class="w"> </span>add-dependency<span class="w"> </span><span class="s2">&quot;hubblenetwork/hubble-device-sdk^3.0.0&quot;</span>
+</pre></div>
+</div>
+<p>This records the dependency in your project’s <code class="docutils literal notranslate"><span class="pre">idf_component.yml</span></code> and
+downloads the SDK into <code class="docutils literal notranslate"><span class="pre">managed_components/</span></code> on the next build. ESP-IDF
+discovers components there automatically, so no <code class="docutils literal notranslate"><span class="pre">EXTRA_COMPONENT_DIRS</span></code>
+entry is needed in your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+<p>To declare the dependency by hand instead of running <code class="docutils literal notranslate"><span class="pre">add-dependency</span></code>, add it
+to <code class="docutils literal notranslate"><span class="pre">main/idf_component.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">hubblenetwork/hubble-device-sdk</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^3.0.0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your project narrows the build with <code class="docutils literal notranslate"><span class="pre">set(COMPONENTS</span> <span class="pre">...)</span></code>, add the SDK’s
+directory name under <code class="docutils literal notranslate"><span class="pre">managed_components/</span></code> to that list as well because
+anything omitted from <code class="docutils literal notranslate"><span class="pre">set(COMPONENTS</span> <span class="pre">...)</span></code> is excluded from the build.</p>
+</div>
+</section>
+<section id="option-2-local-copy-or-git-submodule">
+<h3>Option 2: Local copy or Git submodule<a class="headerlink" href="#option-2-local-copy-or-git-submodule" title="Link to this heading"></a></h3>
+<p>Use this when building against an unreleased branch not listed in the Registry.</p>
 <ol class="arabic">
 <li><p>Add the Hubble Device SDK to your application, for example as a submodule:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/HubbleNetwork/hubble-device-sdk
@@ -426,9 +454,14 @@ the component list:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Enable the desired Hubble modules. Either run <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> and
-toggle them under <em>Component config</em> → <em>Hubble</em>, or set them in your
-project’s <code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code>:</p>
+</ol>
+</section>
+</section>
+<section id="enabling-hubble-modules">
+<h2>Enabling Hubble Modules<a class="headerlink" href="#enabling-hubble-modules" title="Link to this heading"></a></h2>
+<p>This applies to both options above. Either run <code class="docutils literal notranslate"><span class="pre">idf.py</span> <span class="pre">menuconfig</span></code> and toggle
+the modules under <em>Component config</em> → <em>Hubble</em>, or set them in your project’s
+<code class="docutils literal notranslate"><span class="pre">sdkconfig.defaults</span></code>:</p>
 <div class="highlight-kconfig notranslate"><div class="highlight"><pre><span></span><span class="c1"># Terrestrial (BLE) Network</span>
 CONFIG_HUBBLE_BLE_NETWORK=y
 
@@ -443,8 +476,6 @@ CONFIG_BT_BLE_50_FEATURES_SUPPORTED=n
 CONFIG_BT_BLE_42_FEATURES_SUPPORTED=y
 </pre></div>
 </div>
-</li>
-</ol>
 </section>
 <section id="satellite-network-on-esp32-c6-required-phy-blob">
 <h2>Satellite Network on ESP32-C6: Required PHY Blob<a class="headerlink" href="#satellite-network-on-esp32-c6-required-phy-blob" title="Link to this heading"></a></h2>
