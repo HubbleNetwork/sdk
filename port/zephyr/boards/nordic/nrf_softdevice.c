@@ -23,6 +23,9 @@
 
 #include <mpsl_timeslot.h>
 #include <mpsl_hwres.h>
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+#include <mpsl_fem_protocol_api.h>
+#endif
 
 #include <errno.h>
 #include <stdint.h>
@@ -41,6 +44,16 @@
 #define RADIO_ENABLE_TX_ON_CC0_PPI 9U
 #define RADIO_DISABLE_ON_CC1_PPI   12U
 #endif
+
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+#define DPPI_CHANNELS                                                          \
+	BIT(RADIO_ENABLE_TX_ON_CC0_PPI) | BIT(RADIO_DISABLE_ON_CC1_PPI) |      \
+		BIT(RADIO_DISABLED_TO_FEM_PPI)
+#define RADIO_DISABLED_TO_FEM_PPI 13U
+#else
+#define DPPI_CHANNELS                                                          \
+	BIT(RADIO_ENABLE_TX_ON_CC0_PPI) | BIT(RADIO_DISABLE_ON_CC1_PPI)
+#endif /* CONFIG_MPSL_FEM_API_AVAILABLE */
 
 /*
  * The radio is owned by MPSL when the SoftDevice Controller is enabled, so
@@ -112,6 +125,26 @@ static mpsl_timeslot_request_t _ts_request = {
 
 static mpsl_timeslot_signal_return_param_t _ts_return;
 
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+/* PA activation is driven off SAT_TIMER along with TASKS_TXEN */
+static mpsl_fem_event_t _fem_pa_activate_event = {
+	.type = MPSL_FEM_EVENT_TYPE_TIMER,
+	.event.timer =
+		{
+			.p_timer_instance = SAT_TIMER,
+			.compare_channel_mask = BIT(NRF_TIMER_CC_CHANNEL2),
+			.counter_period.end = WAIT_SYMBOL_OFF_US,
+		},
+};
+
+static mpsl_fem_event_t _fem_pa_deactivate_event = {
+	.type = MPSL_FEM_EVENT_TYPE_GENERIC,
+#ifndef CONFIG_SOC_SERIES_NRF52
+	.event.generic.event = RADIO_DISABLED_TO_FEM_PPI,
+#endif
+};
+#endif /* CONFIG_MPSL_FEM_API_AVAILABLE */
+
 /**
  * Wire TIMER0 EVENTS_COMPARE[0] -> RADIO TASKS_TXEN and
  * TIMER0 EVENTS_COMPARE[1] -> RADIO TASKS_DISABLE.
@@ -130,6 +163,12 @@ static void _ppi_setup(void)
 			      RADIO_DISABLE_ON_CC1_PPI);
 	nrf_radio_subscribe_set(NRF_RADIO, NRF_RADIO_TASK_DISABLE,
 				RADIO_DISABLE_ON_CC1_PPI);
+
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+	/* RADIO DISABLED -> FEM PA deactivate */
+	nrf_radio_publish_set(NRF_RADIO, NRF_RADIO_EVENT_DISABLED,
+			      RADIO_DISABLED_TO_FEM_PPI);
+#endif /* CONFIG_MPSL_FEM_API_AVAILABLE */
 #endif
 }
 
@@ -139,9 +178,7 @@ static void _ppi_enable(void)
 	nrf_ppi_channel_enable(NRF_PPI, NRF_PPI_CHANNEL22);
 	nrf_ppi_channel_enable(NRF_PPI, NRF_PPI_CHANNEL20);
 #else
-	nrf_dppi_channels_enable(NRF_DPPIC,
-				 BIT(RADIO_ENABLE_TX_ON_CC0_PPI) |
-					 BIT(RADIO_DISABLE_ON_CC1_PPI));
+	nrf_dppi_channels_enable(NRF_DPPIC, DPPI_CHANNELS);
 #endif
 }
 
@@ -151,9 +188,7 @@ static void _ppi_disable(void)
 	nrf_ppi_channel_disable(NRF_PPI, NRF_PPI_CHANNEL22);
 	nrf_ppi_channel_disable(NRF_PPI, NRF_PPI_CHANNEL20);
 #else
-	nrf_dppi_channels_disable(NRF_DPPIC,
-				  BIT(RADIO_ENABLE_TX_ON_CC0_PPI) |
-					  BIT(RADIO_DISABLE_ON_CC1_PPI));
+	nrf_dppi_channels_disable(NRF_DPPIC, DPPI_CHANNELS);
 #endif
 }
 
@@ -164,6 +199,7 @@ static void _ppi_clear(void)
 	nrf_timer_publish_clear(SAT_TIMER, NRF_TIMER_EVENT_COMPARE1);
 	nrf_radio_subscribe_clear(NRF_RADIO, NRF_RADIO_TASK_TXEN);
 	nrf_radio_subscribe_clear(NRF_RADIO, NRF_RADIO_TASK_DISABLE);
+	nrf_radio_publish_clear(NRF_RADIO, NRF_RADIO_EVENT_DISABLED);
 #endif
 }
 
@@ -219,6 +255,17 @@ static void _radio_tx_start(void)
 	_ppi_setup();
 	_ppi_enable();
 
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+#ifdef CONFIG_SOC_SERIES_NRF52
+	_fem_pa_deactivate_event.event.generic.event =
+		nrf_radio_event_address_get(NRF_RADIO, NRF_RADIO_EVENT_DISABLED);
+#endif
+
+	mpsl_fem_enable();
+	(void)mpsl_fem_pa_configuration_set(&_fem_pa_activate_event,
+					    &_fem_pa_deactivate_event);
+#endif
+
 	/* Program the first symbol before the timer triggers TXEN. */
 	_radio_symbol_set(0);
 
@@ -232,6 +279,11 @@ static void _radio_tx_stop(void)
 {
 	nrf_timer_task_trigger(SAT_TIMER, NRF_TIMER_TASK_STOP);
 	nrf_timer_shorts_set(SAT_TIMER, 0);
+
+#ifdef CONFIG_MPSL_FEM_API_AVAILABLE
+	(void)mpsl_fem_pa_configuration_clear();
+	(void)mpsl_fem_disable();
+#endif
 
 	_ppi_disable();
 	_ppi_clear();

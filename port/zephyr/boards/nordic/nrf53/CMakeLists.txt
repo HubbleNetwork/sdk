@@ -16,12 +16,13 @@ set_target_properties(libhubble_sat_nrf53 PROPERTIES
 zephyr_link_libraries(libhubble_sat_nrf53)
 
 if(CONFIG_BOARD_THINGY53_NRF5340_CPUNET)
+
+	zephyr_include_directories(${ZEPHYR_BASE}/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/)
+	zephyr_include_directories(../nrf52/)
 	# Thingy53 uses nrf21540 fem. Let's just use the
 	# implementation in nrf52 for now, but if it is
 	# probably worth moving it to a common location.
-	zephyr_include_directories(${ZEPHYR_BASE}/subsys/bluetooth/controller/ll_sw/nordic/hal/nrf5/radio/)
-	zephyr_include_directories(../nrf52/)
-	zephyr_library_sources(../nrf52/fem.c)
+	zephyr_library_sources_ifndef(CONFIG_MPSL_FEM_API_AVAILABLE ../nrf52/fem.c)
 	zephyr_library_sources(thingy53.c)
 endif()
 
