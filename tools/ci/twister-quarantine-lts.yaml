@@ -1,0 +1,11 @@
+- scenarios:
+    - ble.advertise.unit.psa
+    - ble.advertise.unit.counter.psa
+    - sat.packet.unit.psa
+    - satellite.api
+    - satellite.api.counter.psa
+    - satellite.pass_prediction
+    - satellite.pass_prediction.small
+    - ble.nonce.psa
+    - ble.counter.psa
+  comment: "PSA crypto API not available on Zephyr v3.7-branch"

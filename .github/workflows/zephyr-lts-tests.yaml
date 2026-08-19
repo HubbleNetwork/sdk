@@ -1,0 +1,95 @@
+name: Build and Run Zephyr LTS (v3.7) tests
+
+on:
+  pull_request:
+    branches: ["**"]
+    paths:
+      - "include/**"
+      - "port/zephyr/**"
+      - "src/**"
+      - "samples/zephyr/**"
+      - "tests/zephyr/**"
+      - "west-zephyr-lts.yml"
+      - "tools/ci/twister-quarantine-lts.yaml"
+      - ".github/workflows/zephyr-lts-tests.yaml"
+
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Optional PR number to run against (use this to target a PR head)"
+        required: false
+      commit_sha:
+        description: "Optional commit SHA to checkout (overrides pr_number if provided)"
+        required: false
+      ref:
+        description: "Optional branch or tag to checkout (used when not supplying pr_number or commit_sha)"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Determine checkout ref
+        id: setref
+        env:
+          INPUT_COMMIT_SHA: ${{ github.event.inputs.commit_sha }}
+          INPUT_PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          INPUT_REF: ${{ github.event.inputs.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Determine which ref we should checkout for the build
+          # Priority:
+          # 1. explicit commit_sha input
+          # 2. explicit pr_number input -> refs/pull/<pr>/head
+          # 3. if triggered by a pull_request event -> refs/pull/<pr>/head
+          # 4. explicit ref input
+          # 5. default github.ref
+          echo "event_name=${GITHUB_EVENT_NAME}"
+          if [ -n "${INPUT_COMMIT_SHA}" ]; then
+            echo "ref=${INPUT_COMMIT_SHA}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${INPUT_PR_NUMBER}" ]; then
+            echo "ref=refs/pull/${INPUT_PR_NUMBER}/head" >> "$GITHUB_OUTPUT"
+          elif [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            # use the PR head ref for pull_request events
+            echo "ref=refs/pull/${PR_NUMBER}/head" >> "$GITHUB_OUTPUT"
+          elif [ -n "${INPUT_REF}" ]; then
+            echo "ref=${INPUT_REF}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=${GITHUB_REF}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.setref.outputs.ref }}
+          fetch-depth: 0
+          path: app
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Setup Zephyr project (SDK + modules)
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          # west-zephyr-lts.yml pins Zephyr to the v3.7-branch LTS release
+          # app-path must be a subdirectory (not ".") so that "zephyr" and
+          # other west projects are checked out inside $GITHUB_WORKSPACE
+          # instead of as siblings of it.
+          app-path: app
+          manifest-file-name: west-zephyr-lts.yml
+          sdk-version: 0.17.0
+
+      - name: Run tests
+        working-directory: app
+        run: |
+          set -euxo pipefail
+          west twister -T tests/zephyr --quarantine-list tools/ci/twister-quarantine-lts.yaml
