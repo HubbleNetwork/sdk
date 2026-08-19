@@ -479,7 +479,7 @@ before building.</p>
 <p><a class="reference external" href="https://dl.espressif.com/AE/libphy_C6_20260317_c83212e%20(2).zip">libphy_C6_20260317_c83212e.zip</a></p>
 </li>
 <li><p>Unzip and copy the extracted <code class="docutils literal notranslate"><span class="pre">*.a</span></code> files into your ESP-IDF installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">&quot;libphy_C6_20260317_c83212e.zip&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">"libphy_C6_20260317_c83212e.zip"</span>
 cp<span class="w"> </span>*.a<span class="w"> </span><span class="nv">$IDF_PATH</span>/components/esp_phy/lib/esp32c6/
 </pre></div>
 </div>
@@ -499,7 +499,7 @@ will no longer be needed.</p>
 CONFIG_HUBBLE_BLE_NETWORK=y
 CONFIG_HUBBLE_SAT_NETWORK=y
 
-<span class="c1"># Set to your oscillator&#39;s PPM rating (check your crystal datasheet)</span>
+<span class="c1"># Set to your oscillator's PPM rating (check your crystal datasheet)</span>
 CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR=10
 </pre></div>
 </div>
@@ -524,7 +524,7 @@ CONFIG_LOG_VERSION_2=y
 <p>In your <code class="docutils literal notranslate"><span class="pre">main/CMakeLists.txt</span></code>, declare the required component dependencies:</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">idf_component_register</span><span class="p">(</span><span class="s">SRCS</span><span class="w"> </span><span class="o">${</span><span class="nv">YOUR_APP_SOURCES</span><span class="o">}</span>
 <span class="w">                       </span><span class="s">PRIV_REQUIRES</span><span class="w"> </span><span class="s">bt</span><span class="w"> </span><span class="s">nvs_flash</span><span class="w"> </span><span class="s">esp_timer</span><span class="w"> </span><span class="s">hubblenetwork-sdk</span>
-<span class="w">                       </span><span class="s">INCLUDE_DIRS</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="w">                       </span><span class="s">INCLUDE_DIRS</span><span class="w"> </span><span class="s2">"."</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">bt</span></code> and <code class="docutils literal notranslate"><span class="pre">hubblenetwork-sdk</span></code> are required for the dual-stack. <code class="docutils literal notranslate"><span class="pre">nvs_flash</span></code>
@@ -590,13 +590,13 @@ before calling any other Hubble API:</p>
 <span class="cm"> */</span>
 <span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">unix_time_ms</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to initialize Hubble Device SDK (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to initialize Hubble Device SDK (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_satellites_set</span><span class="p">(</span><span class="n">orb_params</span><span class="p">,</span><span class="w"> </span><span class="n">orb_params_count</span><span class="p">);</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to set orbital parameters (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to set orbital parameters (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -629,7 +629,7 @@ stack and registering GATT characteristics and services:</p>
 
 <span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nimble_port_init</span><span class="p">();</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ESP_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">BLE_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to init NimBLE (rc=%d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">BLE_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Failed to init NimBLE (rc=%d)"</span><span class="p">,</span><span class="w"> </span><span class="n">ret</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -652,7 +652,7 @@ transmit to the satellite, then repeat.</p>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_get</span><span class="p">(</span><span class="n">now_ms</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -662,7 +662,7 @@ transmit to the satellite, then repeat.</p>
 <span class="w">            </span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pass_info</span><span class="p">.</span><span class="n">duration</span><span class="p">,</span>
 <span class="w">            </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -704,14 +704,14 @@ that can schedule a future callback works equally well.</p>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to build packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Failed to build packet (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/* Blocking call. Retries are handled internally by the SDK */</span>
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">HUBBLE_SAT_RELIABILITY_NORMAL</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Failed to send packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ESP_LOGE</span><span class="p">(</span><span class="n">APP_TAG</span><span class="p">,</span><span class="w"> </span><span class="s">"Failed to send packet (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span><span class="w"> </span><span class="cm">/* end while loop, back to compute the next pass, re-enable bluetooth, and beacon */</span>
@@ -768,7 +768,7 @@ tag, the device has successfully transmitted to the satellite network.</p>
 <h3>Verify BLE<a class="headerlink" href="#verify-ble" title="Link to this heading"></a></h3>
 <p>Use the SDK’s scan script to confirm BLE advertising is working:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools/requirements-scan.txt
-python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">"&lt;your-device-key&gt;"</span>
 </pre></div>
 </div>
 </section>
@@ -848,7 +848,7 @@ transmitting a valid Hubble packet at the physical layer using an
 </div>
 <p>Connect the ADALM-PLUTO near the device antenna and run the scanner with your
 device key to decode captured packets in real time:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>sat<span class="w"> </span>scan<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>sat<span class="w"> </span>scan<span class="w"> </span>--key<span class="w"> </span><span class="s2">"&lt;your-device-key&gt;"</span>
 </pre></div>
 </div>
 <p>A successfully decoded packet confirms the RF output, packet framing, channel

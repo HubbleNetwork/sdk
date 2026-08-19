@@ -469,7 +469,7 @@ boot restores counter continuity across the reboot.</p>
 <span class="cm"> * hubble_counter_get() writes a uint32_t (the wrapped 0..127 pool</span>
 <span class="cm"> * value), so store and reload the counter as uint32_t. hubble_init()</span>
 <span class="cm"> * accepts it as the uint64_t initial counter. */</span>
-<span class="kt">uint32_t</span><span class="w"> </span><span class="n">saved_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u32</span><span class="p">(</span><span class="s">&quot;hubble_counter&quot;</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">saved_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u32</span><span class="p">(</span><span class="s">"hubble_counter"</span><span class="p">);</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">saved_counter</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -702,11 +702,11 @@ constraints).</p></li>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">hubble_log</span><span class="p">(</span><span class="k">enum</span><span class="w"> </span><span class="n">hubble_log_level</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">level_names</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;DBG&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;INF&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;WRN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ERR&quot;</span><span class="p">};</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">level_names</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"DBG"</span><span class="p">,</span><span class="w"> </span><span class="s">"INF"</span><span class="p">,</span><span class="w"> </span><span class="s">"WRN"</span><span class="p">,</span><span class="w"> </span><span class="s">"ERR"</span><span class="p">};</span>
 <span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
 <span class="w">    </span><span class="kt">va_list</span><span class="w"> </span><span class="n">args</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;[%s] &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">level_names</span><span class="p">[</span><span class="n">level</span><span class="p">]);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">snprintf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="s">"[%s] "</span><span class="p">,</span><span class="w"> </span><span class="n">level_names</span><span class="p">[</span><span class="n">level</span><span class="p">]);</span>
 
 <span class="w">    </span><span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vsnprintf</span><span class="p">(</span><span class="n">buffer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
@@ -751,7 +751,7 @@ you need:</p>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">initialized</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="cm">/* Load from non-volatile storage on first call */</span>
-<span class="w">        </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u16</span><span class="p">(</span><span class="s">&quot;hubble_seq&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">your_nvs_read_u16</span><span class="p">(</span><span class="s">"hubble_seq"</span><span class="p">);</span>
 <span class="w">        </span><span class="n">initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -759,7 +759,7 @@ you need:</p>
 <span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">HUBBLE_BLE_MAX_SEQ_COUNTER</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 0x3FF = 1023 */</span>
 
 <span class="w">    </span><span class="cm">/* Persist periodically or on significant changes */</span>
-<span class="w">    </span><span class="n">your_nvs_write_u16</span><span class="p">(</span><span class="s">&quot;hubble_seq&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">);</span>
+<span class="w">    </span><span class="n">your_nvs_write_u16</span><span class="p">(</span><span class="s">"hubble_seq"</span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">);</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">current</span><span class="p">;</span>
 <span class="p">}</span>
@@ -870,8 +870,8 @@ crypto peripherals directly), implement the Hubble Cryptographic Functions API
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
 
 <span class="cm">/* Include your platform headers */</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;your_hardware_timer.h&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;your_uart.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"your_hardware_timer.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"your_uart.h"</span>
 
 <span class="cm">/*</span>
 <span class="cm"> * System Abstraction</span>
@@ -901,7 +901,7 @@ crypto peripherals directly), implement the Hubble Cryptographic Functions API
 <span class="p">}</span>
 
 <span class="cm">/*</span>
-<span class="cm"> * Note: hubble_sequence_counter_get() uses the SDK&#39;s default</span>
+<span class="cm"> * Note: hubble_sequence_counter_get() uses the SDK's default</span>
 <span class="cm"> * implementation unless CONFIG_HUBBLE_NETWORK_SEQUENCE_NONCE_CUSTOM</span>
 <span class="cm"> * is defined.</span>
 <span class="cm"> */</span>

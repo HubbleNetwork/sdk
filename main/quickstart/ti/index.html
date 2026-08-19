@@ -439,7 +439,7 @@ product so both products are available in the same <code class="docutils literal
 <section id="configuring-the-hubble-module-in-a-syscfg-script">
 <h2>Configuring the Hubble Module in a <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> Script<a class="headerlink" href="#configuring-the-hubble-module-in-a-syscfg-script" title="Link to this heading"></a></h2>
 <p>Load the Hubble module in your <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> script with:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/Hubble"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>This is all that is required. The module registers the Hubble Device SDK
@@ -449,20 +449,20 @@ sources and include paths with the SysConfig framework so the generated
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// @cliArgs --board /ti/boards/LP_EM_CC2340R5 --rtos freertos</span>
 
 <span class="cm">/* TI drivers */</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">AESCCM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/ti/drivers/AESCCM&quot;</span><span class="p">);</span>
-<span class="nx">AESCCM</span><span class="p">.</span><span class="nx">addInstance</span><span class="p">().</span><span class="nx">$name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;CONFIG_AESCCM0&quot;</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">AESCCM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/ti/drivers/AESCCM"</span><span class="p">);</span>
+<span class="nx">AESCCM</span><span class="p">.</span><span class="nx">addInstance</span><span class="p">().</span><span class="nx">$name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CONFIG_AESCCM0"</span><span class="p">;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">RCL</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/ti/drivers/RCL&quot;</span><span class="p">);</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">Power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/ti/drivers/Power&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">RCL</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/ti/drivers/RCL"</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">Power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/ti/drivers/Power"</span><span class="p">);</span>
 
 <span class="cm">/* Hubble Device SDK */</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/Hubble"</span><span class="p">);</span>
 
 <span class="cm">/* BLE stack and FreeRTOS */</span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">ble</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/ti/ble/ble&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">ble</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/ti/ble/ble"</span><span class="p">);</span>
 <span class="nx">ble</span><span class="p">.</span><span class="nx">basicBLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">FreeRTOS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/freertos/FreeRTOS&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">FreeRTOS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/freertos/FreeRTOS"</span><span class="p">);</span>
 <span class="nx">FreeRTOS</span><span class="p">.</span><span class="nx">heapSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00004D50</span><span class="p">;</span>
 </pre></div>
 </div>
@@ -486,11 +486,11 @@ favor of the SDK-provided one. Load it with <code class="docutils literal notran
 function that matches your use case.</p>
 <p>For a <strong>satellite-only</strong> application, enable satellite, disable terrestrial,
 and call <code class="docutils literal notranslate"><span class="pre">config()</span></code>:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/Hubble"</span><span class="p">);</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useSatellite</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useTerrestrial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">"/hubble_radio.js"</span><span class="p">);</span>
 <span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -499,12 +499,12 @@ concurrently), enable both networks and call <code class="docutils literal notra
 passing the BLE stack role (for example <code class="docutils literal notranslate"><span class="pre">&quot;ble&quot;</span></code>). This sets up the Dynamic
 Multi-protocol Manager (DMM) so the BLE and satellite stacks can share the
 radio:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/Hubble"</span><span class="p">);</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useSatellite</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useTerrestrial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
-<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">&quot;ble&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">"/hubble_radio.js"</span><span class="p">);</span>
+<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">"ble"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>When both networks are enabled, the module additionally pulls in the DMM
@@ -537,7 +537,7 @@ SysConfig product directly from the IDE:</p>
 <strong>Properties</strong>.</p></li>
 <li><p>Navigate to <strong>General</strong> → <strong>SysConfig</strong>.</p></li>
 <li><p>In the <strong>SysConfig Flags</strong> field, append the following flag:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-s &quot;/path/to/hubble-device-sdk/.metadata/product.json&quot;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-s "/path/to/hubble-device-sdk/.metadata/product.json"
 </pre></div>
 </div>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">/path/to/hubble-device-sdk</span></code> with the actual path to your Hubble
@@ -547,8 +547,8 @@ Device SDK checkout.</p>
 during the build, making the <code class="docutils literal notranslate"><span class="pre">/Hubble</span></code> module available in your
 <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> script just as described in the section above. If Satellite Network
 is enabled the additional step must be added to your <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> script:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var hubble_radio = system.getScript(&quot;/hubble_radio.js&quot;);
-hubble_radio.config_dual_stack(&quot;ble&quot;); // or hubble_radio.config()
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var hubble_radio = system.getScript("/hubble_radio.js");
+hubble_radio.config_dual_stack("ble"); // or hubble_radio.config()
 </pre></div>
 </div>
 </li>
