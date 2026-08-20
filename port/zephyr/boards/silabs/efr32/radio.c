@@ -179,6 +179,9 @@ static int _rail_radio_init(void)
 		return _sl_status_to_errno(status);
 	}
 
+	sl_rail_util_pa_init();
+	sl_rail_util_pa_post_init(_rail_handle, pa_mode);
+
 	/* Config calibration settings */
 	status = sl_rail_config_cal(_rail_handle, SL_RAIL_CAL_ALL);
 	if (status) {
@@ -219,9 +222,6 @@ static int _rail_radio_init(void)
 	if (status != SL_RAIL_STATUS_NO_ERROR) {
 		return _sl_status_to_errno(status);
 	}
-
-	sl_rail_util_pa_init();
-	sl_rail_util_pa_post_init(_rail_handle, pa_mode);
 
 	return _sl_status_to_errno(status);
 }
