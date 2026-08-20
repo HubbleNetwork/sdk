@@ -3,10 +3,11 @@
 Reliability and Power Consumption
 #################################
 
-The reliability mode passed to :c:func:`hubble_sat_packet_send` controls how
-many times the SDK asks the platform radio port to send the same packet and how
-far apart those transmissions are spaced. It is the primary trade-off between
-delivery probability and energy use.
+The reliability mode passed to :c:func:`hubble_sat_packet_send` and
+:c:func:`hubble_sat_packet_pass_send` controls how many times the SDK asks the
+platform radio port to send the same packet and how far apart those
+transmissions are spaced. It is the primary trade-off between delivery
+probability and energy use.
 
 Reliability Modes
 *****************
@@ -59,3 +60,46 @@ For battery-powered products, the most power-efficient design is usually a
 pass-predicted workflow: sleep or use low-power BLE between passes, wake before
 ``pass.start``, transmit with the lowest reliability mode that meets the product
 delivery requirement, then return to the low-power state.
+
+Pass-Adaptive Transmission
+***************************
+
+:c:func:`hubble_sat_packet_pass_send` sends a packet using a
+:c:struct:`hubble_sat_pass_info` window instead of the fixed baselines in the
+table above. Rather than always transmitting the mode's baseline number of
+times, it derives the retry count from ``pass.duration`` so the packet is
+retransmitted as many times as will fit while the satellite is overhead.
+
+.. code-block:: c
+
+   struct hubble_sat_pass_info pass;
+
+   err = hubble_sat_next_pass_region_get(hubble_time_get(), &region, &pass);
+   if (err != 0) {
+           return err;
+   }
+
+   err = hubble_sat_packet_pass_send(&packet, HUBBLE_SAT_RELIABILITY_NORMAL,
+                                     &pass);
+   if (err != 0) {
+           return err;
+   }
+
+* **Required for a region pass.** A pass obtained from
+  :c:func:`hubble_sat_next_pass_region_get` has no single point of reference
+  the fixed baselines were tuned for, so :c:func:`hubble_sat_packet_send` has
+  no way to fit its retries to that window. Use
+  :c:func:`hubble_sat_packet_pass_send` whenever the pass came from a region
+  query.
+* **Also usable for a single-point pass.** A pass from
+  :c:func:`hubble_sat_next_pass_get` works too — in that case
+  :c:func:`hubble_sat_packet_pass_send` is a drop-in alternative to
+  :c:func:`hubble_sat_packet_send` that adapts retries to that specific pass's
+  duration instead of using the mode's fixed baseline.
+* **``HUBBLE_SAT_RELIABILITY_NONE`` is invalid.** This function requires a
+  mode that retries (``HUBBLE_SAT_RELIABILITY_NORMAL`` or
+  ``HUBBLE_SAT_RELIABILITY_HIGH``); passing ``HUBBLE_SAT_RELIABILITY_NONE``, a
+  NULL ``packet``, or a NULL ``pass`` returns ``-EINVAL``.
+
+See :ref:`hubble_pass_prediction_best_practices` for how to obtain a
+:c:struct:`hubble_sat_pass_info`.
