@@ -6,34 +6,36 @@ sample:
   name: hubble-sat-dual-stack
 common:
   build_only: true
-  depends_on:
-    - ble
+  platform_allow:
+    - nrf21540dk/nrf52840
+    - thingy53/nrf5340/cpunet
+    - nrf54l15dk/nrf54l15/cpuapp
+    - xiao_mg24
   tags:
     - bluetooth
     - satellite
-  platform_allow:
-    - native_sim
 tests:
   app.sat.dual_stack.default:
       extra_configs:
-      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
+      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=n
   app.sat.dual_stack.debug:
     extra_configs:
       - CONFIG_HUBBLE_SAMPLE_DEBUG=y
-      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
   app.sat.dual_stack.128key:
     extra_configs:
       - CONFIG_HUBBLE_NETWORK_KEY_128=y
-      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
   app.sat.dual_stack.mbedtls:
     extra_configs:
       - CONFIG_HUBBLE_NETWORK_CRYPTO_MBEDTLS=y
+  app.sat.dual_stack.no_board:
+    extra_configs:
       - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
+    platform_allow:
+      - native_sim
   app.sat.dual_stack.mbedtls_128key:
     extra_configs:
       - CONFIG_HUBBLE_NETWORK_CRYPTO_MBEDTLS=y
       - CONFIG_HUBBLE_NETWORK_KEY_128=y
-      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
   app.sat.dual_stack.ncs:
     extra_configs:
       - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=n
