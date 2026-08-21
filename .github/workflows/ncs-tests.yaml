@@ -110,5 +110,5 @@ jobs:
       - name: Build samples
         run: |
           set -euxo pipefail
-          west twister -T samples/zephyr --build-only --integration -v \
+          west twister -T samples/zephyr -t ncs --build-only --integration -v \
             --inline-logs --quarantine-list tools/ci/twister-quarantine.yaml

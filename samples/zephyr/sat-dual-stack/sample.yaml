@@ -39,6 +39,8 @@ tests:
       - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=n
     modules:
       - nrf
+    tags:
+      - ncs
     required_snippets:
       - ncs-dual-stack
     platform_exclude:
