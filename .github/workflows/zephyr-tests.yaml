@@ -74,6 +74,9 @@ jobs:
           # west.yml lives at the repo root
           app-path: .
 
+      - name: Fetch binary blobs
+        run: west blobs fetch hubblenetwork-sdk hal_silabs hal_nordic
+
       - name: Run tests
         run: |
           set -euxo pipefail
