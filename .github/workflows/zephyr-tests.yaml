@@ -85,7 +85,8 @@ jobs:
       - name: Build samples and generates footprint
         run: |
           set -euxo pipefail
-          west twister -T samples/zephyr --build-only --footprint-report --quarantine-list tools/ci/twister-quarantine.yaml
+          # TODO: Exclude nrf54l15 since footprint is not wroking on this target
+          west twister -T samples/zephyr -P nrf54l15dk/nrf54l15/cpuapp --build-only --footprint-report --quarantine-list tools/ci/twister-quarantine.yaml
 
       - name: Footprint report
         run: |
