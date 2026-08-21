@@ -7,10 +7,9 @@ sample:
 common:
   build_only: true
   platform_allow:
-    - native_sim
+    - nrf21540dk
+    - xg24_rb4187c
   tags:
     - satellite
 tests:
-  app.sat.dtm.default:
-    extra_configs:
-      - CONFIG_SAMPLE_PROVIDE_SAT_BOARD_SUPPORT=y
+  app.sat.dtm.default: {}
