@@ -82,22 +82,30 @@ jobs:
           set -euxo pipefail
           west twister -T tests/zephyr --quarantine-list tools/ci/twister-quarantine.yaml
 
-      - name: Build samples and generates footprint
+      - name: Build samples
         run: |
           set -euxo pipefail
-          # TODO: Exclude nrf54l15 since footprint is not wroking on this target
-          west twister -T samples/zephyr -P nrf54l15dk/nrf54l15/cpuapp --build-only --footprint-report --quarantine-list tools/ci/twister-quarantine.yaml
+          # --footprint-report does not handle sysbuild, so we will parse
+          # the output manually in the footprint summary script
+          west twister -T samples/zephyr --build-only --quarantine-list tools/ci/twister-quarantine.yaml
 
       - name: Footprint report
         run: |
           set -euxo pipefail
-          # Build all Zephyr projects in samples/zephyr directory
-          python3 tools/ci/summarize_footprint.py twister-out/twister_footprint.json
+          # export the metadata for this test
+          ZEPHYR_DIR="$(west topdir)/zephyr"
+          export ZEPHYR_VERSION="$(git -C "$ZEPHYR_DIR" describe --tags --long 2>/dev/null || echo unknown)"
+          export COMMIT_DATE="$(git -C "$ZEPHYR_DIR" show -s --format=%cI HEAD 2>/dev/null || echo unknown)"
+          # run the summary script
+          python3 tools/ci/summarize_footprint.py twister-out | tee twister-out/footprint_summary.txt
 
       - name: Upload footprint report
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: footprint-report-${{ github.run_id }}
-          path: twister-out/twister_footprint.json
+          path: |
+            twister-out/footprint_summary.txt
+            twister-out/**/footprint/rom.json
+            twister-out/**/footprint/ram.json
           if-no-files-found: ignore
