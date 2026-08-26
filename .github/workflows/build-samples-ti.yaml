@@ -5,6 +5,7 @@ on:
     branches: ["**"]
     paths:
       - "include/**"
+      - "port/freertos/**"
       - "src/**"
       - "samples/freertos/ti/**"
       - ".github/workflows/build-samples-ti.yaml"
