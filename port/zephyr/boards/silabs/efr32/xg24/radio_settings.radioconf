@@ -21,11 +21,11 @@
       <profile_inputs>
         <input>
           <key>base_frequency_hz</key>
-          <value>2482169300</value>
+          <value>2482140700</value>
         </input>
         <input>
           <key>channel_spacing_hz</key>
-          <value>25752</value>
+          <value>25887</value>
         </input>
         <input>
           <key>xtal_frequency_hz</key>

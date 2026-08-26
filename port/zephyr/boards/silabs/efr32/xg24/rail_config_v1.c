@@ -115,7 +115,7 @@ static const uint32_t phyInfo[] = {
 	(uint32_t)NULL,
 	0UL,
 	0UL,
-	999989UL,
+	999977UL,
 	(uint32_t)NULL,
 	(uint32_t)NULL,
 	(uint32_t)NULL,
@@ -257,7 +257,7 @@ const uint32_t Hubble_Protocol_Configuration_modemConfigBase[] = {
 	/*    4130 */ 0x078304FFUL,
 	/*    4134 */ 0x03FF1388UL,
 	/*    4138 */ 0xF00A20BCUL,
-	/*    413C */ 0x00515C59UL,
+	/*    413C */ 0x00515C5AUL,
 	/*    4140 */ 0x40A56503UL,
 	/*    4144 */ 0x55F68D00UL,
 	/*    4148 */ 0x42A832A5UL,
@@ -407,8 +407,8 @@ const uint32_t Hubble_Protocol_Configuration_modemConfigBase[] = {
 const RAIL_ChannelConfigEntry_t Hubble_Protocol_Configuration_channels[] = {
 	{
 		.phyConfigDeltaAdd = NULL,
-		.baseFrequency = 2482169300,
-		.channelSpacing = 25752,
+		.baseFrequency = 2482140700,
+		.channelSpacing = 25887,
 		.physicalChannelOffset = 0,
 		.channelNumberStart = 0,
 		.channelNumberEnd = 18,
