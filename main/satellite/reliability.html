@@ -376,10 +376,11 @@
              
   <section id="reliability-and-power-consumption">
 <span id="hubble-satellite-reliability"></span><h1>Reliability and Power Consumption<a class="headerlink" href="#reliability-and-power-consumption" title="Link to this heading"></a></h1>
-<p>The reliability mode passed to <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> controls how
-many times the SDK asks the platform radio port to send the same packet and how
-far apart those transmissions are spaced. It is the primary trade-off between
-delivery probability and energy use.</p>
+<p>The reliability mode passed to <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> and
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_pass_send()</span></code> controls how many times the SDK asks the
+platform radio port to send the same packet and how far apart those
+transmissions are spaced. It is the primary trade-off between delivery
+probability and energy use.</p>
 <section id="reliability-modes">
 <h2>Reliability Modes<a class="headerlink" href="#reliability-modes" title="Link to this heading"></a></h2>
 <table class="docutils align-default" id="id1">
@@ -440,6 +441,47 @@ visible.</p></li>
 pass-predicted workflow: sleep or use low-power BLE between passes, wake before
 <code class="docutils literal notranslate"><span class="pre">pass.start</span></code>, transmit with the lowest reliability mode that meets the product
 delivery requirement, then return to the low-power state.</p>
+</section>
+<section id="pass-adaptive-transmission">
+<h2>Pass-Adaptive Transmission<a class="headerlink" href="#pass-adaptive-transmission" title="Link to this heading"></a></h2>
+<p><code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_pass_send()</span></code> sends a packet using a
+<code class="xref c c-struct docutils literal notranslate"><span class="pre">hubble_sat_pass_info</span></code> window instead of the fixed baselines in the
+table above. Rather than always transmitting the mode’s baseline number of
+times, it derives the retry count from <code class="docutils literal notranslate"><span class="pre">pass.duration</span></code> so the packet is
+retransmitted as many times as will fit while the satellite is overhead.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">hubble_sat_pass_info</span><span class="w"> </span><span class="n">pass</span><span class="p">;</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_region_get</span><span class="p">(</span><span class="n">hubble_time_get</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_pass_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">HUBBLE_SAT_RELIABILITY_NORMAL</span><span class="p">,</span>
+<span class="w">                                  </span><span class="o">&amp;</span><span class="n">pass</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Required for a region pass.</strong> A pass obtained from
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_region_get()</span></code> has no single point of reference
+the fixed baselines were tuned for, so <code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> has
+no way to fit its retries to that window. Use
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_pass_send()</span></code> whenever the pass came from a region
+query.</p></li>
+<li><p><strong>Also usable for a single-point pass.</strong> A pass from
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_next_pass_get()</span></code> works too — in that case
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_pass_send()</span></code> is a drop-in alternative to
+<code class="xref c c-func docutils literal notranslate"><span class="pre">hubble_sat_packet_send()</span></code> that adapts retries to that specific pass’s
+duration instead of using the mode’s fixed baseline.</p></li>
+<li><p><strong>``HUBBLE_SAT_RELIABILITY_NONE`` is invalid.</strong> This function requires a
+mode that retries (<code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NORMAL</span></code> or
+<code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_HIGH</span></code>); passing <code class="docutils literal notranslate"><span class="pre">HUBBLE_SAT_RELIABILITY_NONE</span></code>, a
+NULL <code class="docutils literal notranslate"><span class="pre">packet</span></code>, or a NULL <code class="docutils literal notranslate"><span class="pre">pass</span></code> returns <code class="docutils literal notranslate"><span class="pre">-EINVAL</span></code>.</p></li>
+</ul>
+<p>See <a class="reference internal" href="../best-practices/pass-prediction.html#hubble-pass-prediction-best-practices"><span class="std std-ref">Pass Prediction</span></a> for how to obtain a
+<code class="xref c c-struct docutils literal notranslate"><span class="pre">hubble_sat_pass_info</span></code>.</p>
 </section>
 </section>
 
