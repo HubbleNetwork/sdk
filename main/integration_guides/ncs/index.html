@@ -399,28 +399,33 @@ support for a different version, <a class="reference external" href="mailto:supp
 board API implementations for the following development kits out of the box:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 50.0%" />
+<col style="width: 20.0%" />
 <col style="width: 25.0%" />
-<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 40.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Board</p></th>
 <th class="head"><p>Target</p></th>
 <th class="head"><p>SoC Family</p></th>
+<th class="head"><p>Notes</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>nRF21540 DK</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">nrf21540dk/nrf52840</span></code></p></td>
 <td><p>nRF52</p></td>
+<td><p>nRF52840 max +8 dBm; on-board nRF21540 FEM reaches +20 dBm</p></td>
 </tr>
 <tr class="row-odd"><td><p>Nordic Thingy:53</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">thingy53/nrf5340/cpunet</span></code></p></td>
 <td><p>nRF53</p></td>
+<td><p>nRF5340 max +3 dBm; on-board nRF21540 FEM reaches +20 dBm</p></td>
 </tr>
 <tr class="row-even"><td><p>nRF54L15 DK</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">nrf54l15dk/nrf54l15/cpuapp</span></code></p></td>
 <td><p>nRF54</p></td>
+<td><p>nRF54L15 max +8 dBm; external amplifier required to reach +20 dBm</p></td>
 </tr>
 </tbody>
 </table>
@@ -431,9 +436,10 @@ section.</p>
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
 <p>Before starting, ensure you have the following:</p>
 <ul class="simple">
-<li><p><strong>A supported development kit or custom board</strong> with a PA or FEM capable of
-at least +20 dBm transmit output power. The Hubble satellite link budget
-requires this minimum output to reach the network reliably.</p></li>
+<li><p><strong>A supported development kit or custom board</strong> with a power amplifier (PA)
+or front-end module (FEM) capable of at least +20 dBm transmit output power.
+The Hubble satellite link budget requires this minimum output to reach the
+network reliably.</p></li>
 <li><p><strong>An antenna tuned to the Hubble satellite frequency band</strong>, connected to
 the RF output of the PA or FEM.</p></li>
 <li><p><strong>A Hubble account and API key</strong> to fetch ephemeris data for pass prediction.</p></li>

@@ -7,9 +7,10 @@ Prerequisites
 
 Before starting, ensure you have the following:
 
-* **A supported development kit or custom board** with a PA or FEM capable of
-  at least +20 dBm transmit output power. The Hubble satellite link budget
-  requires this minimum output to reach the network reliably.
+* **A supported development kit or custom board** with a power amplifier (PA)
+  or front-end module (FEM) capable of at least +20 dBm transmit output power.
+  The Hubble satellite link budget requires this minimum output to reach the
+  network reliably.
 * **An antenna tuned to the Hubble satellite frequency band**, connected to
   the RF output of the PA or FEM.
 * **A Hubble account and API key** to fetch ephemeris data for pass prediction.
