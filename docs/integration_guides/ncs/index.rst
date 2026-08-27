@@ -27,21 +27,25 @@ Nordic nRF52, nRF53, and nRF54 Series SoCs are supported. The SDK includes
 board API implementations for the following development kits out of the box:
 
 .. list-table::
-   :widths: 50 25 25
+   :widths: 20 25 15 40
    :header-rows: 1
 
    * - Board
      - Target
      - SoC Family
+     - Notes
    * - nRF21540 DK
      - ``nrf21540dk/nrf52840``
      - nRF52
+     - nRF52840 max +8 dBm; on-board nRF21540 FEM reaches +20 dBm
    * - Nordic Thingy:53
      - ``thingy53/nrf5340/cpunet``
      - nRF53
+     - nRF5340 max +3 dBm; on-board nRF21540 FEM reaches +20 dBm
    * - nRF54L15 DK
      - ``nrf54l15dk/nrf54l15/cpuapp``
      - nRF54
+     - nRF54L15 max +8 dBm; external amplifier required to reach +20 dBm
 
 For custom boards, refer to the :ref:`board bring-up <ncs_sat_board_bringup>`
 section.
