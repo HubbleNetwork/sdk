@@ -13,3 +13,5 @@ CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK=n
 # provisioned. The EID counter starts from the value passed to hubble_init()
 # and advances with uptime.
 CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME=y
+
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=4096
