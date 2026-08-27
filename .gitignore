@@ -17,6 +17,7 @@ dist/
 # generated files
 **/key.c
 **/time.c
+**/sat_params.generated.c
 **/sdkconfig
 **/sdkconfig.old
 

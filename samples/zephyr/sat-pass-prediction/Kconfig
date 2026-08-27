@@ -1,0 +1,55 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+menu "Hubble Network Satellite Pass-Prediction Sample options"
+
+config SAMPLE_PROVIDE_SAT_BOARD_SUPPORT
+	bool "Provide satellite board support for test purpose"
+	default y
+	help
+	  Targets that support satellite must set this to n, otherwise board
+	  APIs are mocked in the sample (so it builds e.g. on native_sim).
+
+config SAMPLE_HUBBLE_KEY
+	string "Base64-encoded Hubble master key"
+	default ""
+	help
+	  Base64-encoded master key provisioned at build time. Pass it with
+	  west build ... -- -DCONFIG_SAMPLE_HUBBLE_KEY="<base64 key>".
+	  If left empty, an all-zero placeholder is used.
+
+config SAMPLE_DEVICE_LAT
+	string "Device latitude (degrees)"
+	default "0.0"
+	help
+	  Device latitude in degrees (e.g. "37.7749"), parsed with strtod at
+	  startup and passed to the pass-prediction API.
+
+config SAMPLE_DEVICE_LON
+	string "Device longitude (degrees)"
+	default "0.0"
+	help
+	  Device longitude in degrees (e.g. "-122.4194"), parsed with strtod at
+	  startup and passed to the pass-prediction API.
+
+choice
+	prompt "Satellite transmission reliability"
+	default SAMPLE_SAT_RELIABILITY_NORMAL
+	help
+	  Reliability mode passed to hubble_sat_packet_send().
+
+config SAMPLE_SAT_RELIABILITY_NORMAL
+	bool "Normal (8 transmissions, 20s interval)"
+
+config SAMPLE_SAT_RELIABILITY_HIGH
+	bool "High (16 transmissions, 10s interval)"
+
+endchoice
+
+endmenu
+
+source "Kconfig.zephyr"
+
+module = APP
+module-str = APP
+source "subsys/logging/Kconfig.template.log_config"

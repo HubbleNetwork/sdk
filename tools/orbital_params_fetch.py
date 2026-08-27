@@ -1,8 +1,10 @@
 """
 Fetch orbital params from Hubble API.
 
-Writes a C struct file for the orbital params to <prefix>/sat_params.c,
-where <prefix> is an optional directory prefix (default: current directory).
+Writes a C struct file for the orbital params to <prefix>/sat_params.generated.c,
+where <prefix> is an optional directory prefix (default: current directory). The
+.generated.c name is gitignored, so regenerating never dirties the source tree;
+the build picks it up in preference to the committed sat_params.c placeholder.
 
 Environment variables:
     HUBBLE_API_TOKEN  - (required) Bearer token for authenticating with the
@@ -18,7 +20,7 @@ import requests
 API_BASE = "https://api.hubble.com/api/satellite"
 TOKEN = os.environ["HUBBLE_API_TOKEN"]
 
-SAT_PARAMS_RELPATH = Path("sat_params.c")
+SAT_PARAMS_RELPATH = Path("sat_params.generated.c")
 
 # Orbital params fields copied verbatim from the API response into the C struct.
 ORBITAL_PARAMS_FIELDS = (

@@ -1,0 +1,22 @@
+# Copyright (c) 2026 Hubble Network, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+sample:
+  description: Hubble Satellite pass-prediction example
+  name: hubble-sat-pass-prediction
+common:
+  build_only: true
+  # Some test platforms fail because they don't enable the random subsys.
+  # Filter them out.
+  platform_allow:
+    - native_sim
+  tags:
+    - satellite
+tests:
+  app.sat.pass_prediction.default: {}
+  app.sat.pass_prediction.128key:
+    extra_configs:
+      - CONFIG_HUBBLE_NETWORK_KEY_128=y
+  app.sat.pass_prediction.high:
+    extra_configs:
+      - CONFIG_SAMPLE_SAT_RELIABILITY_HIGH=y

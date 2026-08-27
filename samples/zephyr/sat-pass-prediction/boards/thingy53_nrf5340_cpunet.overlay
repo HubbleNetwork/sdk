@@ -1,0 +1,3 @@
+&radio {
+	fem = <&nrf_radio_fem>;
+};
