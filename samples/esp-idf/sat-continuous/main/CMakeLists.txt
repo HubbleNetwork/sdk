@@ -4,5 +4,5 @@
 set(SOURCES "main.c")
 
 idf_component_register(SRCS ${SOURCES}
-		       PRIV_REQUIRES mbedtls hubblenetwork-sdk
+		       PRIV_REQUIRES bt mbedtls nvs_flash hubblenetwork-sdk
 		       INCLUDE_DIRS ".")
