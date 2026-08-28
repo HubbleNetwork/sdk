@@ -247,7 +247,6 @@ int hubble_sat_board_init(void)
 		return -EAGAIN;
 	}
 
-	esp_phy_rftest_init();
 	return 0;
 }
 
@@ -258,15 +257,12 @@ int hubble_sat_board_enable(void)
 		return ret;
 	}
 
-	esp_phy_rftest_config(1);
 	phy_set_step_01k(true);
-
 	return 0;
 }
 
 int hubble_sat_board_disable(void)
 {
-	esp_phy_rftest_config(0);
 	phy_set_step_01k(false);
 	return _timer_disable();
 }
