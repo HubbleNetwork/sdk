@@ -1,10 +1,14 @@
 # Copyright (c) 2026 Hubble Network, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+# Bluetooth
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_NIMBLE_50_FEATURE_SUPPORT=n
+
 # Sat dependencies
 CONFIG_HUBBLE_SAT_NETWORK=y
 CONFIG_HUBBLE_SAT_NETWORK_DTM_MODE=y
-CONFIG_ESP_PHY_ENABLE_CERT_TEST=y
 
 # Disable nonce check since we don't need it for DTM
 CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK=n

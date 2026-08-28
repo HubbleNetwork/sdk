@@ -20,6 +20,8 @@
 #include "esp_timer.h"
 #include "nvs_flash.h"
 
+#include "nimble/nimble_port.h"
+
 #include <hubble/hubble.h>
 #include <hubble/sat.h>
 #include <hubble/sat/dtm.h>
@@ -438,6 +440,13 @@ void app_main(void)
 		ret = nvs_flash_init();
 	}
 	ESP_ERROR_CHECK(ret);
+
+	/* Init Bluetooth (NimBLE) */
+	ret = nimble_port_init();
+	if (ret != ESP_OK) {
+		ESP_LOGE(APP_TAG, "Failed to init NimBLE stack, error: %d", ret);
+		return;
+	}
 
 	/* Init the sems */
 	_tx_task_sem = xSemaphoreCreateBinary();

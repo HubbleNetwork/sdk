@@ -12,6 +12,8 @@
 
 #include "esp_log.h"
 #include "esp_system.h"
+#include "nvs_flash.h"
+#include "nimble/nimble_port.h"
 
 #include "mbedtls/base64.h"
 
@@ -44,6 +46,22 @@ void app_main(void)
 		ESP_LOGD(APP_TAG, "Device key decoded (%zu bytes):", outlen);
 		ESP_LOG_BUFFER_HEX_LEVEL(APP_TAG, _hubble_key, outlen,
 					 ESP_LOG_DEBUG);
+	}
+
+	/* Initialize NVS — it is used to store PHY calibration data */
+	err = nvs_flash_init();
+	if (err == ESP_ERR_NVS_NO_FREE_PAGES ||
+	    err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+		ESP_ERROR_CHECK(nvs_flash_erase());
+		err = nvs_flash_init();
+	}
+	ESP_ERROR_CHECK(err);
+
+	/* Init Bluetooth (NimBLE) */
+	err = nimble_port_init();
+	if (err != ESP_OK) {
+		ESP_LOGE(APP_TAG, "Failed to init NimBLE stack, error: %d", err);
+		return;
 	}
 
 	err = hubble_init(0, _hubble_key);
