@@ -16,3 +16,6 @@ CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK=n
 # Use device uptime as the counter source because we
 # don't need time for DTM mode
 CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME=y
+
+# For logging with with level and timestamp prefix
+CONFIG_LOG_VERSION_2=y

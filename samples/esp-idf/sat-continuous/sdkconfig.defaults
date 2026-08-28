@@ -18,3 +18,6 @@ CONFIG_HUBBLE_NETWORK_SECURITY_ENFORCE_NONCE_CHECK=n
 # provisioned. The EID counter starts from the value passed to hubble_init()
 # and advances with uptime.
 CONFIG_HUBBLE_COUNTER_SOURCE_DEVICE_UPTIME=y
+
+# For logging with with level and timestamp prefix
+CONFIG_LOG_VERSION_2=y
