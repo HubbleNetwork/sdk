@@ -9,3 +9,6 @@ CONFIG_BT_NIMBLE_50_FEATURE_SUPPORT=n
 # Hubble Network
 CONFIG_HUBBLE_BLE_NETWORK=y
 CONFIG_HUBBLE_SAT_NETWORK=y
+
+# For logging with with level and timestamp prefix
+CONFIG_LOG_VERSION_2=y
