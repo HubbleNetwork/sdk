@@ -59,6 +59,36 @@ static int _psa_status_to_errno(psa_status_t status)
 	return ret;
 }
 
+int hubble_crypto_key_id_cmac(const void *key, const uint8_t *input,
+			      size_t input_len,
+			      uint8_t output[HUBBLE_AES_BLOCK_SIZE])
+{
+	psa_status_t status;
+	psa_key_id_t key_id = *(psa_key_id_t *)key;
+	size_t mac_length = 0;
+	psa_mac_operation_t operation = PSA_MAC_OPERATION_INIT;
+
+	status = psa_mac_sign_setup(&operation, key_id, PSA_ALG_CMAC);
+	if (status != PSA_SUCCESS) {
+		goto mac_setup_error;
+	}
+
+	status = psa_mac_update(&operation, input, input_len);
+	if (status != PSA_SUCCESS) {
+		goto mac_update_error;
+	}
+
+	status = psa_mac_sign_finish(&operation, output, HUBBLE_AES_BLOCK_SIZE,
+				     &mac_length);
+mac_update_error:
+	/* A failed update or sign_finish leaves the operation in an error
+	 * state that must be aborted; aborting a completed one is a no-op.
+	 */
+	(void)psa_mac_abort(&operation);
+mac_setup_error:
+	return _psa_status_to_errno(status);
+}
+
 int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		       const uint8_t *input, size_t input_len,
 		       uint8_t output[HUBBLE_AES_BLOCK_SIZE])

@@ -102,6 +102,32 @@ int hubble_crypto_cmac(const uint8_t key[CONFIG_HUBBLE_KEY_SIZE],
 		       uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
 
 /**
+ * @brief Computes the Cipher-based Message Authentication Code (CMAC)
+ *        using a key identifier.
+ *
+ * Same as hubble_crypto_cmac(), but the key is referenced by an opaque
+ * key identifier instead of by its key material. The SDK never has
+ * access to the key material: the application provisions the key into a
+ * secure key storage and the CMAC is computed by the crypto provider on
+ * the key it holds internally, so the raw key never leaves that storage.
+ *
+ * @param key_id Buffer holding the identifier of the key used for the
+ *               CMAC calculation, in the format expected by the crypto
+ *               provider (for PSA Crypto, a psa_key_id_t). It does not
+ *               contain key material.
+ * @param data Pointer to the input data for which the CMAC is
+ *             calculated.
+ * @param len The length of the input data in bytes.
+ * @param output Pointer to the buffer where the CMAC (message
+ *               authentication code) will be stored. This buffer must
+ *               be large enough to hold the CMAC value
+ *               (typically the size of the AES block, 16 bytes).
+ * * @return 0 on success, non-zero on error.
+ */
+int hubble_crypto_key_id_cmac(const void *key_id, const uint8_t *data,
+			      size_t len, uint8_t output[HUBBLE_AES_BLOCK_SIZE]);
+
+/**
  * @}
  */ /* hubble_crypto */
 
