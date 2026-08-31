@@ -43,6 +43,15 @@ static int _psa_status_to_errno(psa_status_t status)
 	case PSA_ERROR_DATA_CORRUPT:
 		ret = -EBADMSG;
 		break;
+	case PSA_ERROR_INVALID_HANDLE:
+		ret = -EINVAL;
+		break;
+	case PSA_ERROR_NOT_SUPPORTED:
+		ret = -ENOTSUP;
+		break;
+	case PSA_ERROR_NOT_PERMITTED:
+		ret = -EPERM;
+		break;
 	default:
 		break;
 	}
