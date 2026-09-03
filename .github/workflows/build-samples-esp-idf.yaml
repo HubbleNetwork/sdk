@@ -5,8 +5,11 @@ on:
     branches: ["**"]
     paths:
       - "include/**"
+      - "port/esp-idf/**"
+      - "port/freertos/**"
       - "src/**"
       - "samples/esp-idf/**"
+      - "tools/ci/esp-idf-build-manifest.yaml"
       - ".github/workflows/build-samples-esp-idf.yaml"
 
   workflow_dispatch: {}

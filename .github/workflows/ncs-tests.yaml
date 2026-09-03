@@ -5,9 +5,13 @@ on:
     branches: ["**"]
     paths:
       - "include/**"
+      - "port/zephyr/**"
       - "src/**"
       - "samples/zephyr/**"
       - "tests/zephyr/**"
+      - "zephyr/module.yml"
+      - "west-ncs.yml"
+      - "tools/ci/twister-quarantine.yaml"
       - ".github/workflows/ncs-tests.yaml"
 
   workflow_dispatch:
