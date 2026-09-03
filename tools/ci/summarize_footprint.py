@@ -5,16 +5,24 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Script to summarize RAM and ROM consumption per testsuite from twister_footprint.json
+Script to summarize RAM and ROM consumption per testsuite from `twister_out`.
+
+Given a twister output dir, this script discovers if sysbuild was used
+and produces per-image ROM/RAM JSON, then aggregates and prints a summary.
 """
 
 import argparse
+import datetime
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 
+import yaml
+
 TESTSUITE_COLUMN_SIZE = 45
-TARGET_COLUMN_SIZE = 25
+TARGET_COLUMN_SIZE = 50
 RAM_COLUMN_SIZE = 15
 ROM_COLUMN_SIZE = 15
 TOTAL_COLUMN_SIZE = TESTSUITE_COLUMN_SIZE + TARGET_COLUMN_SIZE + RAM_COLUMN_SIZE + ROM_COLUMN_SIZE
@@ -29,6 +37,149 @@ def format_size(size_bytes):
             return f"{size_bytes:.2f} {unit}"
         size_bytes /= 1024.0
     return f"{size_bytes:.2f} GB"
+
+
+def zephyr_base_get():
+    """Locate the Zephyr base directory."""
+    # try to find the west dir first
+    try:
+        topdir = subprocess.run(
+            ['west', 'topdir'],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError) as exc:
+        raise RuntimeError(f"failed to determine Zephyr topdir via 'west topdir': {exc}") from exc
+
+    # check if zephyr dir exists
+    zephyr_base = Path(topdir) / 'zephyr'
+    if not zephyr_base.is_dir():
+        raise RuntimeError(f"zephyr base not found at {zephyr_base}")
+
+    return zephyr_base
+
+
+def size_report_path_get(zephyr_base):
+    """Return the path to the size_report tool, or raise if missing."""
+    script = zephyr_base / 'scripts' / 'footprint' / 'size_report'
+    if not script.is_file():
+        raise RuntimeError(f"size_report tool not found at {script}")
+    return script
+
+
+def scenario_build_infos_find(twister_out):
+    """Find all build info for each test scenario.
+
+    Each test scenario has a build_info.yml in its build dir. For sysbuild, each
+    image has its own build_info.yml as well, we just need the top-level info.
+    """
+    # collect all files that contains build_info.yml
+    all_files = list(twister_out.rglob('build_info.yml'))
+
+    # collect directories name that contains build_info.yml
+    all_dirs = {f.parent.resolve() for f in all_files}
+
+    # walk through each and skip any nested build_info.yml
+    # by checking if its parent dir is in the all_dirs set
+    scenario_files = []
+    for f in all_files:
+        parent = f.parent.resolve()
+        nested = False
+        for ancestor in parent.parents:
+            if ancestor in all_dirs:
+                nested = True
+                break
+            if ancestor == twister_out.resolve():
+                break
+        if not nested:
+            scenario_files.append(f)
+    return scenario_files
+
+
+def build_info_parse(build_info_path):
+    """Parse a scenario-level build_info.yml.
+
+    Returns a dict. E.g.:
+        {
+          'platform': 'nrf54l15dk/nrf54l15/cpuapp',
+          'sysbuild': True/False,
+          'images': ['sat-dual-stack', ...], # sysbuild only, else []
+        }
+    """
+    try:
+        with open(build_info_path) as f:
+            doc = yaml.safe_load(f) or {}
+    except (OSError, yaml.YAMLError) as exc:
+        raise RuntimeError(f"failed to read {build_info_path}: {exc}") from exc
+
+    cmake = doc.get('cmake', {}) or {}
+    board = cmake.get('board', {}) or {}
+    name = board.get('name', '')
+    qualifiers = board.get('qualifiers', '')
+    revision = board.get('revision', '')
+    if not name:
+        raise RuntimeError(f"no board.name in {build_info_path}")
+
+    platform = name
+    if qualifiers:
+        platform = f"{name}/{qualifiers}"
+    if revision:
+        platform = f"{platform}/{revision}"
+
+    # build_info stores sysbuild as the string true / false
+    sysbuild_raw = cmake.get('sysbuild', doc.get('sysbuild', False))
+    sysbuild = str(sysbuild_raw).lower() == 'true'
+
+    # find the list of images for sysbuild, if any
+    images = []
+    if sysbuild:
+        for img in cmake.get('images', []) or []:
+            img_name = img.get('name')
+            if img_name:
+                images.append(img_name)
+
+    return {'platform': platform, 'sysbuild': sysbuild, 'images': images}
+
+
+def size_report_run(size_report, zephyr_base, elf, target, json_out):
+    """Run size_report (ROM/RAM) for one target and writing JSON to json_out"""
+    txt_out = Path(json_out).with_suffix('.txt')
+    cmd = [
+        sys.executable,
+        str(size_report),
+        target,
+        '-k',
+        str(elf),
+        '-z',
+        str(zephyr_base),
+        '-q',
+        '-o',
+        str(txt_out),
+        '--json',
+        str(json_out),
+    ]
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(
+            f"size_report {target} failed for {elf}:\n{exc.stderr or exc.stdout}"
+        ) from exc
+
+    # check if the JSON output was produced
+    if not Path(json_out).is_file():
+        raise RuntimeError(f"size_report {target} did not produce {json_out} for {elf}")
+
+
+def size_report_load(json_path):
+    """Load a size_report JSON, returning (symbols_tree, total_size)."""
+    try:
+        with open(json_path) as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"failed to read {json_path}: {exc}") from exc
+
+    return data.get('symbols'), data.get('total_size')
 
 
 def hubblenetwork_components_find(symbols_node, all_components):
@@ -79,53 +230,121 @@ def components_size_get(all_components):
     return components_dict
 
 
-def hubblenetwork_components_extract(footprint):
-    """Extract hubblenetwork-sdk component sizes from footprint data."""
-    all_components_rom = []
-    all_components_ram = []
+def _entry_build(
+    scenario, platform, domain_label, scenario_dir, image_subdir, zephyr_base, size_report
+):
+    """Run size_report for one image and build a report entry.
 
-    # Extract ROM components
-    if 'ROM' in footprint and 'symbols' in footprint['ROM']:
-        hubblenetwork_components_find(footprint['ROM']['symbols'], all_components_rom)
+    Args:
+    scenario:       name of the test scenario
+    platform:       target platform name
+    domain_label:   '[name]' suffix for sysbuild images, or '' for non-sysbuild.
+    scenario_dir:   path to the scenario directory
+    image_subdir:   sub-path from the scenario dir to the image build dir
+    zephyr_base:    path to the Zephyr base directory
+    size_report:    path to the size_report tool
 
-    # Extract RAM components
-    if 'RAM' in footprint and 'symbols' in footprint['RAM']:
-        hubblenetwork_components_find(footprint['RAM']['symbols'], all_components_ram)
+    Returns:
+    A dict with the following keys:
+        'name': scenario name
+        'platform': target platform name (with domain label if sysbuild)
+        'rom_size': total ROM size in bytes
+        'ram_size': total RAM size in bytes
+        'components_rom': dict of component names to ROM sizes
+        'components_ram': dict of component names to RAM sizes
+    """
+    # find the ELF file for this image
+    build_dir = scenario_dir / image_subdir if image_subdir else scenario_dir
+    elf = build_dir / 'zephyr' / 'zephyr.elf'
+    if not elf.is_file():
+        target = f"domain '{image_subdir}' of " if image_subdir else ''
+        raise ValueError(f"ELF not found for {target}'{scenario}': {elf}")
 
-    # Get component sizes (handles duplicates by keeping maximum)
-    components_rom = components_size_get(all_components_rom)
-    components_ram = components_size_get(all_components_ram)
+    # create output directory for footprint JSON files
+    out_dir = build_dir / 'footprint'
+    out_dir.mkdir(parents=True, exist_ok=True)
+    rom_json = out_dir / 'rom.json'
+    ram_json = out_dir / 'ram.json'
 
-    return components_rom, components_ram
+    # run size_report for ROM and RAM
+    size_report_run(size_report, zephyr_base, elf, 'rom', rom_json)
+    size_report_run(size_report, zephyr_base, elf, 'ram', ram_json)
 
+    rom_symbols, rom_total = size_report_load(rom_json)
+    ram_symbols, ram_total = size_report_load(ram_json)
 
-def footprint_data_extract(testsuite):
-    """Extract ROM and RAM sizes from a testsuite entry."""
-    name = testsuite.get('name', 'unknown')
-    platform = testsuite.get('platform', 'unknown')
+    rom_components_raw = []
+    ram_components_raw = []
+    hubblenetwork_components_find(rom_symbols, rom_components_raw)
+    hubblenetwork_components_find(ram_symbols, ram_components_raw)
 
-    rom_size = None
-    ram_size = None
-
-    footprint = testsuite.get('footprint', {})
-
-    if 'ROM' in footprint and 'symbols' in footprint['ROM']:
-        rom_size = footprint['ROM']['symbols'].get('size')
-
-    if 'RAM' in footprint and 'symbols' in footprint['RAM']:
-        ram_size = footprint['RAM']['symbols'].get('size')
-
-    # Extract hubblenetwork-sdk components
-    components_rom, components_ram = hubblenetwork_components_extract(footprint)
-
+    target = f"{platform} {domain_label}".rstrip() if domain_label else platform
     return {
-        'name': name,
-        'platform': platform,
-        'rom_size': rom_size,
-        'ram_size': ram_size,
-        'components_rom': components_rom,
-        'components_ram': components_ram,
+        'name': scenario,
+        'platform': target,
+        'rom_size': rom_total,
+        'ram_size': ram_total,
+        'components_rom': components_size_get(rom_components_raw),
+        'components_ram': components_size_get(ram_components_raw),
     }
+
+
+def footprint_data_collect(twister_out, zephyr_base, size_report):
+    """Discover scenarios via build_info.yml and collect footprint entries.
+
+    For sysbuild type, label as '<platform> [<image>]' where <image> is
+    the image name from build_info.yml.
+    """
+    twister_out = Path(twister_out)
+    entries = []
+
+    build_infos = scenario_build_infos_find(twister_out)
+    if not build_infos:
+        raise ValueError(f"no build_info.yml found under {twister_out} - was the build run?")
+
+    # walk through all discovered build_info.yml files
+    # and collect footprint data
+    for build_info_path in build_infos:
+        scenario_dir = build_info_path.parent
+        scenario = scenario_dir.name
+        info = build_info_parse(build_info_path)
+        platform = info['platform']
+
+        if info['sysbuild']:
+            # if this is sysbuild but no images are listed, raise an error
+            if not info['images']:
+                raise RuntimeError(
+                    f"sysbuild scenario '{scenario}' lists no images in {build_info_path}"
+                )
+
+            # for each image, run size_report and build an entry
+            for image in info['images']:
+                entries.append(
+                    _entry_build(
+                        scenario,
+                        platform,
+                        f"[{image}]",
+                        scenario_dir,
+                        image,
+                        zephyr_base,
+                        size_report,
+                    )
+                )
+        else:
+            # for non-sysbuild, just run size_report once for the scenario
+            entries.append(
+                _entry_build(
+                    scenario,
+                    platform,
+                    '',
+                    scenario_dir,
+                    '',
+                    zephyr_base,
+                    size_report,
+                )
+            )
+
+    return entries
 
 
 def format_csv(commit_date, commit_hash, footprint_data):
@@ -223,34 +442,17 @@ def format_table(zephyr_version, commit_date, run_date, commit_hash, footprint_d
     print("=" * TOTAL_COLUMN_SIZE)
 
 
-def footprint_summarize(json_file, output_format='table'):
-    """Summarize RAM and ROM consumption from twister_footprint.json."""
+def footprint_summarize(twister_out, output_format='table'):
+    """Summarize footprint data from twister output directory."""
 
-    json_path = Path(json_file)
-    if not json_path.exists():
-        print(f"Error: File not found: {json_file}", file=sys.stderr)
+    out_path = Path(twister_out)
+    if not out_path.exists():
+        print(f"Error: path not found: {twister_out}", file=sys.stderr)
         return 1
 
-    try:
-        with open(json_path) as f:
-            data = json.load(f)
-    except json.JSONDecodeError as e:
-        print(f"Error: Invalid JSON file: {e}", file=sys.stderr)
-        return 1
-    except Exception as e:
-        print(f"Error reading file: {e}", file=sys.stderr)
-        return 1
-
-    testsuites = data.get('testsuites', [])
-    if not testsuites:
-        print("Warning: No testsuites found in the file", file=sys.stderr)
-        return 0
-
-    # Extract revision information from environment
-    environment = data.get('environment', {})
-    zephyr_version = environment.get('zephyr_version', 'unknown')
-    commit_date = environment.get('commit_date', 'unknown')
-    run_date = environment.get('run_date', 'unknown')
+    # get the metadata
+    zephyr_version = os.environ.get('ZEPHYR_VERSION', 'unknown')
+    commit_date = os.environ.get('COMMIT_DATE', 'unknown')
 
     # Extract commit hash from zephyr_version if present (format: v4.2.0-3768-g1dcbee9decaa)
     commit_hash = 'unknown'
@@ -259,11 +461,14 @@ def footprint_summarize(json_file, output_format='table'):
         if len(parts) > 1:
             commit_hash = parts[-1]
 
+    # Run date is now
+    run_date = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
+
+    zephyr_base = zephyr_base_get()
+    size_report = size_report_path_get(zephyr_base)
+
     # Extract footprint data for each testsuite
-    footprint_data = []
-    for testsuite in testsuites:
-        footprint_info = footprint_data_extract(testsuite)
-        footprint_data.append(footprint_info)
+    footprint_data = footprint_data_collect(out_path, zephyr_base, size_report)
 
     # Sort by ROM size (descending), then by RAM size
     footprint_data.sort(key=lambda x: (x['rom_size'] or 0, x['ram_size'] or 0), reverse=True)
@@ -272,19 +477,19 @@ def footprint_summarize(json_file, output_format='table'):
         format_csv(commit_date, commit_hash, footprint_data)
     else:
         format_table(zephyr_version, commit_date, run_date, commit_hash, footprint_data)
-
     return 0
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Summarize RAM and ROM consumption per testsuite from twister_footprint.json'
+        description='Discover scenarios under a twister output tree, run '
+        'size_report per image, and summarize ROM/RAM consumption'
     )
     parser.add_argument(
-        'json_file',
+        'twister_out',
         nargs='?',
-        default='twister-out/twister_footprint.json',
-        help='Path to twister_footprint.json file (default: twister-out/twister_footprint.json)',
+        default='twister-out',
+        help='Path to the twister output directory (default: twister-out)',
     )
     parser.add_argument(
         '--format',
@@ -294,7 +499,11 @@ def main():
     )
 
     args = parser.parse_args()
-    return footprint_summarize(args.json_file, args.format)
+    try:
+        return footprint_summarize(args.twister_out, args.format)
+    except Exception as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == '__main__':
