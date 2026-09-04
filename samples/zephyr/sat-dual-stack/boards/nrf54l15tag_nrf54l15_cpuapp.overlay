@@ -1,0 +1,27 @@
+/*
+ * nRF54L15 Tag overlay
+ *
+ * - Enables the on-board SKY13348 RF switch
+ * - Selects Antenna 1 by default at boot (via GPIO hog)
+ */
+
+&sky13348 {
+    status = "okay";
+};
+
+/* Default to ANT1 at boot */
+&gpio1 {
+    ant1_hog: ant1_hog {
+        gpio-hog;
+        gpios = <9 GPIO_ACTIVE_HIGH>;   /* ANT1 */
+        output-high;
+        line-name = "rf-switch-v1";
+    };
+
+    ant2_hog: ant2_hog {
+        gpio-hog;
+        gpios = <10 GPIO_ACTIVE_LOW>;   /* ANT2 */
+        output-low;
+        line-name = "rf-switch-v2";
+    };
+};

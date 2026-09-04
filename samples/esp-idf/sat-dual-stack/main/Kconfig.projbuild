@@ -19,4 +19,10 @@ menu "Sat Dual Stack Sample Configuration"
         This will set the sat timer for 2 minutes instead
         of until a satellite pass is overhead.
 
+    config EXTERNAL_ANTENNA
+    bool "Select XIAO ESP32-C6 External Antenna"
+    default n
+    help
+        Select XIAO ESP32-C6 External Antenna - ufL
+
 endmenu
