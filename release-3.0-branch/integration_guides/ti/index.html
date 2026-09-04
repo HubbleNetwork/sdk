@@ -495,7 +495,7 @@ Makefile-based workflow.</p>
 <li><p>Right-click your project folder and select <strong>Properties</strong>.</p></li>
 <li><p>Navigate to <strong>Build</strong> → <strong>Tools</strong> → <strong>SysConfig</strong>.</p></li>
 <li><p>In the <strong>SysConfig Flags</strong> field, append:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-s &quot;/path/to/hubble-device-sdk/.metadata/product.json&quot;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-s "/path/to/hubble-device-sdk/.metadata/product.json"
 </pre></div>
 </div>
 </li>
@@ -559,8 +559,8 @@ reference.</p></li>
 <li><p>Save the file, then right-click it → <strong>Open With…</strong> → <strong>Text
 Editor</strong> and add the following at the bottom to enable
 both BLE and satellite stacks:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
-<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">&quot;ble&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">"/hubble_radio.js"</span><span class="p">);</span>
+<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">"ble"</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -568,14 +568,14 @@ both BLE and satellite stacks:</p>
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>Add the following to your <code class="docutils literal notranslate"><span class="pre">.syscfg</span></code> file. <code class="docutils literal notranslate"><span class="pre">hubble_radio.js</span></code> sets
 up the <code class="docutils literal notranslate"><span class="pre">radioconfig</span></code> and the Dynamic Multi-protocol Manager (DMM)
 so the BLE and satellite stacks can share the radio:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">&quot;/Hubble&quot;</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Hubble</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scripting</span><span class="p">.</span><span class="nx">addModule</span><span class="p">(</span><span class="s2">"/Hubble"</span><span class="p">);</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useSatellite</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">useTerrestrial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
-<span class="cm">/* Set to your oscillator&#39;s PPM rating (check your crystal datasheet) */</span>
+<span class="cm">/* Set to your oscillator's PPM rating (check your crystal datasheet) */</span>
 <span class="nx">Hubble</span><span class="p">.</span><span class="nx">deviceTDR</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">10</span><span class="p">;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">&quot;/hubble_radio.js&quot;</span><span class="p">);</span>
-<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">&quot;ble&quot;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">hubble_radio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">system</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">"/hubble_radio.js"</span><span class="p">);</span>
+<span class="nx">hubble_radio</span><span class="p">.</span><span class="nx">config_dual_stack</span><span class="p">(</span><span class="s2">"ble"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Then set the following in your application’s <code class="docutils literal notranslate"><span class="pre">hubble_config.h</span></code>, which
@@ -584,7 +584,7 @@ you need to include along with your source files in the Makefile:</p>
 <span class="cp">#define CONFIG_HUBBLE_BLE_NETWORK              1</span>
 <span class="cp">#define CONFIG_HUBBLE_KEY_SIZE                 16 </span><span class="cm">/* 16 for 128-bit, 32 for 256-bit */</span>
 <span class="cp">#define CONFIG_HUBBLE_COUNTER_SOURCE_UNIX_TIME 1</span>
-<span class="cp">#define CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR   10 </span><span class="cm">/* Check your oscillator&#39;s PPM rating */</span>
+<span class="cp">#define CONFIG_HUBBLE_SAT_NETWORK_DEVICE_TDR   10 </span><span class="cm">/* Check your oscillator's PPM rating */</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="../../satellite/clock-drift.html#hubble-satellite-clock-drift"><span class="std std-ref">Clock Drift Compensation</span></a> for details on TDR and how
@@ -668,13 +668,13 @@ before calling any other Hubble API:</p>
 <span class="cm"> */</span>
 <span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_init</span><span class="p">(</span><span class="n">unix_time_ms</span><span class="p">,</span><span class="w"> </span><span class="n">master_key</span><span class="p">);</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to initialize Hubble Device SDK (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to initialize Hubble Device SDK (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_satellites_set</span><span class="p">(</span><span class="n">orb_params</span><span class="p">,</span><span class="w"> </span><span class="n">orb_params_count</span><span class="p">);</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to set orbital parameters (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">    </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to set orbital parameters (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -728,7 +728,7 @@ transmit to the satellite, then repeat.</p>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_get</span><span class="p">(</span><span class="n">now_ms</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -738,7 +738,7 @@ transmit to the satellite, then repeat.</p>
 <span class="w">            </span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pass_info</span><span class="p">.</span><span class="n">duration</span><span class="p">,</span>
 <span class="w">            </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -782,14 +782,14 @@ can schedule a future callback works equally well.</p>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to build packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to build packet (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="cm">/* Blocking call. Retries are handled internally by the SDK */</span>
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_packet_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">HUBBLE_SAT_RELIABILITY_NORMAL</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to send packet (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to send packet (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span><span class="w"> </span><span class="cm">/* end while loop, back to compute the next pass, re-enable bluetooth, and beacon */</span>
@@ -861,7 +861,7 @@ enabling logging module and calling log functions manually in your application.<
 <p>Use the SDK’s scan script to confirm BLE advertising is working. Install the
 dependencies and run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>tools/requirements-scan.txt
-python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+python<span class="w"> </span>tools/scan.py<span class="w"> </span>--key<span class="w"> </span><span class="s2">"&lt;your-device-key&gt;"</span>
 </pre></div>
 </div>
 <p>The script scans for Hubble BLE beacons (UUID 0xFCA6) and prints decoded
@@ -955,7 +955,7 @@ transmitting a valid Hubble packet at the physical layer using an
 </div>
 <p>Connect the ADALM-PLUTO near the device antenna and run the scanner with your
 device key to decode captured packets in real time:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>sat<span class="w"> </span>scan<span class="w"> </span>--key<span class="w"> </span><span class="s2">&quot;&lt;your-device-key&gt;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hubblenetwork<span class="w"> </span>sat<span class="w"> </span>scan<span class="w"> </span>--key<span class="w"> </span><span class="s2">"&lt;your-device-key&gt;"</span>
 </pre></div>
 </div>
 <p>A successfully decoded packet confirms the RF output, packet framing, channel

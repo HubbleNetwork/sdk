@@ -383,7 +383,7 @@ transmit to the satellite, then repeat.</p>
 
 <span class="w">    </span><span class="n">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hubble_sat_next_pass_get</span><span class="p">(</span><span class="n">now_ms</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">        </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -393,7 +393,7 @@ transmit to the satellite, then repeat.</p>
 <span class="w">            </span><span class="n">pass_info</span><span class="p">.</span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pass_info</span><span class="p">.</span><span class="n">duration</span><span class="p">,</span>
 <span class="w">            </span><span class="o">&amp;</span><span class="n">device_pos</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pass_info</span><span class="p">);</span>
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">&quot;Failed to get next pass (err %d)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
+<span class="w">            </span><span class="n">LOG_ERR</span><span class="p">(</span><span class="s">"Failed to get next pass (err %d)"</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">err</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>

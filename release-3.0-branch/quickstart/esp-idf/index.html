@@ -419,9 +419,9 @@ the component list:</p>
 <span class="nb">set</span><span class="p">(</span><span class="s">EXTRA_COMPONENT_DIRS</span><span class="w"> </span><span class="s">path/to/hubble-device-sdk/port/esp-idf/</span><span class="p">)</span>
 
 <span class="nb">set</span><span class="p">(</span><span class="s">COMPONENTS</span>
-<span class="w">        </span><span class="s2">&quot;main&quot;</span>
-<span class="w">        </span><span class="s2">&quot;bt&quot;</span>
-<span class="w">        </span><span class="s2">&quot;hubblenetwork-sdk&quot;</span>
+<span class="w">        </span><span class="s2">"main"</span>
+<span class="w">        </span><span class="s2">"bt"</span>
+<span class="w">        </span><span class="s2">"hubblenetwork-sdk"</span>
 <span class="p">)</span>
 
 <span class="nb">include</span><span class="p">(</span><span class="o">$ENV{</span><span class="nv">IDF_PATH</span><span class="o">}</span><span class="s">/tools/cmake/project.cmake</span><span class="p">)</span>
@@ -465,7 +465,7 @@ before building any Satellite Network application on the ESP32-C6.</p>
 </li>
 <li><p>Unzip the archive and copy the extracted <code class="docutils literal notranslate"><span class="pre">*.a</span></code> files over the matching
 files in your ESP-IDF installation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">&quot;libphy_C6_20260317_c83212e.zip&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>unzip<span class="w"> </span><span class="s2">"libphy_C6_20260317_c83212e.zip"</span>
 cp<span class="w"> </span>*.a<span class="w"> </span><span class="nv">$IDF_PATH</span>/components/esp_phy/lib/esp32c6/
 </pre></div>
 </div>
