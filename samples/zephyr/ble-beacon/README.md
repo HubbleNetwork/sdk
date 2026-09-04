@@ -6,6 +6,9 @@ create a BLE beacon that advertises its presence.
 ## Requirements
 
 - Cryptographic key provided by Hubble Network
+- To keep the key out of the firmware, see
+  [Using a key stored in the KMU](#using-a-key-stored-in-the-kmu). That mode
+  requires an nRF54L15 device and the nRF Connect SDK.
 
 ## Overview
 
@@ -57,6 +60,64 @@ python ../../../tools/embed_key_time.py -b master.key -o ./src
 ```
 
 After running the script, the key and timestamp will be compiled into the application.
+
+## Using a key stored in the KMU
+
+Instead of embedding the key material in the firmware, the SDK can reference
+the key by its PSA key identifier. When
+`CONFIG_HUBBLE_NETWORK_CRYPTO_PSA_USE_KEY_ID` is enabled, the SDK never needs
+nor has access to the key material: the key is provisioned into the Key
+Management Unit (KMU) and every cryptographic operation is performed by CRACEN
+on the key it holds internally, so the key never leaves the secure storage.
+
+### Requirements
+
+- An nRF54L15 device, for example `nrf54l15dk/nrf54l15/cpuapp`. The KMU and the
+  CRACEN cryptographic accelerator are only available on this family.
+- The nRF Connect SDK, which provides the CRACEN PSA driver.
+- `nrfutil` with the `device` command, used to provision the key.
+
+### 1. Generate the key attributes
+
+The `ncs-generate-key.py` script describes the key for `nrfutil`: it takes the
+base64-encoded key and writes a JSON file with the key material and its PSA
+attributes (AES-CMAC, sign usage, PROTECTED usage scheme).
+
+```sh
+# Script is located in SDK_BASE/tools
+
+python ../../../tools/ncs-generate-key.py --id 1 --key "$(cat master.key)" --file keyslot.json
+```
+
+The sample expects the key in **KMU slot 1**. `src/key_id.c` builds the key
+identifier with `PSA_KEY_ID_FROM_CRACEN_KMU_SLOT(
+CRACEN_KMU_KEY_USAGE_SCHEME_PROTECTED, PSA_KEY_ID_USER_MIN)`, and
+`PSA_KEY_ID_USER_MIN` is slot 1.
+
+> [!NOTE]
+> A KMU slot holds 128 bits of key material, so a 256-bit key is stored across
+> slots 1 and 2. Pass `--key-bits 128` for a 128-bit key, and make sure the
+> size matches the one selected with `CONFIG_HUBBLE_NETWORK_KEY_256` or
+> `CONFIG_HUBBLE_NETWORK_KEY_128`.
+
+Run `python ../../../tools/ncs-generate-key.py --help` for the remaining
+options, such as `--persistence` to control whether the slot can be reused,
+revoked, or written only once.
+
+### 2. Provision the key
+
+```sh
+nrfutil device x-provision-keys --key-file keyslot.json
+```
+
+### 3. Build the sample
+
+The `ncs_cracen.conf` fragment selects the CRACEN driver and enables the key id
+support in the SDK:
+
+```sh
+west build -b nrf54l15dk/nrf54l15/cpuapp . -- -DEXTRA_CONF_FILE=ncs_cracen.conf
+```
 
 ## Building and Running
 

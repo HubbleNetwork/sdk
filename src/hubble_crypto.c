@@ -142,8 +142,8 @@ int hubble_internal_sequence_acquire(uint32_t time_counter, uint16_t *seq_no)
 	return ret;
 }
 
-static int _kbkdf_counter(const uint8_t *key, const char *label,
-			  size_t label_len, const uint8_t *context,
+static int _kbkdf_counter(const uint8_t *key, const char *label, size_t label_len,
+			  bool hubble_key, const uint8_t *context,
 			  size_t context_len, uint8_t *output, size_t olen)
 {
 	int ret = 0;
@@ -188,9 +188,21 @@ static int _kbkdf_counter(const uint8_t *key, const char *label,
 		       (uint8_t *)&(uint32_t){HUBBLE_CPU_TO_BE32(counter)},
 		       sizeof(counter));
 
+#ifdef CONFIG_HUBBLE_NETWORK_CRYPTO_PSA_USE_KEY_ID
 		/* Perform AES-CMAC with the key and the prepared message */
+		if (hubble_key) {
+			ret = hubble_crypto_key_id_cmac(
+				key, message, message_length, prf_output);
+		} else {
+			ret = hubble_crypto_cmac(key, message, message_length,
+						 prf_output);
+		}
+#else
+		(void)hubble_key;
 		ret = hubble_crypto_cmac(key, message, message_length,
 					 prf_output);
+#endif
+
 		if (ret != 0) {
 			goto exit;
 		}
@@ -222,18 +234,19 @@ static int _derived_key_get(enum hubble_key_label label, uint32_t counter,
 	snprintf((char *)context, _CONTEXT_SIZE, "%" PRIu32, counter);
 	switch (label) {
 	case HUBBLE_DEVICE_KEY:
-		err = _kbkdf_counter(master_key, "DeviceKey", strlen("DeviceKey"),
-				     context, strlen((const char *)context),
-				     output_key, CONFIG_HUBBLE_KEY_SIZE);
+		err = _kbkdf_counter(master_key, "DeviceKey",
+				     strlen("DeviceKey"), true, context,
+				     strlen((const char *)context), output_key,
+				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_NONCE_KEY:
 		err = _kbkdf_counter(master_key, "NonceKey", strlen("NonceKey"),
-				     context, strlen((const char *)context),
+				     true, context, strlen((const char *)context),
 				     output_key, CONFIG_HUBBLE_KEY_SIZE);
 		break;
 	case HUBBLE_ENCRYPTION_KEY:
 		err = _kbkdf_counter(master_key, "EncryptionKey",
-				     strlen("EncryptionKey"), context,
+				     strlen("EncryptionKey"), true, context,
 				     strlen((const char *)context), output_key,
 				     CONFIG_HUBBLE_KEY_SIZE);
 		break;
@@ -262,8 +275,9 @@ static int _derived_value_get(enum hubble_value_label label,
 		if (ret != 0) {
 			goto exit;
 		}
-		ret = _kbkdf_counter(derived_key, "DeviceID", strlen("DeviceID"),
-				     context, strlen((const char *)context),
+		ret = _kbkdf_counter(derived_key, "DeviceID",
+				     strlen("DeviceID"), false, context,
+				     strlen((const char *)context),
 				     output_value, output_len);
 		break;
 	case HUBBLE_NONCE_VALUE:
@@ -272,9 +286,9 @@ static int _derived_value_get(enum hubble_value_label label,
 		if (ret != 0) {
 			goto exit;
 		}
-		ret = _kbkdf_counter(derived_key, "Nonce", strlen("Nonce"),
-				     context, strlen((const char *)context),
-				     output_value, output_len);
+		ret = _kbkdf_counter(
+			derived_key, "Nonce", strlen("Nonce"), false, context,
+			strlen((const char *)context), output_value, output_len);
 		break;
 	case HUBBLE_ENCRYPTION_VALUE:
 		ret = _derived_key_get(HUBBLE_ENCRYPTION_KEY, time_counter,
@@ -282,8 +296,8 @@ static int _derived_value_get(enum hubble_value_label label,
 		if (ret != 0) {
 			goto exit;
 		}
-		ret = _kbkdf_counter(derived_key, "Key", strlen("Key"), context,
-				     strlen((const char *)context),
+		ret = _kbkdf_counter(derived_key, "Key", strlen("Key"), false,
+				     context, strlen((const char *)context),
 				     output_value, output_len);
 		break;
 	default:

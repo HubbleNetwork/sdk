@@ -194,6 +194,22 @@ config HUBBLE_NETWORK_CRYPTO_PSA
 	  When building with TF-M, cryptographic operations are
 	  delegated to the secure processing environment.
 
+config HUBBLE_NETWORK_CRYPTO_PSA_USE_KEY_ID
+	bool "Use PSA Crypto opaque key id"
+	depends on HUBBLE_NETWORK_CRYPTO_PSA
+	help
+	  Reference the Hubble key by its PSA opaque key
+	  identifier instead of by its key material.
+
+	  With this option the SDK never needs nor has access to
+	  the Hubble key material. The application provisions the
+	  key into a secure key storage (for example TF-M ITS or
+	  a KMU) and hands the SDK only the key id returned by
+	  that storage. All cryptographic operations are then
+	  performed by the PSA implementation on the key it holds
+	  internally, so the raw key never leaves the secure
+	  storage.
+
 config HUBBLE_NETWORK_CRYPTO_CUSTOM
 	bool "Custom crypto implementation"
 	help

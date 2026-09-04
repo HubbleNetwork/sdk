@@ -17,7 +17,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#ifdef CONFIG_HUBBLE_NETWORK_CRYPTO_PSA_USE_KEY_ID
+#include "key_id.c"
+#else
 #include "key.c"
+#endif /* CONFIG_HUBBLE_NETWORK_CRYPTO_PSA_USE_KEY_ID */
+
 #include "time.c"
 
 LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
